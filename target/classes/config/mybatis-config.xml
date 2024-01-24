@@ -4,7 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.company.dto.MovieDto"  alias="MovieDto"/>
+		<typeAlias type="com.company.dto.MovieDto"  alias="MovieDto"/> 
+		<typeAlias type="com.company.dto.BoardDto"  alias="BoardDto"/> 
 		<typeAlias type="com.company.dto.TheaterDto"  alias="TheaterDto"/>
 		<typeAlias type="com.company.dto.ScheduleDto"  alias="ScheduleDto"/>
 		<typeAlias type="com.company.dto.Reservation_ViewDto"  alias="Reservation_ViewDto"/>
