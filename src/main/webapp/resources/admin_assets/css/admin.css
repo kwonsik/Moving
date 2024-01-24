@@ -27,7 +27,8 @@
     transition: background-color 0.3s;
 }
 
-#sidebar a:hover {
+#sidebar a:hover,
+#sidebar .nav-item.is-open a {
     background-color: rgb(67, 119, 88);
 }
 
@@ -72,19 +73,20 @@
     width: 25px; height: 25px;
     margin-right: 15px;
 }
-
+.inner {padding: 0 20px;}
 
 
 /* 영화관 관리 하위 메뉴 gnb */
 /* 영화관 관리 하위 메뉴 gnb */
-#theater-submenu {
+.nav-submenu {
     background-color: rgb(67, 119, 88);
 }
-#theater-submenu a{
+.nav-submenu a{
     padding: 10px 30px;
 }
 
-#theater-submenu li a:focus, #theater-submenu li a:hover {
+#sidebar .nav-submenu li a:focus,
+#sidebar .nav-submenu li a:hover {
     color: black;
 }
 
@@ -124,6 +126,10 @@
 
 #scr-list li {
     padding-bottom: 20px;
+}
+
+.main {
+	padding-left:250px;
 }
 
 /* 영화관 추가 페이지 */

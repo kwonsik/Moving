@@ -18,15 +18,23 @@
 // });
 
 $(function(){
-     // 영화관 submenu 
-     $("#theater-submenu").hide();
-
-     // "영화관 관리" 메뉴를 클릭하면 하위 메뉴가 나타나도록 스타일 조정
-     $("#theater-management-item").mouseover(function(){
-        $(this).children("#theater-submenu").stop().slideDown();
+     // 2depth 
+     $(".nav-submenu").hide();
+     
+     // hover 시 하위 메뉴가 나타나도록 스타일 조정
+     $(".nav-item").mouseover(function(){
+     	$(this).addClass("is-open");
+     	$(this).find(".nav-submenu").stop().slideDown();
      }).mouseout(function(){
-         $(this).children("#theater-submenu").stop().slideUp();
-     });  
+     	$(this).removeClass("is-open");
+     	$(this).find(".nav-submenu").stop().slideUp();
+     });
+
+//     $("#theater-management-item").mouseover(function(){
+//        $(this).children("#theater-submenu").stop().slideDown();
+//     }).mouseout(function(){
+//         $(this).children("#theater-submenu").stop().slideUp();
+//     });  
 })
 
 

@@ -1,25 +1,35 @@
-
 $(function(){
-  isGnbExpand();
+  // GNB
+  gnbActive();
 
-  $(".gnb .gnb__link").on("mouseover focusin", function(){
-    $(this).parent(".gnb__item").addClass("is-active");
-    
-    isGnbExpand();
-  });
+  // SRCH INPUT
+  $(".board-head .srch-box .btn-del").click(function(){
+		$(this).prev(".inp").val("");
+		$(this).hide();
+		$(this).next(".btn-srch").click();
+	});
 
-  $(".gnb .gnb__link").on("mouseout focusout", function(){
-    $(this).parent(".gnb__item").removeClass("is-active");
-  });
+	$(".board-head .srch-box .inp").on("input", function(){
+		if($(this).val() == ""){
+			$(this).siblings(".btn-del").hide();
+		}else{
+			$(this).siblings(".btn-del").show();
+		}
+	});
 });
 
 // function
-function isGnbExpand(){
-  let isGnbExpand = $("button.gnb__link").parents(".gnb__item").hasClass("is-active");
-
-  if(isGnbExpand) {
-    $(".gnb").addClass("is-expand");
-  } else {
-    $(".gnb").removeClass("is-expand");
-  };
+function gnbActive(){
+  // is-active
+  let nowURLPath = window.location.pathname;
+  
+  $(".gnb .gnb__item a").parent("li").removeClass("is-active");
+  
+  $(".gnb .gnb__item a").each(function(){
+  	let href=$(this).attr("href");
+  	
+  	if(nowURLPath.indexOf(href) > -1) {
+  		$(this).parents("li").addClass("is-active");
+  	}
+  });
 }

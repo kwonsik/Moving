@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.dto.*;
+import com.company.service.MovieService;
 import com.company.service.ReservationService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -42,14 +45,32 @@ import com.google.gson.JsonParser;
 @Controller
 
 public class UserController {
-	
-	
+	@Autowired MovieService mv_service;
 	@Autowired ReservationService service;
 	
 	@GetMapping("/main.ks")
-	public String main() {
+	public String main(Model model) {
+		List<MovieDto> movieList = mv_service.mv_readLive();
+
+        List<MovieDto> nonEmptyVideoList = movieList.stream()
+                .filter(movie -> movie.getMv_video() != null && !movie.getMv_video().isEmpty())
+                .limit(10)
+                .collect(Collectors.toList());
+        MovieDto randomMovie = getRandomMovie(nonEmptyVideoList);
+        String[] imageArray = randomMovie.getMv_stilcut().split(",");
+        String firstImageUrl = imageArray.length > 0 ? imageArray[0].trim() : null;
+
+        model.addAttribute("randomMovie", randomMovie);
+        model.addAttribute("firstImageUrl", firstImageUrl);
+		model.addAttribute("list", movieList);
 		return "main";
 	}
+    private MovieDto getRandomMovie(List<MovieDto> movieList) {
+        Random random = new Random();
+        int listSize = movieList.size();
+        int randomIndex = random.nextInt(listSize);
+        return movieList.get(randomIndex);
+    }
 	@GetMapping("/reservation_view.ks")
 	public String reservation_view(Model model) {
 		model.addAttribute("movieList",service.getAllMovieList());

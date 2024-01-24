@@ -12,19 +12,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/as_common.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/movie.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/board.css" />
+    
     <script src="${pageContext.request.contextPath}/resources/admin_assets/js/admin.js"></script>
     <title>관리자 페이지</title>
 </head>
 
 <body>
     <div class="container-fluid">
+    	<h1 class="blind">관리자 페이지</h1>
         <div class="row">
-            <nav id="sidebar" class="col-md-3">
+            <nav id="sidebar" class="col-3">
+    			<h2 class="blind">관리자 주메뉴</h2>
                 <div class="position-sticky">
                     <div class="icon">
-                        <p><img src="${pageContext.request.contextPath}/resources/admin_assets/images/admin-icon.png"></p>
+                        <p><img src="${pageContext.request.contextPath}/resources/admin_assets/images/admin-icon.png" alt=""></p>
                         <p>관리자</p>
                         <hr>
                     </div>
@@ -35,23 +42,26 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#movie-management">
+                            <a class="nav-link" href="movie.admin">
                                 영화 관리
                             </a>
+                            <ul class="nav-submenu">
+                                <li><a href="movie.admin">영화 목록</a></li>
+                                <li><a href="movieAdd.admin">영화 추가</a></li>
+                            </ul> 
                         </li>
                         <li class="nav-item" id="theater-management-item">
                             <a class="nav-link" href="theater_management.html">
                                 영화관 관리
                             </a>
-                            <!-- '영화관 관리' 메뉴의 하위 메뉴 -->
-                            <ul id="theater-submenu">
+                            <ul class="nav-submenu">
                                 <li><a href="add_theater.html">영화관 추가</a></li>
                                 <li><a href="">영화관 삭제</a></li>
                                 <li><a href="">상영시간표 관리</a></li>
                             </ul> 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="reservation_management.admin">
+                            <a class="nav-link" href="#reservation-management">
                                 예매 관리
                             </a>
                         </li>
@@ -59,6 +69,9 @@
                             <a class="nav-link" href="#board-management">
                                 게시판 관리
                             </a>
+                            <ul class="nav-submenu">
+                                <li><a href="notice.admin">공지사항 관리</a></li>
+                            </ul> 
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#product-management">
@@ -68,5 +81,4 @@
                     </ul>
                 </div>
             </nav>
-          
-            
+            <div id="main" class="main">
