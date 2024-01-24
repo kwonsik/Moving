@@ -20,6 +20,8 @@
 				<value>classpath:/config/test-mapper.xml</value>
 				<value>classpath:/config/movie-mapper.xml</value>
 				<value>classpath:/config/board-mapper.xml</value>
+				<value>classpath:/config/reservation-mapper.xml</value>
+
 			</list>
 		</property>
 		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
