@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
 <%@ include file="../../inc/header.jsp"%>
+<main id="main" class="main">
+      <h2 class="blind">메인 컨텐츠</h2>
+      <div id="container" class="container">
 <div class="ih__loginPage">
 	<form action="loginBtn.ih" method="post">
 		<h2 class="h2">회원로그인</h2>
@@ -47,4 +50,6 @@
     };
 </script>
 </div>
+</div>
+</main>
 <%@include file="../../inc/footer.jsp"%>
