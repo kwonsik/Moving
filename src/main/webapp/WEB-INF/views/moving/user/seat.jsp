@@ -98,8 +98,8 @@
 					</div>
 					<div class="seatState">
 						<ul>
-							<li class="able">■ : 예약 가능</li>
-							<li class="reserved">■ : 예약된 좌석</li>
+							<li class="able">■ : 예매 가능</li>
+							<li class="reserved">■ : 예매된 좌석</li>
 							<li class="broken">■ : 고장난 좌석</li>
 						</ul>
 						 

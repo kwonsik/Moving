@@ -75,7 +75,7 @@
 		value(#{r_no},#{user_no},#{sch_no},#{scr_price})
 	</insert>
 	<update id="updateScheduleCnt" parameterType="Reservation_ViewDto">
-		update schedule set sch_cnt=sch_cnt+1 where sch_no=#{sch_no}
+		update schedule set sch_cnt=sch_cnt-1 where sch_no=#{sch_no}
 	</update>
 	<insert id="insertReservationDetailA" parameterType="Reservation_ViewDto">
 		insert into reservationdetail (r_no,rd_st_name,as_code,rd_price) 
