@@ -55,10 +55,6 @@
            <li class="gnb__item"><a href="#" class="gnb__link">
              <span>영화관</span>
            </a></li>
-           <!-- TODO: 스낵 진행시 주석제거 -->
-           <!-- <li class="gnb__item"><a href="#" class="gnb__link">
-             <span>스낵</span>
-           </a></li> -->
            <li class="gnb__item"><a href="notice.as" class="gnb__link">
              <span>공지사항</span>
            </a></li>
@@ -73,7 +69,7 @@
                  </a>
                </li>
                <li class="gnb__2depth-item">
-                 <a href="#" class="gnb__2depth-link">
+                 <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
                    <span>회원정보수정</span>
                  </a>
                </li>
@@ -84,23 +80,41 @@
 
        <div class="header-util">
          <ul class="header-util__list">
-           <!-- [D] 비로그인 상태 시 노출 -->
-           <li class="header-util__item">
-             <a href="#" class="header-util__link">
-               <span>로그인</span>
-             </a>
-           </li>
-           <li class="header-util__item">
-             <a href="#" class="header-util__link">
-               <span>회원가입</span>
-             </a>
-           </li>
-           <!-- [D] 로그인 상태 시 노출 -->
-           <!-- <li class="header-util__item">
-             <button type="button" class="header-util__link">
-               <span>로그아웃</span>
-             </button>
-           </li> -->
+		    <c:if test="${usertp_name == '삭제된회원'}">
+		        <script>
+		            alert("탈퇴한 회원입니다.");
+		            window.location.href = "logout.ih"; // 로그아웃 처리 URL로 이동
+		        </script>
+		    </c:if>
+		
+		    <!-- 관리자인 경우 관리자 페이지와 로그아웃 링크 표시 -->
+		    <c:if test="${usertp_name == '관리자'}">
+		        <li>${usertp_name} 님 환영합니다!</li>
+		        <li class="header-util__item">
+		            <a href="adminPage.ih">관리자페이지</a>
+		        </li>
+		        <li class="header-util__item">
+		            <a href="logout.ih">로그아웃</a>
+		        </li>
+		    </c:if>
+		
+		    <!-- 로그인하지 않은 경우 로그인과 회원가입 링크 표시 -->
+		    <c:if test="${user_id == null}">
+		        <li class="header-util__item">
+		            <a href="loginPage.ih" class="header-util__link">로그인</a>
+		        </li>
+		        <li class="header-util__item">
+		            <a href="joinForm.ih" class="header-util__link">회원가입</a>
+		        </li>
+		    </c:if>
+		
+		    <!-- 일반 사용자인 경우 로그아웃 링크만 표시 -->
+		    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
+		        <li>${user_nick}님 환영합니다!</li>
+		        <li class="header-util__item">
+		            <a href="logout.ih">로그아웃</a>
+		        </li>
+		    </c:if>
          </ul>
        </div>
      </div>
