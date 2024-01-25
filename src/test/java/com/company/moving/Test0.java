@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.company.dao.TestDao;
 import com.company.dto.MovieDto;
-import com.company.service.MovieService;
+//import com.company.service.MovieService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class Test0 {
 	@Autowired ApplicationContext context;
 	@Autowired TestDao dao;
-	@Autowired MovieService mv_service;
+//	@Autowired MovieService mv_service;
 
 	@Test @Ignore public void test1() {
 		System.out.println(dao.readTime());
@@ -47,7 +47,7 @@ public class Test0 {
 //		mv_dto.setMv_popularity(936);
 //		mv_dto.setMv_cert("12");
 //		log.info(".............."+mv_service.mv_insert(mv_dto));
-		log.info(mv_service.mv_readLive());
+//		log.info(mv_service.mv_readLive());
 	}
 	
 }
