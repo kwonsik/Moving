@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/admin_header.jsp"%>
+<%@ include file="../../inc/admin_header.jsp"%>
 <script>
 $(function(){ readTotalUser(); });
 function readTotalUser(){
     console.log('1출력완료: ' + 'readTotalUser');
 	    $.ajax({
-	        url:"readTotalUser.ih",
+	        url:"readTotalUser.admin",
 	        type:"GET", 
 	        dataType:"xml",
 	        success: userListResult,
@@ -47,7 +47,7 @@ $(document).ready(function() {
 <div class="ih_adminUser">
 
 <div class="container panel-warning">
-<form action="adminDeleteUser.ih" method="POST">
+<form action="adminDeleteUser.admin" method="POST">
  	<table  class="table table-striped usertable">
 		<thead>
 			<tr>
@@ -73,5 +73,4 @@ $(document).ready(function() {
 </form>
  	</div>	
 </div>
-</body>
-</html>
+<%@ include file="../../inc/admin_footer.jsp"%>

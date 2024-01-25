@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <div class="ih_preMyUpdatePage">
 	<form action="checkpass.ih" method="post" id="preUpdate">		<div class="head">
 			<img alt="lock" src="${pageContext.request.contextPath}/resources/assets/images/ih/lock.png">
@@ -26,4 +26,4 @@ document.getElementById('backButton').addEventListener('click', function() {
 	history.back();
 });
 </script>
-<%@include file="inc/footer.jsp"%>
+<%@include file="../../inc/footer.jsp"%>
