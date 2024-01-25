@@ -1,5 +1,9 @@
 package com.company.moving;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,46 +12,148 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.company.dao.ScheduleDao;
 import com.company.dao.TestDao;
+import com.company.dao.TheaterManageDao;
 import com.company.dto.MovieDto;
-//import com.company.service.MovieService;
+import com.company.dto.ScreenDto;
+import com.company.dto.TheaterDto;
+import com.company.service.SchService;
+import com.google.gson.Gson;
 
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/**/root-context.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/root-context.xml")
 @Log4j
 public class Test0 {
-	@Autowired ApplicationContext context;
-	@Autowired TestDao dao;
-//	@Autowired MovieService mv_service;
+	@Autowired
+	ApplicationContext context;
+	@Autowired
+	TestDao dao;
 
-	@Test @Ignore public void test1() {
+	@Autowired
+	ScheduleDao sDao;
+
+	@Autowired
+	SchService service;
+
+	@Autowired
+	TheaterManageDao tDao;
+
+	@Test
+	@Ignore
+	public void test1() {
 		System.out.println(dao.readTime());
 	}
-	@Test public void test2() {
-		MovieDto mv_dto = new MovieDto();
 
-		// MovieDto에 설정
-//		mv_dto.setMv_cd(572802);
-//		mv_dto.setMv_ktitle("아쿠아맨과 로스트 킹덤");
-//		mv_dto.setMv_etitle("Aquaman and the Lost Kingdom");
-//		mv_dto.setMv_runtime(124);
-//		mv_dto.setMv_plot("아틀란티스 왕국을 이끌 왕의 자리에 오른 아쿠아맨. 그 앞에 블랙 만타가 세상을 뒤흔들 강력한 지배 아이템 블랙 트라이던트를 손에 넣게 된다. 그동안 겪지 못 했던 최악의 위협 속 아쿠아맨은 블랙 만타와 손을 잡았던 이복 동생 옴 없이는 절대적 힘이 부족한 상황. 바다를 지배할 슈퍼 히어로가 세상의 판도를 바꾼다!");
-//		mv_dto.setMv_dname("James Wan");
-//		mv_dto.setMovie_genre("액션, 모험, 판타지");
-//		mv_dto.setMv_aname("Jason Momoa, Patrick Wilson, Yahya Abdul-Mateen II, Randall Park 外");
-//		mv_dto.setMv_rating("null");
-//		mv_dto.setMv_nation("United States of America");
-//		mv_dto.setMv_company("Warner Bros. Pictures, The Safran Company, Atomic Monster, DC Films, Domain Entertainment");
-//		mv_dto.setMv_img("/eDps1ZhI8IOlbEC7nFg6eTk4jnb.jpg");
-//		mv_dto.setMv_start("2023-12-19");
-//		mv_dto.setMv_stilcut("/jXJxMcVoEuXzym3vFnjqDW4ifo6.jpg, /7S0bXv3BqCuPfImKRf5kkmBVYZR.jpg, /iNgn9LP0iMuLSnWqolivcY3Y7F6.jpg, /bckxSN9ueOgm0gJpVJmPQrecWul.jpg, /zgYQmJHrpjjiCzWs97IhFEUrLui.jpg, /nxUT101UPWZvhRGqAzs81IJMJp7.jpg, /iXOOGQrR2aVGJ2oSbJtOvnPWMb5.jpg");
-//		mv_dto.setMv_video("Srlwzx9itl0");
-//		mv_dto.setMv_popularity(936);
-//		mv_dto.setMv_cert("12");
-//		log.info(".............."+mv_service.mv_insert(mv_dto));
-//		log.info(mv_service.mv_readLive());
+	@Test
+	@Ignore
+	public void testDao() {
+//		System.out.println(sDao.theaterList());
+		TheaterDto dto = new TheaterDto();
+		dto.setTt_no(1);
+
+		String json = "";
+		Gson gson = new Gson();
+		json = gson.toJson(service.theaterDetail(dto));
+		System.out.println(json);
+
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("theaterNO", 1);
+//		map.put("date", "2024-01-15");
+//		System.out.println(sDao.scheduleList(map));
 	}
-	
+
+	@Test
+	@Ignore
+	public void testService() {
+		ScreenDto scrDto = new ScreenDto();
+
+		scrDto.setTt_no(1);
+
+		List<ScreenDto> scrList = sDao.screenList(scrDto);
+		System.out.println(scrList);
+
+		List<MovieDto> mList = sDao.movieListAll();
+		System.out.println(mList);
+
+		scrDto.setScr_no(1);
+
+		System.out.println(sDao.updateScheduleState());
+
+//		ScheduleDto schDto = new ScheduleDto();
+//		schDto.setScr_no(scrList.get(0).getScr_no());
+//		schDto.setMv_cd(mList.get(0).getMv_cd());
+//		schDto.setSch_cnt(scrList.get(0).getScr_st_cnt());
+//		schDto.setSch_date("2024-01-17");
+//		schDto.setSch_start("14:30");
+//		schDto.setSch_end("16:30");
+//		schDto.setSch_period(2);
+//		schDto.setSch_cnt(scrList.get(0).getScr_st_cnt());
+//		
+//		System.out.println(sDao.insertSchedule(schDto));
+
+	}
+
+	@Test
+	@Ignore
+	public void testScheduleList() {
+		Map<String, Object> map = new HashMap<>();
+		int no = 1;
+		String date = "2024-01-18";
+		map.put("theaterNO", no);
+		map.put("date", date);
+
+		System.out.println(service.scheduleList(map));
+	}
+
+	@Test
+//	@Ignore
+	public void testAdminMapper() {
+//        ScheduleDto dto = new ScheduleDto();
+//        dto.setScr_no(8);
+//        dto.setSch_date("2024-01-18");
+//        dto.setSch_start("09:00");
+//        dto.setSch_end("19:00");
+//
+//        int result = sDao.isValidDataForInsert(dto);
+//        
+//        System.out.println(result);
+
+		Map<String, Object> map = new HashMap<>();
+		int no = 1;
+		String date = "2024-01-19";
+		map.put("theaterNo", no);
+		map.put("date", date);
+
+		System.out.println(sDao.scheduleListAdmin(map));
+	}
+
+	@Test
+	@Ignore
+	public void testAdminService() {
+		ScreenDto dto = new ScreenDto();
+		dto.setTt_no(2);
+		System.out.println(sDao.screenList(dto));
+//		System.out.println(sDao.movieListAll());
+		System.out.println(sDao.brokenSeatCnt(1));
+
+//		System.out.println(service.insertScheduleView(dto));
+	}
+
+	@Test
+
+	public void insertTheater() {
+//		System.out.println(tDao.insertNowTheater());
+
+		char startRow = 'A';
+		int startColumn = 1;
+		char endRow = 'D';
+		int endColumn = 4;
+		int rowCount = endRow - startRow + 1;
+		int columnCount = endColumn - startColumn + 1;
+		System.out.println(rowCount * columnCount);
+
+	}
 }

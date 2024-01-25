@@ -34,78 +34,35 @@
 	</listener>
 
 	<!-- Processes application requests -->
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>user</servlet-name> -->
-<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>contextConfigLocation</param-name> -->
-<!-- 			<param-value>/WEB-INF/spring/appServlet/user-servlet-context.xml</param-value> -->
-<!-- 		</init-param> -->
-<!-- 		<load-on-startup>1</load-on-startup> -->
-<!-- 	</servlet> -->
-		
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>user</servlet-name> -->
-<!-- 		<url-pattern>*.user</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-	
+	<!-- Processes application requests -->
 	<servlet>
-		<servlet-name>ks</servlet-name>
+		<servlet-name>shj</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/user-servlet-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
 	<servlet-mapping>
-		<servlet-name>ks</servlet-name>
-		<url-pattern>*.ks</url-pattern>
+		<servlet-name>shj</servlet-name>
+		<url-pattern>*.shj</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>as</servlet-name>
+		<servlet-name>hy</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/user-servlet-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
 	<servlet-mapping>
-		<servlet-name>as</servlet-name>
-		<url-pattern>*.as</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ih</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/user-servlet-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>ih</servlet-name>
-		<url-pattern>*.ih</url-pattern>
+		<servlet-name>hy</servlet-name>
+		<url-pattern>*.hy</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>admin</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/admin-servlet-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>admin</servlet-name>
-		<url-pattern>*.admin</url-pattern>
-	</servlet-mapping>
 </web-app>

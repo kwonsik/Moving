@@ -1,5 +1,7 @@
 package com.company.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,8 @@ public class TheaterDto {
 	private String tt_img;
 	private String tt_address;
 	private String tt_crtdate;
+	private int total_st_cnt;
+	List<ScreenDto> screenList;
 	
 //	mysql> desc theater;
 //	+------------+--------------+------+-----+---------+----------------+
