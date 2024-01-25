@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+.as_main-visual .is-empty,
 .as_main-visual__video-wrap {
   position: relative;
   height: 400px;
@@ -7,6 +8,15 @@
   border-radius: 10px;
   overflow: hidden;
   transition: .4s ease-in-out;
+}
+.as_main-visual .is-empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 280px;
+	background: #f4f4f4;
+	font-size: var(--font-h-s);
+	font-weight: 500;
 }
 .as_main-visual__video-wrap.is-play{
   margin: 0 0 76px;
