@@ -74,7 +74,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<MovieDto> getMovieList(Reservation_ViewDto dto) {
-		System.out.println(dao.getMovieList(dto));
 		return dao.getMovieList(dto);
 	}
 
@@ -309,7 +308,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		if (result == 1) {
-			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_reservation.ks';</script>");
+			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_cancled_reservation.ks';</script>");
 		} else {
 			pw.print("<script>alert('실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
 		}

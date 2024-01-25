@@ -223,13 +223,17 @@ $(document).ready(function () {
                     // 각 영화에 대한 상영일정 생성
                     movieSchedules.forEach(function (movie) {
                     	console.log(movie);
-                        var rating = '';
-                        if (movie.mv_cert == '12세 이상 관람가') {
+                    	let rating = '';
+                        if (movie.mv_cert == '12') {
                             rating = 'age12';
-                        } else if (movie.mv_cert == '모든 연령 관람가') {
-                            rating = 'ageall';
-                        } else if (movie.mv_cert == '15세 이상 관람가') {
+                        }else if (movie.mv_cert == '15') {
                             rating = 'age15';
+                        }else if (movie.mv_cert == '19') {
+                            rating = 'age19';
+                        }else if (movie.mv_cert == 'All') {
+                            rating = 'ageall';
+                        }else{
+                            rating = 'agelimit';
                         }
 
                         // 영화 제목을 왼쪽에 배치
