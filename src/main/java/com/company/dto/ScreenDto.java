@@ -17,7 +17,7 @@ public class ScreenDto {
 	private char scr_st_row;
 	private int scr_st_col;
 	private int scrstate_no;
-
+	
 //	mysql> desc screen;
 //	+-------------+--------------+------+-----+---------+----------------+
 //	| Field       | Type         | Null | Key | Default | Extra          |

@@ -2,11 +2,15 @@ package com.company.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class MovieDto {
 	private int mv_cd;
 	private String mv_ktitle;
@@ -22,6 +26,11 @@ public class MovieDto {
 	private String mv_img;
 	private String mv_start;
 	private String mv_crtdate;
+	private String mv_stilcut; 
+	private String mv_video; 
+	private int mv_popularity; 
+	private String mv_cert;
+	private boolean mv_live;
 	/*
 	  
 	mv_cd	int	NO	PRI		auto_increment
@@ -37,5 +46,10 @@ mv_nation	varchar(255)	YES
 mv_company	varchar(255)	YES			
 mv_img	varchar(255)	YES			
 mv_start	date	YES			
-mv_crtdate	datetime	YES						*/
+mv_crtdate	datetime	YES
+mv_stilcut  varchar(255) YES
+mv_video    varchar(255) YES
+mv_popularity int        YES 0
+mv_cert     varchar(10)  YES
+mv_live		tinyint(1)	NO	1	*/
 }
