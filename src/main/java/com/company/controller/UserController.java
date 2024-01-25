@@ -153,10 +153,10 @@ public class UserController {
 	}
 	@GetMapping(value = "/my_reservation.ks", produces = "application/text; charset=utf8")
 	
-	public String myReservation(Reservation_ViewDto dto,Model model){
+	public String myReservation(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException{
 		
 		
-		service.my_reservation_view(dto, model);
+		service.my_reservation_view(dto, model,request);
 		
 		return "my_reservation";
 		
@@ -178,9 +178,9 @@ public class UserController {
 	}
 	@GetMapping(value = "/my_cancled_reservation.ks", produces = "application/text; charset=utf8")
 	
-	public String my_cancled_reservation_view(Reservation_ViewDto dto,Model model){
+	public String my_cancled_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException{
 		
-		service.my_cancled_reservation_view(dto, model);
+		service.my_cancled_reservation_view(dto, model,request);
 		
 		return "my_cancled_reservation";
 		

@@ -8,9 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.company.dao.IhDao;
 import com.company.dao.TestDao;
 import com.company.dto.MovieDto;
 //import com.company.service.MovieService;
+import com.company.dto.UserDto;
+import com.company.service.IhService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,12 +23,16 @@ import lombok.extern.log4j.Log4j;
 public class Test0 {
 	@Autowired ApplicationContext context;
 	@Autowired TestDao dao;
+	@Autowired IhDao ihdao;
+	@Autowired IhService service;
 //	@Autowired MovieService mv_service;
 
-	@Test @Ignore public void test1() {
-		System.out.println(dao.readTime());
+	@Test  public void test1() {
+		UserDto dto=new UserDto();
+		dto.setUser_id("kkang318");
+		System.out.println(service.idCheck(dto));
 	}
-	@Test public void test2() {
+	@Test @Ignore public void test2() {
 		MovieDto mv_dto = new MovieDto();
 
 		// MovieDto에 설정

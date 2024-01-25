@@ -706,6 +706,7 @@ $(document).ready(function() {
 				</div>
 		</fieldset>
 	</form>
+
 </div>
 <script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
 <%@include file="../../inc/footer.jsp"%>

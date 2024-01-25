@@ -211,7 +211,7 @@ public class ReservationServiceImpl implements ReservationService {
 		int result = 0;
 		dto = (Reservation_ViewDto) session.getAttribute("dto");
 
-		dto.setUser_no(1);
+		dto.setUser_no((int)session.getAttribute("user_no"));
 		dto.setScr_price(dto.getAdult() * dto.getAprice() + dto.getChild() * dto.getKprice());
 		if (dao.getRno() == null) {
 			dto.setR_no(1);
@@ -272,8 +272,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void my_reservation_view(Reservation_ViewDto dto, Model model) {
-		dto.setUser_no(1);
+	public void my_reservation_view(Reservation_ViewDto dto, Model model,HttpServletRequest request) throws IOException{
+		HttpSession session = request.getSession();
+		dto.setUser_no((int)session.getAttribute("user_no"));
 		model.addAttribute("list1", dao.getMyReservationView_1(dto));
 
 	}
@@ -314,8 +315,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void my_cancled_reservation_view(Reservation_ViewDto dto, Model model) {
-		dto.setUser_no(1);
+	public void my_cancled_reservation_view(Reservation_ViewDto dto, Model model,HttpServletRequest request) throws IOException {
+		HttpSession session = request.getSession();
+		dto.setUser_no((int)session.getAttribute("user_no"));
 		model.addAttribute("list1", dao.getMyCancledReservationView(dto));
 
 	}

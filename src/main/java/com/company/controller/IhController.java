@@ -245,10 +245,10 @@ public class IhController {
 	            cookie.setMaxAge(0);
 	            response.addCookie(cookie);
 	        }
-	        return "redirect:/index.ih";
+	        return "redirect:/main.ks";
 	    } else {
 	        rttr.addFlashAttribute("loginError", "아이디와 비밀번호를 확인해주세요.");
-	        return "redirect:/loginPage.ih";
+	        return "redirect:/main.ks";
 	    }
 	}
 
@@ -260,8 +260,8 @@ public class IhController {
 	    if (session != null) {
 	        session.invalidate();
 	    }
-	    String referer = request.getHeader("Referer");
-	    return "redirect:" + referer;
+	    
+	    return "redirect:/main.ks";
 	}
 
 ////////////////////////  마이페이지입장  /////////////////////////////////////
