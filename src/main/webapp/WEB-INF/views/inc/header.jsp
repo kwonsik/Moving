@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/board.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/movie.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/theater_shj.css">
   <title>무빙</title>
 </head>
 <body>
@@ -58,7 +59,7 @@
            <li class="gnb__item"><a href="movie.as" class="gnb__link">
              <span>영화</span>
            </a></li>
-           <li class="gnb__item"><a href="main.shj" class="gnb__link">
+           <li class="gnb__item"><a href="theater_user_view.shj" class="gnb__link">
              <span>영화관</span>
            </a></li>
            <li class="gnb__item"><a href="notice.as" class="gnb__link">

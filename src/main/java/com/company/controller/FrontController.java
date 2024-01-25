@@ -26,10 +26,10 @@ public class FrontController {
 	@Autowired
 	SchService service;
 
-	// °ü¸®ÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/admin.shj")
 	public String adminPage(Model model) {
-		System.out.println(".... adminµµÂø");
+		System.out.println(".... adminï¿½ï¿½ï¿½ï¿½");
 		model.addAttribute("theaterList", service.theaterList());
 
 		return "schedule_management";
@@ -39,7 +39,7 @@ public class FrontController {
 	@ResponseBody
 	public String scheduleListAdmin(@RequestParam("theaterNo") int no, @RequestParam("date") String date) {
 		Map<String, Object> map = new HashMap<>();
-		System.out.println(".... »ó¿µ½Ã°£Ç¥ º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ó¿µ½Ã°ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 
 		map.put("theaterNo", no);
 		map.put("date", date);
@@ -54,7 +54,7 @@ public class FrontController {
 	@RequestMapping(value = "/deleteSchedule.shj", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteSchedule(ScheduleDto dto) {
-		System.out.println(".... »ó¿µ½Ã°£Ç¥ »èÁ¦ º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ó¿µ½Ã°ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", service.deleteSchedule(dto));
 
@@ -64,7 +64,7 @@ public class FrontController {
 	@RequestMapping(value = "/getMovieList.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getMovieList(ScheduleDto dto) {
-		System.out.println(".... ¿µÈ­¸®½ºÆ® º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 
 		Gson gson = new Gson();
 		String json = gson.toJson(service.getMovieList());
@@ -75,7 +75,7 @@ public class FrontController {
 	@RequestMapping(value = "/getScreenList.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getScreenListByTheater(ScreenDto dto) {
-		System.out.println(".... »ó¿µ°ü¸®½ºÆ® º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ó¿µ°ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 		System.out.println(dto);
 
 		Gson gson = new Gson();
@@ -88,7 +88,7 @@ public class FrontController {
 	@RequestMapping(value = "/getTheaterInfo.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getTheaterHours(TheaterDto dto) {
-		System.out.println(".... ¿µÈ­°ü ¿î¿µ½Ã°£ º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ï¿½È­ï¿½ï¿½ ï¿½î¿µï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 
 		Gson gson = new Gson();
 		String json = gson.toJson(service.getTheaterHours(dto));
@@ -98,7 +98,7 @@ public class FrontController {
 	@RequestMapping(value = "/addSchedule.shj", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addSchedule(ScheduleDto dto) {
-		System.out.println(".... »ó¿µ½Ã°£Ç¥ Ãß°¡ º¸¿©ÁÖ¼¼¿ä");
+		System.out.println(".... ï¿½ó¿µ½Ã°ï¿½Ç¥ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 		System.out.println(dto);
 		Map<String, Object> result = new HashMap<>();
 		
@@ -108,12 +108,12 @@ public class FrontController {
 	}
 	
 	
-	// »ç¿ëÀÚ /////////////////////////////////////////////
-	@GetMapping("/main.shj")
-	public String main(Model model) {
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ /////////////////////////////////////////////
+	@GetMapping("/theater_user_view.shj")
+	public String theater_user_view(Model model) {
 
 		model.addAttribute("theaterList", service.theaterList());
-		return "main";
+		return "theater_user_view";
 	}
 
 	@RequestMapping(value = "/theaterDetail.shj", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
@@ -152,7 +152,7 @@ public class FrontController {
 	}
 	
 	
-	//¿µÈ­°ü ¸ñ·Ï - »ó¿µ°ü ¸®½ºÆ® ajax·Î ¹Þ¾Æ¿È
+	//ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ - ï¿½ó¿µ°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ajaxï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 	@RequestMapping(value="/screen-list.hy", method=RequestMethod.GET ,produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String screenList() {
@@ -174,12 +174,12 @@ public class FrontController {
 	
 	@RequestMapping(value = "/add-theater.hy", method = RequestMethod.POST)
     public String addTheater(@ModelAttribute TheaterDto dto) {
-        System.out.println("... Ãß°¡ÇØÁÖ¼¼¿ä");
+        System.out.println("... ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
         System.out.println(dto);
         
         ATservice.insertTheaterAndScreen(dto);
 
-        // ³ª¸ÓÁö ·ÎÁ÷ ¼öÇà
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         return "redirect:theater-list.hy";
     }

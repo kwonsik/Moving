@@ -74,6 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<MovieDto> getMovieList(Reservation_ViewDto dto) {
+		System.out.println(dao.getMovieList(dto));
 		return dao.getMovieList(dto);
 	}
 

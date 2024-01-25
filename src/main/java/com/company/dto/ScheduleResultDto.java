@@ -20,6 +20,7 @@ public class ScheduleResultDto {
 	private int scr_st_cnt;
 	private String schstate_state;
 	private int available_seats;
+	private String mv_cert;
 		
 
 }
