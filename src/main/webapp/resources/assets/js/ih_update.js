@@ -143,15 +143,16 @@ document.getElementById('update').addEventListener('submit', function(event) {
         event.preventDefault();
         return false;
     }
+    
 });
 document.addEventListener('DOMContentLoaded', function() {
-    let deleteButton = document.getElementById('MyDeleteView');
-    if (deleteButton) {
-        deleteButton.addEventListener('click', function(event) {
-            if (confirm('회원탈퇴하시겠습니까?')) {
-                window.location.href = 'delete.ih'; // 회원탈퇴 처리 페이지로 이동
-            }
-        });
-    }
-});
+	    let deleteButton = document.getElementById('MyDeleteView');
+	    if (deleteButton) {
+	        deleteButton.addEventListener('click', function(event) {
+	            if (confirm('회원탈퇴하시겠습니까?')) {
+	                window.location.href = 'delete.ih'; // 회원탈퇴 처리 페이지로 이동
+	            }
+	        });
+	    }
+	});
 });
