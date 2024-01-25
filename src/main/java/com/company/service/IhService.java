@@ -42,7 +42,7 @@ public interface IhService {
 
 	//⑬관리자가 탈퇴시키는 회원
 	public int deleteUser (UserDto dto);
-	
+
 	//② 사용자가 탈퇴시도하면 4등급 24시간유지
 	public int preDeleteUser (UserDto dto);
 	//  24시간후 탈퇴처리

@@ -83,7 +83,7 @@ public class IhMailController {
         String email = request.getParameter("email");
         String randomPass = RandomCode.generateRandomCode();
         String subject = "안녕하세요. 무빙입니다.";
-        String content = buildContentForPassword(randomPass);
+        String content = buildContentForPassword(request, randomPass);
 
         // 임시 비밀번호를 사용자 정보에 업데이트
         dto.setUser_mail(email);
@@ -102,13 +102,16 @@ public class IhMailController {
     private String buildContentForCode(String code) {
         return "<html><body><div>" +
                "<h1>안녕하세요 moving입니다.</h1><p>인증코드는 " + code + "입니다.</p>" +
+        	   "<img src='' alt=''> " +
                "</div></body></html>";
     }
 
     // 메일 본문 생성 메서드 (임시 비밀번호 용)
-    private String buildContentForPassword(String password) {
+    private String buildContentForPassword(HttpServletRequest request, String password) {
+        String contextPath = request.getContextPath();
         return "<html><body><div>" +
                "<h1>안녕하세요 moving입니다.</h1><p>임시비밀번호는 " + password + "입니다.</p>" +
+               "<img src='" + contextPath + "/resources/assets/images/common/logo.svg' alt='' /> " +
                "</div></body></html>";
     }
 
