@@ -450,12 +450,12 @@ public class IhController {
 
 	
 ////////////////////////  관리자 회원목록  //////////////////////////////////////
-	@RequestMapping(value="/adminPage.ih" , method=RequestMethod.GET)
+	@RequestMapping(value="/adminPage.admin" , method=RequestMethod.GET)
 	public String adiminUserPage(){
 		return "ih_adminUser";
 	}
 	
-	@RequestMapping(value="/readTotalUser.ih", method=RequestMethod.GET)
+	@RequestMapping(value="/readTotalUser.admin", method=RequestMethod.GET)
 	@ResponseBody
 	public UserDtoXml readTotalUser() {
 		return new UserDtoXml("success" , service.readTotalUser() );
@@ -463,7 +463,7 @@ public class IhController {
 ////////////////////////  관리자 회원목록  //////////////////////////////////////
 	
 ////////////////////////  관리자 회원삭제  //////////////////////////////////////
-	@RequestMapping(value = "/adminDeleteUser.ih", method = RequestMethod.POST) // GET 대신 POST 사용을 권장
+	@RequestMapping(value = "/adminDeleteUser.admin", method = RequestMethod.POST) // GET 대신 POST 사용을 권장
 	public String adminDeleteUser(@RequestParam("user_id") List<String> userIds, RedirectAttributes rttr) {
 	    for (String userId : userIds) {
 	        UserDto dto = new UserDto();
@@ -471,7 +471,7 @@ public class IhController {
 	        service.deleteUser(dto);
 	    }
 	    rttr.addFlashAttribute("message", "선택된 회원이 탈퇴 처리되었습니다.");
-	    return "redirect:/adminPage.ih";
+	    return "redirect:/adminPage.admin";
 	}
 ////////////////////////  관리자 회원삭제  //////////////////////////////////////	
 
