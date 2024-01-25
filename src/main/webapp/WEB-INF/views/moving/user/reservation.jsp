@@ -40,7 +40,7 @@
 				<h5 class="mtitle">영화</h5>
 				<ul>
 					<c:forEach var="mv" items="${movieList }">
-						<li data-cert="${mv.mv_cert }"><input type="button" class="movie m${mv.mv_cd}"
+						<li data-cert="${mv.mv_cert==null?'All':mv.mv_cert }"><input type="button" class="movie m${mv.mv_cd}"
 							value="${mv.mv_ktitle }"  ></li>
 					</c:forEach>
 				</ul>
