@@ -6,15 +6,19 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
-	<context:component-scan base-package="com.company"/>
-	
-	<bean id="configurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.company.dao"/>
-		<property name="annotationClass" value="com.company.dao.MyDao"/>
+
+	<context:component-scan
+		base-package="com.company" />
+
+	<bean id="configurer"
+		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.company.dao" />
+		<property name="annotationClass"
+			value="com.company.dao.MyDao" />
 	</bean>
-	<bean  id="sqlSessionFactory"  class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource"     ref="dataSource" ></property>
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:/config/test-mapper.xml</value>
@@ -22,24 +26,30 @@
 				<value>classpath:/config/board-mapper.xml</value>
 				<value>classpath:/config/reservation-mapper.xml</value>
 				<value>classpath:/config/ih-user-mapper.xml</value>
+				<value>classpath:/config/schedule-mapper.xml</value>
+				<value>classpath:/config/theaterManage-mapper.xml</value>
 			</list>
 		</property>
-		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
+		<property name="configLocation"
+			value="classpath:/config/mybatis-config.xml" />
 	</bean>
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-	<context:property-placeholder location="classpath:/config/db.properties"/>
-	
+	<context:property-placeholder
+		location="classpath:/config/db.properties" />
+
 	<!-- HikariCP -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
-		<property name="driverClassName" value="${db.driverClass}"/>
-		<property name="jdbcUrl" value="${db.url}"/>
-		<property name="username" value="${db.username}"/>
-		<property name="password" value="${db.password}"/>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="${db.driverClass}" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
 	</bean>
-	<bean	id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref="hikariConfig"/>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
 	</bean>
-		
+
 </beans>

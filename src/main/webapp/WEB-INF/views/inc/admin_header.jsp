@@ -37,7 +37,7 @@
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#user-management">
+                            <a class="nav-link active" href="adminPage.admin">
                                 회원 관리
                             </a>
                         </li>

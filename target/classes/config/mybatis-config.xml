@@ -17,5 +17,11 @@
 		<typeAlias type="com.company.dto.UserDtoXml"  alias="UserDtoXml"/>
 		<typeAlias type="com.company.dto.UsertypeDto"  alias="UsertypeDto"/>
 		
+
+			
+
+		<typeAlias type="com.company.dto.ScheduleResultDto"
+			alias="ScheduleResultDto" />
+			
 	</typeAliases>
 </configuration>

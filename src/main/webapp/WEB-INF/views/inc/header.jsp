@@ -28,6 +28,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/ih_update.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/ih_updatePass.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/ih.js"></script>
+  
   <!-- page -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ih.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
@@ -57,13 +58,9 @@
            <li class="gnb__item"><a href="movie.as" class="gnb__link">
              <span>영화</span>
            </a></li>
-           <li class="gnb__item"><a href="#" class="gnb__link">
+           <li class="gnb__item"><a href="main.shj" class="gnb__link">
              <span>영화관</span>
            </a></li>
-           <!-- TODO: 스낵 진행시 주석제거 -->
-           <!-- <li class="gnb__item"><a href="#" class="gnb__link">
-             <span>스낵</span>
-           </a></li> -->
            <li class="gnb__item"><a href="notice.as" class="gnb__link">
              <span>공지사항</span>
            </a></li>
