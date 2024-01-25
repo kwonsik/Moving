@@ -25,22 +25,31 @@
       <div id="container" class="container">
 
         <div class="as_main-visual">
-          <a href="movieDetail.as?mv_cd=${randomMovie.mv_cd}" title="영화 상세 페이지로 이동">
-            <figure class="as_main-visual__video-wrap">
-            	<c:choose>
-            		<c:when test="${not empty randomMovie.mv_stilcut}">
-		              <img src="https://image.tmdb.org/t/p/original${firstImageUrl}" alt="" class="as_main-visual__img" />            		
-            		</c:when>
-            		<c:otherwise>
-		              <img src="https://image.tmdb.org/t/p/original${randomMovie.mv_img}" alt="" class="as_main-visual__img" />            		
-            		</c:otherwise>
-            	</c:choose>
-            	<div id="main-visual_video-wrap" class="as_video-wrap">
-                    <div id="main-visual_video" class="as_main-visual__video"></div>
-				</div>
-              <figcaption class="blind">${randomMovie.mv_ktitle} 트레일러</figcaption>
-            </figure>
-          </a>
+          <c:choose>
+          <c:when test="${randomMovie != null}">
+	          <a href="movieDetail.as?mv_cd=${randomMovie.mv_cd}" title="영화 상세 페이지로 이동">
+	            <figure class="as_main-visual__video-wrap">
+	            	<c:choose>
+	            		<c:when test="${not empty randomMovie.mv_stilcut}">
+			              <img src="https://image.tmdb.org/t/p/original${firstImageUrl}" alt="" class="as_main-visual__img" />            		
+	            		</c:when>
+	            		<c:otherwise>
+			              <img src="https://image.tmdb.org/t/p/original${randomMovie.mv_img}" alt="" class="as_main-visual__img" />            		
+	            		</c:otherwise>
+	            	</c:choose>
+	            	<div id="main-visual_video-wrap" class="as_video-wrap">
+	                    <div id="main-visual_video" class="as_main-visual__video"></div>
+					</div>
+	              <figcaption class="blind">${randomMovie.mv_ktitle} 트레일러</figcaption>
+	            </figure>
+	          </a>
+          </c:when>
+          <c:otherwise>
+          	<div class="is-empty">
+          		<p>상영중인 영화가 없어 트레일러를 제공할 수 없습니다.</p>
+          	</div>
+          </c:otherwise>
+          </c:choose>
         </div>
 
         <div class="as_top10">
