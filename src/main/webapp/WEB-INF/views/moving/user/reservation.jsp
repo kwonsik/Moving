@@ -110,6 +110,11 @@
 			
 			$(document).on("click",".movie", function() {
 				
+				console.log($(this).offset().top);
+				if($(this).offset().top>=700){
+					$(".movieList").scrollTop($(this).offset().top-282);
+					}
+				
 				if ($(this).parent().attr("class") == "selected") {
 					$(this).parent().removeClass("selected");
 				} else {
@@ -140,11 +145,13 @@
 			
 			let now = new Date();
 			let nowdate = now.getDate();
+			let last= new Date(now.getFullYear(), (now.getMonth() + 1), 0).getDate();
 			let weekday = [ "일", "월", "화", "수", "목", "금", "토", "일", "월", "화",
 					"수", "목", "금", "토" ]
 			$("#now").html(now.getFullYear() + "." + (now.getMonth() + 1));
 			let cnt = 1;
-			for (let i = now.getDay(); i < now.getDay() + 7; i++) {
+			for (let i = now.getDay(); i < now.getDay() +7; i++) {
+				if(nowdate>last){nowdate=nowdate-last;}
 				$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
 				$("#time" + cnt).attr(
 						'date',
@@ -293,7 +300,6 @@
 								let allDateList = document
 										.querySelectorAll(".time");
 
-								console.log(data);
 
 								for (let i = 0; i < allDateList.length; i++) {
 									for (let j = 0; j < data.length; j++) {
@@ -419,7 +425,6 @@
 					dataType : 'json',
 					async : false,
 					success : function(data) {
-						console.log(data)
 						$("#"+data.tt_no).trigger("click");
 						$(".movie.m"+data.mv_cd).trigger("click");				
 						$("[date='"+data.sch_date+"']").trigger("click");
