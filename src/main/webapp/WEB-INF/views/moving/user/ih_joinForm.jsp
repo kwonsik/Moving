@@ -98,7 +98,7 @@ $(document).ready(function() {
 				<div class="flip-box">
 					<div class="checkbox-box">
 						<label>
-							<input type="checkbox" id="chk1" class="checkbox chkAll"><em></em>
+							<input type="checkbox" id="chk1" class="checkbox chkAll">
 							<span>&nbsp;서비스 이용약관(필수)</span>
 						</label>
 						<button type="button" class="btn-flip"></button>
@@ -695,7 +695,7 @@ $(document).ready(function() {
 
 				<div class="checkbox-box" style="border-top: 1px solid #dcdcdc;">
 					<label style="margin-top: 10px;">
-						<input type="checkbox" id="chk3" class="checkbox chkAll"><em></em>
+						<input type="checkbox" id="chk3" class="checkbox chkAll">
 						<span>&nbsp;모든 약관에 동의합니다.</span>
 					</label>
 				</div>
