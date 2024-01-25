@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <div class="ih__findId">
 	<form action="findId.ih" method="post">
 		<div class="head">
@@ -25,4 +25,4 @@
 		</fieldset>
 	</form>
 </div>
-<%@include file="inc/footer.jsp"%>
+<%@include file="../../inc/footer.jsp"%>

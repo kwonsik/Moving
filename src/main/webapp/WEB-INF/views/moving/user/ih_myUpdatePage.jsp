@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <div class="ih__myUpdatePage">
 <form action="myUpdateGo.ih" method="post" class="update" id="update">
 	<div class="title"> <h2>회원정보</h2> </div>
@@ -117,4 +117,4 @@
 <c:set var="myDeleteUserCancleSuccess" value="${myDeleteUserCancleSuccess}" />
 
 <script src="${pageContext.request.contextPath}/resources/assets/js/ih_update.js"></script>
-<%@include file="inc/footer.jsp"%>
+<%@include file="../../inc/footer.jsp"%>

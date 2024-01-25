@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <div class="ih__joinForm">
 	<form action="submitJoinFrom.ih" method="post" id="join" class="join">
 		<div class="title">
@@ -708,4 +708,4 @@ $(document).ready(function() {
 	</form>
 </div>
 <script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
-<%@include file="inc/footer.jsp"%>
+<%@include file="../../inc/footer.jsp"%>

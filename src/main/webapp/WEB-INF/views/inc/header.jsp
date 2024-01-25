@@ -24,7 +24,11 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/layout.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
   <script src="${pageContext.request.contextPath}/resources/assets/js/common.js"></script>
-  
+  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_alert.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_update.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_updatePass.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/ih.js"></script>
   <!-- page -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/board.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/movie.css">
@@ -86,12 +90,12 @@
          <ul class="header-util__list">
            <!-- [D] 비로그인 상태 시 노출 -->
            <li class="header-util__item">
-             <a href="#" class="header-util__link">
+             <a href="loginPage.ih" class="header-util__link">
                <span>로그인</span>
              </a>
            </li>
            <li class="header-util__item">
-             <a href="#" class="header-util__link">
+             <a href="joinForm.ih" class="header-util__link">
                <span>회원가입</span>
              </a>
            </li>
