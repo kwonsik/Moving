@@ -1,0 +1,375 @@
+@charset "UTF-8";
+ /* 사이드바 스타일링 */
+
+.icon p {
+    text-align: center;
+}
+
+
+#sidebar {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    padding-top: 20px;
+    background-color:rgb(28, 55, 31);
+    font-size: 20px;
+    color: #fff;
+
+}
+
+#sidebar a {
+    padding: 20px 30px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+#sidebar a:hover,
+#sidebar .nav-item.is-open a {
+    background-color: rgb(67, 119, 88);
+}
+
+/* 페이지 내용 스타일링 */
+.row{
+	background-color: rgb(224, 224, 224);
+}
+
+#content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.page {
+    position: relative;
+    /* 페이지네이션 위치 설정을 위해 필요 */
+}
+
+/* 페이지 제목 스타일링 */
+.page h2 {
+	font-size: 30px;
+	font-weight: bold;
+    margin: 45px 0px 41px 10px;
+}
+
+/* 검색 필터 스타일링 */
+.search-filter {
+    margin-bottom: 20px; margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(155, 151, 151);
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 0;
+    background-color: transparent;
+}
+
+.search-filter img { 
+    width: 25px; height: 25px;
+    margin-right: 15px;
+}
+
+
+
+/* 영화관 관리 하위 메뉴 gnb */
+/* 영화관 관리 하위 메뉴 gnb */
+.nav-submenu {
+    background-color: rgb(67, 119, 88);
+}
+.nav-submenu a{
+    padding: 10px 30px;
+}
+
+#sidebar .nav-submenu li a:focus,
+#sidebar .nav-submenu li a:hover {
+    color: black;
+}
+
+
+/* 영화관 관리 main 페이지 */
+/* 영화관 관리 main 페이지 */
+.page .sub_content {
+    min-height: 100vh;
+    /* 원하는 최소 높이로 조절 */
+    background-color: white;
+    border-radius: 9px;
+    
+}
+
+#lists{
+    text-align: center;
+    font-size: 18px;
+    padding-top: 25px;
+}
+
+#lists hr {
+    background-color: rgb(224, 224, 224);
+    height: 1.8px;
+}
+
+#tt-list {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#tt-list li{
+	 float: left; 
+	 margin: 0px 25px 20px 25px;
+	 
+}
+
+
+#scr-list li {
+    padding-bottom: 20px;
+}
+
+/* 영화관 추가 페이지 */
+/* 영화관 추가 페이지 */
+#add-theater h2, #revise-theater h2, #delete-theater h2 {
+    margin-bottom: 40px;
+}
+
+#add-theater h3 , #revise-theater h3, #delete-theater h3{
+    width: 190px; height: 38px;
+    font-size: 22px;
+    margin-left:410px;
+    text-align: center; padding-top: 5px;
+    background-color: rgb(224, 224, 224);
+}
+
+.required {
+    color: rgb(195, 10, 10);
+    margin-right: 5px;
+}
+
+#add-theater-list {
+    margin-left: 150px;
+    margin-top: 40px;
+}
+
+#add-theater-list p{
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+/* 입력칸 박스들 css 설정 */
+#add-theater-list input[type="text"], 
+.list-revise-theater input {
+    width: 200px; height: 30px;
+    font-size: 14px; padding-left: 7px;
+    margin-left: 15px;
+    border: 1px solid rgb(186, 186, 186);
+    border-radius: 5px;
+}
+
+/* 좌석 개수 설정 select 태그 css 설정 */
+label[for="seat_row"], label[for="seat_column"]{
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+#list_src_name {
+    float: left;
+}
+
+#list_src_price {
+    margin-left: 240px;
+}
+
+label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
+    font-size: 17px; font-weight: 400;
+    margin: 10px 0;
+    
+}
+
+#add-theater-list input[type="time"] {
+    margin-left: 17px;
+}
+
+/* 버튼 css */
+#add-theater-btn, #revise-theater-btn, #revise-seats-btn{
+    width: 100px; height: 35px;
+    margin-bottom:20px; margin-left: 720px;
+    font-size: 14px;
+    background-color: #1c3720;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+}
+
+
+/* 영화관 수정 페이지 */
+/* 영화관 수정 페이지 */
+#revise-theater #exp{
+    margin: 40px 0 25px 200px;
+    font-size: 16px;
+
+}
+
+#revise-theater .list-revise-theater {
+    margin-left: 200px;
+    font-size: 17px;
+}
+
+/* 입력칸 박스 css 설정 */
+.list-revise-theater input {
+    width: 480px; height: 35px;
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+.list-revise-theater select,
+.list-revise-theater input[id="scr_name"], 
+.list-revise-theater input[id="scr_price"] {
+    width: 160px; height: 35px;
+    margin-bottom: 15px;
+}
+
+.list-revise-theater:first-child {
+    margin-top: 10px;
+}
+
+.list-revise-theater:nth-child(2) {
+    float: left;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.list-revise-theater input[id="tt_tel"] {
+    width: 343px;
+}
+
+.list-revise-theater input[type="time"] {
+    width: 160px; 
+    margin-right: 20px;
+}
+
+#revise-theater-btn{
+    margin-left: 870px;
+}
+
+#revise-scr-btn{
+    font-size: 13px;
+    padding: 0 3px;
+    color: whitesmoke;
+    background-color: #a22806;
+    border: 0; border-radius: 3px;
+    margin-left: 200px; 
+}
+
+/* 영화관 삭제 페이지 */
+/* 영화관 삭제 페이지 */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;  
+    margin-top: 45px;
+    text-align: center;
+}
+  
+th, td {
+    padding: 6px 15px;
+}
+
+th {
+    background-color: rgb(127, 140, 141);
+    color: #fff;
+    text-align: center; 
+}
+
+td {
+    border-right: 1px solid #c6c9cc;
+    border-bottom: 1px solid #c6c9cc;
+}
+
+tr:nth-child(even) {
+    background-color: #eaeaed;
+}
+
+/* 테이블 테두리 border 주기 */
+tr:first-child th:first-child{
+    border-top-left-radius: 6px;
+}
+
+tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+tr:last-child td:first-child{
+    border-bottom-left-radius: 6px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+tbody td a {
+    color: rgb(15, 15, 15); 
+}
+
+tbody td a:focus,  tbody td a:hover{
+    text-decoration: none;
+    color: rgb(15, 15, 15); 
+}
+
+tbody tr:focus, tbody tr:hover {
+    background-color: rgb(166, 189, 200);
+}
+
+/* 상영관 관리 페이지 */
+/* 상영관 관리 페이지 */
+#screen-management h2, #seat-management h2{
+    margin-top: 70px;
+    margin-bottom: 70px;
+    font-size: 30px;
+}
+
+#screen-management h4, #seat-management h4{
+    font-size: 20px;
+    padding: 20px 0 0 20px;
+}
+
+#screen-management hr, #seat-management hr {
+    width: 20%;
+    border: 0.08em solid rgb(180, 177, 177);
+}
+
+/* 상영관 테이블 css */
+#sm {
+    width: 90%;
+    margin-left: 70px;
+}
+
+#sm td:last-child {
+    width: 0;
+    border: none;
+    background-color: none;
+    text-align: left;
+}
+
+#stop-scr-btn {
+    font-size: 12px;
+    padding: 3px 4px;
+    color: #fff;
+    background-color: #a22806;
+    border: none;
+    border-radius: 3px;
+}
+
+#sm tr:last-child td:nth-last-child(2) {
+    border-bottom-right-radius: 6px;
+}
+
+/* 좌석 관리 페이지 */
+
+#revise-seats-btn {
+    margin-left: 910px;
+}
+
+
+
