@@ -40,7 +40,7 @@ public class SchServiceImpl implements SchService {
 
 	@Override
 	public String scheduleList(Map<String, Object> map) {
-		// »ó¿µ½Ã°£Ç¥°¡ º¸¿©Áú¶§ »ó¿µ½Ã°£Ç¥ »óÅÂ ¾÷µ¥ÀÌÆ®
+		// ï¿½ó¿µ½Ã°ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¿µ½Ã°ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		int result = dao.updateScheduleState();
 		System.out.println(result);
 
@@ -48,12 +48,12 @@ public class SchServiceImpl implements SchService {
 		System.out.println(list);
 		List<MovieDto> movieNameList = dao.scheduleMovieList(map);
 
-		// º¯È¯µÈ µ¥ÀÌÅÍ Æ÷¸ËÀ¸·Î º¯°æ
+		// ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		List<Map<String, Object>> convertedData = new ArrayList<>();
 		for (MovieDto movie : movieNameList) {
 			Map<String, Object> movieMap = new HashMap<>();
 			movieMap.put("title", movie.getMv_ktitle());
-			movieMap.put("rating", movie.getMv_rating());
+			movieMap.put("mv_cert", movie.getMv_cert());
 
 			List<Map<String, Object>> schedules = new ArrayList<>();
 			for (ScheduleResultDto scheduleResultDto : list) {
@@ -61,7 +61,7 @@ public class SchServiceImpl implements SchService {
 					Map<String, Object> schedule = new HashMap<>();
 					schedule.put("section", scheduleResultDto.getScr_name());
 
-					// ½Ã°£ Æ÷¸Ë º¯°æ
+					// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm:ss");
 					SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 
@@ -90,7 +90,7 @@ public class SchServiceImpl implements SchService {
 		return json;
 	}
 
-	// °ü¸®ÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public List<ScheduleResultDto> scheduleListAdmin(Map<String, Object> map) {
 		int result = dao.updateScheduleState();
@@ -101,7 +101,7 @@ public class SchServiceImpl implements SchService {
 	public int insertScheduleAction(ScheduleDto dto) {
 		int result = -1;
 		if (dao.isValidDataForInsert(dto) == 0) {
-			dto.setSch_cnt(dto.getSch_cnt() - dao.brokenSeatCnt(dto.getScr_no())); // Æ¼ÄÏ ¸Å¼ö ¼³Á¤
+			dto.setSch_cnt(dto.getSch_cnt() - dao.brokenSeatCnt(dto.getScr_no())); // Æ¼ï¿½ï¿½ ï¿½Å¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			result = dao.insertSchedule(dto);
 		}

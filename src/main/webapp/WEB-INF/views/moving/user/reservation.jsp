@@ -109,7 +109,7 @@
 			
 			
 			$(document).on("click",".movie", function() {
-				
+				console.log($(this).val());
 				console.log($(this).offset().top);
 				if($(this).offset().top>=700){
 					$(".movieList").scrollTop($(this).offset().top-282);
@@ -178,6 +178,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
+								console.log(data);
 								let allTheaterList = document
 										.querySelectorAll(".theater");
 								let arr = new Array();
@@ -237,7 +238,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-
+								console.log(data);
 								$(".movie").attr("disabled", true);
 								$(".movie").addClass("unable");
 								let allMovieList = document
@@ -295,6 +296,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
+								console.log(data);
 								$(".time").attr("disabled", true);
 								$(".time").addClass("unable");
 								let allDateList = document
