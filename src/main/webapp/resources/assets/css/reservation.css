@@ -47,8 +47,8 @@
     height: 30px;
     background: #ddd;
     pointer-events: none;
-    left:10px;
-    top: 15px;
+    left:20px;
+    top: 18px;
 }
 .ks.reservation h5 {
 	font-size: 20px;
@@ -58,6 +58,7 @@
 	border-bottom: 1px solid #eaeaea;
 	font-weight: bold;
 }
+
 
 .title {
 	height: 60px;
@@ -101,6 +102,7 @@
 	float:left;
 	height: 540px;
 	overflow: auto;
+	position: relative;
 }
 
 .dateList {
@@ -185,3 +187,10 @@ background-color: white;border: 1px solid #eaeaea; color : black; font-weight: n
 }
 .seatBtn.unable{pointer-events: none !important; }
 .seatBtn.unable:hover{cursor: no-drop !important;}
+.ks.reservation .movieList li[data-cert='12']:before { display: inline-block; vertical-align: middle; background: url(../images/movie/age-12.png) no-repeat 0 0; width:24px; height: 24px; }
+.ks.reservation .movieList li[data-cert='15']:before { display: inline-block; vertical-align: middle; background: url(../images/movie/age-15.png) no-repeat 0 0; width:24px; height: 24px; }
+.ks.reservation .movieList li[data-cert='18']:before,
+.ks.reservation .movieList li[data-cert='19']:before { display: inline-block; vertical-align: middle; background: url(../images/movie/age-19.png) no-repeat 0 0; width:24px; height: 24px; }
+.ks.reservation .movieList li[data-cert='All']:before { display: inline-block; vertical-align: middle; background: url(../images/movie/ageall.png) no-repeat 0 0; width:24px; height: 24px; }
+.ks.reservation .movieList li[data-cert='Limit'] { display: inline-block; vertical-align: middle; background: url(../images/movie/agelimit.png) no-repeat 0 0; width:24px; height: 24px; }
+

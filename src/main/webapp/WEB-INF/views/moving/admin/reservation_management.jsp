@@ -19,7 +19,7 @@
 			<div class="title"><h4>전체 예매 목록</h4></div>
 			<div class="rmcontent">
 				<p>
-			총 예약 - <span>${paging.listTotal }건</span>
+			총 예매 - <span>${paging.listTotal }건</span>
 		</p>
 		
 			<form action="admin_reservationCancle.admin" method="post" id="admin_reservationCancleForm">

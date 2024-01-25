@@ -144,12 +144,12 @@ font-size: 18px;font-weight: bold;}
 				<div class="my_reservation_info m${status.index }">
 					<div class="movie_image">
 						<img
-							src="${pageContext.request.contextPath}/resources/assets/images/common/spring_of_seoul.jpg">
+							src="https://image.tmdb.org/t/p/w500${i.mv_img}">
 					</div>
 					<div class="movie_info">
 						<h6>${i.mv_ktitle }</h6>
 						<dl>
-							<dt>예약번호</dt>
+							<dt>예매번호</dt>
 							<dd>${i.r_no }</dd>
 						</dl>
 						<dl>

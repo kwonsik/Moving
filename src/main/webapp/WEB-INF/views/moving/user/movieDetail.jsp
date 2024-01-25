@@ -38,7 +38,7 @@
               </div>
 
               <div class="btns">
-                <a href="reservation.ks?mv_cd=${dto.mv_cd}" class="btn-type0">
+                <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="btn-type0">
                   예매하기
                 </a>
               </div>

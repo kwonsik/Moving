@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reset.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/component.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/layout.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/css.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
   <script src="${pageContext.request.contextPath}/resources/assets/js/common.js"></script>
   
   <!-- page -->

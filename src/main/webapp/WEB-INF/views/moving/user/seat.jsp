@@ -8,6 +8,7 @@
 	.seatState .able{color:white;}
 	.seatState .reserved{color: gainsboro;}
 	.seatState .broken{color:crimson;}
+	
 </style>
 <!-- main -->
 <main id="main" class="main">

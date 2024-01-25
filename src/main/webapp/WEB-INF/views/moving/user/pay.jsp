@@ -48,7 +48,7 @@ font-size: 20px;}
 					</div>
 					<div class="icontent">
 						
-						<p><img alt="" src="${pageContext.request.contextPath}/resources/assets/images/common/spring_of_seoul.jpg"></p>
+						<p><img alt="" src="https://image.tmdb.org/t/p/w500${dto.mv_img}"></p>
 						<h6>${dto.mv_ktitle }</h6>
 						<dl>
 							<dt>개봉일</dt>

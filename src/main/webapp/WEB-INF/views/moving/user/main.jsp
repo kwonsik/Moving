@@ -64,7 +64,7 @@
 			                    </div>
 			                    <div class="btns">
 			                      <a href="movieDetail.as?mv_cd=${dto.mv_cd}" class="b1">영화정보</a>
-			                      <a href="reservation.ks?mv_cd=${dto.mv_cd}" class="b2">예매하기</a>
+			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2">예매하기</a>
 			                    </div>
 		                    </div>
 			                <figcaption class="info">

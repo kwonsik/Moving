@@ -12,11 +12,12 @@
 		<where>
 		<if test="mv_ktitle!=null">mv_ktitle=#{mv_ktitle}</if>
 		<if test="sch_date!=null">and sch_date=#{sch_date}</if>
+		and sch.schstate_no=1
 		</where>
 		order by tt.tt_no asc
 	</select>
 	<select id="getAllMovieList"  resultType="MovieDto">
-		select * from movie order by mv_cd asc
+		select * from movie where mv_live=1 order by mv_cd asc 
 	</select>
 	<select id="allClick"  resultType="Reservation_ViewDto">
 		select tt.tt_no,mv.mv_cd,sch_date from movie mv join theater tt join schedule sch join screen scr 
@@ -28,6 +29,7 @@
 		<where>
 		<if test="tt_name!=null">tt_name=#{tt_name}</if>
 		<if test="sch_date!=null">and sch_date=#{sch_date}</if>
+		and sch.schstate_no=1
 		</where>
 		order by mv.mv_cd asc		 
 	</select>
@@ -86,7 +88,7 @@
 		(select as_code from adult_status where as_code='K'),#{kprice})
 	</insert>
 	<select id="getMyReservationView_1" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price
+		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price,mv.mv_img
 		from reservation r join theater tt join screen scr join schedule sch join movie mv join schedulestate sst
 		on(r.sch_no=sch.sch_no and scr.scr_no=sch.scr_no and scr.tt_no=tt.tt_no 
 		and sch.schstate_no=sst.schstate_no and sch.mv_cd=mv.mv_cd) where r.rstate_no=1 and user_no=#{user_no}
@@ -102,7 +104,7 @@
 		where sch_no=(select sch_no from reservation where r_no=#{r_no});
 	</update>
 	<select id="getMyCancledReservationView" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price
+		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price,mv.mv_img
 		from reservation r join theater tt join screen scr join schedule sch join movie mv join schedulestate sst
 		on(r.sch_no=sch.sch_no and scr.scr_no=sch.scr_no and scr.tt_no=tt.tt_no 
 		and sch.schstate_no=sst.schstate_no and sch.mv_cd=mv.mv_cd) where r.rstate_no=2 and user_no=#{user_no}

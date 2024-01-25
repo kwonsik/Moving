@@ -248,9 +248,9 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		session.removeAttribute("dto");
 		if (result == 1) {
-			pw.print("<script>alert('예약을 완료했습니다.');location.href='my_reservation.ks';</script>");
+			pw.print("<script>alert('예매를 완료했습니다.');location.href='my_reservation.ks';</script>");
 		} else {
-			pw.print("<script>alert('예약을 실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
+			pw.print("<script>alert('예매를 실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
 		}
 
 	}
@@ -307,7 +307,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		if (result == 1) {
-			pw.print("<script>alert('예약을 취소했습니다.');location.href='my_reservation.ks';</script>");
+			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_reservation.ks';</script>");
 		} else {
 			pw.print("<script>alert('실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
 		}

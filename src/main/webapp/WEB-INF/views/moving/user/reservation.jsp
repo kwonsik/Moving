@@ -2,7 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/header.jsp"%>
 
+<style>
+	.ks.reservation .movieList .mtitle{
+	position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+}
 
+
+
+</style>
 
 
 
@@ -26,12 +37,10 @@
 				</ul>
 			</div>
 			<div id="movieList" class="movieList">
-				<h5>영화</h5>
+				<h5 class="mtitle">영화</h5>
 				<ul>
 					<c:forEach var="mv" items="${movieList }">
-						<!--  <li><input type="button" class="movie"
-							value="${mv.mv_ktitle }" id="_${mv.mv_cd}"></li> -->
-						<li><input type="button" class="movie m${mv.mv_cd}"
+						<li data-cert="${mv.mv_cert }"><input type="button" class="movie m${mv.mv_cd}"
 							value="${mv.mv_ktitle }"  ></li>
 					</c:forEach>
 				</ul>
