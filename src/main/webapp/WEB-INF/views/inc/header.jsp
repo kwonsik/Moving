@@ -52,7 +52,7 @@
            <li class="gnb__item"><a href="movie.as" class="gnb__link">
              <span>영화</span>
            </a></li>
-           <li class="gnb__item"><a href="#" class="gnb__link">
+           <li class="gnb__item"><a href="main.shj" class="gnb__link">
              <span>영화관</span>
            </a></li>
            <li class="gnb__item"><a href="notice.as" class="gnb__link">
