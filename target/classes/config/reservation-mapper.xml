@@ -40,13 +40,14 @@
 		<if test="tt_name!=null">tt_name=#{tt_name}</if>
 		<if test="mv_ktitle!=null">and mv_ktitle=#{mv_ktitle}</if>
 		</where>
+		and sch.schstate_no=1
 		order by sch.sch_no asc		 
 	</select>
 	<select id="getScheduleList"  resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
 		select sch.sch_no,scr_name,sch_start,sch_end,sch_cnt,scr_st_cnt 
 		from movie mv join theater tt join schedule sch join screen scr 
 		on(mv.mv_cd=sch.mv_cd and scr.scr_no=sch.scr_no and tt.tt_no=scr.tt_no)
- 		where tt_name=#{tt_name} and mv_ktitle=#{mv_ktitle} and sch_date=#{sch_date} 
+ 		where tt_name=#{tt_name} and mv_ktitle=#{mv_ktitle} and sch_date=#{sch_date} and sch.schstate_no=1
 	</select>
 	<select id="getSeatList"  resultType="ScreenDto">
 		select scr.scr_st_col,scr.scr_st_row from schedule sch join screen scr on(scr.scr_no=sch.scr_no) where sch_no=#{sch_no} 

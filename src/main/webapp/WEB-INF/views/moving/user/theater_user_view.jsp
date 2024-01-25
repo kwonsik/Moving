@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <main id="container" class="container" style="padding-top: 5%">
 	<!-- 영화관 선택 -->
@@ -65,7 +65,7 @@
 	</div>
 </main>
 
-<%@ include file="../inc/footer.jsp"%>
+<%@ include file="../../inc/footer.jsp"%>
 
 <script>
 $(document).ready(function () {
@@ -222,12 +222,13 @@ $(document).ready(function () {
 
                     // 각 영화에 대한 상영일정 생성
                     movieSchedules.forEach(function (movie) {
+                    	console.log(movie);
                         var rating = '';
-                        if (movie.rating == '12세 이상 관람가') {
+                        if (movie.mv_cert == '12세 이상 관람가') {
                             rating = 'age12';
-                        } else if (movie.rating == '모든 연령 관람가') {
+                        } else if (movie.mv_cert == '모든 연령 관람가') {
                             rating = 'ageall';
-                        } else if (movie.rating == '15세 이상 관람가') {
+                        } else if (movie.mv_cert == '15세 이상 관람가') {
                             rating = 'age15';
                         }
 
@@ -251,7 +252,7 @@ $(document).ready(function () {
                             scheduleContent += '<ul>';
                             sections[section].forEach(function (schedule) {
                                 scheduleContent += '<li>';
-                                scheduleContent += '<a href="reservation.shj?sch_no=' + schedule.scheduleNo + '" class="btnTime" >';
+                                scheduleContent += '<a href="reservation_view.ks?sch_no=' + schedule.scheduleNo + '" class="btnTime" >';
                                 scheduleContent += '<div class="time"><span>' + schedule.time + '</span>~' + schedule.endTime + '</div>';
                                 scheduleContent += '<div class="length">';
                                 scheduleContent += '<p><span>' + schedule.availableSeats + '</span>/' + schedule.totalSeats + '석</p>';

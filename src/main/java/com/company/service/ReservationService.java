@@ -32,11 +32,11 @@ public interface ReservationService {
 	public int insertReservation(Reservation_ViewDto dto);
 	public int insertReservationDetailA(Reservation_ViewDto dto);
 	public int insertReservationDetailC(Reservation_ViewDto dto);
-	public void my_reservation_view(Reservation_ViewDto dto,Model model);
+	public void my_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException;
 	public List<ReservationdetailDto> getMyReservationView_2(Reservation_ViewDto dto);
 	public void reservationCancle(Reservation_ViewDto dto,HttpServletRequest request, HttpServletResponse response) throws IOException;
 	
-	public void my_cancled_reservation_view(Reservation_ViewDto dto,Model model);
+	public void my_cancled_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException;
 	
 	public void paging(Reservation_ViewDto dto,Model model);
 	public int admin_reservationCancle(HttpServletRequest request,HttpServletResponse response) throws IOException;

@@ -12,14 +12,24 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+<<<<<<< HEAD
+import com.company.dao.IhDao;
+=======
 import com.company.dao.ScheduleDao;
+>>>>>>> refs/remotes/origin/master
 import com.company.dao.TestDao;
 import com.company.dao.TheaterManageDao;
 import com.company.dto.MovieDto;
+<<<<<<< HEAD
+//import com.company.service.MovieService;
+import com.company.dto.UserDto;
+import com.company.service.IhService;
+=======
 import com.company.dto.ScreenDto;
 import com.company.dto.TheaterDto;
 import com.company.service.SchService;
 import com.google.gson.Gson;
+>>>>>>> refs/remotes/origin/master
 
 import lombok.extern.log4j.Log4j;
 
@@ -27,11 +37,25 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/root-context.xml")
 @Log4j
 public class Test0 {
+<<<<<<< HEAD
+	@Autowired ApplicationContext context;
+	@Autowired TestDao dao;
+	@Autowired IhDao ihdao;
+	@Autowired IhService service;
+//	@Autowired MovieService mv_service;
+=======
 	@Autowired
 	ApplicationContext context;
 	@Autowired
 	TestDao dao;
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+	@Test  public void test1() {
+		UserDto dto=new UserDto();
+		dto.setUser_id("kkang318");
+		System.out.println(service.idCheck(dto));
+=======
 	@Autowired
 	ScheduleDao sDao;
 
@@ -45,7 +69,13 @@ public class Test0 {
 	@Ignore
 	public void test1() {
 		System.out.println(dao.readTime());
+>>>>>>> refs/remotes/origin/master
 	}
+<<<<<<< HEAD
+	@Test @Ignore public void test2() {
+		MovieDto mv_dto = new MovieDto();
+=======
+>>>>>>> refs/remotes/origin/master
 
 	@Test
 	@Ignore
