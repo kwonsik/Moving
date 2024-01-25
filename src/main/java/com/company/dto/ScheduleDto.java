@@ -14,7 +14,6 @@ public class ScheduleDto {
 	private String sch_date;
 	private String sch_start;
 	private String sch_end;
-	private int sch_period;
 	private String sch_crtdate;
 	private int schstate_no;
 	private int sch_cnt;

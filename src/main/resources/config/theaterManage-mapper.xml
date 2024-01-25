@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.TheaterManageDao">
+	<!-- 영화관 목록 -->
+	<select id="theaterReadAll" resultType="TheaterDto">
+		select tt_no, tt_name
+		from theater order by tt_no asc
+	</select>
+
+	<select id="screenReadAll" resultType="ScreenDto">
+		SELECT
+		GROUP_CONCAT(scr_name) AS scr_name
+		FROM screen
+		WHERE scrstate_no = 1
+		GROUP BY tt_no
+	</select>
+
+	<!-- 영화관 추가 -->
+	<insert id="ttInsert" parameterType="TheaterDto">
+		insert into theater
+		(tt_name, tt_img, tt_address, tt_tel, tt_start, tt_close, tt_scrcnt)
+		values
+		(#{tt_name}, #{tt_img}, #{tt_address}, #{tt_tel}, #{tt_start},
+		#{tt_close}, #{tt_scrcnt})
+	</insert>
+
+	<select id="readTT" parameterType="TheaterDto"
+		resultType="TheaterDto">
+		select tt_no from theater where tt_name = #{tt_name}
+	</select>
+
+	<select id="insertNowTheater" resultType="integer">
+		select tt_no from
+		theater order by tt_no desc limit 1
+	</select>
+
+	<insert id="scrInsert" parameterType="ScreenDto">
+		insert into screen
+		(tt_no, scr_name, scr_price, scr_st_col, scr_st_row, scr_st_cnt)
+		values
+		(#{tt_no}, #{scr_name}, #{scr_price}, #{scr_st_col}, #{scr_st_row},
+		#{scr_st_cnt})
+	</insert>
+
+
+
+</mapper>
