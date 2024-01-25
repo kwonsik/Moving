@@ -51,7 +51,7 @@
 				<label for="age">생년월일</label>
 				<input type="text" id="age" name="age" value="${dto.user_age}" disabled />
 			</div>
-			<a href="MyUpdatePassView.ih" class="btn btn-info">비밀번호변경</a>
+			<a href="MyUpdatePassView.ih" class="btn btn-info" id="changePass">비밀번호변경</a>
 			<div class="button-class">
 				<a href="javascript:history.go(-2);" class="btn btn-danger">돌아가기</a>
 				<input type="submit" class="btn btn-primary" value="정보수정" />
@@ -63,7 +63,7 @@
 <c:if test="${dto.usertp_no != '4'}">
     <form action="myDelete.ih?user_id=${dto.user_id}" method="GET">
     	<input type="text" name="user_id" value="${dto.user_id}" class="blind">
-        <input type="submit" class="deleteAndCancleBtn" value="회원탈퇴">
+        <input type="submit" class="deleteAndCancleBtn" id="request" value="회원탈퇴">
     </form>
 </c:if>
 
@@ -71,7 +71,7 @@
 <c:if test="${dto.usertp_no == '4'}">
     <form action="myDeleteCancle.ih?user_id=${dto.user_id}" method="GET">
     	<input type="text" name="user_id" value="${dto.user_id}" class="blind">
-        <input type="submit" class="deleteAndCancleBtn" value="회원탈퇴취소">
+        <input type="submit" class="deleteAndCancleBtn" id="response" value="회원탈퇴취소">
     </form>
 </c:if>
 
@@ -87,6 +87,26 @@
         <c:if test="${not empty updateFail}"> alert("${updateFail}"); </c:if>
         //비밀번호변경성공
         <c:if test="${not empty updatePassSuccess}"> alert("${updatePassSuccess}"); </c:if>
+        
+        var deleteButton = document.getElementById('request');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('회원 탈퇴하시겠습니까?')) {
+                    e.target.form.submit();
+                }
+            });
+        }
+
+        var cancelDeleteButton = document.getElementById('response');
+        if (cancelDeleteButton) {
+            cancelDeleteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('회원 탈퇴를 취소하시겠습니까?')) {
+                    e.target.form.submit();
+                }
+            });
+        }
     };
 </script>
 
