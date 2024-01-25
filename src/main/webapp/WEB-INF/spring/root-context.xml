@@ -23,35 +23,4 @@
 				<value>classpath:/config/reservation-mapper.xml</value>
 				<value>classpath:/config/ih-user-mapper.xml</value>
 
-			</list>
-		</property>
-		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
-	</bean>
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
-	</bean>
-	<context:property-placeholder location="classpath:/config/db.properties"/>
 	
-	<!-- HikariCP -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
-		<property name="driverClassName" value="${db.driverClass}"/>
-		<property name="jdbcUrl" value="${db.url}"/>
-		<property name="username" value="${db.username}"/>
-		<property name="password" value="${db.password}"/>
-	</bean>
-	<bean	id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref="hikariConfig"/>
-	</bean>
-	<bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="u1ghks@gmail.com" />
-		<property name="password" value="qccu esgi wovm nnwc" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-			</props>
-		</property>
-	</bean>
-		
-</beans>

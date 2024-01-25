@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="inc/header.jsp"%>
+<%@ include file="../../inc/header.jsp"%>
 <div class="ih__myUpdatePass">
 	<form action="myUpdatePass.ih" method="post" id="myUpdatePass">
 		<h2>비밀번호변경</h2>
@@ -32,4 +32,4 @@
 
 <script src="${pageContext.request.contextPath}/resources/assets/js/ih_updatePass.js"></script>
 
-<%@include file="inc/footer.jsp"%>
+<%@include file="../../inc/footer.jsp"%>

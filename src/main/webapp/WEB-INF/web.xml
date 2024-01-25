@@ -78,6 +78,21 @@
 		<servlet-name>as</servlet-name>
 		<url-pattern>*.as</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ih</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/user-servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>ih</servlet-name>
+		<url-pattern>*.ih</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>admin</servlet-name>
