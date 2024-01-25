@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
 <%@ include file="../../inc/header.jsp"%>
+<script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
+<main id="main" class="main">
+      <h2 class="blind">메인 컨텐츠</h2>
+      <div id="container" class="container">
 <div class="ih__joinForm">
 	<form action="submitJoinFrom.ih" method="post" id="join" class="join">
 		<div class="title">
@@ -708,5 +712,7 @@ $(document).ready(function() {
 	</form>
 
 </div>
-<script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
+</div>
+</main>
+
 <%@include file="../../inc/footer.jsp"%>

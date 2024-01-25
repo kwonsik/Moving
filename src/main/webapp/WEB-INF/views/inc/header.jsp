@@ -24,10 +24,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/layout.css">
   
   <script src="${pageContext.request.contextPath}/resources/assets/js/common.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_join.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_update.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/ih_updatePass.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/ih.js"></script>
+ 
+  
+ 
+
   
   <!-- page -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ih.css">
@@ -48,7 +48,6 @@
          <ul id="gnb" class="gnb">
            <!-- 링크 -> a / 2뎁스 버튼 -> button:button -->
            <li class="gnb__item">
-             <c:set var="user_no" value="1"/>
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
@@ -71,9 +70,15 @@
              </button>
              <ul class="gnb__2depth">
                <li class="gnb__2depth-item">
-                 <a href="my_reservation.ks" class="gnb__2depth-link">
+               <c:choose>
+             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
-                 </a>
+                 </a></c:when>
+             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__2depth-link">
+                   <span>예매/취소 내역</span>
+                 </a></c:when>
+             </c:choose>
+                 
                </li>
               <li class="gnb__2depth-item">
                   <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
