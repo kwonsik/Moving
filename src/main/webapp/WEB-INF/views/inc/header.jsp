@@ -22,13 +22,20 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reset.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/component.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/layout.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
+  
   <script src="${pageContext.request.contextPath}/resources/assets/js/common.js"></script>
+ 
+  
+ 
+
   
   <!-- page -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ih.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/board.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/movie.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/theater_shj.css">
   <title>무빙</title>
 </head>
 <body>
@@ -41,7 +48,6 @@
          <ul id="gnb" class="gnb">
            <!-- 링크 -> a / 2뎁스 버튼 -> button:button -->
            <li class="gnb__item">
-             <c:set var="user_no" value="1"/>
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
@@ -52,7 +58,7 @@
            <li class="gnb__item"><a href="movie.as" class="gnb__link">
              <span>영화</span>
            </a></li>
-           <li class="gnb__item"><a href="#" class="gnb__link">
+           <li class="gnb__item"><a href="theater_user_view.shj" class="gnb__link">
              <span>영화관</span>
            </a></li>
            <li class="gnb__item"><a href="notice.as" class="gnb__link">
@@ -64,58 +70,64 @@
              </button>
              <ul class="gnb__2depth">
                <li class="gnb__2depth-item">
-                 <a href="my_reservation.ks" class="gnb__2depth-link">
+               <c:choose>
+             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
-                 </a>
+                 </a></c:when>
+             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__2depth-link">
+                   <span>예매/취소 내역</span>
+                 </a></c:when>
+             </c:choose>
+                 
                </li>
-               <li class="gnb__2depth-item">
-                 <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
-                   <span>회원정보수정</span>
-                 </a>
-               </li>
-             </ul>
-           </li>
-         </ul>
-       </nav>
+              <li class="gnb__2depth-item">
+                  <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
+                    <span>회원정보수정</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
 
-       <div class="header-util">
-         <ul class="header-util__list">
-		    <c:if test="${usertp_name == '삭제된회원'}">
-		        <script>
-		            alert("탈퇴한 회원입니다.");
-		            window.location.href = "logout.ih"; // 로그아웃 처리 URL로 이동
-		        </script>
-		    </c:if>
-		
-		    <!-- 관리자인 경우 관리자 페이지와 로그아웃 링크 표시 -->
-		    <c:if test="${usertp_name == '관리자'}">
-		        <li>${usertp_name} 님 환영합니다!</li>
-		        <li class="header-util__item">
-		            <a href="adminPage.ih">관리자페이지</a>
-		        </li>
-		        <li class="header-util__item">
-		            <a href="logout.ih">로그아웃</a>
-		        </li>
-		    </c:if>
-		
-		    <!-- 로그인하지 않은 경우 로그인과 회원가입 링크 표시 -->
-		    <c:if test="${user_id == null}">
-		        <li class="header-util__item">
-		            <a href="loginPage.ih" class="header-util__link">로그인</a>
-		        </li>
-		        <li class="header-util__item">
-		            <a href="joinForm.ih" class="header-util__link">회원가입</a>
-		        </li>
-		    </c:if>
-		
-		    <!-- 일반 사용자인 경우 로그아웃 링크만 표시 -->
-		    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
-		        <li>${user_nick}님 환영합니다!</li>
-		        <li class="header-util__item">
-		            <a href="logout.ih">로그아웃</a>
-		        </li>
-		    </c:if>
-         </ul>
-       </div>
-     </div>
-   </header>
+        <div class="header-util">
+			<ul class="header-util__list">
+			    <c:if test="${usertp_name == '삭제된회원'}">
+			        <script>
+			            alert("탈퇴한 회원입니다.");
+			            window.location.href = "logout.ih"; // 로그아웃 처리 URL로 이동
+			        </script>
+			    </c:if>
+			
+			    <!-- 관리자인 경우 관리자 페이지와 로그아웃 링크 표시 -->
+			    <c:if test="${usertp_name == '관리자'}">
+			        <li>${usertp_name} 님 환영합니다!</li>
+			        <li class="header-util__item">
+			            <a href="adminPage.ih">관리자페이지</a>
+			        </li>
+			        <li class="header-util__item">
+			            <a href="logout.ih">로그아웃</a>
+			        </li>
+			    </c:if>
+			
+			    <!-- 로그인하지 않은 경우 로그인과 회원가입 링크 표시 -->
+			    <c:if test="${user_id == null}">
+			        <li class="header-util__item">
+			            <a href="loginPage.ih" class="header-util__link">로그인</a>
+			        </li>
+			        <li class="header-util__item">
+			            <a href="joinForm.ih" class="header-util__link">회원가입</a>
+			        </li>
+			    </c:if>
+			
+			    <!-- 일반 사용자인 경우 로그아웃 링크만 표시 -->
+			    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
+			        <li>${user_nick}님 환영합니다!</li>
+			        <li class="header-util__item">
+			            <a href="logout.ih">로그아웃</a>
+			        </li>
+			    </c:if>
+          </ul>
+        </div>
+      </div>
+    </header>

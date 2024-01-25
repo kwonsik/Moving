@@ -131,9 +131,9 @@ font-size: 18px;font-weight: bold;}
 			<div>
 				<ul>
 					<li class="selected"><input type="button" value="예매내역"
-						class="my_reservation_Btn" onclick="location.href='my_reservation.ks?user_no=1'"></li>
+						class="my_reservation_Btn" onclick="location.href='my_reservation.ks?user_no=${user_no}'"></li>
 					<li><input type="button" value="취소내역"
-						class="my_reservation_Btn" onclick="location.href='my_cancled_reservation.ks?user_no=1'"></li>
+						class="my_reservation_Btn" onclick="location.href='my_cancled_reservation.ks?user_no=${user_no}'"></li>
 				</ul>
 			</div>
 			<div class="mscontent">

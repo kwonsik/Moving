@@ -61,7 +61,7 @@
                             </ul> 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#reservation-management">
+                            <a class="nav-link" href="reservation_management.admin">
                                 예매 관리
                             </a>
                         </li>
