@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../admin_inc/header.jsp"%>
+<%@ include file="../../admin_inc/header.jsp"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -530,4 +530,4 @@ $(document).ready(function () {
 });
 </script>
 
-<%@ include file="../admin_inc/footer.jsp"%>
+<%@ include file="../../admin_inc/footer.jsp"%>

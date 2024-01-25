@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../admin_inc/header.jsp"%>
+<%@ include file="../../admin_inc/header.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/admin_assets/css/admin_hy.css" />
 
@@ -47,4 +47,4 @@
             </main>
         
 
-<%@ include file="../admin_inc/footer.jsp"%>
+<%@ include file="../../admin_inc/footer.jsp"%>
