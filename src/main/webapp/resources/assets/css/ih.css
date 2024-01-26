@@ -507,3 +507,6 @@ li{list-style-type:none; }
 .ih__myUpdatePass input.btn.btn-primary {
     width: 100px;
 }
+.ih__myUpdatePass .inputType p{
+	margin-left:20px;
+}
