@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-.as_movie-add{
-	margin-top: 40px;
+.as_movie-add .as_table{
+	margin-top: 20px;
 }
 .as_detail-table .as_plot {
 	height: 300px;
@@ -28,9 +28,6 @@
 	text-align:justify;
 }
 
-.as_movie-tab {
-	margin-top: 40px;
-}
 .as_movie-tablist {
 	display: flex;
     justify-content: center;

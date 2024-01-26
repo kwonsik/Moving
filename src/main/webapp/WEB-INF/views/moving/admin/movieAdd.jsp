@@ -1,55 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../../inc/admin_header.jsp" %>
 
-<h2 class="blind">본문</h2>
-<div class="as_inner inner">
-   <h3>영화 추가</h3>
-   <div class="as_movie-add">
-      <h4 class="blind">영화 목록</h4>
-      <div class="btns">
-         <button type="button" class="btn btn-success" data-api="loadMovie">국내 상영 영화 전체 불러오기</button>
-      </div>
-
-      <table class="table table-hover as_table as_list-table">
-         <colgroup>
-            <col class="col4">
-            <col class="col4">
-            <col class="col12">
-            <col class="col12">
-            <col class="col8">
-            <col class="col12">
-            <col class="colA">
-         </colgroup>
-         <thead>
-            <tr>
-               <th scope="col"><label><input type="checkbox" value="allChk" class="all-check"></label></th>
-               <th scope="col">No</th>
-               <th scope="col">영화 제목</th>
-               <th scope="col">원제</th>
-               <th scope="col">개봉일</th>
-               <th scope="col">장르</th>
-               <th scope="col">줄거리</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr>
-               <td colspan="8" class="is-empty">
-                  <p>[국내 상영 영화 전체 불러오기] 버튼을 눌러 현재 상영중인 영화 목록을 불러와주세요.</p>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-
-      <div class="as_inner-footer">
-         <div class="pagination-container"></div>
-
-         <div class="btns">
-            <a href="movie.admin" class="btn btn-danger">영화 목록 페이지로</a>
-            <button type="button" class="btn btn-primary" data-api="addMovie">영화 추가</button>
-         </div>
-      </div>
-   </div>
+<main id="content">
+<div class="page">
+   <h2>영화 추가</h2>
+   <div class="sub_content">
+		<div class="as_inner inner">
+		   <div class="as_movie-add">
+		      <h3 class="blind">영화 목록</h3>
+		      <div class="btns">
+		         <button type="button" class="btn btn-success" data-api="loadMovie">국내 상영 영화 전체 불러오기</button>
+		      </div>
+		
+		      <table class="table table-hover as_table as_list-table">
+		         <colgroup>
+		            <col class="col4">
+		            <col class="col4">
+		            <col class="col12">
+		            <col class="col12">
+		            <col class="col8">
+		            <col class="col12">
+		            <col class="colA">
+		         </colgroup>
+		         <thead>
+		            <tr>
+		               <th scope="col"><label><input type="checkbox" value="allChk" class="all-check"></label></th>
+		               <th scope="col">No</th>
+		               <th scope="col">영화 제목</th>
+		               <th scope="col">원제</th>
+		               <th scope="col">개봉일</th>
+		               <th scope="col">장르</th>
+		               <th scope="col">줄거리</th>
+		            </tr>
+		         </thead>
+		         <tbody>
+		            <tr>
+		               <td colspan="8" class="is-empty">
+		                  <p>[국내 상영 영화 전체 불러오기] 버튼을 눌러 현재 상영중인 영화 목록을 불러와주세요.</p>
+		               </td>
+		            </tr>
+		         </tbody>
+		      </table>
+		
+		      <div class="as_inner-footer">
+		         <div class="pagination-container"></div>
+		
+		         <div class="btns">
+		            <a href="movie.admin" class="btn btn-danger">영화 목록 페이지로</a>
+		            <button type="button" class="btn btn-primary" data-api="addMovie">영화 추가</button>
+		         </div>
+		      </div>
+		   </div>
+		</div>
+	</div>
 </div>
+</main>
 
 <script>
    let selectedMovies = [];

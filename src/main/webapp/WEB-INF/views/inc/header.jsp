@@ -51,7 +51,7 @@
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
-             <c:when test="${user_no==null }"><a href="main.ks" class="gnb__link" id="res"><span>예매</span>
+             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__link" id="res"><span>예매</span>
              </a></c:when>
              </c:choose>
            </li>
@@ -91,7 +91,14 @@
 	             	            }
 	             	        });
 	             	    }
+	             	    $("#res").on("click",function(){
+	             	    	let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+             	            if (userResponse) {
+             	            	location.href='loginPage.ih';
+             	            }
+	             	    });
 	             	});
+
                  </script>
                </li>
               <li class="gnb__2depth-item">
@@ -117,7 +124,7 @@
 			    <c:if test="${usertp_name == '관리자'}">
 			        <li>${usertp_name} 님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="adminPage.ih">관리자페이지</a>
+			            <a href="adminPage.admin">관리자페이지</a>
 			        </li>
 			        <li class="header-util__item">
 			            <a href="logout.ih">로그아웃</a>

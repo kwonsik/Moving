@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/admin_header.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/admin_assets/css/admin_hy.css" />
 
 <main id="content">
     <!-- 영화관 추가 페이지 -->
@@ -85,7 +83,9 @@
                     <input type="time" id="tt_close" name="tt_close">
                 </div>
 
+				<div class="cm_btns">
                 <input type="button" value="추가하기" id="add-theater-btn">
+                </div>
             </form>
         </div>
     </div>

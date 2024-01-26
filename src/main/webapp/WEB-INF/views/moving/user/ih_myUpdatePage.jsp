@@ -22,7 +22,9 @@
             </div>
             	<label for="nickname2" class="blind">닉네임</label> 
             	<input type="text" id="nickname2" name="nickname2" placeholder="변경할 닉네임을 적어주세요" />
+            	<p id="nicknameCriteria"></p>
 				<p id="nicknameResult" class="checkedResult"> 2~8자 이내 한글,영문대소문자,숫자 사용가능<br/></p>
+				
 			</div>
 			<div class="form-class">
 				<label for="email">이메일</label>
@@ -85,6 +87,25 @@
 </c:if>
 
 <script>
+$(document).ready(function() {
+
+    // 닉네임 유효성 검사
+    $("#nickname2").on("keyup", function() {
+        var nickname = $(this).val();
+        var regex = /^[a-zA-Z0-9가-힣]{2,8}$/;
+        validateField(nickname, regex, $("#nicknameCriteria"));
+    });
+
+    // 필드 유효성 검사 함수
+    function validateField(value, regex, criteriaElement) {
+        if (regex.test(value)) {
+            criteriaElement.css("color", "blue").text("위 조건을 만족합니다.");
+        } else {
+            criteriaElement.css("color", "red").text("위 조건을 만족하지않습니다.");
+        }
+    }
+});
+
     window.onload = function() {
     	//탈퇴신청성공
         <c:if test="${not empty myDeleteSuccess}"> alert("${myDeleteSuccess}"); </c:if>

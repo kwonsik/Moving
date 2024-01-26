@@ -17,10 +17,13 @@
 			<div class="inputType">
 				<label for="updatePassword">변경할 비밀번호</label>
 				<input type="password" name="updatePassword" id="updatePassword" placeholder="변경할 비밀번호를 입력해주세요." />
+				<p>영문, 숫자, 특수문자 중 2가지 이상 조합하여 8-16글자</p>
+				<p id="passwordCriteria"></p>
 			</div>
 			<div class="inputType">
 				<label for="updatePasswordConfirm">변경할 비밀번호 확인</label>
 				<input type="password" name="updatePasswordConfirm" id="updatePasswordConfirm" placeholder="변경할 비밀번호를 다시 입력해주세요." />
+				<p id="passduplication"></p>
 			</div>
 			<div class="button-class">
 				<a href="javascript:history.go(-1);" class="btn btn-danger">돌아가기</a>

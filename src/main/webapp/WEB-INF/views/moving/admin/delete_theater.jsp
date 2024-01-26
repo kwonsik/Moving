@@ -11,7 +11,7 @@
 		<h2>영화관 관리</h2>
 		<div class="sub_content">
 			<h3>영화관 삭제</h3>
-			<table>
+			<table class="hy_table">
 				<thead>
 					<tr>
 						<th scope="row"></th>

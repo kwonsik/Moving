@@ -507,3 +507,11 @@ li{list-style-type:none; }
 .ih__myUpdatePass input.btn.btn-primary {
     width: 100px;
 }
+.ih__myUpdatePass .inputType p{
+	margin-left:20px;
+}
+/************************  관리자 테이블  **************/
+.ih_adminUser form {
+    overflow: auto;
+    height: 900px;
+}

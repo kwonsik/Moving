@@ -7,9 +7,7 @@ tr:last-child td:first-child {
     border-bottom-left-radius: 6px;
     border-left: 1px solid #c6c9cc;
 }
-.as_table {
-	margin-top: 20px;
-}
+
 .as_table.table thead th {
 	vertical-align: middle;
 }

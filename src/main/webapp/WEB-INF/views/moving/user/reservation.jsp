@@ -157,12 +157,18 @@
 			$("#now").html(now.getFullYear() + "." + (now.getMonth() + 1));
 			let cnt = 1;
 			for (let i = now.getDay(); i < now.getDay() +7; i++) {
-				if(nowdate>last){nowdate=nowdate-last;}
-				$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
-				$("#time" + cnt).attr(
-						'date',
-						now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"
-								+ (now.getDate() + cnt - 1));
+				if(nowdate>last){
+					nowdate=nowdate-last;
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ (nowdate + cnt - 7));
+					$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
+				}
+				else{
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ (now.getDate() + cnt - 1));
+					$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
+				}
+
+				
+				
 				if (weekday[i] == "일") {
 					$("#time" + cnt).addClass("sunday");
 				} else if (weekday[i] == "토") {

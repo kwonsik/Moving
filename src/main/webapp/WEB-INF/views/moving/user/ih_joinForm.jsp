@@ -34,6 +34,7 @@
 			<div class="form-class">
 				<label for="password2">비밀번호 확인</label>
 				<input type="password" id="password2" name="password2" class="password2" placeholder="비밀번호입력 확인" />
+				<p id="passduplication"></p>
 			</div>
 			
 			<div class="form-class">
@@ -75,9 +76,9 @@ $(document).ready(function() {
     // 필드 유효성 검사 함수
     function validateField(value, regex, criteriaElement) {
         if (regex.test(value)) {
-            criteriaElement.css("color", "blue").text("조건을 만족합니다.");
+            criteriaElement.css("color", "blue").text("위 조건을 만족합니다.");
         } else {
-            criteriaElement.css("color", "red");
+            criteriaElement.css("color", "red").text("위 조건을 만족하지않습니다.");
         }
     }
 });

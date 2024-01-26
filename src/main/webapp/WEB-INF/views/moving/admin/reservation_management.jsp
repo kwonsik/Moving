@@ -9,6 +9,7 @@
 	.rcon .table-bordered{border:none;}
 	.rmcontent{background-color: white; padding:10px; margin-top: 80px; border-radius: 10px;}
 	.rmcontent p{font-size: 16px; font-weight: bold;}
+	.inner_search .form-control {display:inline-block; width: auto; margin:0;}
 	
 </style>
 
@@ -17,7 +18,7 @@
 	<h2 class="blind">관리자 예매 관리</h2>	
 		<div class="ks reservation_management">
 			<div class="title"><h4>전체 예매 목록</h4></div>
-			<div class="rmcontent">
+			<div class="sub_content">
 				<p>
 			총 예매 - <span>${paging.listTotal }건</span>
 		</p>
@@ -95,12 +96,12 @@
 			
 			 
 			<div class="inner_search" style="text-align:center; " >		
-					<select id="searchOption">
+					<select id="searchOption" class="form-control">
 						<option value="user_name">이름</option>
 						<option value="mv_ktitle">영화제목</option>
 						<option value="tt_name">극장</option>
 					</select>
-			  		<input type="text" id="query" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요">
+			  		<input class="form-control" type="text" id="query" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요">
 			  		<input class="btn" type="button" value="검색" id="search">  
 			</div>
 			</div>
