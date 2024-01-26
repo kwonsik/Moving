@@ -47,7 +47,7 @@ $(document).ready(function() {
 <div class="ih_adminUser">
 
 <div class="container panel-warning">
-<form action="adminDeleteUser.admin" method="POST" style="overflow: auto; height: 800px; margin-top:15px;">
+<form action="adminDeleteUser.admin" method="POST" style="overflow: auto; height: 800px;">
  	<table  class="table table-striped usertable">
 		<thead>
 			<tr>
