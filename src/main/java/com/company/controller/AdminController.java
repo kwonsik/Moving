@@ -73,7 +73,7 @@ public class AdminController {
 		else {out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");}	
 		
 	}
-	@RequestMapping(value = "/theater-list.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/theater-list.admin", method = RequestMethod.GET)
 	public String theaterList(Model model) {
 		model.addAttribute("theaterList", dao.theaterReadAll());
 
@@ -81,7 +81,7 @@ public class AdminController {
 	}
 
 	// 영화관 목록 - 상영관 리스트 ajax로 받아옴
-	@RequestMapping(value = "/screen-list.hy", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	@RequestMapping(value = "/screen-list.admin", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String screenList(@RequestParam("tt_no") int tt_no) {
 		System.out.println(".... list ajax");
@@ -97,12 +97,12 @@ public class AdminController {
 
 	}
 
-	@RequestMapping(value = "/add-theater.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.GET)
 	public String addTheaterView() {
 		return "add_theater";
 	}
 
-	@RequestMapping(value = "/add-theater.hy", method = RequestMethod.POST)
+	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
 	public String addTheater(@ModelAttribute TheaterDto dto) {
 		System.out.println("... 추가해주세요");
 		System.out.println(dto);
@@ -111,10 +111,10 @@ public class AdminController {
 
 		// 나머지 로직 수행
 
-		return "redirect:theater-list.hy";
+		return "redirect:theater-list.admin";
 	}
 
-	@RequestMapping(value = "/revise-theater.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/revise-theater.admin", method = RequestMethod.GET)
 	public String reviseTheaterView(Model model, @RequestParam int tt_no) {
 		model.addAttribute("dto", RTservice.theaterRead(tt_no));
 		model.addAttribute("sdtoList", RTservice.screenReadAll2(tt_no));
@@ -122,7 +122,7 @@ public class AdminController {
 		return "revise_theater";
 	}
 
-	@RequestMapping(value = "/screen-info.hy", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	@RequestMapping(value = "/screen-info.admin", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String screenInfo(ScreenDto sdto) {
 		// System.out.println(sdto);
@@ -136,7 +136,7 @@ public class AdminController {
 		return json;
 	}
 
-	@RequestMapping(value = "/revise-theater.hy", method = RequestMethod.POST)
+	@RequestMapping(value = "/revise-theater.admin", method = RequestMethod.POST)
 	public String reviseTheater(TheaterDto dto, ScreenDto sdto) {
 		// System.out.println("수정 영화관 "+dto);
 		// System.out.println("수정 상영관 "+sdto);
@@ -147,17 +147,17 @@ public class AdminController {
 		// System.out.println(RTservice.theaterUpdate(dto));
 		// System.out.println(RTservice.screenUpdate(sdto));
 
-		return "redirect:theater-list.hy";
+		return "redirect:theater-list.admin";
 	}
 
-	@RequestMapping(value = "/delete-theater-view.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete-theater-view.admin", method = RequestMethod.GET)
 	public String deleteTheaterView(Model model) {
 		model.addAttribute("list", service.theaterReadAll());
 		// System.out.println( service.theaterReadAll());
 		return "delete_theater";
 	}
 
-	@RequestMapping(value = "/delete-theater.hy", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete-theater.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Integer> deleteTheater(@RequestParam("tt_no") int tt_no) {
 		// System.out.println("tt_no : " +tt_no);
@@ -168,7 +168,7 @@ public class AdminController {
 		return result;
 	}
 
-	@RequestMapping(value = "/screen-manage.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/screen-manage.admin", method = RequestMethod.GET)
 	public String screenManage(Model model, @RequestParam("scr_no") int scr_no) {
 		// System.out.println("scr_no 값 : "+scr_no);
 		// System.out.println(service.ttandscrRead(scr_no));
@@ -177,7 +177,7 @@ public class AdminController {
 		return "screen_management";
 	}
 
-	@RequestMapping(value = "/revise-screen.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/revise-screen.admin", method = RequestMethod.GET)
 	public String reviseStopScreen(@RequestParam("scr_no") int scr_no, @RequestParam("scrstate_no") int scrstate_no) {
 		Map<String, Integer> parameterMap = new HashMap<>();
 		parameterMap.put("scr_no", scr_no);
@@ -187,10 +187,10 @@ public class AdminController {
 		// System.out.println(parameterMap);
 		service.scrstateUpdate(parameterMap);
 
-		return "redirect:screen-manage.hy?scr_no=" + scr_no;
+		return "redirect:screen-manage.admin?scr_no=" + scr_no;
 	}
 
-	@RequestMapping(value = "/seat-manage.hy", method = RequestMethod.GET)
+	@RequestMapping(value = "/seat-manage.admin", method = RequestMethod.GET)
 	public String seatManage(Model model, @RequestParam("scr_no") int scr_no) {
 		
 		//고장난 좌석 리스트 보내기 
@@ -206,7 +206,7 @@ public class AdminController {
 
 	
 
-	@RequestMapping(value = "/seat-manage.hy", method = RequestMethod.POST)
+	@RequestMapping(value = "/seat-manage.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public int seatManageAction(Model model, @RequestParam("scr_no") int scr_no, @RequestParam String bkList) {
 		int result = 1;

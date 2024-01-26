@@ -13,7 +13,7 @@
 				<strong class="required">**</strong> 변경사항을 새로 작성해주세요.
 			</p>
 			<form
-				action="${pageContext.request.contextPath}/revise-theater.hy?tt_no=${dto.tt_no}"
+				action="${pageContext.request.contextPath}/revise-theater.admin?tt_no=${dto.tt_no}"
 				method="post" id="revise-theater-form">
 				<div class="list-revise-theater">
 					<p>영화관 이름 ></p>
@@ -71,7 +71,7 @@
 			//console.log(${param.tt_no});
 
 			$.ajax({
-				url : "screen-info.hy", // 서버에서 정보를 가져올 URL
+				url : "screen-info.admin", // 서버에서 정보를 가져올 URL
 				type : "GET",
 				data : {
 					scr_no : selectedScrNo

@@ -23,7 +23,7 @@
 					<ul>
 						<c:forEach var="dto" items="${theaterList}" varStatus="status">
 							<li data-tt_no="${dto.tt_no}"><a
-								href="revise-theater.hy?tt_no=${dto.tt_no}">${dto.tt_name}</a></li>
+								href="revise-theater.admin?tt_no=${dto.tt_no}">${dto.tt_name}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -58,7 +58,7 @@
                     	for (let i = 0; i < ttNos.length; i++) {
                             let ttNo = ttNos[i];
                             $.ajax({
-                                url: "screen-list.hy",
+                                url: "screen-list.admin",
                                 type: "GET",
                                 dataType: "json",
                                 data: { tt_no: ttNo },
@@ -80,7 +80,7 @@
                             let ul = "<div class='screenlists'><ul>";
                             for (let i = 0; i < result.length; i++) {
                                 let screen = result[i];
-                                let li = "<li><a href='screen-manage.hy?scr_no="+screen.scr_no+"'>"+screen.scr_name+"</a></li>";
+                                let li = "<li><a href='screen-manage.admin?scr_no="+screen.scr_no+"'>"+screen.scr_name+"</a></li>";
                                 ul += li;
                             }
                             ul += "</ul></div>";

@@ -64,11 +64,11 @@
 			
 			if(con){
 				alert("상영관이 일시적으로 중단되었습니다.");
-				location.href="revise-screen.hy?scr_no="+scrNo+"&scrstate_no="+scrStateNo;
+				location.href="revise-screen.admin?scr_no="+scrNo+"&scrstate_no="+scrStateNo;
 			
 			}
 			else{
-				location.href="screen-manage.hy?scr_no="+scrNo;
+				location.href="screen-manage.admin?scr_no="+scrNo;
 			}
 			
 		});
@@ -79,11 +79,11 @@
 			
 			if(con){
 				alert("상영관 활성화가 완료되었습니다.");
-				location.href="revise-screen.hy?scr_no="+scrNo+"&scrstate_no="+scrStateNo;
+				location.href="revise-screen.admin?scr_no="+scrNo+"&scrstate_no="+scrStateNo;
 			
 			}
 			else{
-				location.href="screen-manage.hy?scr_no="+scrNo;
+				location.href="screen-manage.admin?scr_no="+scrNo;
 			}
 			
 		});
@@ -92,7 +92,7 @@
 		<!-- 상영관 좌석 관리 페이지로 이동 -->
 		$("#change-seat-btn").on("click", function(){
 			if(scrStateNo == 1){
-				location.href="seat-manage.hy?scr_no="+scrNo;
+				location.href="seat-manage.admin?scr_no="+scrNo;
 			}
 			else{
 				alert("현재 상영관이 사용 중단 상태입니다.");
