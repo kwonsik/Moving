@@ -51,13 +51,13 @@
                             </ul> 
                         </li>
                         <li class="nav-item" id="theater-management-item">
-                            <a class="nav-link" href="theater-list.hy">
+                            <a class="nav-link" href="theater-list.admin">
                                 영화관 관리
                             </a>
                             <ul class="nav-submenu">
-                                <li><a href="add-theater.hy">영화관 추가</a></li>
-                                <li><a href="delete-theater-view.hy">영화관 삭제</a></li>
-                                <li><a href="">상영시간표 관리</a></li>
+                                <li><a href="add-theater.admin">영화관 추가</a></li>
+                                <li><a href="delete-theater-view.admin">영화관 삭제</a></li>
+                                <li><a href="schedule-management.admin">상영시간표 관리</a></li>
                             </ul> 
                         </li>
                         <li class="nav-item">

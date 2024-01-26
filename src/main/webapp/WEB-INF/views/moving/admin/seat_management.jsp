@@ -87,7 +87,7 @@
 		scrNo = $("#seat p").data("scr_no");
 		$("#revise-seats-btn").on("click", function(){
 			$.ajax({
-    			url:"seat-manage.hy",
+    			url:"seat-manage.admin",
     			type:"POST",
     			dataType: "json", 
     		    data: {
@@ -100,7 +100,7 @@
     			success: function(result){
     				if(result==1){
     					alert("좌석 수정이 완료되었습니다. ");
-        				location.href="screen-manage.hy?scr_no="+scrNo;
+        				location.href="screen-manage.admin?scr_no="+scrNo;
     				}
     				else{
     					alert("좌석 수정을 성공적으로 처리하지 못하였습니다. ");

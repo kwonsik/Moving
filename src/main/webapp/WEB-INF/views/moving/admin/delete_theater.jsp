@@ -51,7 +51,7 @@ $(document).ready(function(){
 		
 		if(conf){ //삭제 '확인' 버튼 눌렀을 때 
 			$.ajax({
-	    		url:"delete-theater.hy",
+	    		url:"delete-theater.admin",
 	    		type:"POST",
 	    		dataType: "json", 
 	    		data: {tt_no : $(this).data("tt_no")},
@@ -69,7 +69,7 @@ $(document).ready(function(){
 		function deleteResult(result){
 			if( result.result == 1){
 				alert("해당 '" +name+ "' 삭제가 완료되었습니다. ");
-				location.href="delete-theater-view.hy";
+				location.href="delete-theater-view.admin";
 			}
 			else {
 				alert("영화관 삭제가 불가능합니다.");
