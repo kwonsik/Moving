@@ -117,7 +117,7 @@
 			    <c:if test="${usertp_name == '관리자'}">
 			        <li>${usertp_name} 님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="adminPage.ih">관리자페이지</a>
+			            <a href="adminPage.admin">관리자페이지</a>
 			        </li>
 			        <li class="header-util__item">
 			            <a href="logout.ih">로그아웃</a>
