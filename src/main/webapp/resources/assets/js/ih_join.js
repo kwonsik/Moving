@@ -293,4 +293,15 @@ $(function() {
 			}
 		}); // end ajax
 	}); // end blur
+	$("#password2").on("keyup", function() {
+        let password = $("#password").val();
+        let confirmPassword = $(this).val();
+        let passduplication = $("#passduplication");
+        
+        if (password === confirmPassword) {
+            passduplication.css("color", "blue").text("비밀번호가 일치합니다.");
+        } else {
+            passduplication.css("color", "red").text("비밀번호가 일치하지 않습니다.");
+        }
+    });
 }); // end $
