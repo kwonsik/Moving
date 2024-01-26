@@ -1,3 +1,4 @@
+$(function() {
 $("#nickname2").on("blur", function() {
     $.ajax({
         url: "nicknameCheck.ih",
@@ -12,6 +13,7 @@ $("#nickname2").on("blur", function() {
         }
     });
 });
+}); // end $
 
 window.addEventListener('load', function() {
     // 이메일 코드 보내기 클릭 이벤트 리스너
