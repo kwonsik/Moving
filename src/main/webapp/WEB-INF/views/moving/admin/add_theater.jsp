@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="../../admin_inc/header.jsp"%>
+<%@ include file="../../inc/admin_header.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/admin_assets/css/admin_hy.css" />
 
@@ -11,7 +11,7 @@
         <h2>영화관 관리</h2>
         <div class="sub_content">
             <h3>영화관 추가</h3>
-            <form action="add-theater.hy" method="post" id="add-theater-list">
+            <form action="add-theater.admin" method="post" id="add-theater-list">
                 <div>
                     <p><strong class="required">＊</strong>추가할 영화관 이름 ></p>
                     <input type="text" id="tt_name" name="tt_name" placeholder="지역이름을 포함해주세요.">
@@ -133,4 +133,4 @@
     });
 </script>
 
-<%@ include file="../../admin_inc/footer.jsp"%>
+<%@ include file="../../inc/admin_footer.jsp"%>

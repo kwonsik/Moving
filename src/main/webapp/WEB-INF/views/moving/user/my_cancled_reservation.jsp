@@ -142,7 +142,7 @@ font-size: 18px;font-weight: bold;}
 			
 			</script>
 			<div class="mscontent">
-				<div class="mscount">강권식 님의 예매 취소 내역이 ${list1.size() }건 있습니다.</div>
+				<div class="mscount">${user_nick}님의 예매 취소 내역이 ${list1.size() }건 있습니다.</div>
 		
 
 				<c:forEach var="i" items="${list1 }" varStatus="status">

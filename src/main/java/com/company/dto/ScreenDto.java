@@ -1,5 +1,7 @@
 package com.company.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,19 +19,11 @@ public class ScreenDto {
 	private char scr_st_row;
 	private int scr_st_col;
 	private int scrstate_no;
+	private int bk_st_cnt;
+	
+	private List<ScreenDto> result;
+	
 
-//	mysql> desc screen;
-//	+-------------+--------------+------+-----+---------+----------------+
-//	| Field       | Type         | Null | Key | Default | Extra          |
-//	+-------------+--------------+------+-----+---------+----------------+
-//	| scr_no      | int          | NO   | PRI | NULL    | auto_increment |
-//	| tt_no       | int          | YES  | MUL | NULL    |                |
-//	| scr_name    | varchar(255) | YES  |     | NULL    |                |
-//	| scr_st_cnt  | int          | YES  |     | NULL    |                |
-//	| scr_crtdate | datetime     | YES  |     | NULL    |                |
-//	| scr_price   | int          | YES  |     | NULL    |                |
-//	| scr_st_row  | int          | YES  |     | NULL    |                |
-//	| scr_st_col  | char(1)      | YES  |     | NULL    |                |
-//	| scrstate_no | int          | YES  | MUL | NULL    |                |
-//	+-------------+--------------+------+-----+---------+----------------+
+	
+
 }

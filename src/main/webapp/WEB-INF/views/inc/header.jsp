@@ -47,7 +47,7 @@
          <h2 class="blind">주메뉴</h2>
          <ul id="gnb" class="gnb">
            <!-- 링크 -> a / 2뎁스 버튼 -> button:button -->
-           <li class="gnb__item">
+           <li class="gnb__item reservation_view">
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
@@ -81,11 +81,11 @@
              </c:choose>
                  <script>
 	                 document.addEventListener('DOMContentLoaded', function() {
-	             	    var noLoginAccessLink = document.getElementById('noLoginReservationAccess');
+	             	    let noLoginAccessLink = document.getElementById('noLoginReservationAccess');
 	             	    if (noLoginAccessLink) {
 	             	        noLoginAccessLink.addEventListener('click', function(e) {
 	             	            e.preventDefault();
-	             	            var userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	             	            let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
 	             	            if (userResponse) {
 	             	                window.location.href = noLoginAccessLink.getAttribute('href');
 	             	            }
