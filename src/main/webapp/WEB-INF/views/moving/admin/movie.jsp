@@ -13,24 +13,26 @@ pageContext.setAttribute("status", status);
 <c:choose>
    <c:when test="${activeTab == 'live'}">
       <c:set var="list" value="${liveList}" />
+	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
       <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
    </c:when>
    <c:when test="${activeTab == 'unLive'}">
       <c:set var="list" value="${unLiveList}" />
+	  <c:set var="paging" value="${unLivePaging}" />
       <c:set var="liveStatus" value="상영 중지" />
       <c:set var="btnText" value="선택 영화 상영" />
       <c:set var="emptyText" value="상영 중지된 영화가 없습니다." />
    </c:when>
    <c:otherwise>
       <c:set var="list" value="${liveList}" />
+	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
       <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
    </c:otherwise>
 </c:choose>
-<c:set var="total" value="${list.size()}" />
 
 <h2 class="blind">본문</h2>
 <div class="as_inner inner">
@@ -47,9 +49,9 @@ pageContext.setAttribute("status", status);
          <h4 class="blind">${liveStatus} 영화 목록</h4>
          <div class="search-box">
             <p class="table-summary">
-               등록된 영화 총 ${total}편
+               등록된 영화 총 ${paging.listtotal}편
                <c:if test="false">
-               		<span> | 검색된 항목: 10편</span>
+               		<span> | 검색된 항목: 0편</span>
                </c:if>
             </p>
             
@@ -99,7 +101,7 @@ pageContext.setAttribute("status", status);
 		               <c:forEach var="dto" items="${list}" varStatus="status">
 		                  <tr>
 		                     <td><label><input type="checkbox" value="${dto.mv_cd}"></label></td>
-		                     <td>${total-status.index}</td>
+		                     <td>${paging.listtotal-paging.pstartno-status.index}</td>
 		                     <td><a href="${pageContext.request.contextPath}/movieDetail.admin?mv_cd=${dto.mv_cd}">${dto.mv_ktitle} (${dto.mv_etitle})</a></td>
 		                     <td>${dto.mv_nation}</td>
 		                     <td>${dto.mv_dname}</td>
@@ -122,15 +124,23 @@ pageContext.setAttribute("status", status);
 
 	      <div class="as_inner-footer">
 	         <div class="pagination-container">
-		         <ul class="pagination">
-		            <li class="previous"><a href="#">이전</a></li>
-		            <li class="active"><a href="#">1</a></li>
-		            <li><a href="#">2</a></li>
-		            <li><a href="#">3</a></li>
-		            <li><a href="#">4</a></li>
-		            <li><a href="#">5</a></li>
-		            <li class="next"><a href="#">다음</a></li>
-		         </ul>
+				<ul class="pagination">
+					<c:if test="${paging.startPage>=paging.bottomlimit}">
+						<li class="previous">
+							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(paging.startPage-2)*paging.onepagelimit}">이전</a>
+						</li>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
+						<li <c:if test="${paging.currentPage == i}">class="active"</c:if>>
+							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(i-1)*paging.onepagelimit}">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${paging.endPage<paging.pagetotal}">
+						<li class="next">
+							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${paging.endPage*paging.onepagelimit}">다음</a>
+						</li>
+					</c:if>
+				</ul>
 	         </div>
 	
 	         <div class="btns">
