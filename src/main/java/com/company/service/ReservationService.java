@@ -15,6 +15,7 @@ import com.company.service.ReservationServiceImpl.PagingUtil;
 
 
 public interface ReservationService {
+	public void reservation_view(HttpServletRequest request,HttpServletResponse response) throws IOException;
 	public List<TheaterDto> getAllTheaterList();
 	public List<TheaterDto> getTheaterList(Reservation_ViewDto dto);
 	public List<MovieDto> getAllMovieList();
