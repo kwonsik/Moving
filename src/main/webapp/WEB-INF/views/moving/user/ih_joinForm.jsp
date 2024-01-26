@@ -75,9 +75,9 @@ $(document).ready(function() {
     // 필드 유효성 검사 함수
     function validateField(value, regex, criteriaElement) {
         if (regex.test(value)) {
-            criteriaElement.css("color", "blue").text("조건을 만족합니다.");
+            criteriaElement.css("color", "blue").text("위 조건을 만족합니다.");
         } else {
-            criteriaElement.css("color", "red");
+            criteriaElement.css("color", "red").text("위 조건을 만족하지않습니다.");
         }
     }
 });
