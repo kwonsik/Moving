@@ -34,8 +34,8 @@
 }
 
 #content {
-	margin-left: 250px;
 	padding: 20px;
+	padding-left: 270px;
 }
 
 .page {
@@ -88,11 +88,11 @@
 
 /* 영화관 관리 main 페이지 */
 /* 영화관 관리 main 페이지 */
-.page .sub_content {
-	min-height: 100vh;
-	/* 원하는 최소 높이로 조절 */
+.sub_content {
+    min-height: 74vh;
 	background-color: white;
 	border-radius: 9px;
+	padding: 32px;
 }
 
 #lists {
@@ -156,40 +156,42 @@
 	color : black;
 }
 
+#theater-management #scr-list:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
 /* 영화관 추가 페이지 */
 /* 영화관 추가 페이지 */
 #add-theater .sub_content, #revise-theater .sub_content,
 	#screen-management .sub_content, #seat-management .sub_content {
-	/* margin-top: 80px; */
 	position: relative;
-	margin-left: 30px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #add-theater h3 {
-/* 	position: absolute; */
 	font-size: 29px;
 	color: white;
 	background-color: rgb(28, 55, 31);
 	width: 400px;
 	height: 55px;
 	border: 2px solid darkgreen;
-	margin-top: 45px;
-	margin-left: 700px;
 	text-align: center;
 	padding-top: 11px;
+	margin: 0 auto;
 	border-radius: 3px;
 }
 
 #revise-theater h3, #delete-theater h3 {
-	position: absolute;
 	font-size: 29px;
 	color: white;
 	background-color: rgb(28, 55, 31);
 	width: 400px;
 	height: 55px;
 	border: 2px solid darkgreen;
-	margin-top: 45px;
-	margin-left: 700px;
+	margin: 0 auto;
 	text-align: center;
 	padding-top: 11px;
 	border-radius: 3px;
@@ -201,12 +203,7 @@
 }
 
 #add-theater-list {
-	/* position: absolute; */
 	 margin-top: 50px;
-	padding-left: 380px;
-    padding-right: 400px;
-	
-	/* margin-top: 166px; */
 }
 
 #add-theater-list .scrContents {
@@ -326,7 +323,6 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 	width: 100px;
 	height: 40px;
 	margin-top: 25px;
-	margin-left: 920px;
 	font-size: 17px;
 	font-weight: 600;
 	background-color: #1c3720;
@@ -412,13 +408,14 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 }
 
 table {
-	position: absolute;
 	border-collapse: separate;
 	border-spacing: 0;
-	width: 85%;
-	margin-top: 170px;
-	margin-left: 125px;
 	text-align: center;
+}
+
+.hy_table {
+	width: 85%;
+	margin: 40px auto 0;
 }
 
 th, td {
@@ -474,7 +471,7 @@ tbody tr:focus, tbody tr:hover {
 /* 상영관 관리 페이지 */
 #seat-management .sub_content, #screen-management .sub_content {
 	width: 85%;
-	margin-left: 130px;
+	margin: 0 auto;
 }
 
 #screen-management h4, #seat-management h4 {
@@ -491,7 +488,7 @@ tbody tr:focus, tbody tr:hover {
 /* 상영관 테이블 css */
 #sm {
 	width: 75%;
-	margin-left: 350px;
+	margin: 0 auto;
 	font-size: 20px;
 }
 
@@ -609,4 +606,7 @@ tbody tr:focus, tbody tr:hover {
 
 #seat label[class='check'] {
 	background-color: red;
+}
+.cm_btns {
+	text-align: right;
 }

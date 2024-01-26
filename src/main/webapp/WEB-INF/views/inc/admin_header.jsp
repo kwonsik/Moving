@@ -66,19 +66,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#board-management">
+                            <a class="nav-link" href="notice.admin">
                                 게시판 관리
                             </a>
                             <ul class="nav-submenu">
                                 <li><a href="notice.admin">공지사항 관리</a></li>
                             </ul> 
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#product-management">
-                                상품 관리
-                            </a>
-                        </li>
+<!--                         <li class="nav-item"> -->
+<!--                             <a class="nav-link" href="#product-management"> -->
+<!--                                 상품 관리 -->
+<!--                             </a> -->
+<!--                         </li> -->
                     </ul>
                 </div>
             </nav>
-            <div id="main" class="main">
