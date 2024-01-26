@@ -58,6 +58,15 @@ public class ReservationServiceImpl implements ReservationService {
 	ReservationDao dao;
 
 	@Override
+	public void reservation_view(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		HttpSession session=request.getSession();
+		
+		request.setAttribute("movieList",dao.getAllMovieList());
+		request.setAttribute("theaterList",dao.getAllTheaterList());
+		request.setAttribute("age_check",  dao.age_check((int)session.getAttribute("user_no")));
+	}
+	
+	@Override
 	public List<TheaterDto> getAllTheaterList() {
 		return dao.getAllTheaterList();
 	}
@@ -499,6 +508,8 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		return responBody;
 	}
+
+	
 	
 
 }

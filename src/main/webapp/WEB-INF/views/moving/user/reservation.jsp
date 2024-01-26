@@ -22,7 +22,7 @@
 	<h2 class="blind">영화예매</h2>
 	<form action="seat_view.ks" method="post" id="reservationForm">
 	<input type="text" class="blind" id="sch_no" name="sch_no" value="">
-	
+	<input type="text" class="blind" id="age_check" name="age_check" value="${age_check }">
 		<div id="reservation" class="ks reservation">
 			<div class="title">
 				<h4>영화예매</h4>
@@ -109,9 +109,15 @@
 			
 			
 			$(document).on("click",".movie", function() {
-				console.log($(this).val());
-				console.log($(this).offset().top);
-				if($(this).offset().top>=700){
+				let age_check=$("#age_check").val();
+				let mv_cert=Number($(this).parent().attr("data-cert"))*365;
+				if(age_check<mv_cert){
+					alert('회원님의 나이로는 관람불가능한 영화입니다');
+					return false;
+				}
+				
+				
+				if($(this).offset().top>702){
 					$(".movieList").scrollTop($(this).offset().top-282);
 					}
 				
@@ -397,12 +403,11 @@
 				let movie=$(".movieList .selected input").val();
 				let date=$(".dateList .selected input").val();
 				let schedule=$(".scheduleList .selected button").val();
-				console.log(theater+"/"+movie+"/"+date+"/"+schedule);
+				
 				let array1=new Array();
 				let array2=["영화관","영화","날짜","상영스케쥴"];
 				array1.push(theater);array1.push(movie);array1.push(date);array1.push(schedule);
-				console.log(array1);
-				console.log(array2);
+
 				
 				for(let i=0;i<array1.length;i++){
 					if(array1[i]==null){
