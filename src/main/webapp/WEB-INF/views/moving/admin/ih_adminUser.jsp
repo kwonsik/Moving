@@ -42,13 +42,12 @@ $(document).ready(function() {
         });
     });
 });
-
 </script>
 <div class="ih_adminUser">
 
 <div class="container panel-warning">
-<form action="adminDeleteUser.admin" method="POST" style="overflow: auto; height: 800px;">
- 	<table  class="table table-striped usertable">
+<form action="adminDeleteUser.admin" method="POST" style="overflow:auto; height:800px;">
+ 	<table  class="table table-striped usertable" style="margin: 50px auto; width: 1200px;">
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
@@ -69,7 +68,7 @@ $(document).ready(function() {
 		
 		</tbody>
  		</table>
-<button id="deleteSelected" class="btn btn-danger">선택 삭제</button>
+<button id="deleteSelected" class="btn btn-danger" style="margin-top:10px; float:left;">선택 삭제</button>
 </form>
  	</div>	
 </div>
