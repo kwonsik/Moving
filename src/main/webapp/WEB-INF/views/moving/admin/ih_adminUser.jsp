@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 <div class="panel-warning">
 <form action="adminDeleteUser.admin" method="POST" style="overflow:auto; height:800px;">
- 	<table  class="table table-striped usertable" style="margin: 50px auto; width: 1200px;">
+ 	<table  class="table table-striped usertable" style="margin: 50px auto;">
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
