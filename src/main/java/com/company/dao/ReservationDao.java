@@ -13,6 +13,7 @@ import com.company.dto.*;
 
 @MyDao
 public interface ReservationDao {
+	public int age_check(int user_no);
 	public List<TheaterDto> getAllTheaterList();
 	public List<TheaterDto> getTheaterList(Reservation_ViewDto dto);
 	public List<MovieDto> getAllMovieList();
