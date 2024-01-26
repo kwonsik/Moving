@@ -146,18 +146,25 @@ $(function(){
 
 				if (result.includes("예매")) {
 					if(${user_no!=null}){location.href='reservation_view.ks';}
-					else{location.href='loginPage.ih';}
+					else{
+						let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+         	            if (userResponse) {
+         	            	location.href='loginPage.ih';
+         	            }
+					}
 					
-				} else if (result.includes("영화")) {				
-					location.href='movie.as';			
 				} else if (result.includes("영화관")) {
 					location.href='theater_user_view.shj';			
-				} else if (result.includes("공지사항")) {
+				} else if (result.includes("영화")) {				
+					location.href='movie.as';			
+				}  else if (result.includes("공지사항")) {
 					location.href='notice.as';			
 				} else if (result.includes("로그인")) {
 					location.href='loginPage.ih';			
-				} else if (result.includes("회원가입")) {
+				} else if (result.includes("회원 가입")) {
 					location.href='joinForm.ih';			
+				} else if (result.includes("로그아웃")) {
+					location.href='logout.ih';			
 				}
 				else {
 					alert("다시 말해주세요");
