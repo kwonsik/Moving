@@ -47,7 +47,7 @@
          <h2 class="blind">주메뉴</h2>
          <ul id="gnb" class="gnb">
            <!-- 링크 -> a / 2뎁스 버튼 -> button:button -->
-           <li class="gnb__item">
+           <li class="gnb__item reservation_view">
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>

@@ -436,7 +436,7 @@ public class ReservationServiceImpl implements ReservationService {
         Thread.sleep(3 * 1000);
         mr.stop();
         Thread.sleep(1000);
-
+        System.out.println(rootPath);
 //        //save
 //        WaveData wd = new WaveData();
 //        Thread.sleep(3000);
