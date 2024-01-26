@@ -27,7 +27,7 @@ public class FrontController {
 	SchService service;
 
 	// ������
-	@GetMapping("/admin.shj")
+	@GetMapping("/schedule-management.admin")
 	public String adminPage(Model model) {
 		System.out.println(".... admin����");
 		model.addAttribute("theaterList", service.theaterList());
