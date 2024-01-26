@@ -34,123 +34,128 @@ pageContext.setAttribute("status", status);
    </c:otherwise>
 </c:choose>
 
-<h2 class="blind">본문</h2>
-<div class="as_inner inner">
-   <h3>영화 목록</h3>
-   <div class="as_movie-list">
-      <div class="as_movie-tab">
-         <ul class="as_movie-tablist">
-            <li class="as_movie-tabitem ${activeTab == 'live'?'is-active':''}"><a href="?status=live">상영중인 영화</a></li>
-            <li class="as_movie-tabitem ${activeTab == 'unLive'?'is-active':''}"><a href="?status=unLive">상영 중지 영화</a></li>
-         </ul>
-      </div>
-
-      <div class="as_movie-tabpanel">
-         <h4 class="blind">${liveStatus} 영화 목록</h4>
-         <div class="search-box">
-            <p class="table-summary">
-               등록된 영화 총 ${paging.listtotal}편
-               <c:if test="false">
-               		<span> | 검색된 항목: 0편</span>
-               </c:if>
-            </p>
-            
-            <div class="search-group">
-               <label>
-                  <select id="genre" class="form-control">
-                  	<option value="allGenre" selected>전체 장르</option>
-                     <c:forEach var="genre" items="${genres}">
-				        <option value="${genre}">${genre}</option>
-				     </c:forEach>
-                  </select>
-               </label>
-
-               <label>
-                  <input type="text" class="form-control" id="as_sch-key" placeholder="제목/감독명을 입력해주세요.">
-               </label>
-               <button type="button" class="btn btn-primary">검색</button>
-            </div>
-         </div>
-         
-         <table class="table table-hover as_table as_list-table">
-            <colgroup>
-               <col class="col4">
-               <col class="col4">
-               <col class="colA">
-               <col class="col16">
-               <col class="col8">
-               <col class="col8">
-               <col class="col12">
-               <col class="col8">
-            </colgroup>
-            <thead>
-               <tr>
-               	  <th scope="col"><label><input type="checkbox" value="allChk" class="all-check"></label></th>
-                  <th scope="col">No</th>
-                  <th scope="col">영화 제목 (원어)</th>
-                  <th scope="col">국가</th>
-                  <th scope="col">감독</th>
-                  <th scope="col">개봉일</th>
-                  <th scope="col">장르</th>
-                  <th scope="col">관람 등급</th>
-               </tr>
-            </thead>
-            <tbody>
-            	<c:choose>
-				   <c:when test="${list.size() > 0}">
-		               <c:forEach var="dto" items="${list}" varStatus="status">
-		                  <tr>
-		                     <td><label><input type="checkbox" value="${dto.mv_cd}"></label></td>
-		                     <td>${paging.listtotal-paging.pstartno-status.index}</td>
-		                     <td><a href="${pageContext.request.contextPath}/movieDetail.admin?mv_cd=${dto.mv_cd}">${dto.mv_ktitle} (${dto.mv_etitle})</a></td>
-		                     <td>${dto.mv_nation}</td>
-		                     <td>${dto.mv_dname}</td>
-		                     <td>${dto.mv_start}</td>
-		                     <td>${dto.movie_genre}</td>
-		                     <td>${dto.mv_cert}</td>
-		                  </tr>
-		               </c:forEach>
-				   </c:when>
-				   <c:otherwise>
-			            <tr>
-			               <td colspan="8" class="is-empty">
-			                  <p>${emptyText}</p>
-			               </td>
-			            </tr>
-				   </c:otherwise>
-            	</c:choose>
-            </tbody>
-         </table>
-
-	      <div class="as_inner-footer">
-	         <div class="pagination-container">
-				<ul class="pagination">
-					<c:if test="${paging.startPage>=paging.bottomlimit}">
-						<li class="previous">
-							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(paging.startPage-2)*paging.onepagelimit}">이전</a>
-						</li>
-					</c:if>
-					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
-						<li <c:if test="${paging.currentPage == i}">class="active"</c:if>>
-							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(i-1)*paging.onepagelimit}">${i}</a>
-						</li>
-					</c:forEach>
-					<c:if test="${paging.endPage<paging.pagetotal}">
-						<li class="next">
-							<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${paging.endPage*paging.onepagelimit}">다음</a>
-						</li>
-					</c:if>
-				</ul>
-	         </div>
-	
-	         <div class="btns">
-	            <a href="movieAdd.admin" class="btn btn-danger">영화 추가 페이지로</a>
-	            <button type="button" class="btn btn-primary btn-state-change">${btnText}</button>
-	         </div>
-	      </div>
-      </div>
-   </div>
-</div>
+<main id="content">
+	<div class="page">
+		<h2>영화 목록</h2>
+		<div class="sub_content">
+			<div class="as_inner inner">
+			   <div class="as_movie-list">
+			      <div class="as_movie-tab">
+			         <ul class="as_movie-tablist">
+			            <li class="as_movie-tabitem ${activeTab == 'live'?'is-active':''}"><a href="?status=live">상영중인 영화</a></li>
+			            <li class="as_movie-tabitem ${activeTab == 'unLive'?'is-active':''}"><a href="?status=unLive">상영 중지 영화</a></li>
+			         </ul>
+			      </div>
+			
+			      <div class="as_movie-tabpanel">
+			         <h3 class="blind">${liveStatus} 영화 목록</h3>
+			         <div class="search-box">
+			            <p class="table-summary">
+			               등록된 영화 총 ${paging.listtotal}편
+			               <c:if test="false">
+			               		<span> | 검색된 항목: 0편</span>
+			               </c:if>
+			            </p>
+			            
+			            <div class="search-group">
+			               <label>
+			                  <select id="genre" class="form-control">
+			                  	<option value="allGenre" selected>전체 장르</option>
+			                     <c:forEach var="genre" items="${genres}">
+							        <option value="${genre}">${genre}</option>
+							     </c:forEach>
+			                  </select>
+			               </label>
+			
+			               <label>
+			                  <input type="text" class="form-control" id="as_sch-key" placeholder="제목/감독명을 입력해주세요.">
+			               </label>
+			               <button type="button" class="btn btn-primary">검색</button>
+			            </div>
+			         </div>
+			         
+			         <table class="table table-hover as_table as_list-table">
+			            <colgroup>
+			               <col class="col4">
+			               <col class="col4">
+			               <col class="colA">
+			               <col class="col16">
+			               <col class="col8">
+			               <col class="col8">
+			               <col class="col12">
+			               <col class="col8">
+			            </colgroup>
+			            <thead>
+			               <tr>
+			               	  <th scope="col"><label><input type="checkbox" value="allChk" class="all-check"></label></th>
+			                  <th scope="col">No</th>
+			                  <th scope="col">영화 제목 (원어)</th>
+			                  <th scope="col">국가</th>
+			                  <th scope="col">감독</th>
+			                  <th scope="col">개봉일</th>
+			                  <th scope="col">장르</th>
+			                  <th scope="col">관람 등급</th>
+			               </tr>
+			            </thead>
+			            <tbody>
+			            	<c:choose>
+							   <c:when test="${list.size() > 0}">
+					               <c:forEach var="dto" items="${list}" varStatus="status">
+					                  <tr>
+					                     <td><label><input type="checkbox" value="${dto.mv_cd}"></label></td>
+					                     <td>${paging.listtotal-paging.pstartno-status.index}</td>
+					                     <td><a href="${pageContext.request.contextPath}/movieDetail.admin?mv_cd=${dto.mv_cd}">${dto.mv_ktitle} (${dto.mv_etitle})</a></td>
+					                     <td>${dto.mv_nation}</td>
+					                     <td>${dto.mv_dname}</td>
+					                     <td>${dto.mv_start}</td>
+					                     <td>${dto.movie_genre}</td>
+					                     <td>${dto.mv_cert}</td>
+					                  </tr>
+					               </c:forEach>
+							   </c:when>
+							   <c:otherwise>
+						            <tr>
+						               <td colspan="8" class="is-empty">
+						                  <p>${emptyText}</p>
+						               </td>
+						            </tr>
+							   </c:otherwise>
+			            	</c:choose>
+			            </tbody>
+			         </table>
+			
+				      <div class="as_inner-footer">
+				         <div class="pagination-container">
+							<ul class="pagination">
+								<c:if test="${paging.startPage>=paging.bottomlimit}">
+									<li class="previous">
+										<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(paging.startPage-2)*paging.onepagelimit}">이전</a>
+									</li>
+								</c:if>
+								<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
+									<li <c:if test="${paging.currentPage == i}">class="active"</c:if>>
+										<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${(i-1)*paging.onepagelimit}">${i}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${paging.endPage<paging.pagetotal}">
+									<li class="next">
+										<a href="${pageContext.request.contextPath}/movie.admin?status=${activeTab}&pstartno=${paging.endPage*paging.onepagelimit}">다음</a>
+									</li>
+								</c:if>
+							</ul>
+				         </div>
+				
+				         <div class="btns">
+				            <a href="movieAdd.admin" class="btn btn-danger">영화 추가 페이지로</a>
+				            <button type="button" class="btn btn-primary btn-state-change">${btnText}</button>
+				         </div>
+				      </div>
+			      </div>
+			   </div>
+			</div>
+		</div>
+	</div>
+</main>
 
 <script>
 $(function(){

@@ -44,9 +44,13 @@ $(document).ready(function() {
 });
 
 </script>
+<main id="content">
+<div class="page">
+<h2>회원 관리</h2>
+<div class="sub_content">
 <div class="ih_adminUser">
 
-<div class="container panel-warning">
+<div class="panel-warning">
 <form action="adminDeleteUser.admin" method="POST">
  	<table  class="table table-striped usertable">
 		<thead>
@@ -69,8 +73,13 @@ $(document).ready(function() {
 		
 		</tbody>
  		</table>
-<button id="deleteSelected" class="btn btn-danger">선택 삭제</button>
+ 		<div class="cm_btns">
+			<button id="deleteSelected" class="btn btn-danger">선택 삭제</button>
+		</div>
 </form>
  	</div>	
 </div>
+</div>
+</div>
+</main>
 <%@ include file="../../inc/admin_footer.jsp"%>

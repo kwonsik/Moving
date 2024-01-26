@@ -11,7 +11,7 @@
                         <h4 data-tt_name="${dto.tt_name}">${dto.tt_name}</h4>
                         <hr>
 
-                        <table id="sm" data-scr_no="${dto.scr_no}" data-scrstate_no="${dto.scrstate_no}">
+                        <table class="hy_table" id="sm" data-scr_no="${dto.scr_no}" data-scrstate_no="${dto.scrstate_no}">
                         	<tr>
                         		<th></th> 
                         		<th id="data2" data-scr_name="${dto.scr_name}" >${dto.scr_name}</th>

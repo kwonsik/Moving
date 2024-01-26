@@ -17,7 +17,7 @@
 	<h2 class="blind">관리자 예매 관리</h2>	
 		<div class="ks reservation_management">
 			<div class="title"><h4>전체 예매 목록</h4></div>
-			<div class="rmcontent">
+			<div class="sub_content">
 				<p>
 			총 예매 - <span>${paging.listTotal }건</span>
 		</p>
