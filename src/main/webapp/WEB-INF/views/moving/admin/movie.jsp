@@ -51,7 +51,7 @@ pageContext.setAttribute("status", status);
             <p class="table-summary">
                등록된 영화 총 ${paging.listtotal}편
                <c:if test="false">
-               		<span> | 검색된 항목: ${검색된항목수}편</span>
+               		<span> | 검색된 항목: 0편</span>
                </c:if>
             </p>
             
