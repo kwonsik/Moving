@@ -144,12 +144,9 @@ li{list-style-type:none; }
     text-align: center;
     margin-top: 100px;
     max-width: 490px;
-    height: 450px;
-    
 }
 .ih__loginPage h2{
 	text-align: left;
-	margin-left: 10px;
 	margin-bottom: 20px;
 	width: 129px;
 	border-bottom: 5px solid #40dfd0;
