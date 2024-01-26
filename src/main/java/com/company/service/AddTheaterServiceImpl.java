@@ -13,45 +13,48 @@ public class AddTheaterServiceImpl implements AddTheaterService{
 
 	@Override
 	public int ttInsert(TheaterDto dto) {
-		
-		return 0;
+		return dao.ttInsert(dto);
 	}
 
 	@Override
 	public TheaterDto readTT(TheaterDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.readTT(dto);
 	}
 
 	@Override
 	public int scrInsert(ScreenDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.scrInsert(dto);
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Override
-	public int insertTheaterAndScreen(TheaterDto dto) {
+	public int ttAndscrInsert(TheaterDto dto) {
+		int result = 0; //
 		char startRow = 'A';
 		int startColumn = 1;
+		
 		dto.setTt_scrcnt(dto.getScreenList().size());
+		
+		//1. 영화관 추가 
 		dao.ttInsert(dto);
 		
 		for(ScreenDto scr : dto.getScreenList()) {
-			scr.setTt_no(dao.insertNowTheater());
+			//방금 추가된 영화관 tt_no가져온 걸 scrDto의 tt_no에다 넣기
+			scr.setTt_no(dao.insertNowTheater());   
 
 			char endRow = scr.getScr_st_row();
 			int endColumn = scr.getScr_st_col();
 			int rowCount = endRow - startRow + 1;
 			int columnCount = endColumn - startColumn + 1;
-			System.out.println(rowCount * columnCount);
+			System.out.println(rowCount * columnCount);  //총 좌석 수 
 			
 			scr.setScr_st_cnt(rowCount * columnCount);
+			
 			dao.scrInsert(scr);
+			
 		}
 		
-		return 0;
+		return result;
 	}
+	
 	
 	
 	

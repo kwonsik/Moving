@@ -4,6 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+ 		<typeAlias type="com.company.dto.TTandScrDto" alias="TTandScrDto"/> 
+ 		<typeAlias type="com.company.dto.BrokenSeatDto" alias="BrokenSeatDto"/> 
 		<typeAlias type="com.company.dto.MovieDto"  alias="MovieDto"/> 
 		<typeAlias type="com.company.dto.BoardDto"  alias="BoardDto"/> 
 		<typeAlias type="com.company.dto.TheaterDto"  alias="TheaterDto"/>
@@ -16,12 +18,7 @@
 		<typeAlias type="com.company.dto.UserDto"  alias="UserDto"/>
 		<typeAlias type="com.company.dto.UserDtoXml"  alias="UserDtoXml"/>
 		<typeAlias type="com.company.dto.UsertypeDto"  alias="UsertypeDto"/>
-		
-
-			
-
 		<typeAlias type="com.company.dto.ScheduleResultDto"
 			alias="ScheduleResultDto" />
-			
 	</typeAliases>
 </configuration>

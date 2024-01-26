@@ -19,21 +19,7 @@ public class TheaterDto {
 	private String tt_img;
 	private String tt_address;
 	private String tt_crtdate;
-	private int total_st_cnt;
+	
 	List<ScreenDto> screenList;
 	
-//	mysql> desc theater;
-//	+------------+--------------+------+-----+---------+----------------+
-//	| Field      | Type         | Null | Key | Default | Extra          |
-//	+------------+--------------+------+-----+---------+----------------+
-//	| tt_no      | int          | NO   | PRI | NULL    | auto_increment |
-//	| tt_name    | varchar(255) | YES  |     | NULL    |                |
-//	| tt_tel     | varchar(255) | YES  |     | NULL    |                |
-//	| tt_start   | time         | YES  |     | NULL    |                |
-//	| tt_close   | time         | YES  |     | NULL    |                |
-//	| tt_scrcnt  | int          | YES  |     | NULL    |                |
-//	| tt_img     | varchar(255) | YES  |     | NULL    |                |
-//	| tt_address | varchar(255) | YES  |     | NULL    |                |
-//	| tt_crtdate | datetime     | YES  |     | NULL    |                |
-//	+------------+--------------+------+-----+---------+----------------+
 }

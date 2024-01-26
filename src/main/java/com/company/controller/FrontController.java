@@ -177,7 +177,7 @@ public class FrontController {
         System.out.println("... �߰����ּ���");
         System.out.println(dto);
         
-        ATservice.insertTheaterAndScreen(dto);
+        //ATservice.insertTheaterAndScreen(dto);
 
         // ������ ���� ����
 
