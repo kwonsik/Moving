@@ -74,11 +74,25 @@
              <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
                  </a></c:when>
-             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__2depth-link">
+             <c:when test="${user_no==null }">
+             	   <a href="loginPage.ih" class="gnb__2depth-link" id="noLoginReservationAccess">
                    <span>예매/취소 내역</span>
                  </a></c:when>
              </c:choose>
-                 
+                 <script>
+	                 document.addEventListener('DOMContentLoaded', function() {
+	             	    var noLoginAccessLink = document.getElementById('noLoginReservationAccess');
+	             	    if (noLoginAccessLink) {
+	             	        noLoginAccessLink.addEventListener('click', function(e) {
+	             	            e.preventDefault();
+	             	            var userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	             	            if (userResponse) {
+	             	                window.location.href = noLoginAccessLink.getAttribute('href');
+	             	            }
+	             	        });
+	             	    }
+	             	});
+                 </script>
                </li>
               <li class="gnb__2depth-item">
                   <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
