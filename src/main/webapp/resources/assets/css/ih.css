@@ -16,7 +16,7 @@ li{list-style-type:none; }
     font-size: 105%;
 }
 .ih__joinForm *{
-    font-size: 102%;
+    font-size: 18px;
 }
 .ih__joinForm .title{
 	margin-left: 70px;
@@ -38,7 +38,7 @@ li{list-style-type:none; }
 .ih__joinForm label {
     display: block;
     height: 30px;
-    margin : 30px 0px 0px 10px;
+    margin : 30px 0px 0px 0;
 }
 .ih__joinForm input[type="text"], 
 .ih__joinForm input[type="password"], 
@@ -63,7 +63,7 @@ li{list-style-type:none; }
 }
 .ih__joinForm .agreement {
     display: block;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .ih__joinForm .agreement label {
     display: inline-block;
@@ -104,9 +104,21 @@ li{list-style-type:none; }
 .ih__joinForm .form-class input[type="button"]{
 	margin-left: 30px;
 }
+.ih__joinForm .agreement .checkbox-box {
+	margin-top: 16px;
+}
 .ih__joinForm .agreement :nth-child(3){
-	margin-top: 23px;
+	font-size: inherit;
 	text-align: center;
+}
+.ih__joinForm .terms * {
+	font-size: 15px;
+}
+.ih__joinForm .checkbox-box--all {
+	border-top: 1px solid #dcdcdc;
+}
+.ih__joinForm .checkbox-box--all label{
+ 	margin-top: 30px;
 }
 .ih__joinForm input[type="button"],
 .ih__joinForm .button-class > *{
@@ -116,7 +128,7 @@ li{list-style-type:none; }
 }
 .ih__joinForm .button-class{
 	display: block;
-	margin-top:10px;
+	margin-top:30px;
 }
 .ih__joinForm .button-class :nth-child(2){
 	background-color: #40dfd0;
