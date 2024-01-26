@@ -101,8 +101,9 @@
 }
 
 #lists hr {
-	background-color: rgb(224, 224, 224);
-	height: 1.8px;
+	background-color: #245229;
+    height: 1.8px;
+    margin-left: 14px;
 }
 
 #tt-list {
@@ -125,7 +126,7 @@
 	margin-left: 5px;
 }
 
-#scr-list li {
+.screenlists li {
 	font-size: 22px;
 	font-weight: 500;
 	text-align: center;
@@ -134,7 +135,7 @@
     border: 2.5px solid #2b5a30;
 }
 
-#scr-list li:hover, #scr-list li:focus {
+#screenlists li :hover, #screenlists li:focus {
 	background-color: #bacfb1;
 	cursor: pointer;
 	
@@ -149,12 +150,10 @@
 	margin: 0 3px 0 3px;
 	display: block;
 	width: 200px;
-	line-height: 80px;
+	font-weight: 500;
 }
 
-.screenlists li a{
-	color : black;
-}
+
 
 /* 영화관 추가 페이지 */
 /* 영화관 추가 페이지 */
@@ -580,7 +579,7 @@ tbody tr:focus, tbody tr:hover {
 
 #seat {
 	margin-top: 150px;
-	margin-left: 560px;
+	margin-left: 440px;
 }
 
 #seat label {
