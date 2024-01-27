@@ -276,7 +276,7 @@ $(document).ready(function () {
 
             // 서버로 상영시간표 추가 요청 보내기
             $.ajax({
-                url: 'addSchedule.shj', 
+                url: 'addSchedule.admin', 
                 method: 'POST',
                 data: {
                     scr_no: screenNo,
@@ -340,7 +340,7 @@ $(document).ready(function () {
         let selectedTheaterNo = theaterSelect.val();
 
         $.ajax({
-            url: 'getScreenList.shj',
+            url: 'getScreenList.admin',
             method: 'GET',
             data: { tt_no : selectedTheaterNo },
             dataType: 'json',
@@ -364,7 +364,7 @@ $(document).ready(function () {
     function updateMovieOptions() {
         let movieSelect = $('#movie-select');
         $.ajax({
-            url: 'getMovieList.shj',
+            url: 'getMovieList.admin',
             method: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -382,7 +382,7 @@ $(document).ready(function () {
     // 상영시간표 업데이트
     function updateMovieSchedule(theaterNo, selectedDate) {
         $.ajax({
-            url: 'scheduleListAdmin.shj',
+            url: 'scheduleListAdmin.admin',
             method: 'GET',
             data: { theaterNo: theaterNo, date: selectedDate },
             dataType: 'json',
@@ -416,7 +416,7 @@ $(document).ready(function () {
     // 상영시간표 삭제
     function deleteMovieSchedule(scheduleNo, $this) {
         $.ajax({
-            url: 'deleteSchedule.shj',
+            url: 'deleteSchedule.admin',
             method: 'POST',
             data: { sch_no: scheduleNo },
             dataType: 'json',
@@ -442,7 +442,7 @@ $(document).ready(function () {
 
         // 영화관 정보 가져오기
         $.ajax({
-            url: 'getTheaterInfo.shj',
+            url: 'getTheaterInfo.admin',
             method: 'GET',
             data: { tt_no: selectedTheaterNo },
             dataType: 'json',
@@ -498,7 +498,7 @@ $(document).ready(function () {
             let selectedTheaterNo = theaterSelect.val();
 
             $.ajax({
-                url: 'getTheaterInfo.shj',
+                url: 'getTheaterInfo.admin',
                 method: 'GET',
                 data: { tt_no: selectedTheaterNo },
                 dataType: 'json',

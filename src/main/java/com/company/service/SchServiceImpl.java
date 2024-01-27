@@ -40,7 +40,7 @@ public class SchServiceImpl implements SchService {
 
 	@Override
 	public String scheduleList(Map<String, Object> map) {
-		// �󿵽ð�ǥ�� �������� �󿵽ð�ǥ ���� ������Ʈ
+		// 
 		int result = dao.updateScheduleState();
 		System.out.println(result);
 
@@ -48,7 +48,7 @@ public class SchServiceImpl implements SchService {
 		System.out.println(list);
 		List<MovieDto> movieNameList = dao.scheduleMovieList(map);
 
-		// ��ȯ�� ������ �������� ����
+		// 
 		List<Map<String, Object>> convertedData = new ArrayList<>();
 		for (MovieDto movie : movieNameList) {
 			Map<String, Object> movieMap = new HashMap<>();
@@ -61,7 +61,7 @@ public class SchServiceImpl implements SchService {
 					Map<String, Object> schedule = new HashMap<>();
 					schedule.put("section", scheduleResultDto.getScr_name());
 
-					// �ð� ���� ����
+					//
 					SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm:ss");
 					SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 
@@ -90,7 +90,7 @@ public class SchServiceImpl implements SchService {
 		return json;
 	}
 
-	// ������
+	// 
 	@Override
 	public List<ScheduleResultDto> scheduleListAdmin(Map<String, Object> map) {
 		int result = dao.updateScheduleState();
@@ -100,11 +100,15 @@ public class SchServiceImpl implements SchService {
 	@Override
 	public int insertScheduleAction(ScheduleDto dto) {
 		int result = -1;
+		
+		System.out.println("유효데이터 확인 : " +dao.isValidDataForInsert(dto));
+		
 		if (dao.isValidDataForInsert(dto) == 0) {
-			dto.setSch_cnt(dto.getSch_cnt() - dao.brokenSeatCnt(dto.getScr_no())); // Ƽ�� �ż� ����
+			dto.setSch_cnt(dto.getSch_cnt() - dao.brokenSeatCnt(dto.getScr_no())); // 
 
 			result = dao.insertSchedule(dto);
 		}
+		System.out.println("인서트 결과 : "+result);
 
 		return result;
 	}

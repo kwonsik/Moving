@@ -22,24 +22,22 @@ import com.company.service.SchService;
 import com.google.gson.Gson;
 
 @Controller
-public class FrontController {
+public class ScheduleController {
 	@Autowired
 	SchService service;
 
-	// ������
+	// 관리자
 	@GetMapping("/schedule-management.admin")
 	public String adminPage(Model model) {
-		System.out.println(".... admin����");
 		model.addAttribute("theaterList", service.theaterList());
 
 		return "schedule_management";
 	}
 
-	@RequestMapping(value = "/scheduleListAdmin.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/scheduleListAdmin.admin", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String scheduleListAdmin(@RequestParam("theaterNo") int no, @RequestParam("date") String date) {
 		Map<String, Object> map = new HashMap<>();
-		System.out.println(".... �󿵽ð�ǥ �����ּ���");
 
 		map.put("theaterNo", no);
 		map.put("date", date);
@@ -51,20 +49,18 @@ public class FrontController {
 		return json;
 	}
 
-	@RequestMapping(value = "/deleteSchedule.shj", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteSchedule.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteSchedule(ScheduleDto dto) {
-		System.out.println(".... �󿵽ð�ǥ ���� �����ּ���");
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", service.deleteSchedule(dto));
 
 		return result;
 	}
 
-	@RequestMapping(value = "/getMovieList.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/getMovieList.admin", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getMovieList(ScheduleDto dto) {
-		System.out.println(".... ��ȭ����Ʈ �����ּ���");
 
 		Gson gson = new Gson();
 		String json = gson.toJson(service.getMovieList());
@@ -72,10 +68,9 @@ public class FrontController {
 		return json;
 	}
 	
-	@RequestMapping(value = "/getScreenList.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/getScreenList.admin", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getScreenListByTheater(ScreenDto dto) {
-		System.out.println(".... �󿵰�����Ʈ �����ּ���");
 		System.out.println(dto);
 
 		Gson gson = new Gson();
@@ -85,20 +80,19 @@ public class FrontController {
 		return json;
 	}
 	
-	@RequestMapping(value = "/getTheaterInfo.shj", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/getTheaterInfo.admin", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getTheaterHours(TheaterDto dto) {
-		System.out.println(".... ��ȭ�� ��ð� �����ּ���");
 
 		Gson gson = new Gson();
 		String json = gson.toJson(service.getTheaterHours(dto));
 		return json;
 	}
 	
-	@RequestMapping(value = "/addSchedule.shj", method = RequestMethod.POST)
+	@RequestMapping(value = "/addSchedule.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addSchedule(ScheduleDto dto) {
-		System.out.println(".... �󿵽ð�ǥ �߰� �����ּ���");
+		System.out.println(".... 상영관 추가해주세요");
 		System.out.println(dto);
 		Map<String, Object> result = new HashMap<>();
 		
@@ -108,7 +102,7 @@ public class FrontController {
 	}
 	
 	
-	// ����� /////////////////////////////////////////////
+	// 사용자 /////////////////////////////////////////////
 	@GetMapping("/theater_user_view.shj")
 	public String theater_user_view(Model model) {
 
@@ -134,54 +128,6 @@ public class FrontController {
 		return service.scheduleList(map);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////////
-	// hy
 	
-	@Autowired
-	TheaterManageDao dao;
-	
-	@Autowired
-	AddTheaterService ATservice;
-	
-	
-	@RequestMapping(value="/theater-list.hy", method=RequestMethod.GET)
-	public String theaterList(Model model) {
-		model.addAttribute("theaterList", dao.theaterReadAll());
-		
-		return "theater_management";
-	}
-	
-	
-	//��ȭ�� ��� - �󿵰� ����Ʈ ajax�� �޾ƿ�
-	@RequestMapping(value="/screen-list.hy", method=RequestMethod.GET ,produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String screenList() {
-		System.out.println(".... ajax");
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(dao.screenReadAll());
-		System.out.println(json);
-		
-		return json;
-	}
-	
-	
-	@RequestMapping(value="/add-theater.hy", method=RequestMethod.GET)
-	public String addTheaterView() {
-		return "add_theater";
-	}
-	
-	
-	@RequestMapping(value = "/add-theater.hy", method = RequestMethod.POST)
-    public String addTheater(@ModelAttribute TheaterDto dto) {
-        System.out.println("... �߰����ּ���");
-        System.out.println(dto);
-        
-        //ATservice.insertTheaterAndScreen(dto);
-
-        // ������ ���� ����
-
-        return "redirect:theater-list.hy";
-    }
 	
 }
