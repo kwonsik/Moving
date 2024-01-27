@@ -35,6 +35,7 @@ public class SchServiceImpl implements SchService {
 		String json = "";
 		Gson gson = new Gson();
 		json = gson.toJson(dao.theaterDetail(dto));
+		System.out.println(json);
 		return json;
 	}
 

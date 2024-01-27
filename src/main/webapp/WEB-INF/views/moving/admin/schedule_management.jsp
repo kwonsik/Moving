@@ -12,7 +12,8 @@
 			<button id="add-schedule-btn" class="btn btn-info"
 				style="float: right">추가</button>
 		</h2>
-
+		
+	<div class="sub_content">
 		<div id="theater-selection">
 			<h2>영화관 선택</h2>
 			<div class="theater-list">
@@ -30,7 +31,7 @@
 			</div>
 		</div>
 
-		<div class="sub_content">
+		
 			<h2>날짜 선택</h2>
 			<div id="date-list">
 				<!-- 7일 동안의 날짜를 나타내는 버튼들이 여기에 표시됨 -->

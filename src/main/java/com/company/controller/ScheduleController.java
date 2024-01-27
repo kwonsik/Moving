@@ -113,7 +113,7 @@ public class ScheduleController {
 	@RequestMapping(value = "/theaterDetail.shj", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String theaterDetail(TheaterDto dto) {
-
+		System.out.println(service.theaterDetail(dto));
 		return service.theaterDetail(dto);
 	}
 
