@@ -59,4 +59,6 @@ public interface IhDao {
 	//⑨이메일 중복체크
 	public int emailCheck (UserDto user_mail);
 	
+	// 마이페이지 현재 비번입력검증
+	public int originalPasswordCheck (UserDto user_id);
 }
