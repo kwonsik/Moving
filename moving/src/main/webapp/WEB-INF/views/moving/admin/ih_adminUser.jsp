@@ -50,8 +50,8 @@ $(document).ready(function() {
 <div class="ih_adminUser">
 
 <div class="panel-warning">
-<form action="adminDeleteUser.admin" method="POST" style="overflow:auto; height:800px;">
- 	<table  class="table table-striped usertable" style="margin: 50px auto; width: 1200px;">
+<form action="adminDeleteUser.admin" method="POST" style="overflow: auto; height: 800px;">
+ 	<table  class="table table-striped usertable">
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
@@ -73,7 +73,7 @@ $(document).ready(function() {
 		</tbody>
  		</table>
 
- 		<div class="cm_btns">
+ 		<div class="cm_btns" id="deleteSelectedDiv">
 			<button id="deleteSelected" class="btn btn-danger">선택 삭제</button>
 		</div>
 </form>

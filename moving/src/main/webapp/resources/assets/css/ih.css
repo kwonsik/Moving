@@ -219,8 +219,7 @@ li{list-style-type:none; }
     padding: 20px;
     box-sizing: border-box;
     font-size: 130%;
-    margin-left: 745px;
-    margin-top: 150px;
+	margin: 150px auto;
 }
 
 .ih_preMyUpdatePage .head {
@@ -352,7 +351,7 @@ li{list-style-type:none; }
 /*************** findId ***************/
 .ih__findId {
     position: relative;
-    margin: 120px auto 0;
+    margin: 170px auto 100px;
     width: 400px;
     font-size: 120%;
     border: 1px solid black;
@@ -393,8 +392,7 @@ li{list-style-type:none; }
 }
 /*************** 찾은아이디결과창 ***************/
 .ih__findId2 {
-    margin: 150px auto;
-    
+    margin: 170px auto 100px;
     width: 400px;
     font-size: 120%;
     border: 1px solid black;
@@ -511,7 +509,5 @@ li{list-style-type:none; }
 	margin-left:20px;
 }
 /************************  관리자 테이블  **************/
-.ih_adminUser form {
-    overflow: auto;
-    height: 900px;
-}
+
+
