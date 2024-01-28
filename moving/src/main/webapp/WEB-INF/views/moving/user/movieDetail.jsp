@@ -38,7 +38,7 @@
               </div>
 
               <div class="btns">
-                <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="btn-type0">
+                <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="btn-type0<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">
                   예매하기
                 </a>
               </div>
@@ -140,5 +140,20 @@
       <!-- // as_movie-detail -->
     </main>
     <!-- //main -->
-
+    
+<script>
+$(function(){
+	// session check
+	let noLoginAccessLink = $('.noLoginReservationAccess');
+	if (noLoginAccessLink) {
+	    noLoginAccessLink.on('click', function(e) {
+	        e.preventDefault();
+	        let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	        if (userResponse) {
+	            location.href = "loginPage.ih";
+	        }
+	    });
+	}
+});
+</script>
 <%@ include  file="../../inc/footer.jsp" %>

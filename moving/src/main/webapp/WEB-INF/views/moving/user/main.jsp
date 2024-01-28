@@ -73,7 +73,7 @@
 			                    </div>
 			                    <div class="btns">
 			                      <a href="movieDetail.as?mv_cd=${dto.mv_cd}" class="b1">영화정보</a>
-			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2">예매하기</a>
+			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">예매하기</a>
 			                    </div>
 		                    </div>
 			                <figcaption class="info">
@@ -105,6 +105,18 @@
 </div>
 <script>
 $(function(){
+	// session check
+	let noLoginAccessLink = $('.noLoginReservationAccess');
+	if (noLoginAccessLink) {
+	    noLoginAccessLink.on('click', function(e) {
+	        e.preventDefault();
+	        let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	        if (userResponse) {
+	            location.href = "loginPage.ih";
+	        }
+	    });
+	}
+	
 	$("#main-visual_video").YTPlayer({
 		videoURL:"${randomMovie.mv_video}",
 		containment:'#main-visual_video-wrap',
