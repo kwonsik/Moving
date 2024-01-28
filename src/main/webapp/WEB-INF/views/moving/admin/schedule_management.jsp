@@ -179,8 +179,9 @@ $(document).ready(function () {
             date.setDate(currentDate.getDate() + i);
             var dateString = (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getDate().toString().padStart(2, '0');
             var dayOfWeek = getDayDisplay(date.getDay());
+            let dateFormatted = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
 
-            var button = $('<button class="date-btn" data-date="' + date.toISOString().split('T')[0] + '">' + dateString + '<br>' + dayOfWeek + '</button>');
+            var button = $('<button class="date-btn" data-date="' + dateFormatted + '">' + dateString + '<br>' + dayOfWeek + '</button>');
 
             if (date.toISOString().split('T')[0] === getCurrentDate()) {
                 button.addClass('today');
@@ -192,7 +193,6 @@ $(document).ready(function () {
                 button.addClass('saturday');
             }
 
-            button.data('date', date.toISOString().split('T')[0]);
             dateList.append(button);
         }
 
