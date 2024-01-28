@@ -1,18 +1,19 @@
 $(function() {
-$("#nickname2").on("blur", function() {
-    $.ajax({
-        url: "nicknameCheck.ih",
-        type: "get",
-        dataType: "text",
-        data: { "nickname": $("#nickname2").val() },
-        success: function(data) {
-            $("#nicknameResult").html(data);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $("#nicknameResult").html(textStatus + "(HTTP-" + xhr.status + ")");
-        }
-    });
-});
+	//닉네임 중복검사
+	$("#nickname2").on("keyup", function() {
+	    $.ajax({
+	        url: "nicknameCheck.ih",
+	        type: "get",
+	        dataType: "text",
+	        data: { "nickname": $("#nickname2").val() },
+	        success: function(data) {
+	            $("#nicknameResult").html(data);
+	        },
+	        error: function(xhr, textStatus, errorThrown) {
+	            $("#nicknameResult").html(textStatus + "(HTTP-" + xhr.status + ")");
+	        }
+	    });
+	});
 }); // end $
 
 window.addEventListener('load', function() {

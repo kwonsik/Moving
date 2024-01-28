@@ -311,6 +311,30 @@ public class IhController {
 
 	    return "ih_myUpdatePass";
 	}
+	// 비밀번호 변경페이지의 원래비밀번호 체크 ajax 
+	@RequestMapping(value="/originalPasswordCheck.ih", method=RequestMethod.GET)
+	public void originalPasswordCheck(HttpServletRequest request, HttpServletResponse response, UserDto dto) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out =response.getWriter();
+		String result ="<span style='color:red'></span>";
+		int cnt = -1; 
+		
+		String user_id = request.getParameter("id");
+		String user_pass = request.getParameter("password");
+		
+		dto.setUser_id(user_id);
+		dto.setUser_pass(user_pass);
+		cnt = service.originalPasswordCheck(dto);
+		if(cnt==0) {
+			result ="<span style='color:red'>비밀번호를 정확하게 입력해주세요.</span>";
+			out.print(result);
+		}else if(cnt==1) {
+			result ="<span style='color:blue'>비밀번호가 확인되었습니다..</span>";
+			out.print(result);
+		}
+		
+	}	
 	// 비번없데이트
 	@RequestMapping(value="/myUpdatePass.ih", method=RequestMethod.POST)
 	public String updatePassword(UserDto dto,HttpServletRequest request, RedirectAttributes rttr) {

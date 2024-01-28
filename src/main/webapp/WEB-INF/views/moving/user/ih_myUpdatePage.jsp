@@ -161,9 +161,5 @@ $(document).ready(function() {
 </script>
 
 </div>
-<c:set var="myDeleteSuccess" value="${myDeleteSuccess}" />
-<c:set var="updateSuccess" value="${updateSuccess}" />
-<c:set var="updateFail" value="${updateFail}" />
-<c:set var="myDeleteUserCancleSuccess" value="${myDeleteUserCancleSuccess}" />
 
 <%@include file="../../inc/footer.jsp"%>

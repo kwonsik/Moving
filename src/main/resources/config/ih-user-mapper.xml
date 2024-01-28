@@ -113,6 +113,9 @@
     	select count(*) `cnt`  from user where user_mail=#{user_mail}
     </select>
     
-    
+    <!-- 비밀번호 변경페이지의 원래비밀번호 체크 ajax -->
+    <select id="originalPasswordCheck" parameterType="UserDto" resultType="int">
+    	select count(*) `cnt` from user where user_id=#{user_id} and user_pass=#{user_pass}
+    </select>
     
 </mapper>
