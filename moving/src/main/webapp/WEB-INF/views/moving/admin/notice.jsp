@@ -3,8 +3,6 @@
 
 <%@ include file="../../inc/admin_header.jsp" %>
 
-<c:set var="total" value="${list.size()}" />
-
 <main id="content">
    <div class="page">
    <h2>공지사항 목록</h2>
@@ -13,7 +11,7 @@
 	   <div class="as_board-list">
 		   <div class="search-box">
 		      <p class="table-summary">
-		         총 ${total}개의 게시글
+		         총 ${paging.listtotal}개의 게시글
 		         <c:if test="false">
 		         		<span> | 검색된 항목: 10편</span>
 		         </c:if>
@@ -33,7 +31,7 @@
 		         <col class="col4">
 		         <col class="colA">
 		         <col class="col4">
-		         <col class="col8">
+		         <col class="col12">
 		         <col class="col4">
 		      </colgroup>
 		      <thead>
@@ -52,7 +50,7 @@
 						<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
 							<td><label><input type="checkbox" value="${dto.board_no}"></label></td>
-							<td>${total-status.index}</td>
+		                    <td>${paging.listtotal-paging.pstartno-status.index}</td>
 							<td><a href="${pageContext.request.contextPath}/noticeDetail.admin?board_no=${dto.board_no}">${dto.b_title}</a></td>
 							<td>${dto.user_no==0?"관리자":"Unknown"}</td>
 							<td>${dto.b_crtdate.split(' ')[0]}</td>
@@ -73,15 +71,23 @@
 		
 		 <div class="as_inner-footer">
 		    <div class="pagination-container">
-		     <ul class="pagination">
-		        <li class="previous"><a href="#">이전</a></li>
-		        <li class="active"><a href="#">1</a></li>
-		        <li><a href="#">2</a></li>
-		        <li><a href="#">3</a></li>
-		        <li><a href="#">4</a></li>
-		        <li><a href="#">5</a></li>
-		        <li class="next"><a href="#">다음</a></li>
-		     </ul>
+				<ul class="pagination">
+					<c:if test="${paging.startPage>=paging.bottomlimit}">
+						<li class="previous">
+							<a href="${pageContext.request.contextPath}/notice.admin?pstartno=${(paging.startPage-2)*paging.onepagelimit}">이전</a>
+						</li>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
+						<li <c:if test="${paging.currentPage == i}">class="active"</c:if>>
+							<a href="${pageContext.request.contextPath}/notice.admin?pstartno=${(i-1)*paging.onepagelimit}">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${paging.endPage<paging.pagetotal}">
+						<li class="next">
+							<a href="${pageContext.request.contextPath}/notice.admin?pstartno=${paging.endPage*paging.onepagelimit}">다음</a>
+						</li>
+					</c:if>
+				</ul>
 		    </div>
 		
 		    <div class="btns">
