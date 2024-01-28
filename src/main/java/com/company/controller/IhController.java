@@ -389,7 +389,6 @@ public class IhController {
 	@RequestMapping(value="/myDelete.ih", method = RequestMethod.GET)
 	public String preDeleteMember(HttpServletRequest request, RedirectAttributes rttr,HttpSession session, UserDto dto) {
 		String user_id = request.getParameter("user_id");
-		System.out.println("탈퇴신청한사람"+user_id);
 		dto.setUser_id(user_id);
 	
 	int result = service.preDeleteUser(dto);
@@ -407,7 +406,6 @@ public class IhController {
 	@RequestMapping(value="/myDeleteCancle.ih", method = RequestMethod.GET)
 	public String preDeleteMemberCancle(HttpServletRequest request, RedirectAttributes rttr,HttpSession session,UserDto dto) {
 	String user_id = request.getParameter("user_id");
-	System.out.println("탈퇴신청취소한사람"+user_id);
 	dto.setUser_id(user_id);
 	
 	int result = service.myDeleteUserCancle(dto);
@@ -431,11 +429,11 @@ public class IhController {
 	}
 	//뷰에서 처리하는 컨트롤러
 	@RequestMapping(value="/findId.ih" , method=RequestMethod.POST)
-	public String findId(Model model, UserDto dto,RedirectAttributes rttr, HttpServletRequest request) throws ParseException { 
-	    String name = request.getParameter("name");
+	public String findId(UserDto dto,RedirectAttributes rttr, HttpServletRequest request) throws ParseException { 
+		String name = request.getParameter("name");
 	    String getage = request.getParameter("age");
 	    String email = request.getParameter("email");
-
+	    
         SimpleDateFormat inputType = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat tableType = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -447,10 +445,12 @@ public class IhController {
 	    dto.setUser_age(tableTypeAge);
 
 	    String result = service.findId(dto);
+	    System.out.println(result);
 	    if (result != null) {
-	        return "redirect:/findIdResultView.ih?id=" + result; 
+	    	rttr.addFlashAttribute("foundId", result);
+	        return "redirect:/findIdResultView.ih"; 
 	    } else {
-	        rttr.addFlashAttribute("joinFail", "관리자에게 문의해주세요.");
+	        rttr.addFlashAttribute("failFindId", "사용자 정보를 정확하게 입력해주세요");
 	        return "redirect:/findIdView.ih";
 	    }
 	}

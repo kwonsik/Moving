@@ -43,6 +43,7 @@ li{list-style-type:none; }
 .ih__joinForm input[type="text"], 
 .ih__joinForm input[type="password"], 
 .ih__joinForm input[type="tel"], 
+.ih__joinForm input[type="number"], 
 .ih__joinForm input[type="email"]{
     border: none;
     border-bottom: 1px solid #dcdcdc;
@@ -353,7 +354,7 @@ input#inputEmail {
 /*************** findId ***************/
 .ih__findId {
     position: relative;
-    margin: 120px auto 0;
+    margin: 170px auto 100px;
     width: 400px;
     font-size: 120%;
     border: 1px solid black;
@@ -374,10 +375,11 @@ input#inputEmail {
 .ih__findId label{
 	display:block;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .ih__findId input[type="text"],
-.ih__findId input[type="email"]{
+.ih__findId input[type="email"],
+.ih__findId input[type="number"]{
 	width:350px;
 	outline:none;
 	border:none;
@@ -394,8 +396,7 @@ input#inputEmail {
 }
 /*************** 찾은아이디결과창 ***************/
 .ih__findId2 {
-    margin: 150px auto;
-    
+    margin: 170px auto 212px;    
     width: 400px;
     font-size: 120%;
     border: 1px solid black;
@@ -449,7 +450,7 @@ input#inputEmail {
 .ih__findPass label{
 	display:block;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .ih__findPass input[type="text"],
 .ih__findPass input[type="email"]{

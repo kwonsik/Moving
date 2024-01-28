@@ -102,7 +102,7 @@ $(document).ready(function() {
 			
 			<div class="form-class">
 				<label for="age">생년월일</label>
-				<input type="text" id="age" name="age" placeholder="생년월일 8자리 ex) 19810101" />
+				<input type="number" id="age" name="age" placeholder="생년월일 8자리 ex) 19810101" />
 			</div>
 
 			<div class=agreement>
