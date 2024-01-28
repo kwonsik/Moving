@@ -25,10 +25,6 @@
   
   <script src="${pageContext.request.contextPath}/resources/assets/js/common.js"></script>
  
-  
- 
-
-  
   <!-- page -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ih.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/reservation.css">
@@ -42,12 +38,25 @@
    <header id="header" class="header">
      <div class="header__inner">
        <h1 class="logo"><a href="main.ks" class="logo__img" title="메인으로 이동"><span class="blind">무빙</span></a></h1>
-
+	
+		<!-- GNB ACTIVE SETTING -->
+		<%
+		String requestURI = request.getRequestURI();
+		boolean isActiveResulvation = requestURI.endsWith("/reservation.jsp") || requestURI.endsWith("/seat.jsp") || requestURI.endsWith("/pay.jsp");
+		boolean isActiveMovie = requestURI.endsWith("/movie.jsp") || requestURI.endsWith("/movieDetail.jsp");
+		boolean isActiveTheater = requestURI.endsWith("/theater_user_view.jsp");
+		boolean isActiveBoard = requestURI.endsWith("/notice.jsp") || requestURI.endsWith("/noticeDetail.jsp");
+		boolean isActiveMyResulvation = requestURI.endsWith("/my_reservation.jsp") || requestURI.endsWith("/my_cancled_reservation.jsp");
+		boolean isActiveUser = requestURI.endsWith("/ih_preMyUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePass.jsp");
+		boolean isActiveMy = isActiveMyResulvation || isActiveUser;
+		%>
+		<!-- GNB ACTIVE SETTING -->
+		
        <nav class="gnb__wrap">
          <h2 class="blind">주메뉴</h2>
          <ul id="gnb" class="gnb">
            <!-- 링크 -> a / 2뎁스 버튼 -> button:button -->
-           <li class="gnb__item reservation_view">
+           <li class="gnb__item reservation_view<%= isActiveResulvation ? " is-active" : "" %>">
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
@@ -55,21 +64,21 @@
              </a></c:when>
              </c:choose>
            </li>
-           <li class="gnb__item"><a href="movie.as" class="gnb__link">
+           <li class="gnb__item<%= isActiveMovie ? " is-active" : "" %>"><a href="movie.as" class="gnb__link">
              <span>영화</span>
            </a></li>
-           <li class="gnb__item"><a href="theater_user_view.shj" class="gnb__link">
+           <li class="gnb__item<%= isActiveTheater ? " is-active" : "" %>"><a href="theater_user_view.shj" class="gnb__link">
              <span>영화관</span>
            </a></li>
-           <li class="gnb__item"><a href="notice.as" class="gnb__link">
+           <li class="gnb__item<%= isActiveBoard ? " is-active" : "" %>"><a href="notice.as" class="gnb__link">
              <span>공지사항</span>
            </a></li>
-           <li class="gnb__item">
+           <li class="gnb__item<%= isActiveMy ? " is-active" : "" %>">
              <button type="button" class="gnb__link">
                <span>마이페이지</span>
              </button>
              <ul class="gnb__2depth">
-               <li class="gnb__2depth-item">
+               <li class="gnb__2depth-item<%= isActiveMyResulvation ? " is-active" : "" %>">
                <c:choose>
              <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
@@ -101,7 +110,7 @@
 
                  </script>
                </li>
-              <li class="gnb__2depth-item">
+              <li class="gnb__2depth-item<%= isActiveUser ? " is-active" : "" %>">
                   <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
                     <span>회원정보수정</span>
                   </a>
