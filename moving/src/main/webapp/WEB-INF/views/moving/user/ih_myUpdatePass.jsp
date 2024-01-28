@@ -13,6 +13,7 @@
 			<div class="inputType">
 				<label for="password">현재비밀번호</label>
 				<input type="password" name="password" id="password" placeholder="현재 비밀번호를 입력해주세요." />
+				<p id="originalPasswordCheckResult"></p>
 			</div>
 			<div class="inputType">
 				<label for="updatePassword">변경할 비밀번호</label>

@@ -113,4 +113,9 @@ public class IhServiceImple implements IhService{
 		return dao.emailCheck (user_mail);
 	}
 	
+	// 마이페이지 현재 비번입력검증
+	public int originalPasswordCheck (UserDto dto) {
+		return dao.originalPasswordCheck (dto);
+	}
+	
 }

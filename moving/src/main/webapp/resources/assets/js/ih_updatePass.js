@@ -1,4 +1,4 @@
- window.addEventListener('load', function(){   
+ window.addEventListener('load', function(){
     document.getElementById('myUpdatePass').addEventListener('submit', function(event) {
 		///////////////////공백검사 유효성검사/////////////////////////
         let updatePassword = document.getElementById("updatePassword");
@@ -37,7 +37,20 @@
 	});
 });
 $(document).ready(function() {
-
+	// 비밀번호 변경페이지의 기존 비밀번호 일치검사
+	$("#password").on( "keyup", function() {
+			$.ajax({
+			url : "originalPasswordCheck.ih",
+			type : "GET",
+			dataType : "text",
+			data : { "id" : $("#id").val(),
+					 "password" : $("#password").val()
+			 },
+			success : function(data) { $("#originalPasswordCheckResult").html(data) },
+			error : function(xhr, textStatus, errorThrown) { $("#idResult").html( textStatus + "(HTTP-" + xhr.status + ")") }
+		}); // end ajax
+	}); // end blur
+	
     // 비밀번호 유효성 검사
     $("#updatePassword").on("keyup", function() {
         var password = $(this).val();
