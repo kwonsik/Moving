@@ -6,6 +6,7 @@
 	<form action="myUpdatePass.ih" method="post" id="myUpdatePass">
 		<h2>비밀번호변경</h2>
 		<fieldset>
+<<<<<<< HEAD
 			<div class="blind">
 				<label for="id">아이디</label>
 				<input type="text" name="id" id="id" value="${user_id}" readonly/>
@@ -14,6 +15,15 @@
 				<label for="password">현재비밀번호</label>
 				<input type="password" name="password" id="password" placeholder="현재 비밀번호를 입력해주세요." />
 				<p id="checkOriginalPassword"></p>
+=======
+			<div class="inputType">
+				<label for="id">아이디</label>
+				<input type="text" name="id" id="id" value="${user_id}" readonly/>
+			</div>
+			<div class="inputType">
+				<label for="password">현재비밀번호</label>
+				<input type="password" name="password" id="password" placeholder="현재 비밀번호를 입력해주세요." />
+>>>>>>> refs/heads/master
 			</div>
 			<div class="inputType">
 				<label for="updatePassword">변경할 비밀번호</label>

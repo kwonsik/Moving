@@ -80,6 +80,7 @@ document.getElementById('backButton').addEventListener('click', function() {
 	                        $("#emailCode").val(codeData);
 	                        setTimeout(function() {
 	                            $("#emailCode").val("");
+<<<<<<< HEAD
 	                        }, 180000);
 	                        $('#btnCheckCode').on('click', function() {
 	                        	clearInterval(countdownTimer);
@@ -122,6 +123,39 @@ document.getElementById('backButton').addEventListener('click', function() {
 	
 	        if (--timer < 0) {
 	            clearInterval(countdownTimer);
+=======
+	                        }, 180000); // 3분 후 코드 값 비우기
+	                    },
+	                    error: function(xhr, status, error) {
+	                        alert('오류가 발생했습니다');
+	                    }
+	                });
+	            } else {
+	                alert("중복된 이메일입니다.");
+	                email.focus();
+	            }
+	        },
+	        error: function(xhr, textStatus, errorThrown) {
+	            $("#emailResult").html(textStatus + "(HTTP-" + xhr.status + ")");
+	        }
+	    });
+	});
+	
+	// 카운트다운 함수
+	function startCountdown(duration, display) {
+	    var timer = duration, minutes, seconds;
+	    var countdown = setInterval(function() {
+	        minutes = parseInt(timer / 60, 10);
+	        seconds = parseInt(timer % 60, 10);
+	
+	        minutes = minutes < 10 ? "0" + minutes : minutes;
+	        seconds = seconds < 10 ? "0" + seconds : seconds;
+	
+	        display.val(minutes + ":" + seconds);
+	
+	        if (--timer < 0) {
+	            clearInterval(countdown);
+>>>>>>> refs/heads/master
 	            display.val("00:00");
 	        }
 	    }, 1000);

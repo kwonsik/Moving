@@ -104,7 +104,11 @@
 
 	<select id="movieListAll" resultType="MovieDto">
 		select
+<<<<<<< HEAD
 		mv_cd,mv_ktitle,mv_runtime from movie where mv_live = 1 order by mv_cd asc
+=======
+		mv_cd,mv_ktitle,mv_runtime from movie order by mv_cd asc
+>>>>>>> refs/heads/master
 	</select>
 
 	<insert id="insertSchedule" parameterType="ScheduleDto">

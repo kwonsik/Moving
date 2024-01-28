@@ -41,6 +41,7 @@
 				<input type="text" id="inputEmail" class="inputEmail" placeholder="인증코드를 입력해주세요." />
 				<input type="text" id="timeLimit" style="color:red;" readonly/>
 				<input type="text" id="emailCode" class="blind" value="" />
+<<<<<<< HEAD
 				<input type="button" class="btn btn-success" id="btnCheckCode" value="코드확인">
 			</div>
 			<div class="form-class">
@@ -161,5 +162,130 @@ $(document).ready(function() {
 </script>
 
 </div>
+=======
+			</div>
+			<div class="form-class">
+				<label for="phonenumber">휴대폰번호</label>
+				<input type="tel" id="phonenumber" name="phonenumber" value="${dto.user_phone}" readonly />
+            <div class="form-class">
+            </div> 
+            	<label for="phonenumber2" class="blind">변경할 번호</label>
+				<input type="tel" id="phonenumber2" name="phonenumber2" placeholder="변경할 휴대폰번호를 적어주세요(-제외)"/>
+			</div>
+			<div class="form-class">
+				<label for="age">생년월일</label>
+				<input type="text" id="age" name="age" value="${dto.user_age}" disabled />
+			</div>
+			<a href="MyUpdatePassView.ih" class="btn btn-info" id="changePass">비밀번호변경</a>
+			<button id="goDeleteAndCancleBtn" class="deleteAndCancleBtn">
+			<c:if test="${dto.usertp_no != '4'}">
+			회원탈퇴요청하기
+			</c:if>
+			<c:if test="${dto.usertp_no == '4'}">
+			회원탈퇴요청취소하기
+			</c:if>
+			</button>
+		</fieldset>
+			<div class="button-class">
+				<a href="javascript:history.go(-2);" class="btn btn-danger">돌아가기</a>
+				<input type="submit" class="btn btn-primary" value="정보수정" />
+			</div>
+	</form>	
+	
+<!-- 탈퇴신청을안한 회원 -->
+<c:if test="${dto.usertp_no != '4'}">
+    <form action="myDelete.ih?user_id=${dto.user_id}" method="GET">
+    	<input type="text" name="user_id" value="${dto.user_id}" class="blind">
+        <input type="submit" class="blind blindbtn" id="request" value="회원탈퇴">
+    </form>
+</c:if>
+
+<!-- 탈퇴신청을한 회원 -->
+<c:if test="${dto.usertp_no == '4'}">
+    <form action="myDeleteCancle.ih?user_id=${dto.user_id}" method="GET">
+    	<input type="text" name="user_id" value="${dto.user_id}" class="blind">
+        <input type="submit" class="blind blindbtn" id="response" value="회원탈퇴취소">
+    </form>
+</c:if>
+
+<script>
+$(document).ready(function() {
+
+    // 닉네임 유효성 검사
+    $("#nickname2").on("keyup", function() {
+        var nickname = $(this).val();
+        var regex = /^[a-zA-Z0-9가-힣]{2,8}$/;
+        validateField(nickname, regex, $("#nicknameCriteria"));
+    });
+
+    // 필드 유효성 검사 함수
+    function validateField(value, regex, criteriaElement) {
+        if (regex.test(value)) {
+            criteriaElement.css("color", "blue").text("위 조건을 만족합니다.");
+        } else {
+            criteriaElement.css("color", "red").text("위 조건을 만족하지않습니다.");
+        }
+    }
+});
+
+    window.onload = function() {
+    	//탈퇴신청성공
+        <c:if test="${not empty myDeleteSuccess}"> alert("${myDeleteSuccess}"); </c:if>
+        //탈퇴신청취소성공
+        <c:if test="${not empty myDeleteUserCancleSuccess}"> alert("${myDeleteUserCancleSuccess}"); </c:if>
+        //개인정보변경성공
+        <c:if test="${not empty updateSuccess}"> alert("${updateSuccess}"); </c:if>
+        //개인정보변경실패
+        <c:if test="${not empty updateFail}"> alert("${updateFail}"); </c:if>
+        //비밀번호변경성공
+        <c:if test="${not empty updatePassSuccess}"> alert("${updatePassSuccess}"); </c:if>
+        
+        var goDeleteAndCancleBtn = document.getElementById('goDeleteAndCancleBtn');
+
+        if (goDeleteAndCancleBtn) {
+            goDeleteAndCancleBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // 기본 동작 방지
+
+                var requestBtn = document.getElementById('request');
+                var responseBtn = document.getElementById('response');
+
+                if (requestBtn) {
+                    requestBtn.click();
+                }
+
+                if (responseBtn) {
+                    responseBtn.click();
+                }
+            });
+        }
+        
+        var deleteButton = document.getElementById('request');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('회원 탈퇴하시겠습니까?')) {
+                    e.target.form.submit();
+                }
+            });
+        }
+
+        var cancelDeleteButton = document.getElementById('response');
+        if (cancelDeleteButton) {
+            cancelDeleteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('회원 탈퇴를 취소하시겠습니까?')) {
+                    e.target.form.submit();
+                }
+            });
+        }
+    };
+</script>
+
+</div>
+<c:set var="myDeleteSuccess" value="${myDeleteSuccess}" />
+<c:set var="updateSuccess" value="${updateSuccess}" />
+<c:set var="updateFail" value="${updateFail}" />
+<c:set var="myDeleteUserCancleSuccess" value="${myDeleteUserCancleSuccess}" />
+>>>>>>> refs/heads/master
 
 <%@include file="../../inc/footer.jsp"%>

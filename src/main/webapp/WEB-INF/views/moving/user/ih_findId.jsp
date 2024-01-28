@@ -15,6 +15,7 @@
 			</div>
 			<div class="inputType">
 				<label for="age">생년월일</label>
+<<<<<<< HEAD
 				<input type="number" name="age" id="age" placeholder="생년월일 8자리 ex) 19810101" />
 			</div>
 			<div class="inputType">
@@ -29,5 +30,16 @@
 		<c:if test="${not empty failFindId}"> alert("${failFindId}"); </c:if>
     }
 	</script>
+=======
+				<input type="text" name="age" id="age" placeholder="생년월일 8자리 ex) 19810101" />
+			</div>
+			<div class="inputType">
+				<label for="email">이메일</label>
+				<input type="email" name="email" id="email" placeholder="비밀번호를 입력해주세요." />
+			</div>
+			<input type="submit" class="btn" value="아이디찾기">
+		</fieldset>
+	</form>
+>>>>>>> refs/heads/master
 </div>
 <%@include file="../../inc/footer.jsp"%>

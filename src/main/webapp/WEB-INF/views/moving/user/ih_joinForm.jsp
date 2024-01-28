@@ -83,6 +83,7 @@ $(document).ready(function() {
     }
 });
 </script>
+<<<<<<< HEAD
 
 
 			<div class="form-class">
@@ -103,6 +104,22 @@ $(document).ready(function() {
 			<div class="form-class">
 				<label for="age">생년월일</label>
 				<input type="number" id="age" name="age" placeholder="생년월일 8자리 ex) 19810101" />
+=======
+			<div class="form-class">
+				<label for="inputEmail" class="myhidden">인증코드입력</label>
+				<input type="text" id="inputEmail" class="email2" placeholder="인증코드를 입력해주세요." />
+				<input type="text" id="timeLimit" style="color:red;" disabled/>
+				<input type="text" id="emailCode" class="blind" value="" />
+			</div>
+			<div class="form-class">
+				<label for="phonenumber">휴대폰번호</label>
+				<input type="tel" id="phonenumber" name="phonenumber" placeholder="-없이 휴대폰번호 입력" />
+			</div>
+			
+			<div class="form-class">
+				<label for="age">생년월일</label>
+				<input type="text" id="age" name="age" placeholder="생년월일 8자리 ex) 19810101" />
+>>>>>>> refs/heads/master
 			</div>
 
 			<div class=agreement>

@@ -38,6 +38,7 @@
               </div>
 
               <div class="btns">
+<<<<<<< HEAD
                 <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="btn-type0<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">
                   예매하기
                 </a>
@@ -155,5 +156,109 @@
     	}
     });
     </script>
+=======
+                <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="btn-type0">
+                  예매하기
+                </a>
+              </div>
+
+              <div class="poster">
+                <img src="https://image.tmdb.org/t/p/w500${dto.mv_img}" alt="${dto.mv_ktitle} 포스터">
+              </div>
+            </div>
+          </div>
+
+          <div class="as_movie-detail__contents">
+            <div class="inner">
+              <div class="as_movie-detail__item">
+                <div class="col2">
+                  <div class="col">
+                    <div class="as_movie-detail__name">줄거리</div>
+                    <div class="txt as_plot">
+                      <pre>${dto.mv_plot}</pre>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="as_movie-detail__name">배우/제작진</div>
+                    <div class="txt">
+                      <dl>
+                        <dt>감독</dt>
+                        <dd>${dto.mv_dname}</dd>
+                      </dl>
+                      <dl>
+                        <dt>배우</dt>
+                        <dd>${dto.mv_aname}</dd>
+                      </dl>
+                      <dl>
+                        <dt>배급사</dt>
+                        <dd>${dto.mv_company}</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+           	  <c:if test="${not empty dto.mv_stilcut}">
+	              <div class="as_movie-detail__item">
+	                <div class="as_movie-detail__name">스틸컷</div>
+	                <div id="stillcut" class="carousel slide" data-ride="carousel">
+	                  <!-- Wrapper for slides -->
+	                  <div class="carousel-inner">
+	                  	<c:forEach var="stilcut" items="${dto.mv_stilcut}" varStatus="status">
+	                  	<c:set var="trimmedStilcut" value="${stilcut.trim()}"/>
+		                    <div class="item ${status.first?'active':''}">
+		                      <img src="https://image.tmdb.org/t/p/w1280${trimmedStilcut}" alt="" />
+		                    </div>
+						</c:forEach>
+	                  </div>
+	
+	                  <!-- Indicators -->
+	                  <ol class="carousel-indicators">
+	                  	<c:forEach var="stilcut" items="${dto.mv_stilcut}" varStatus="status">
+	                    	<li data-target="#stillcut" data-slide-to="${status.index}" <c:if test="${status.first}">class="active"</c:if>></li>
+						</c:forEach>
+	                  </ol>
+	
+	                  <!-- Left and right controls -->
+	                  <a class="left carousel-control" href="#stillcut" data-slide="prev">
+	                    <span class="glyphicon glyphicon-chevron-left"></span>
+	                    <span class="sr-only">이전</span>
+	                  </a>
+	                  <a class="right carousel-control" href="#stillcut" data-slide="next">
+	                    <span class="glyphicon glyphicon-chevron-right"></span>
+	                    <span class="sr-only">다음</span>
+	                  </a>
+	                </div>
+	              </div>
+	              <!-- // 스틸컷 -->
+           	  </c:if>
+
+           	  <c:if test="${not empty dto.mv_video}">
+	              <div class="as_movie-detail__item">
+	                <div class="as_movie-detail__name">예고편</div>
+	
+	                <div id="trailer" class="carousel slide" data-ride="carousel">
+	                  <!-- Wrapper for slides -->
+	                  <div class="carousel-inner">
+	                    <div class="item active">
+		                    <div class="as_video-wrap">
+			                    <iframe frameborder="0" 
+								src="https://www.youtube.com/embed/${dto.mv_video}?rel=0&showinfo=0" allow="encrypted-media" allowfullscreen>
+								</iframe>
+							</div>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	              <!-- // 예고편 -->
+           	  </c:if>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- // as_movie-detail -->
+    </main>
+    <!-- //main -->
+>>>>>>> refs/heads/master
 
 <%@ include  file="../../inc/footer.jsp" %>
