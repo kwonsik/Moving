@@ -70,7 +70,7 @@ public class IhController {
 		model.addAttribute("user_phone", user_phone);
 		model.addAttribute("usertp_name", usertp_name);
 
-		
+	
 		return "test_resultPage";
 
 	}
@@ -248,7 +248,7 @@ public class IhController {
 	        return "redirect:/main.ks";
 	    } else {
 	        rttr.addFlashAttribute("loginError", "아이디와 비밀번호를 확인해주세요.");
-	        return "redirect:/main.ks";
+	        return "redirect:/loginPage.ih";
 	    }
 	}
 
@@ -427,7 +427,7 @@ public class IhController {
 	public String findIdView() { 
 		return "ih_findId"; 
 	}
-	//뷰에서 처리하는 컨트롤러
+	//아이디찾기 처리하는 컨트롤러
 	@RequestMapping(value="/findId.ih" , method=RequestMethod.POST)
 	public String findId(UserDto dto,RedirectAttributes rttr, HttpServletRequest request) throws ParseException { 
 		String name = request.getParameter("name");
@@ -467,6 +467,7 @@ public class IhController {
 	//비번찾기VIEW
 	@RequestMapping(value="/findPassView.ih" , method=RequestMethod.GET)
 	public String findPassView() { return "ih_findPassView"; }
+	
 ////////////////////////  비번찾기끝  /////////////////////////////////////
 
 	

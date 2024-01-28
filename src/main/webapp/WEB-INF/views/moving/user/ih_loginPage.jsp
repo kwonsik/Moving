@@ -45,8 +45,8 @@
 	</form>
 <script>
     window.onload = function() {
-    	//탈퇴신청성공
-        <c:if test="${not empty joinSuccess}"> alert("${joinSuccess}"); </c:if>
+    	//로그인 입력 실패
+        <c:if test="${not empty loginError}"> alert("${loginError}"); </c:if>
     };
 </script>
 </div>
