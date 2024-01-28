@@ -220,8 +220,7 @@ input#inputEmail {
     padding: 20px;
     box-sizing: border-box;
     font-size: 130%;
-    margin-left: 745px;
-    margin-top: 150px;
+    margin: 150px auto;
 }
 
 .ih_preMyUpdatePage .head {
@@ -274,6 +273,7 @@ input#inputEmail {
 	background-color: #40dfd0;
 	height: 34px;
 	margin-left:34px;
+	text-align: center;
 }
 
 /*************** 마이페이지 ***************/

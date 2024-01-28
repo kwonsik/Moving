@@ -14,16 +14,21 @@
 		<div class="input-group">
 			<label for="password">비밀번호</label>
 			<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required>
+			<p id="chechPasswordResult"><p>
 		</div>
 		<div class="btn-group">
 			<input type="button" class="btn btn-danger" value="&nbsp돌아가기" id="backButton" />
 			<button type="submit" class="submitBtn">확인&nbsp&nbsp&nbsp</button>
+			
 		</div>
 	</form>
 </div>
-<script type="text/javascript">
-document.getElementById('backButton').addEventListener('click', function() {
-	history.back();
-});
+<script>
+//돌아가기버튼
+window.onload = function() {
+document.getElementById('backButton').addEventListener('click', function() { history.back();});
+//비밀번호 검증실패
+<c:if test="${not empty loginError}"> alert("${loginError}"); </c:if>
+};
 </script>
 <%@include file="../../inc/footer.jsp"%>

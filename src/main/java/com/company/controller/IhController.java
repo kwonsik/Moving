@@ -265,14 +265,11 @@ public class IhController {
 	}
 
 ////////////////////////  마이페이지입장  /////////////////////////////////////
-	//회원정보수정누르면 - 비번입력페이지로
+	// 회원정보수정누르면 - 비번입력페이지로
 	@RequestMapping(value="/preMyUpdatePage.ih", method=RequestMethod.GET)
-	public String preMyUpdatePage(HttpServletRequest request, RedirectAttributes rttr) throws UnsupportedEncodingException {
-	    HttpSession session = request.getSession(false);
-	    String user_id = (session != null) ? (String) session.getAttribute("user_id") : null;
-
-	    if (user_id == null) { return "redirect:/loginPage.ih"; }
-	    return "redirect:/preMyUpdatePageView.ih?id=" + URLEncoder.encode(user_id, StandardCharsets.UTF_8.toString());
+	public String preMyUpdatePage(HttpServletRequest request, HttpSession session) {
+	    String user_id = (String) session.getAttribute("user_id");
+	    return "redirect:/preMyUpdatePageView.ih?id=" + user_id;
 	}
 	@RequestMapping(value="/preMyUpdatePageView.ih" , method=RequestMethod.GET)
 	public String preMyUpdate() {  return "ih_preMyUpdatePage"; }
@@ -294,7 +291,7 @@ public class IhController {
 	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
 	    } else {
 	        rttr.addFlashAttribute("loginError", "비밀번호를 확인해주세요.");
-	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+	        return "redirect:/preMyUpdatePageView.ih?user_id"+dto.getUser_id();
 	    }
 	}
 
