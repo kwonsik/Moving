@@ -208,6 +208,29 @@ public class IhController {
 		model.addAttribute("id", rememberId);
 		return "ih_loginPage"; 
 	}
+	
+	// 로그인시도시 아이디 비번검사
+	@RequestMapping(value="/userCheck.ih", method=RequestMethod.POST)
+	public void userCheck(HttpServletRequest request, HttpServletResponse response, UserDto dto) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out =response.getWriter();
+		String result ="pass";
+		int cnt = -1; 
+		
+		String user_id = request.getParameter("id");
+		String user_pass = request.getParameter("password");
+		
+		dto.setUser_id(user_id);
+		dto.setUser_pass(user_pass);
+		cnt = service.originalPasswordCheck(dto);
+		if(cnt==0) {
+			result ="<span style='color:red'>아이디와 비밀번호를 체크해주세요.</span>";
+			out.print(result);
+		} else {
+			out.print(result);
+		}
+	}
 
 	// 로그인 submit
 	@PostMapping(value="/loginBtn.ih")
