@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="as_board__content">
-              ${dto.b_content}
+            <pre>${dto.b_content}</pre>
             </div>
           </div>
 
