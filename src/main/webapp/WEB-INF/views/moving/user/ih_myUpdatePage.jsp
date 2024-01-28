@@ -41,6 +41,7 @@
 				<input type="text" id="inputEmail" class="inputEmail" placeholder="인증코드를 입력해주세요." />
 				<input type="text" id="timeLimit" style="color:red;" readonly/>
 				<input type="text" id="emailCode" class="blind" value="" />
+				<input type="button" class="btn btn-success" id="btnCheckCode" value="코드확인">
 			</div>
 			<div class="form-class">
 				<label for="phonenumber">휴대폰번호</label>
