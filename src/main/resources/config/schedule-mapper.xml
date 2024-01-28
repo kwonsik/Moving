@@ -18,7 +18,7 @@
 	<select id="scheduleList" resultType="ScheduleResultDto"
 		parameterType="java.util.HashMap">
 		SELECT
-		s.sch_no,m.mv_ktitle,m.mv_cert,s.sch_date,s.sch_start,s.sch_end,t.tt_name,scr.scr_name,s.sch_cnt,scr.scr_st_cnt
+		s.sch_no,m.mv_ktitle,m.mv_cert,s.sch_date,s.sch_start,s.sch_end,t.tt_name,scr.scr_no,scr.scr_name,s.sch_cnt,scr.scr_st_cnt
 		FROM schedule s JOIN movie m JOIN screen scr JOIN theater t
 		ON (s.mv_cd
 		= m.mv_cd and s.scr_no = scr.scr_no and

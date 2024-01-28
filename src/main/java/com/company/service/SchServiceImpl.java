@@ -76,7 +76,7 @@ public class SchServiceImpl implements SchService {
 						e.printStackTrace();
 					}
 
-					schedule.put("totalSeats", scheduleResultDto.getScr_st_cnt());
+					schedule.put("totalSeats", scheduleResultDto.getScr_st_cnt() - dao.brokenSeatCnt(scheduleResultDto.getScr_no()) );
 					schedule.put("availableSeats", scheduleResultDto.getSch_cnt());
 					schedule.put("scheduleNo", scheduleResultDto.getSch_no());
 					schedules.add(schedule);
@@ -133,14 +133,5 @@ public class SchServiceImpl implements SchService {
 	public TheaterDto getTheaterHours(TheaterDto dto) {
 		return dao.getTheaterHours(dto);
 	}
-
-//	@Override
-//	public Map<String, List<? extends Object>> insertScheduleView(ScreenDto dto) {
-//		Map<String, List<? extends Object>> map = new HashMap<>();
-//
-//		map.put("movies", dao.movieListAll());
-//		map.put("screens", dao.screenList(dto));
-//		return map;
-//	}
 
 }
