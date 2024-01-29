@@ -267,9 +267,9 @@ $(document).ready(function () {
         $('#add-schedule-confirm-btn').on('click', function () {
             // 필요한 데이터 수집
             var theaterNo = $('#theater-select').val();
+            var selectedDate = $('#date-select').val();
             var screenNo = $('#screen-select').val();
             var movieNo = $('#movie-select').val();
-            var selectedDate = $('#date-select').val();
             var startTime = $('#start-time').val();
             var endTime = $('#end-time').val();
             var selectedScreenOption = $('#screen-select option:selected');
@@ -416,6 +416,8 @@ $(document).ready(function () {
 
     // 상영시간표 삭제
     function deleteMovieSchedule(scheduleNo, $this) {
+        var theaterNo = $('#theater-select').val();
+        var selectedDate = $('#date-select').val();
         $.ajax({
             url: 'deleteSchedule.admin',
             method: 'POST',
@@ -423,9 +425,11 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.result > 0) {
-                    $this.closest('tr').remove();
+                    //$this.closest('tr').remove();
+                	$('.theater[data-no="' + theaterNo + '"]').trigger('click');
+                    $('.date-btn[data-date="' + selectedDate + '"]').trigger('click');
                 } else {
-                    alert('삭제 실패');
+                    alert('예약이 진행된 상영시간표를 삭제할 수 없습니다.\n예약 목록을 확인해주세요.');
                 }
             },
             error: function (error) {
