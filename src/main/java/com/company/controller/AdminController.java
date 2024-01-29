@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.dao.TheaterManageDao;
 import com.company.dto.BrokenSeatDto;
@@ -49,7 +50,7 @@ public class AdminController {
 
 	@GetMapping("/main.admin")
 	public String main() {
-		return "main";
+		return "ih_adminUser";
 	}
 	@GetMapping("/reservation_management.admin")
 	public String reservation_management(Model model,HttpServletRequest request,Reservation_ViewDto dto) {
@@ -63,11 +64,11 @@ public class AdminController {
 		r_service.paging(dto, model);		
 		return "reservation_management";
 	}
-	@PostMapping("/admin_reservationCancle.admin")
-	public void admin_reservationCancle(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	@PostMapping("/admin_reservationCancel.admin")
+	public void admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		int result=r_service.admin_reservationCancle(request, response);
+		int result=r_service.admin_reservationcancel(request, response);
 		PrintWriter out=response.getWriter();
 		if(result>0) {out.print("<script>alert('예매를 취소했습니다.');location.href='reservation_management.admin'</script>");}
 		else {out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");}	
@@ -91,7 +92,7 @@ public class AdminController {
 
 		// List<ScreenDto> result = dao.screenReadAll2(tt_no);
 
-		System.out.println("상영관 list 값 " + json);
+		//System.out.println("상영관 list 값 " + json);
 
 		return json;
 
@@ -104,12 +105,12 @@ public class AdminController {
 
 	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
 	public String addTheater(@ModelAttribute TheaterDto dto) {
-		System.out.println("... 추가해주세요");
-		System.out.println(dto);
+		//System.out.println("... 추가해주세요");
+		//System.out.println(dto);
+		
 
 		ATservice.ttAndscrInsert(dto);
-
-		// 나머지 로직 수행
+			
 
 		return "redirect:theater-list.admin";
 	}

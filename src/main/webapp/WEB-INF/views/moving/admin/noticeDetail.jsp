@@ -26,7 +26,7 @@
 	         		<th scope="row">게시글 ID</th>
 	         		<td>${dto.board_no}</td>
 	         		<th scope="row">작성자</th>
-	         		<td>${dto.user_no==0?"관리자":"Unknown"}</td>
+	         		<td>관리자</td>
 	         		<th scope="row">작성일</th>
 	         		<td>${dto.b_crtdate}</td>
 	         		<th scope="row">조회수</th>

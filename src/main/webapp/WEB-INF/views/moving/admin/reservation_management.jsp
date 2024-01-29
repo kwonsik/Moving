@@ -23,7 +23,7 @@
 			총 예매 - <span>${paging.listTotal }건</span>
 		</p>
 		
-			<form action="admin_reservationCancle.admin" method="post" id="admin_reservationCancleForm">
+			<form action="admin_reservationCancel.admin" method="post" id="admin_reservationCancelForm">
 			<fieldset>
 			<div class="rcon">
 			<table class="table table-bordered">
@@ -111,7 +111,7 @@
 		$(function(){
 			
 
-			$("#admin_reservationCancleForm").on("submit",function(){
+			$("#admin_reservationCancelForm").on("submit",function(){
 				let cnt=0;
 				let checkbox=document.querySelectorAll(".tbody input[type='checkbox']");
 				for(let i=0;i<checkbox.length;i++){

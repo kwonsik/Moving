@@ -117,8 +117,8 @@
 	margin-right: 5px;
 }
 
-.reservation_cancle{height: 56px;width: 257px;}
-.reservation_cancle .cancleBtn{border: none;background-color:#40dfd0; width: 100%; height: 100%; text-align: center;
+.reservation_cancel{height: 56px;width: 257px;}
+.reservation_cancel .cancelBtn{border: none;background-color:#40dfd0; width: 100%; height: 100%; text-align: center;
 font-size: 18px;font-weight: bold;}
 </style>
 
@@ -135,7 +135,7 @@ font-size: 18px;font-weight: bold;}
 					<li><input type="button" value="예매내역"
 						class="my_reservation_Btn" onclick="location.href='my_reservation.ks?user_no=${user_no}'"></li>
 					<li class="selected"><input type="button" value="취소내역"
-						class="my_reservation_Btn" onclick="location.href='my_cancled_reservation.ks?user_no=${user_no}'"></li>
+						class="my_reservation_Btn" onclick="location.href='my_canceld_reservation.ks?user_no=${user_no}'"></li>
 				</ul>
 			</div>
 			<script>
@@ -193,7 +193,7 @@ font-size: 18px;font-weight: bold;}
 								<dt>총 결제금액</dt>
 								<dd>${i.r_price }원</dd>
 							</dl>
-							<div class="reservation_cancle">
+							<div class="reservation_cancel">
 							
 							
 						</div>

@@ -56,7 +56,7 @@
 						<tr>
 							<td>${paging.listtotal-paging.pstartno-status.index}</td>
 							<td><a href="${pageContext.request.contextPath}/noticeDetail.as?board_no=${dto.board_no}">${dto.b_title}</a></td>
-							<td>${dto.user_no==0?"관리자":"Unknown"}</td>
+							<td>관리자</td>
 							<td>${dto.b_crtdate.split(' ')[0]}</td>
 							<td>${dto.b_hit}</td>
 						</tr>

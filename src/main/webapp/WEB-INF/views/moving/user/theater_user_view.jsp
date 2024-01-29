@@ -148,8 +148,9 @@ $(document).ready(function () {
         } else if (date.getDay() === 6) {
             button.addClass('saturday');
         }
+        let dateFormatted = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
 
-        button.data('date', date.toISOString().split('T')[0]); // ISO 형식으로 날짜 데이터 저장
+        button.data('date', dateFormatted); // 2024-01-29
         dateList.append(button);
     }
     // 초기 날짜 설정

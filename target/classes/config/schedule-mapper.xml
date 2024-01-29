@@ -18,7 +18,7 @@
 	<select id="scheduleList" resultType="ScheduleResultDto"
 		parameterType="java.util.HashMap">
 		SELECT
-		s.sch_no,m.mv_ktitle,m.mv_cert,s.sch_date,s.sch_start,s.sch_end,t.tt_name,scr.scr_name,s.sch_cnt,scr.scr_st_cnt
+		s.sch_no,m.mv_ktitle,m.mv_cert,s.sch_date,s.sch_start,s.sch_end,t.tt_name,scr.scr_no,scr.scr_name,s.sch_cnt,scr.scr_st_cnt
 		FROM schedule s JOIN movie m JOIN screen scr JOIN theater t
 		ON (s.mv_cd
 		= m.mv_cd and s.scr_no = scr.scr_no and
@@ -79,6 +79,7 @@
 		scr.scr_no,
 		scr.scr_name,
 		s.sch_cnt,
+		scr.scr_st_cnt,
 		SUM(scr.scr_st_cnt) - (SELECT COUNT(*) FROM broken_seat
 		WHERE scr_no = scr.scr_no) AS
 		available_seats,
@@ -104,7 +105,7 @@
 
 	<select id="movieListAll" resultType="MovieDto">
 		select
-		mv_cd,mv_ktitle,mv_runtime from movie order by mv_cd asc
+		mv_cd,mv_ktitle,mv_runtime from movie where mv_live = 1 order by mv_cd asc
 	</select>
 
 	<insert id="insertSchedule" parameterType="ScheduleDto">

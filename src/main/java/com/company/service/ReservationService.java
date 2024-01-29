@@ -29,18 +29,20 @@ public interface ReservationService {
 	public Reservation_ViewDto getPayList(ScheduleDto dto);
 	public void kakaoPay(HttpServletRequest request,HttpServletResponse response,Reservation_ViewDto dto) throws IOException;
 	public void success(HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public void fail(HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public void cancel(HttpServletRequest request,HttpServletResponse response) throws Exception;
 	public Integer getRno();
 	public int insertReservation(Reservation_ViewDto dto);
 	public int insertReservationDetailA(Reservation_ViewDto dto);
 	public int insertReservationDetailC(Reservation_ViewDto dto);
 	public void my_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException;
 	public List<ReservationdetailDto> getMyReservationView_2(Reservation_ViewDto dto);
-	public void reservationCancle(Reservation_ViewDto dto,HttpServletRequest request, HttpServletResponse response) throws IOException;
+	public void reservationcancel(Reservation_ViewDto dto,HttpServletRequest request, HttpServletResponse response) throws IOException;
 	
-	public void my_cancled_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException;
+	public void my_canceled_reservation_view(Reservation_ViewDto dto,Model model,HttpServletRequest request) throws IOException;
 	
 	public void paging(Reservation_ViewDto dto,Model model);
-	public int admin_reservationCancle(HttpServletRequest request,HttpServletResponse response) throws IOException;
+	public int admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException;
 	public String stt(HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 }

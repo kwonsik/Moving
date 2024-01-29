@@ -28,6 +28,26 @@
 	background-color: rgb(67, 119, 88);
 }
 
+#sidebar .btns {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#sidebar .btns .btn {
+    display: inline-block;
+    width: 80%;
+    padding: 12px 16px;
+    background: rgb(67, 119, 88);
+ 	transition: .4s ease-in-out;
+}
+#sidebar .btns .btn:hover, #sidebar .btns .btn:focus {
+	background: #28613f;
+}
+
 /* 페이지 내용 스타일링 */
 .row {
 	background-color: rgb(224, 224, 224);
@@ -95,6 +115,10 @@
 	padding: 32px;
 }
 
+#theater-management .sub_content {
+	margin-top: 50px;
+}
+
 #lists {
 	text-align: center;
 	font-size: 18px;
@@ -153,6 +177,18 @@
 	clear: both;
 }
 
+.stopScreens {
+	background-color:  #d9d9d9;
+}
+
+#tt-list .stopScreens a{
+	color: #939393;
+}
+
+#tt-list .stopScreens:hover {
+	background-color: #386d4c;
+}
+
 /* 영화관 추가 페이지 */
 /* 영화관 추가 페이지 */
 #add-theater .sub_content, #revise-theater .sub_content,
@@ -201,8 +237,8 @@
 
 #add-theater-list .scrContents {
 	border-bottom: 3px solid;
-	padding-bottom: 10px;
-	margin-bottom: 10px;
+	padding-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 #add-theater-list p {
@@ -245,6 +281,7 @@ select {
 
 #list_tt_img {
 	clear: both;
+	margin-top: 30px;
 }
 
 .lists {
@@ -272,7 +309,7 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 	color: #fff;
 	background-color: #a22806;
 	font-weight: 600;
-	margin: 10px 0 15px 20px;
+	margin: 10px 0 25px 20px;
 	padding-top: 3px;
 	border-radius: 4px;
 	border: none;
@@ -319,7 +356,18 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 	border: none;
 	border-radius: 3px;
 }
+#add-theater-btn:focus, #add-theater-btn:hover {
+	background-color: rgb(71 106 76);
+}
+#revise-theater-btn:focus,  #revise-theater-btn:hover {
+	background-color: rgb(71 106 76);
+}
+#revise-seats-btn:focus,  #revise-seats-btn:hover {
+	background-color: rgb(71 106 76);
+}
+
 /* --버튼 css */
+
 #scrContents {
 	clear: both;
 }
@@ -327,17 +375,15 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 /* 영화관 수정 페이지 */
 /* 영화관 수정 페이지 */
 #revise-theater #exp {
-	position: absolute;
 	font-size: 21px;
 	font-weight: 600;
 	margin-left: 380px;
-	margin-top: 166px;
+	margin-top: 65px;
 }
 
 #revise-theater-form {
-	position: absolute;
 	margin-left: 199px;
-	margin-top: 240px;
+	margin-top: 40px;
 }
 
 #revise-theater .list-revise-theater {
@@ -381,7 +427,7 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 }
 
 #revise-theater-btn {
-	margin-left: 1100px;
+	margin-left: 1000px;
 }
 
 #revise_scr_btn {
@@ -389,6 +435,7 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 	padding: 0 3px;
 	margin-left: 200px;
 }
+
 
 /* 영화관 삭제 페이지 */
 /* 영화관 삭제 페이지 */
@@ -499,7 +546,7 @@ tbody tr:focus, tbody tr:hover {
 
 #sm th {
 	text-align: center;
-	background-color: rgb(127, 140, 141);
+	background-color:  #1c371f;
 }
 
 #sm tr:first-child th:first-child {
@@ -516,29 +563,28 @@ tbody tr:focus, tbody tr:hover {
 	background-color: #eaeaed;
 }
 
-#sm tr:nth-child(2) td:nth-child(3), #sm tr:nth-child(4) td:nth-child(3)
-	{
-	background-color: white;
+#sm tr:nth-child(2) td:nth-child(3), #sm tr:nth-child(4) td:nth-child(3) {
+	background-color: #fff;
 	border: none;
 	text-align: left;
 }
 
-#sm td a:focus, tbody td a:hover {
-	text-decoration: none;
-	color: none;
-	background-color: white;
+#sm tr:hover, #sm tr:focus {
+	background-color:  #fff;
 }
 
-#sm tr:focus, tbody tr:hover {
-	background-color: #eaeaed;
+#sm tr:nth-child(2):hover, #sm tr:nth-child(4):hover {
+	background-color:  #eaeaed;
 }
+
+
 
 #sm tr:first-child th:last-child {
 	border-top-right-radius: 0px;
 }
 
 #sm #data2 {
-	background: #2e6884;
+	background:  #1c371f;
 	font-weight: bold;
 }
 
@@ -565,6 +611,20 @@ tbody tr:focus, tbody tr:hover {
 #change-seat-btn {
 	background-color: #0f1735;
 }
+
+#change-scr-btn:hover, #change-scr-btn:focus {
+	background-color: #ce3616;
+}
+
+#change-seat-btn:hover, #change-seat-btn:focus {
+	background-color: #26356d;
+}
+
+#active-scr-btn:hover, #active-scr-btn:focus {
+	background-color: #285368;
+}
+
+
 
 /* 좌석 관리 페이지 */
 #revise-seats-btn {

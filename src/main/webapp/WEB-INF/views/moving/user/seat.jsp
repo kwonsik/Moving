@@ -50,8 +50,10 @@
 						id="adult7"></li>
 					<li><input type="button" class="adult" value="8" 
 						id="adult7"></li>	
+				
 				</ul>
 					</div >
+					<c:if test="${param.mv_cert!='18' }">
 					<div class="choice">
 						<p>청소년</p>
 						<ul class="pul">
@@ -75,6 +77,7 @@
 						id="child8"></li>	
 				</ul>
 					</div>
+					</c:if>
 				</div>
 				<div class="seat">
 					<div class="stitle">
@@ -190,11 +193,12 @@
 							$(this).parent().addClass("selected");			
 						}
 						let adult=$(".selected .adult").val();
-						let child=$(".selected .child").val();
+						let child=0;
+						if($(".selected .child").val()!=null){child=$(".selected .child").val();}
 						let sum=Number(adult)+Number(child);
 						let cnt=$(".selected .seatBtn").length;
 						
-						if(adult==0&&child==0){
+						if(adult+child==0){
 							alert("인원 수를 선택해주세요.");
 							$(this).parent().removeClass("selected");
 							$(this).next().prop("checked",true);
@@ -210,10 +214,13 @@
 					
 					$("#seatForm").on("submit",function(){
 						let adult=$(".selected .adult").val();
-						let child=$(".selected .child").val();
+						let child=0;
+						if($(".selected .child").val()!=null){child=$(".selected .child").val();}
 						let sum=Number(adult)+Number(child);
 						let cnt=$(".selected .seatBtn").length;
-						if(adult==0&&child==0){
+						
+						
+						if(adult+child==0){
 							alert("인원 수를 선택해주세요");
 							return false;
 						}

@@ -55,7 +55,6 @@
                             </select>
                         </div>
                         <!-- 나머지 필드들 -->
-
                         <input type="button" value="취소" class="cancel_scr_btn">
                         
                     </div>
@@ -74,7 +73,7 @@
 
                 <div>
                     <label for="tt_tel" class="lists"><strong class="required">＊</strong>전화번호 ></label>
-                    <input type="text" id="tt_tel" name="tt_tel" placeholder="영화관 전화번호를 입력해주세요.">
+                    <input type="text" id="tt_tel" name="tt_tel" placeholder="(-)를 포함해서 전화번호를 입력해주세요.">
                 </div>
 
                 <div>
@@ -93,12 +92,56 @@
 
 <script>
     $(function () {
-        $("#add-theater-btn").on("click", function (event) {
+       $("#add-theater-btn").on("click", function (event) {
             event.preventDefault();
 
-            // Form 데이터 전송
+            if($("#tt_name").val()==""){
+				alert("영화관 이름을 입력해주세요.");
+				$("#tt_name").focus();
+				return false;
+			}
+            
+            if($(".scr_name").val()==""){
+				alert("추가할 상영관의 이름을 입력해주세요.");
+				$(".scr_name").focus();
+				return false;
+			}
+            if($(".scr_price").val()==""){
+				alert("추가할 상영관의 가격을 입력해주세요.");
+				$(".scr_price").focus();
+				return false;
+			}
+           
+            if($("#tt_img").val()==""){
+				alert("추가할 영화관의 이미지를 업로드해주세요.");
+				$("#tt_img").focus();
+				return false;
+			}
+            if($("#tt_address").val()==""){
+				alert("추가할 영화관의 주소를 입력해주세요.");
+				$("#tt_address").focus();
+				return false;
+			}
+            if($("#tt_tel").val()==""){
+				alert("추가할 영화관의 전화번호를 입력해주세요.");
+				$("#tt_tel").focus();
+				return false;
+			}
+            
+
+            if ( $("#tt_start").val() === "" || $("#tt_close").val() === "") {
+                alert("영업시간을 모두 입력해주세요.");
+                $("#tt_start").focus();
+                return;
+            }
+            
+
+         	// Form 데이터 전송
             $("#add-theater-list").submit();
-        });
+         	
+        }); 
+        
+
 
         $("#add_screen_btn").on("click", function () {
             let newIndex = $(".scrContents").length;
@@ -129,7 +172,12 @@
         }
 
         cancelPrevAction();
+        
+  
+      	
+        
     });
+    
 </script>
 
 <%@ include file="../../inc/admin_footer.jsp"%>

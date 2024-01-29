@@ -49,7 +49,7 @@
 		boolean isActiveMovie = requestURI.endsWith("/movie.jsp") || requestURI.endsWith("/movieDetail.jsp");
 		boolean isActiveTheater = requestURI.endsWith("/theater_user_view.jsp");
 		boolean isActiveBoard = requestURI.endsWith("/notice.jsp") || requestURI.endsWith("/noticeDetail.jsp");
-		boolean isActiveMyResulvation = requestURI.endsWith("/my_reservation.jsp") || requestURI.endsWith("/my_cancled_reservation.jsp");
+		boolean isActiveMyResulvation = requestURI.endsWith("/my_reservation.jsp") || requestURI.endsWith("/my_canceld_reservation.jsp");
 		boolean isActiveUser = requestURI.endsWith("/ih_preMyUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePass.jsp");
 		boolean isActiveMy = isActiveMyResulvation || isActiveUser;
 		%>
@@ -135,7 +135,7 @@
 			    <c:if test="${usertp_name == '관리자'}">
 			        <li>${usertp_name} 님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="adminPage.admin">관리자페이지</a>
+			            <a href="main.admin">관리자페이지</a>
 			        </li>
 			        <li class="header-util__item">
 			            <a href="logout.ih">로그아웃</a>
