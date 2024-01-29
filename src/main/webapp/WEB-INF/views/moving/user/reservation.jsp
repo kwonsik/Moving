@@ -23,6 +23,7 @@
 	<form action="seat_view.ks" method="post" id="reservationForm">
 	<input type="text" class="blind" id="sch_no" name="sch_no" value="">
 	<input type="text" class="blind" id="age_check" name="age_check" value="${age_check }">
+	<input type="text" class="blind" id="mv_cert" name="mv_cert" value="">
 		<div id="reservation" class="ks reservation">
 			<div class="title">
 				<h4>영화예매</h4>
@@ -115,7 +116,7 @@
 					alert('회원님의 나이로는 관람불가능한 영화입니다');
 					return false;
 				}
-				
+				$("#mv_cert").attr('value',$(this).parent().attr("data-cert"));
 				
 				if($(this).offset().top>702){
 					$(".movieList").scrollTop($(this).offset().top-282);
@@ -139,6 +140,7 @@
 				} else {
 					$(this).parents("ul").find("li").removeClass("selected");
 					$(this).parent().addClass("selected");
+					
 				}
 				getMovieList();
 				getTheaterList();
@@ -158,7 +160,7 @@
 			for (let i = now.getDay(); i < now.getDay() +7; i++) {
 				let nowdate = now.getDate();
 				let last= new Date(now.getFullYear(), (now.getMonth() + 1), 0).getDate();
-				console.log(nowdate+"/"+cnt)
+				
 				
 				if(nowdate+cnt>last){
 					nowdate=nowdate-last;
@@ -196,7 +198,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								console.log(data);
+								
 								let allTheaterList = document
 										.querySelectorAll(".theater");
 								let arr = new Array();
@@ -256,7 +258,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								console.log(data);
+								
 								$(".movie").attr("disabled", true);
 								$(".movie").addClass("unable");
 								let allMovieList = document
@@ -314,7 +316,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								console.log(data);
+								
 								$(".time").attr("disabled", true);
 								$(".time").addClass("unable");
 								let allDateList = document
