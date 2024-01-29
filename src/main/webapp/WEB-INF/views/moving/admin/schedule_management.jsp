@@ -12,7 +12,8 @@
 			<button id="add-schedule-btn" class="btn btn-info"
 				style="float: right">추가</button>
 		</h2>
-
+		
+	<div class="sub_content">
 		<div id="theater-selection">
 			<h2>영화관 선택</h2>
 			<div class="theater-list">
@@ -30,7 +31,7 @@
 			</div>
 		</div>
 
-		<div class="sub_content">
+		
 			<h2>날짜 선택</h2>
 			<div id="date-list">
 				<!-- 7일 동안의 날짜를 나타내는 버튼들이 여기에 표시됨 -->
@@ -276,7 +277,7 @@ $(document).ready(function () {
 
             // 서버로 상영시간표 추가 요청 보내기
             $.ajax({
-                url: 'addSchedule.shj', 
+                url: 'addSchedule.admin', 
                 method: 'POST',
                 data: {
                     scr_no: screenNo,
@@ -340,7 +341,7 @@ $(document).ready(function () {
         let selectedTheaterNo = theaterSelect.val();
 
         $.ajax({
-            url: 'getScreenList.shj',
+            url: 'getScreenList.admin',
             method: 'GET',
             data: { tt_no : selectedTheaterNo },
             dataType: 'json',
@@ -364,7 +365,7 @@ $(document).ready(function () {
     function updateMovieOptions() {
         let movieSelect = $('#movie-select');
         $.ajax({
-            url: 'getMovieList.shj',
+            url: 'getMovieList.admin',
             method: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -382,7 +383,7 @@ $(document).ready(function () {
     // 상영시간표 업데이트
     function updateMovieSchedule(theaterNo, selectedDate) {
         $.ajax({
-            url: 'scheduleListAdmin.shj',
+            url: 'scheduleListAdmin.admin',
             method: 'GET',
             data: { theaterNo: theaterNo, date: selectedDate },
             dataType: 'json',
@@ -416,7 +417,7 @@ $(document).ready(function () {
     // 상영시간표 삭제
     function deleteMovieSchedule(scheduleNo, $this) {
         $.ajax({
-            url: 'deleteSchedule.shj',
+            url: 'deleteSchedule.admin',
             method: 'POST',
             data: { sch_no: scheduleNo },
             dataType: 'json',
@@ -442,7 +443,7 @@ $(document).ready(function () {
 
         // 영화관 정보 가져오기
         $.ajax({
-            url: 'getTheaterInfo.shj',
+            url: 'getTheaterInfo.admin',
             method: 'GET',
             data: { tt_no: selectedTheaterNo },
             dataType: 'json',
@@ -498,7 +499,7 @@ $(document).ready(function () {
             let selectedTheaterNo = theaterSelect.val();
 
             $.ajax({
-                url: 'getTheaterInfo.shj',
+                url: 'getTheaterInfo.admin',
                 method: 'GET',
                 data: { tt_no: selectedTheaterNo },
                 dataType: 'json',

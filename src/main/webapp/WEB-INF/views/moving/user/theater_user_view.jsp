@@ -70,9 +70,9 @@
 <script>
 $(document).ready(function () {
     // 영화관 선택
-    var theaters = $('.theater');
-    var currentIndex = 0;
-    var maxVisibleTheaters = 5;
+    let theaters = $('.theater');
+    let currentIndex = 0;
+    let maxVisibleTheaters = 5;
 
     // 처음에는 처음 5개의 영화관만 보이도록 설정
     theaters.slice(currentIndex, currentIndex + maxVisibleTheaters).show();
@@ -96,7 +96,7 @@ $(document).ready(function () {
     });
 
     // 초기에는 첫 번째 영화관을 선택된 상태로 설정
-    var selectedTheaterNo = $('.theater').first().data('no');
+    let selectedTheaterNo = $('.theater').first().data('no');
     updateTheaterDetail(selectedTheaterNo);
     $('.theater').first().addClass('selected');
 
@@ -112,32 +112,32 @@ $(document).ready(function () {
         // 영화관 번호를 이용하여 상세 정보 업데이트
         updateTheaterDetail(selectedTheaterNo);
         
-        var selectedDate = $('.date-btn.selected').data('date');
+        let selectedDate = $('.date-btn.selected').data('date');
         // 선택된 날짜에 따라 상영시간표 업데이트
         updateMovieSchedule(selectedTheaterNo, selectedDate);
     });
 
     // 날짜 선택
-    var dateList = $('#date-list');
-    var currentDate = new Date(); // 현재 날짜를 기준으로 설정
-    for (var i = 0; i < 7; i++) {
-        var date = new Date(currentDate);
+    let dateList = $('#date-list');
+    let currentDate = new Date(); // 현재 날짜를 기준으로 설정
+    for (let i = 0; i < 7; i++) {
+        let date = new Date(currentDate);
         date.setDate(currentDate.getDate() + i);
-        var dateString = (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getDate().toString().padStart(2, '0');
+        let dateString = (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getDate().toString().padStart(2, '0');
 
         // 요일을 가져오는 함수 추가
         function getDayDisplay(dayIndex) {
             if (dayIndex === currentDate.getDay() && i === 0) {
                 return '오늘';
             } else {
-                var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+                let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
                 return daysOfWeek[dayIndex];
             }
         }
 
-        var dayOfWeek = getDayDisplay(date.getDay());
+        let dayOfWeek = getDayDisplay(date.getDay());
 
-        var button = $('<button class="date-btn">' + dateString + '<br>' + dayOfWeek + '</button>'); // 요일 추가
+        let button = $('<button class="date-btn">' + dateString + '<br>' + dayOfWeek + '</button>'); // 요일 추가
 
         if (date.toISOString().split('T')[0] === getCurrentDate()) {
             button.addClass('today');
@@ -163,15 +163,15 @@ $(document).ready(function () {
         // 현재 클릭한 날짜에 selected 클래스 추가
         $(this).addClass('selected');
 
-        var selectedDate = $(this).data('date');
+        let selectedDate = $(this).data('date');
         
         // 선택된 날짜에 따라 상영시간표 업데이트
         updateMovieSchedule(selectedTheaterNo, selectedDate);
     });
     
- // 함수 정의: 현재 날짜를 ISO 형식으로 반환
+    // 함수 정의: 현재 날짜를 ISO 형식으로 반환
     function getCurrentDate() {
-        var currentDate = new Date();
+        let currentDate = new Date();
         return currentDate.toISOString().split('T')[0];
     }
 
@@ -212,27 +212,26 @@ $(document).ready(function () {
             data: { theaterNo: theaterNo, date: selectedDate },
             dataType: 'json',
             success: function (data) {
-                var movieSchedules = data;
+                let movieSchedules = data;
 
                 if (movieSchedules.length === 0) {
                     // 상영시간표가 없는 경우 메시지를 표시할 영역에 내용을 추가
                     $('#movie-schedule').html('<h3 class="no-schedule-message">상영시간표가 없습니다.</h3>');
                 } else {
-                    var scheduleContent = '';
+                    let scheduleContent = '';
 
                     // 각 영화에 대한 상영일정 생성
                     movieSchedules.forEach(function (movie) {
-                    	console.log(movie);
-                    	let rating = '';
+                        let rating = '';
                         if (movie.mv_cert == '12') {
                             rating = 'age12';
-                        }else if (movie.mv_cert == '15') {
+                        } else if (movie.mv_cert == '15') {
                             rating = 'age15';
-                        }else if (movie.mv_cert == '19') {
+                        } else if (movie.mv_cert == '19') {
                             rating = 'age19';
-                        }else if (movie.mv_cert == 'All') {
+                        } else if (movie.mv_cert == 'All') {
                             rating = 'ageall';
-                        }else{
+                        } else {
                             rating = 'agelimit';
                         }
 
@@ -242,7 +241,7 @@ $(document).ready(function () {
                         scheduleContent += '<div class="article">';
 
                         // 각 상영관에 대한 일정 생성
-                        var sections = {};
+                        let sections = {};
                         movie.schedules.forEach(function (schedule) {
                             if (!sections[schedule.section]) {
                                 sections[schedule.section] = [];
@@ -251,7 +250,7 @@ $(document).ready(function () {
                         });
 
                         // 각 섹션에 대한 일정 생성
-                        for (var section in sections) {
+                        for (let section in sections) {
                             scheduleContent += '<h4>' + section + '</h4>';
                             scheduleContent += '<ul>';
                             sections[section].forEach(function (schedule) {
@@ -279,5 +278,24 @@ $(document).ready(function () {
             }
         });
     }
+
+    // 상영시간표 클릭 시 이벤트 처리
+    $('#movie-schedule').on('click', '.btnTime', function (e) {
+        // 세션에서 사용자 번호를 확인
+        let userNo = '${sessionScope.user_no}';
+
+        // 사용자 번호가 없는 경우
+        if (!userNo) {
+            // 확인 창 띄우기
+            let confirmed = confirm('로그인이 필요한 페이지입니다. 로그인 하시겠습니까?');
+            // 확인 버튼 클릭한 경우
+            if (confirmed) {
+                // 로그인 페이지로 이동
+                window.location.href = 'loginPage.ih'; // 로그인 페이지 URL로 변경
+            }
+            // 이벤트 중단
+            e.preventDefault();
+        }
+    });
 });
 </script>
