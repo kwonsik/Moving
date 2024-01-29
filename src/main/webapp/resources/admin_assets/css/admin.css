@@ -534,7 +534,7 @@ tbody tr:focus, tbody tr:hover {
 }
 
 #screen-management .hy_table {
-	margin: 150px auto auto 400px;
+	margin: 150px auto auto 300px;
 }
 
 #sm th, #sm td {
@@ -635,7 +635,7 @@ tbody tr:focus, tbody tr:hover {
 
 #seat {
 	margin-top: 150px;
-	margin-left: 440px;
+	margin-left: 300px;
 }
 
 #seat label {
