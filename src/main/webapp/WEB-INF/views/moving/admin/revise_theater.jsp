@@ -67,8 +67,6 @@
 		$("select[name='scr_no']").change(function() {
 			// 선택한 상영관의 값 
 			var selectedScrNo = $(this).val();
-			//console.log(selectedScrNo);
-			//console.log(${param.tt_no});
 
 			$.ajax({
 				url : "screen-info.admin", // 서버에서 정보를 가져올 URL
