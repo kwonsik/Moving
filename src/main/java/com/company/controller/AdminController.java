@@ -49,7 +49,7 @@ public class AdminController {
 
 	@GetMapping("/main.admin")
 	public String main() {
-		return "main";
+		return "ih_adminUser";
 	}
 	@GetMapping("/reservation_management.admin")
 	public String reservation_management(Model model,HttpServletRequest request,Reservation_ViewDto dto) {
