@@ -161,11 +161,11 @@
 				console.log(nowdate+"/"+cnt)
 				if(nowdate+cnt>last){
 					nowdate=nowdate-last;
-					$("#time" + cnt).attr('date',now.getFullYear() + "-" + (now.getMonth() + 2) + "-"+ (nowdate+cnt));
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ (nowdate+cnt));
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 				else{
-					$("#time" + cnt).attr('date',now.getFullYear() + "-" + (now.getMonth() + 1) + "-"+ (nowdate+cnt));
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ (nowdate+cnt));
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 
