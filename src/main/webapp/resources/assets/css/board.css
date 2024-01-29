@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 /* 목록 */
@@ -171,6 +172,19 @@
   font-size:16px;
   color: #454545;
   line-height: 1.5;
+}
+.as_board__content pre {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0 none;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+  white-space: pre-line;
 }
 .as_board__content img {
   max-width:100%;
