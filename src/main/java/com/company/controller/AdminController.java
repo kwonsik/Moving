@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.dao.TheaterManageDao;
 import com.company.dto.BrokenSeatDto;
@@ -91,7 +92,7 @@ public class AdminController {
 
 		// List<ScreenDto> result = dao.screenReadAll2(tt_no);
 
-		System.out.println("상영관 list 값 " + json);
+		//System.out.println("상영관 list 값 " + json);
 
 		return json;
 
@@ -104,12 +105,12 @@ public class AdminController {
 
 	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
 	public String addTheater(@ModelAttribute TheaterDto dto) {
-		System.out.println("... 추가해주세요");
-		System.out.println(dto);
+		//System.out.println("... 추가해주세요");
+		//System.out.println(dto);
+		
 
 		ATservice.ttAndscrInsert(dto);
-
-		// 나머지 로직 수행
+			
 
 		return "redirect:theater-list.admin";
 	}

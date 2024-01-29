@@ -8,13 +8,13 @@
 	<div id="theater-management" class="page">
 		<h2>영화관 관리</h2>
 		<!-- 검색 및 필터 -->
-		<div class="search-filter">
+		<%-- <div class="search-filter">
 			<input type="text" class="search-input" placeholder="영화관 이름을 입력해주세요.">
 			<p>
 				<img
 					src="${pageContext.request.contextPath}/resources/admin_assets/images/search.png">
 			</p>
-		</div>
+		</div> --%>
 		<section style="min-height: 20px;"></section>
 		<div class="sub_content">
 			<!-- 영화관 / 상영관 목록 view -->
@@ -27,7 +27,7 @@
 						</c:forEach>
 					</ul>
 				</div>
-				
+
 			</div>
 			<!-- end lists -->
 
@@ -35,11 +35,11 @@
 		</div>
 		<!-- end sub_content -->
 
-
+		
 
 		<script>
                     $(document).ready(function(){
-                    	screenReadAll();
+                    	screenReadAll();	
                     });
 
                     <!-- 상영관 LIST -->
@@ -77,21 +77,29 @@
                             let ul = "<div class='screenlists'><ul>";
                             for (let i = 0; i < result.length; i++) {
                                 let screen = result[i];
-                                let li = "<li><a href='screen-manage.admin?scr_no="+screen.scr_no+"'>"+screen.scr_name+"</a></li>";
+                                let li = "<li data-scrstate='"+screen.scrstate_no+"'><a href='screen-manage.admin?scr_no="+screen.scr_no+"'>"+screen.scr_name+"</a></li>";
                                 ul += li;
                             }
                             ul += "</ul></div>";
 
-                       
                             // 해당 영화관의 data-tt_no를 가져와서 해당 영화관의 하위에 추가
                             let ttNo = result[0].tt_no; // 예시로 첫 번째 상영관의 tt_no를 가져옴
                             $("#tt-list li[data-tt_no='" + ttNo + "']").append("<hr style='clear: both;'>" + ul);
+                            
+                         	// 중지된 상영관들은 흐리게 표시
+                            /*  $(".screenlists li[data-scrstate='2']").css({ "color": "#8d8787", "background-color": "#afafaf" });*/
+                            $(".screenlists li[data-scrstate='2']").addClass('stopScreens');
+                         	
                         } else {
                             // 상영관이 없을 경우 메시지를 표시
                             $("#tt-list li[data-tt_no='" + ttNo + "']").append("<ul><li>No screens available</li></ul>");
                         }
+                        
+                       
                     }  ///end screenListResult()
                     
+                    
+                   
                    
                     
        
