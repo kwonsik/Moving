@@ -50,7 +50,6 @@ $(document).ready(function() {
 <div class="ih_adminUser">
 
 <div class="panel-warning">
-<<<<<<< HEAD
 <form action="adminDeleteUser.admin" method="POST" style="overflow:auto; height:800px;">
  	<table  class="table table-striped usertable" style="margin: 50px auto;">
 		<thead>
@@ -75,31 +74,6 @@ $(document).ready(function() {
  		</table>
 
  		<div class="cm_btns">
-<form action="adminDeleteUser.admin" method="POST" style="overflow: auto; height: 800px;">
- 	<table  class="table table-striped usertable">
-		<thead>
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">등급</th>
-				<th scope="col">ID</th>
-				<th scope="col">이름</th>
-				<th scope="col">별명</th>
-				<th scope="col">이메일</th>
-				<th scope="col">생년월일</th>
-				<th scope="col">전화번호</th>
-				<th scope="col">카카오코드</th>
-				<th scope="col">가입날짜</th>
-				<th scope="col">가입IP</th>
-				<th scope="col">유저탈퇴</th>
-			</tr>
-		</thead>
-		<tbody>
-		
-		</tbody>
- 		</table>
-
- 		<div class="cm_btns" id="deleteSelectedDiv">
->>>>>>> refs/heads/master
 			<button id="deleteSelected" class="btn btn-danger">선택 삭제</button>
 		</div>
 </form>
