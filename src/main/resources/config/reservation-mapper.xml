@@ -105,14 +105,14 @@
 	<select id="getMyReservationView_2" resultType="ReservationdetailDto" parameterType="Reservation_ViewDto">
 		select * from reservationdetail where r_no=#{r_no}
 	</select>
-	<update id="reservationCancle" parameterType="Reservation_ViewDto">
+	<update id="reservationcancel" parameterType="Reservation_ViewDto">
 		update reservation set rstate_no=2 where r_no=#{r_no}
 	</update> 
-	<update id="reservationCancleCnt" parameterType="Reservation_ViewDto">
+	<update id="reservationcancelCnt" parameterType="Reservation_ViewDto">
 		update schedule set sch_cnt=sch_cnt+(select count(*) from reservationdetail where r_no=#{r_no}) 
 		where sch_no=(select sch_no from reservation where r_no=#{r_no});
 	</update>
-	<select id="getMyCancledReservationView" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
+	<select id="getMycanceledReservationView" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
 		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
       	TIME_FORMAT(sch.sch_end,'%H:%i') AS sch_end,r.r_price,mv.mv_img
 		from reservation r join theater tt join screen scr join schedule sch join movie mv join schedulestate sst
@@ -145,10 +145,10 @@
 		</choose>
 		order by r.r_no desc limit #{pstartno},10
 	</select>
-	<update id="admin_reservationCancle" parameterType="int">
+	<update id="admin_reservationcancel" parameterType="int">
 		update reservation set rstate_no=2 where r_no=#{r_no}
 	</update>
-	<update id="admin_reservationCancleCnt" parameterType="int">
+	<update id="admin_reservationcancelCnt" parameterType="int">
 		update schedule set sch_cnt=sch_cnt+(select count(*) from reservationdetail where r_no=#{r_no}) 
 		where sch_no=(select sch_no from reservation where r_no=#{r_no});
 	</update>
