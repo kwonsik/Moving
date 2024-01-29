@@ -81,7 +81,15 @@ window.addEventListener('load', function() {
 	                        $("#emailCode").val(codeData);
 	                        setTimeout(function() {
 	                            $("#emailCode").val("");
-	                        }, 180000); // 3분 후 코드 값 비우기
+	                        }, 180000);
+	                        $('#btnCheckCode').on('click', function() {
+	                        	clearInterval(countdownTimer);
+							    var userInputCode = $('#inputEmail').val();
+							    var serverCode = $('#emailCode').val();
+							    if (userInputCode === serverCode) {
+							        $('#timeLimit').css('color', 'blue').val('인증확인');
+							    } 
+							});
 	                    },
 	                    error: function(xhr, status, error) {
 	                        alert('오류가 발생했습니다');
@@ -99,9 +107,12 @@ window.addEventListener('load', function() {
 	});
 	
 	// 카운트다운 함수
+	var countdownTimer;
+	
+	// 카운트다운 함수
 	function startCountdown(duration, display) {
 	    var timer = duration, minutes, seconds;
-	    var countdown = setInterval(function() {
+	    countdownTimer = setInterval(function() {
 	        minutes = parseInt(timer / 60, 10);
 	        seconds = parseInt(timer % 60, 10);
 	
@@ -111,7 +122,7 @@ window.addEventListener('load', function() {
 	        display.val(minutes + ":" + seconds);
 	
 	        if (--timer < 0) {
-	            clearInterval(countdown);
+	            clearInterval(countdownTimer);
 	            display.val("00:00");
 	        }
 	    }, 1000);

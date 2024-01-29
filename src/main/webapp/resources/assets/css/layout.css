@@ -133,9 +133,6 @@
 }
 
 /* container */
-.container {
-	min-height: 540px;
-}
 .container.is-fullwidth {
   width: auto;
   max-width: unset;

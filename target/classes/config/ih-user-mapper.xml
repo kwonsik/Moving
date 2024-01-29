@@ -26,7 +26,11 @@
 	    where u.user_no = (select user_no from user where user_id = #{user_id} and user_pass=#{user_pass});
 	</select>
 
-
+	<!-- 로그인버튼 클릭시 유저확인 ajax -->
+	<select id="userCheck" parameterType="UserDto" resultType="int">
+    	select count(*) `cnt` from user where user_id=#{user_id} and user_pass=#{user_pass}
+    </select>
+	
     <!-- ③ 회원가입 -->
     <insert id="join" parameterType="UserDto">
 		insert into user (usertp_no,user_id,user_name,user_pass,user_nick,user_mail,user_age,user_phone,user_kakao,user_crtdate,user_ip) 
@@ -111,6 +115,11 @@
     <!-- ⑮이메일 중복체크 -->
     <select id="emailCheck" parameterType="UserDto" resultType="int">
     	select count(*) `cnt`  from user where user_mail=#{user_mail}
+    </select>
+    
+    <!-- 비밀번호 변경페이지의 원래비밀번호 체크 ajax -->
+    <select id="originalPasswordCheck" parameterType="UserDto" resultType="int">
+    	select count(*) `cnt` from user where user_id=#{user_id} and user_pass=#{user_pass}
     </select>
     
 </mapper>

@@ -15,7 +15,7 @@
 			</div>
 			<div class="inputType">
 				<label for="age">생년월일</label>
-				<input type="text" name="age" id="age" placeholder="생년월일 8자리 ex) 19810101" />
+				<input type="number" name="age" id="age" placeholder="생년월일 8자리 ex) 19810101" />
 			</div>
 			<div class="inputType">
 				<label for="email">이메일</label>
@@ -24,5 +24,10 @@
 			<input type="submit" class="btn" value="아이디찾기">
 		</fieldset>
 	</form>
+	<script>
+    window.onload = function() {
+		<c:if test="${not empty failFindId}"> alert("${failFindId}"); </c:if>
+    }
+	</script>
 </div>
 <%@include file="../../inc/footer.jsp"%>

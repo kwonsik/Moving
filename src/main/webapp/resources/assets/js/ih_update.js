@@ -1,18 +1,19 @@
 $(function() {
-$("#nickname2").on("blur", function() {
-    $.ajax({
-        url: "nicknameCheck.ih",
-        type: "get",
-        dataType: "text",
-        data: { "nickname": $("#nickname2").val() },
-        success: function(data) {
-            $("#nicknameResult").html(data);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $("#nicknameResult").html(textStatus + "(HTTP-" + xhr.status + ")");
-        }
-    });
-});
+	//닉네임 중복검사
+	$("#nickname2").on("keyup", function() {
+	    $.ajax({
+	        url: "nicknameCheck.ih",
+	        type: "get",
+	        dataType: "text",
+	        data: { "nickname": $("#nickname2").val() },
+	        success: function(data) {
+	            $("#nicknameResult").html(data);
+	        },
+	        error: function(xhr, textStatus, errorThrown) {
+	            $("#nicknameResult").html(textStatus + "(HTTP-" + xhr.status + ")");
+	        }
+	    });
+	});
 }); // end $
 
 window.addEventListener('load', function() {
@@ -67,6 +68,14 @@ window.addEventListener('load', function() {
                         setTimeout(function() {
                             $("#emailCode").val("");
                         }, 180000); // 3분 후 코드 값 비우기
+                        $('#btnCheckCode').on('click', function() {
+                        	clearInterval(countdownTimer);
+						    var userInputCode = $('#inputEmail').val();
+						    var serverCode = $('#emailCode').val();
+						    if (userInputCode === serverCode) {
+						        $('#timeLimit').css('color', 'blue').val('인증확인');
+						    } 
+						});
                     },
                     error: function(xhr, status, error) {
                         alert('오류가 발생했습니다');
@@ -82,25 +91,26 @@ window.addEventListener('load', function() {
         }
     });
 });
+	var countdownTimer;
+	// 카운트다운 함수
+	function startCountdown(duration, display) {
+	    var timer = duration, minutes, seconds;
+	    countdownTimer = setInterval(function() {
+	        minutes = parseInt(timer / 60, 10);
+	        seconds = parseInt(timer % 60, 10);
+	
+	        minutes = minutes < 10 ? "0" + minutes : minutes;
+	        seconds = seconds < 10 ? "0" + seconds : seconds;
+	
+	        display.val(minutes + ":" + seconds);
+	
+	        if (--timer < 0) {
+	            clearInterval(countdownTimer);
+	            display.val("00:00");
+	        }
+	    }, 1000);
+	}
 
-    // 카운트다운 함수
-    function startCountdown(duration, display) {
-        var timer = duration, minutes, seconds;
-        var countdown = setInterval(function() {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.val(minutes + ":" + seconds);
-
-            if (--timer < 0) {
-                clearInterval(countdown);
-                display.val("00:00");
-            }
-        }, 1000);
-    }
 
 document.getElementById('update').addEventListener('submit', function(event) {
     // 기존 값 또는 새로 입력된 값 사용

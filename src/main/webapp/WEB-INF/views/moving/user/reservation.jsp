@@ -23,7 +23,6 @@
 	<form action="seat_view.ks" method="post" id="reservationForm">
 	<input type="text" class="blind" id="sch_no" name="sch_no" value="">
 	<input type="text" class="blind" id="age_check" name="age_check" value="${age_check }">
-	<input type="text" class="blind" id="mv_cert" name="mv_cert" value="">
 		<div id="reservation" class="ks reservation">
 			<div class="title">
 				<h4>영화예매</h4>
@@ -50,8 +49,6 @@
 				<h5>날짜</h5>
 				<ul>
 					<li><input type="button" class="time" value="" name="time"
-						id="time0"></li>
-					<li><input type="button" class="time" value="" name="time"
 						id="time1"></li>
 					<li><input type="button" class="time" value="" name="time"
 						id="time2"></li>
@@ -63,6 +60,8 @@
 						id="time5"></li>
 					<li><input type="button" class="time" value="" name="time"
 						id="time6"></li>
+					<li><input type="button" class="time" value="" name="time"
+						id="time7"></li>
 				</ul>
 			</div>
 			
@@ -116,7 +115,7 @@
 					alert('회원님의 나이로는 관람불가능한 영화입니다');
 					return false;
 				}
-				$("#mv_cert").attr('value',$(this).parent().attr("data-cert"));
+				
 				
 				if($(this).offset().top>702){
 					$(".movieList").scrollTop($(this).offset().top-282);
@@ -140,7 +139,6 @@
 				} else {
 					$(this).parents("ul").find("li").removeClass("selected");
 					$(this).parent().addClass("selected");
-					
 				}
 				getMovieList();
 				getTheaterList();
@@ -150,28 +148,24 @@
 			
 			
 			
-			// 원본코드
+			
 			let now = new Date();
 			
+			let last= new Date(now.getFullYear(), (now.getMonth() + 1), 0).getDate();
 			let weekday = [ "일", "월", "화", "수", "목", "금", "토", "일", "월", "화",
 					"수", "목", "금", "토" ]
 			$("#now").html(now.getFullYear() + "." + (now.getMonth() + 1));
 			let cnt = 0;
 			for (let i = now.getDay(); i < now.getDay() +7; i++) {
 				let nowdate = now.getDate();
-				let last= new Date(now.getFullYear(), (now.getMonth() + 1), 0).getDate();
-				
-				
-				if(nowdate+cnt>last){
+				if(nowdate>last){
 					nowdate=nowdate-last;
-					let date=(nowdate+cnt)<=10?"0"+(nowdate+cnt):(nowdate+cnt);
-					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ date);
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ (nowdate + cnt));
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 				else{
-					let date=(nowdate+cnt)<=10?"0"+(nowdate+cnt):(nowdate+cnt);
-					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ date);
-					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ (nowdate + cnt));
+					$("#time" + cnt).attr("value", weekday[i] + " " +(nowdate+cnt));
 				}
 
 				
@@ -183,8 +177,7 @@
 				}
 				nowdate += 1;
 				cnt += 1;
-			} 
-
+			}
 
 			let getTheaterList = function() {
 				$
@@ -198,7 +191,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								
+								console.log(data);
 								let allTheaterList = document
 										.querySelectorAll(".theater");
 								let arr = new Array();
@@ -258,7 +251,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								
+								console.log(data);
 								$(".movie").attr("disabled", true);
 								$(".movie").addClass("unable");
 								let allMovieList = document
@@ -316,7 +309,7 @@
 							dataType : 'json',
 							async : false,
 							success : function(data) {
-								
+								console.log(data);
 								$(".time").attr("disabled", true);
 								$(".time").addClass("unable");
 								let allDateList = document

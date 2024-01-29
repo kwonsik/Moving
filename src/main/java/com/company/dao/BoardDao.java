@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.company.dto.BoardDto;
-import com.company.dto.MovieDto;
 
 @MyDao
 public interface BoardDao {
@@ -16,6 +15,6 @@ public interface BoardDao {
 	public BoardDto b_read(int board_no);
 	public List<BoardDto> b_readAll();
 	
-	public int b_total();
+	public int b_total(); // 상영중 영화 전체 갯수
 	public <T> List<BoardDto> b_listCnt(Map<String, T> param);
 }

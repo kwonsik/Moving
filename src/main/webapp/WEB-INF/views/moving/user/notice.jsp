@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include  file="../../inc/header.jsp" %>
 
+<c:set var="total" value="${list.size()}" />
     <!-- main -->
     <main id="main" class="main">
       <h2 class="blind">공지 리스트</h2>
@@ -13,7 +14,7 @@
           </div>
 
           <div class="as_board-list__head">
-            <h3 class="as_board-list__notice">총 <strong>${paging.listtotal}개</strong>의 게시글이 있습니다.</h3>
+            <h3 class="as_board-list__notice">총 <strong>${total}개</strong>의 게시글이 있습니다.</h3>
             <div class="srch-box">
               <div class="select-box">
                 <select id="srchKey" class="select">
@@ -54,9 +55,9 @@
 					<c:when test="${list.size() > 0}">
 						<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr>
-							<td>${paging.listtotal-paging.pstartno-status.index}</td>
+							<td>${total-status.index}</td>
 							<td><a href="${pageContext.request.contextPath}/noticeDetail.as?board_no=${dto.board_no}">${dto.b_title}</a></td>
-							<td>관리자</td>
+							<td>${dto.user_no==0?"관리자":"Unknown"}</td>
 							<td>${dto.b_crtdate.split(' ')[0]}</td>
 							<td>${dto.b_hit}</td>
 						</tr>
@@ -75,21 +76,11 @@
           </div>
 
           <div class="pagenate">
-			<c:if test="${paging.startPage>=paging.bottomlimit}">
-				<li class="prev">
-					<a href="${pageContext.request.contextPath}/notice.as?pstartno=${(paging.startPage-2)*paging.onepagelimit}"><span class="blind">이전 페이지</span></a>
-				</li>
-			</c:if>
-			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
-				<li <c:if test="${paging.currentPage == i}">class="is-active"</c:if>>
-					<a href="${pageContext.request.contextPath}/notice.as?pstartno=${(i-1)*paging.onepagelimit}">${i}</a>
-				</li>
-			</c:forEach>
-			<c:if test="${paging.endPage<paging.pagetotal}">
-				<li class="next">
-					<a href="${pageContext.request.contextPath}/notice.as?pstartno=${paging.endPage*paging.onepagelimit}"><span class="blind">다음 페이지</span></a>
-				</li>
-			</c:if>
+            <a href="#" class="prev"><span class="blind">이전 페이지</span></a>
+            <a href="#" class="is-active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#" class="next"><span class="blind">다음 페이지</span></a>
           </div>
         </div>
       </div>

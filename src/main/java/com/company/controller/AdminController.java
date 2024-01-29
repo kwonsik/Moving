@@ -49,7 +49,7 @@ public class AdminController {
 
 	@GetMapping("/main.admin")
 	public String main() {
-		return "ih_adminUser";
+		return "main";
 	}
 	@GetMapping("/reservation_management.admin")
 	public String reservation_management(Model model,HttpServletRequest request,Reservation_ViewDto dto) {
@@ -63,11 +63,11 @@ public class AdminController {
 		r_service.paging(dto, model);		
 		return "reservation_management";
 	}
-	@PostMapping("/admin_reservationcancel.admin")
-	public void admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	@PostMapping("/admin_reservationCancle.admin")
+	public void admin_reservationCancle(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		int result=r_service.admin_reservationcancel(request, response);
+		int result=r_service.admin_reservationCancle(request, response);
 		PrintWriter out=response.getWriter();
 		if(result>0) {out.print("<script>alert('예매를 취소했습니다.');location.href='reservation_management.admin'</script>");}
 		else {out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");}	
@@ -195,7 +195,7 @@ public class AdminController {
 		
 		//고장난 좌석 리스트 보내기 
 		//model.addAttribute("bkSeatLists", service.bkSeatReadAction(scr_no));
-		//model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));   
+		model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));   
 
 		// System.out.println("scr_no 값 : "+scr_no);
 		//System.out.println(service.scrseat(scr_no));

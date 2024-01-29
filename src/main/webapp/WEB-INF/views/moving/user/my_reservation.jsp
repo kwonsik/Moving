@@ -117,8 +117,8 @@
 	margin-right: 5px;
 }
 
-.reservation_cancel{height: 56px;width: 257px;}
-.reservation_cancel .cancelBtn{border: none;background-color:#40dfd0; width: 100%; height: 100%; text-align: center;
+.reservation_cancle{height: 56px;width: 257px;}
+.reservation_cancle .cancleBtn{border: none;background-color:#40dfd0; width: 100%; height: 100%; text-align: center;
 font-size: 18px;font-weight: bold;}
 </style>
 
@@ -133,7 +133,7 @@ font-size: 18px;font-weight: bold;}
 					<li class="selected"><input type="button" value="예매내역"
 						class="my_reservation_Btn" onclick="location.href='my_reservation.ks?user_no=${user_no}'"></li>
 					<li><input type="button" value="취소내역"
-						class="my_reservation_Btn" onclick="location.href='my_canceled_reservation.ks?user_no=${user_no}'"></li>
+						class="my_reservation_Btn" onclick="location.href='my_cancled_reservation.ks?user_no=${user_no}'"></li>
 				</ul>
 			</div>
 			<div class="mscontent">
@@ -188,9 +188,9 @@ font-size: 18px;font-weight: bold;}
 								<dt>총 결제금액</dt>
 								<dd>${i.r_price }원</dd>
 							</dl>
-							<div class="reservation_cancel">
+							<div class="reservation_cancle">
 							
-							<input type="button" class="cancelBtn" data-r_no="${i.r_no}" value="예매취소">
+							<input type="button" class="cancleBtn" data-r_no="${i.r_no}" value="예매취소">
 						</div>
 					</div>
 					<script>
@@ -254,9 +254,9 @@ font-size: 18px;font-weight: bold;}
 	
 	<script>
 		$(function(){
-			$(".cancelBtn").on("click",function(){	
+			$(".cancleBtn").on("click",function(){	
 					let result = confirm('예매를 취소하시겠습니까?');
-					if(result==true){location.href='reservationcancel.ks?r_no='+$(this).data("r_no")}
+					if(result==true){location.href='reservationCancle.ks?r_no='+$(this).data("r_no")}
 					
 			});
 		});

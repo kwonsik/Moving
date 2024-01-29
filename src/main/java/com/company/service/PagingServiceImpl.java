@@ -17,8 +17,7 @@ public class PagingServiceImpl implements PagingService {
     @Autowired private BoardDao boardDao;
 
     // 10개씩 리스트
-    @SuppressWarnings("unchecked")
-	@Override public <T> List<T> listCnt(Map<String, T> param) {
+    @Override public <T> List<T> listCnt(Map<String, T> param) {
     	String type = String.valueOf(param.get("type"));
     	
         if (param.get("type").equals("board")) {

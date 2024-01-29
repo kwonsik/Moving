@@ -36,16 +36,16 @@ public interface ReservationDao {
 	public void my_reservation_view(Reservation_ViewDto dto,Model model);
 	public List<ReservationdetailDto> getMyReservationView_1(Reservation_ViewDto dto);
 	public List<ReservationdetailDto> getMyReservationView_2(Reservation_ViewDto dto);
-	public int reservationcancel(Reservation_ViewDto dto);
-	public void reservationcancelCnt(Reservation_ViewDto dto);
-	public List<ReservationdetailDto> getMycanceledReservationView(Reservation_ViewDto dto);
+	public int reservationCancle(Reservation_ViewDto dto);
+	public void reservationCancleCnt(Reservation_ViewDto dto);
+	public List<ReservationdetailDto> getMyCancledReservationView(Reservation_ViewDto dto);
 	public List<ReservationdetailDto> getAllReservationList();
 	
 	public void paging(Reservation_ViewDto dto);
 	public int rvcount(Reservation_ViewDto dto);
 	public List<Reservation_ViewDto> rvlist10(Reservation_ViewDto dto);
-	public int admin_reservationcancel(int r_no);
-	public int admin_reservationcancelCnt(int r_no);
+	public int admin_reservationCancle(int r_no);
+	public int admin_reservationCancleCnt(int r_no);
 	
 	
 }

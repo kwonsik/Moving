@@ -49,7 +49,7 @@
 		boolean isActiveMovie = requestURI.endsWith("/movie.jsp") || requestURI.endsWith("/movieDetail.jsp");
 		boolean isActiveTheater = requestURI.endsWith("/theater_user_view.jsp");
 		boolean isActiveBoard = requestURI.endsWith("/notice.jsp") || requestURI.endsWith("/noticeDetail.jsp");
-		boolean isActiveMyResulvation = requestURI.endsWith("/my_reservation.jsp") || requestURI.endsWith("/my_canceld_reservation.jsp");
+		boolean isActiveMyResulvation = requestURI.endsWith("/my_reservation.jsp") || requestURI.endsWith("/my_cancled_reservation.jsp");
 		boolean isActiveUser = requestURI.endsWith("/ih_preMyUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePage.jsp") || requestURI.endsWith("/ih_myUpdatePass.jsp");
 		boolean isActiveMy = isActiveMyResulvation || isActiveUser;
 		%>
@@ -63,7 +63,7 @@
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
-             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__link" id="res"><span>예매</span>
+             <c:when test="${user_no==null }"><a href="#" class="gnb__link" id="res"><span>예매</span>
              </a></c:when>
              </c:choose>
            </li>
@@ -83,7 +83,7 @@
              <ul class="gnb__2depth">
                <li class="gnb__2depth-item<%= isActiveMyResulvation ? " is-active" : "" %>">
                <c:choose>
-             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
+             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no}" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
                  </a></c:when>
              <c:when test="${user_no==null }">
@@ -113,9 +113,14 @@
                  </script>
                </li>
               <li class="gnb__2depth-item<%= isActiveUser ? " is-active" : "" %>">
-                  <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
-                    <span>회원정보수정</span>
-                  </a>
+              <c:choose>
+              <c:when test="${user_no!=null }">
+                  <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link"> <span>회원정보수정</span> </a>
+              </c:when>
+              <c:when test="${user_no==null }">
+                  <a href="loginPage.ih" class="gnb__2depth-link" id="nologintoMyUpdate"> <span>회원정보수정</span> </a>
+              </c:when>    
+              </c:choose>
                 </li>
               </ul>
             </li>
@@ -135,10 +140,10 @@
 			    <c:if test="${usertp_name == '관리자'}">
 			        <li>${usertp_name} 님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="main.admin">관리자페이지</a>
+			            <a href="adminPage.admin">관리자페이지</a>
 			        </li>
 			        <li class="header-util__item">
-			            <a href="logout.ih">로그아웃</a>
+			            <a href="#" class="logoutBtn">로그아웃</a>
 			        </li>
 			    </c:if>
 			
@@ -156,7 +161,7 @@
 			    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
 			        <li>${user_nick}님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="logout.ih">로그아웃</a>
+			            <a href="#" class="logoutBtn">로그아웃</a>
 			        </li>
 			    </c:if>
           </ul>

@@ -49,11 +49,8 @@ public class AsFrontController {
 	
 	/* USER - NOTICE */
 	@RequestMapping(value="notice.as", method=RequestMethod.GET)
-	public void notice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model) {
-		Map<String, Object> pagedData = p_service.getPagedData(pstartno, "board");
-
-        model.addAttribute("list", pagedData.get("list"));
-        model.addAttribute("paging", pagedData.get("paging"));
+	public void notice(Model model) {
+		model.addAttribute("list", b_service.b_readAll());
 	}
 	
 	@RequestMapping(value="noticeDetail.as", method=RequestMethod.GET)
@@ -146,11 +143,8 @@ public class AsFrontController {
 	
 	/* ADMIN - NOTICE */
 	@RequestMapping(value="notice.admin", method=RequestMethod.GET)
-	public void adminNotice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model) {
-		Map<String, Object> pagedData = p_service.getPagedData(pstartno, "board");
-
-        model.addAttribute("list", pagedData.get("list"));
-        model.addAttribute("paging", pagedData.get("paging"));
+	public void adminNotice(Model model) {
+		model.addAttribute("list", b_service.b_readAll());
 	}
 
 	@RequestMapping(value="/noticeWrite.admin" , method=RequestMethod.GET)

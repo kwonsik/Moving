@@ -70,7 +70,7 @@ public class IhController {
 		model.addAttribute("user_phone", user_phone);
 		model.addAttribute("usertp_name", usertp_name);
 
-		
+	
 		return "test_resultPage";
 
 	}
@@ -208,6 +208,29 @@ public class IhController {
 		model.addAttribute("id", rememberId);
 		return "ih_loginPage"; 
 	}
+	
+	// 로그인시도시 아이디 비번검사
+	@RequestMapping(value="/userCheck.ih", method=RequestMethod.POST)
+	public void userCheck(HttpServletRequest request, HttpServletResponse response, UserDto dto) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out =response.getWriter();
+		String result ="pass";
+		int cnt = -1; 
+		
+		String user_id = request.getParameter("id");
+		String user_pass = request.getParameter("password");
+		
+		dto.setUser_id(user_id);
+		dto.setUser_pass(user_pass);
+		cnt = service.originalPasswordCheck(dto);
+		if(cnt==0) {
+			result ="<span style='color:red'>아이디와 비밀번호를 체크해주세요.</span>";
+			out.print(result);
+		} else {
+			out.print(result);
+		}
+	}
 
 	// 로그인 submit
 	@PostMapping(value="/loginBtn.ih")
@@ -248,7 +271,7 @@ public class IhController {
 	        return "redirect:/main.ks";
 	    } else {
 	        rttr.addFlashAttribute("loginError", "아이디와 비밀번호를 확인해주세요.");
-	        return "redirect:/main.ks";
+	        return "redirect:/loginPage.ih";
 	    }
 	}
 
@@ -265,14 +288,11 @@ public class IhController {
 	}
 
 ////////////////////////  마이페이지입장  /////////////////////////////////////
-	//회원정보수정누르면 - 비번입력페이지로
+	// 회원정보수정누르면 - 비번입력페이지로
 	@RequestMapping(value="/preMyUpdatePage.ih", method=RequestMethod.GET)
-	public String preMyUpdatePage(HttpServletRequest request, RedirectAttributes rttr) throws UnsupportedEncodingException {
-	    HttpSession session = request.getSession(false);
-	    String user_id = (session != null) ? (String) session.getAttribute("user_id") : null;
-
-	    if (user_id == null) { return "redirect:/loginPage.ih"; }
-	    return "redirect:/preMyUpdatePageView.ih?id=" + URLEncoder.encode(user_id, StandardCharsets.UTF_8.toString());
+	public String preMyUpdatePage(HttpServletRequest request, HttpSession session) {
+	    String user_id = (String) session.getAttribute("user_id");
+	    return "redirect:/preMyUpdatePageView.ih?id=" + user_id;
 	}
 	@RequestMapping(value="/preMyUpdatePageView.ih" , method=RequestMethod.GET)
 	public String preMyUpdate() {  return "ih_preMyUpdatePage"; }
@@ -294,7 +314,7 @@ public class IhController {
 	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
 	    } else {
 	        rttr.addFlashAttribute("loginError", "비밀번호를 확인해주세요.");
-	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+	        return "redirect:/preMyUpdatePageView.ih?user_id"+dto.getUser_id();
 	    }
 	}
 
@@ -314,6 +334,30 @@ public class IhController {
 
 	    return "ih_myUpdatePass";
 	}
+	// 비밀번호 변경페이지의 원래비밀번호 체크 ajax 
+	@RequestMapping(value="/originalPasswordCheck.ih", method=RequestMethod.GET)
+	public void originalPasswordCheck(HttpServletRequest request, HttpServletResponse response, UserDto dto) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out =response.getWriter();
+		String result ="<span style='color:red'></span>";
+		int cnt = -1; 
+		
+		String user_id = request.getParameter("id");
+		String user_pass = request.getParameter("password");
+		
+		dto.setUser_id(user_id);
+		dto.setUser_pass(user_pass);
+		cnt = service.originalPasswordCheck(dto);
+		if(cnt==0) {
+			result ="<span style='color:red'>비밀번호를 정확하게 입력해주세요.</span>";
+			out.print(result);
+		}else if(cnt==1) {
+			result ="<span style='color:blue'>비밀번호가 확인되었습니다..</span>";
+			out.print(result);
+		}
+		
+	}	
 	// 비번없데이트
 	@RequestMapping(value="/myUpdatePass.ih", method=RequestMethod.POST)
 	public String updatePassword(UserDto dto,HttpServletRequest request, RedirectAttributes rttr) {
@@ -368,7 +412,6 @@ public class IhController {
 	@RequestMapping(value="/myDelete.ih", method = RequestMethod.GET)
 	public String preDeleteMember(HttpServletRequest request, RedirectAttributes rttr,HttpSession session, UserDto dto) {
 		String user_id = request.getParameter("user_id");
-		System.out.println("탈퇴신청한사람"+user_id);
 		dto.setUser_id(user_id);
 	
 	int result = service.preDeleteUser(dto);
@@ -386,7 +429,6 @@ public class IhController {
 	@RequestMapping(value="/myDeleteCancle.ih", method = RequestMethod.GET)
 	public String preDeleteMemberCancle(HttpServletRequest request, RedirectAttributes rttr,HttpSession session,UserDto dto) {
 	String user_id = request.getParameter("user_id");
-	System.out.println("탈퇴신청취소한사람"+user_id);
 	dto.setUser_id(user_id);
 	
 	int result = service.myDeleteUserCancle(dto);
@@ -408,13 +450,13 @@ public class IhController {
 	public String findIdView() { 
 		return "ih_findId"; 
 	}
-	//뷰에서 처리하는 컨트롤러
+	//아이디찾기 처리하는 컨트롤러
 	@RequestMapping(value="/findId.ih" , method=RequestMethod.POST)
-	public String findId(Model model, UserDto dto,RedirectAttributes rttr, HttpServletRequest request) throws ParseException { 
-	    String name = request.getParameter("name");
+	public String findId(UserDto dto,RedirectAttributes rttr, HttpServletRequest request) throws ParseException { 
+		String name = request.getParameter("name");
 	    String getage = request.getParameter("age");
 	    String email = request.getParameter("email");
-
+	    
         SimpleDateFormat inputType = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat tableType = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -426,10 +468,12 @@ public class IhController {
 	    dto.setUser_age(tableTypeAge);
 
 	    String result = service.findId(dto);
+	    System.out.println(result);
 	    if (result != null) {
-	        return "redirect:/findIdResultView.ih?id=" + result; 
+	    	rttr.addFlashAttribute("foundId", result);
+	        return "redirect:/findIdResultView.ih"; 
 	    } else {
-	        rttr.addFlashAttribute("joinFail", "관리자에게 문의해주세요.");
+	        rttr.addFlashAttribute("failFindId", "사용자 정보를 정확하게 입력해주세요");
 	        return "redirect:/findIdView.ih";
 	    }
 	}
@@ -446,7 +490,21 @@ public class IhController {
 	//비번찾기VIEW
 	@RequestMapping(value="/findPassView.ih" , method=RequestMethod.GET)
 	public String findPassView() { return "ih_findPassView"; }
-////////////////////////  비번찾기끝  /////////////////////////////////////
+	
+		
+
+	
+
+////////////////////////  회원가입페이지  ////////////////////////////////////
+
+////////////////////////  로그인페이지  /////////////////////////////////////
+	
+
+
+
+
+////////////////////////  마이페이지입장  /////////////////////////////////////
+
 
 	
 ////////////////////////  관리자 회원목록  //////////////////////////////////////

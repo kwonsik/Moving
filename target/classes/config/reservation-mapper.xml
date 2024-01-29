@@ -47,13 +47,10 @@
 		order by sch.sch_no asc		 
 	</select>
 	<select id="getScheduleList"  resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select sch.sch_no,scr_name,TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
-      TIME_FORMAT(sch.sch_end,
-      '%H:%i') AS sch_end,sch_cnt,scr_st_cnt 
+		select sch.sch_no,scr_name,sch_start,sch_end,sch_cnt,scr_st_cnt 
 		from movie mv join theater tt join schedule sch join screen scr 
 		on(mv.mv_cd=sch.mv_cd and scr.scr_no=sch.scr_no and tt.tt_no=scr.tt_no)
  		where tt_name=#{tt_name} and mv_ktitle=#{mv_ktitle} and sch_date=#{sch_date} and sch.schstate_no=1
- 		
 	</select>
 	<select id="getSeatList"  resultType="ScreenDto">
 		select scr.scr_st_col,scr.scr_st_row from schedule sch join screen scr on(scr.scr_no=sch.scr_no) where sch_no=#{sch_no} 
@@ -69,8 +66,7 @@
 	
 	<select id="getPayList"  resultType="Reservation_ViewDto">
 		select mv.mv_start,tt.tt_name, scr.scr_no,
-		TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
-      TIME_FORMAT(sch.sch_end,'%H:%i') AS sch_end,scr.scr_price,
+		sch_start,sch_end,scr.scr_price,
 		scr.scr_name,mv.mv_ktitle,mv.mv_img,mv.mv_start
 		from movie mv join theater tt join schedule sch join screen scr
 		on(mv.mv_cd=sch.mv_cd and scr.scr_no=sch.scr_no and tt.tt_no=scr.tt_no) where sch_no=${sch_no}
@@ -96,8 +92,7 @@
 		(select as_code from adult_status where as_code='K'),#{kprice})
 	</insert>
 	<select id="getMyReservationView_1" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
-      	TIME_FORMAT(sch.sch_end,'%H:%i') AS sch_end,r.r_price,mv.mv_img
+		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price,mv.mv_img
 		from reservation r join theater tt join screen scr join schedule sch join movie mv join schedulestate sst
 		on(r.sch_no=sch.sch_no and scr.scr_no=sch.scr_no and scr.tt_no=tt.tt_no 
 		and sch.schstate_no=sst.schstate_no and sch.mv_cd=mv.mv_cd) where r.rstate_no=1 and user_no=#{user_no}
@@ -105,16 +100,15 @@
 	<select id="getMyReservationView_2" resultType="ReservationdetailDto" parameterType="Reservation_ViewDto">
 		select * from reservationdetail where r_no=#{r_no}
 	</select>
-	<update id="reservationcancel" parameterType="Reservation_ViewDto">
+	<update id="reservationCancle" parameterType="Reservation_ViewDto">
 		update reservation set rstate_no=2 where r_no=#{r_no}
 	</update> 
-	<update id="reservationcancelCnt" parameterType="Reservation_ViewDto">
+	<update id="reservationCancleCnt" parameterType="Reservation_ViewDto">
 		update schedule set sch_cnt=sch_cnt+(select count(*) from reservationdetail where r_no=#{r_no}) 
 		where sch_no=(select sch_no from reservation where r_no=#{r_no});
 	</update>
-	<select id="getMycanceledReservationView" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
-      	TIME_FORMAT(sch.sch_end,'%H:%i') AS sch_end,r.r_price,mv.mv_img
+	<select id="getMyCancledReservationView" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
+		select mv.mv_ktitle, r.r_no, tt.tt_name, scr.scr_name, sch.sch_date,sch.sch_start,sch.sch_end,r.r_price,mv.mv_img
 		from reservation r join theater tt join screen scr join schedule sch join movie mv join schedulestate sst
 		on(r.sch_no=sch.sch_no and scr.scr_no=sch.scr_no and scr.tt_no=tt.tt_no 
 		and sch.schstate_no=sst.schstate_no and sch.mv_cd=mv.mv_cd) where r.rstate_no=2 and user_no=#{user_no}
@@ -132,8 +126,7 @@
 		</choose>
 	</select>
 	<select id="rvlist10" resultType="Reservation_ViewDto" parameterType="Reservation_ViewDto">
-		select r.r_no,u.user_name,mv.mv_ktitle,tt.tt_name,scr.scr_name,sch.sch_date,TIME_FORMAT(sch.sch_start, '%H:%i') AS sch_start,
-      	TIME_FORMAT(sch.sch_end,'%H:%i') AS sch_end,rs.rstate_state,r.r_price
+		select r.r_no,u.user_name,mv.mv_ktitle,tt.tt_name,scr.scr_name,sch.sch_date,sch.sch_start,sch.sch_end,rs.rstate_state,r.r_price
 		from reservation r join user u join movie mv join theater tt join screen scr join schedule sch join reservationstate rs
 		
 		on(rs.rstate_no=r.rstate_no and r.sch_no=sch.sch_no and sch.mv_cd=mv.mv_cd 
@@ -145,10 +138,10 @@
 		</choose>
 		order by r.r_no desc limit #{pstartno},10
 	</select>
-	<update id="admin_reservationcancel" parameterType="int">
+	<update id="admin_reservationCancle" parameterType="int">
 		update reservation set rstate_no=2 where r_no=#{r_no}
 	</update>
-	<update id="admin_reservationcancelCnt" parameterType="int">
+	<update id="admin_reservationCancleCnt" parameterType="int">
 		update schedule set sch_cnt=sch_cnt+(select count(*) from reservationdetail where r_no=#{r_no}) 
 		where sch_no=(select sch_no from reservation where r_no=#{r_no});
 	</update>

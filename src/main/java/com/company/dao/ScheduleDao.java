@@ -11,32 +11,34 @@ import com.company.dto.TheaterDto;
 
 @MyDao
 public interface ScheduleDao {
-	public List<TheaterDto> theaterList();
+	public List<TheaterDto> theaterList(); // ÀüÃ¼ ¿µÈ­°ü »Ì±â
 
-	public TheaterDto theaterDetail(TheaterDto dto);
+	public TheaterDto theaterDetail(TheaterDto dto); // ¿µÈ­°ü »ó¼¼Á¤º¸
 
-	public List<ScheduleResultDto> scheduleList(Map<String, Object> map); 
+	public List<ScheduleResultDto> scheduleList(Map<String, Object> map); // »ó¿µ½Ã°£Ç¥ Ãâ·Â
 
-	public List<MovieDto> scheduleMovieList(Map<String, Object> map); 
+	public List<MovieDto> scheduleMovieList(Map<String, Object> map); // »ó¿µ¿µÈ­ ¸®½ºÆ®
 
-	public int updateScheduleState(); // ìƒì˜ì‹œê°„í‘œ ì¶œë ¥ì „ í˜„ì¬ ì‹œê°„ì— ë”°ë¼ ìƒì˜ì‹œê°„í‘œ ìƒíƒœ ì—…ë°ì´íŠ¸ - íŠ¸ë¦¬ê±°ë¡œ ëŒ€ì²´ ê°€ëŠ¥í•´ë³´ì„ 
+	public int updateScheduleState(); // »ó¿µ½Ã°£Ç¥ »óÅÂ ¾÷µ¥ÀÌÆ®
+//	ÇöÀç½Ã°£ÀÌ »ó¿µ³¯Â¥, »ó¿µ½ÃÀÛ½Ã°£°ú »ó¿µ³¡½Ã°£¾È¿¡ Æ÷ÇÔµÇ¸é 2 ·Î ¹Ù²Ù°í »ó¿µ³¡½Ã°£ÀÌ Áö³ª¸é 3 À¸·Î ¹Ù²ñ
+//	»ç¿ëÀÚ°¡ ¿µÈ­°ü ÆäÀÌÁö¿¡ ÁøÀÔÇßÀ»¶§ È¤Àº »ó¿µ½Ã°£Ç¥¸¦ º¼¶§ ½ÇÇà½ÃÄÑÁÜ
 
-	// ê´€ë¦¬ì
-	
-	public List<ScheduleResultDto> scheduleListAdmin(Map<String, Object> map); 
+	// °ü¸®ÀÚ
+	public List<ScheduleResultDto> scheduleListAdmin(Map<String, Object> map); // »ó¿µ½Ã°£Ç¥ Ãâ·Â
 
-	public List<ScreenDto> screenList(ScreenDto dto); 
+	public List<ScreenDto> screenList(ScreenDto dto); // »ó¿µ°ü ¸®½ºÆ® scr_no,scr_name,scr_st_cnt
 
-	public List<MovieDto> movieListAll(); 
+	public List<MovieDto> movieListAll(); // ÀüÃ¼ ¿µÈ­ ¸®½ºÆ® mv_cd, mv_ktitle, mv_runtime
 
-	public Integer isValidDataForInsert(ScheduleDto dto); 
+	public Integer isValidDataForInsert(ScheduleDto dto); // »ó¿µ½Ã°£Ç¥ Ãß°¡ Àü À¯È¿ÇÑ µ¥ÀÌÅÍ ÆÇº°
+	// 0 º¸´Ù Å¬¶§ À¯È¿ÇÏÁö ¾ÊÀº µ¥ÀÌÅÍ / 0 ÀÏ ¶§ À¯È¿ÇÑ µ¥ÀÌÅÍ
 
-	public int insertSchedule(ScheduleDto dto); 
+	public int insertSchedule(ScheduleDto dto); // »ó¿µ½Ã°£Ç¥ Ãß°¡
 
-	public int deleteSchedule(ScheduleDto dto); 
+	public int deleteSchedule(ScheduleDto dto); // »ó¿µ½Ã°£Ç¥ »èÁ¦
 
-	public TheaterDto getTheaterHours(TheaterDto dto); 
+	public TheaterDto getTheaterHours(TheaterDto dto); // ¿µÈ­°ü ¿î¿µ½Ã°£
 
-	public Integer brokenSeatCnt(int scr_no); 
+	public Integer brokenSeatCnt(int scr_no); // °íÀå³­ ÁÂ¼®¼ö
 
 }

@@ -56,7 +56,7 @@ font-size: 20px;}
 						</dl>
 						<dl>
 							<dt>극장</dt>
-							<dd>${dto.tt_name }</dd>
+							<dd>${dto.scr_name }</dd>
 						</dl>
 						<dl>
 							<dt>인원</dt>
