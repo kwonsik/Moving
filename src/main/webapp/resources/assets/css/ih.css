@@ -51,13 +51,16 @@ li{list-style-type:none; }
     margin: 0;
     outline: none;
 }
+.ih__joinForm #inputEmail{
+	width: 260px;
+}
 .ih__joinForm #email2{
 	border-bottom: 1px solid #dcdcdc;
     width: 285px;
 }
 .ih__joinForm #timeLimit{
 	border-bottom: 1px solid #dcdcdc;
-    width: 48px;
+    width: 72px;
     text-align: center;
     background-color: white;
 }

@@ -45,11 +45,7 @@
 				<p id="nicknameResult" class="checkedResult"> <br/></p>
 			</div>
 			
-			<div class="form-class">
-				<label for="email">이메일</label> <input type="email" id="email" name="email" class="email" placeholder="이메일 입력" />
-				<input type="button" class="btn btn-success" id="sendCode" value="코드발송" />
-				<p id="emailResult" class="checkedResult"> </p>
-			</div>
+
 <script>
 $(document).ready(function() {
     // 아이디 유효성 검사
@@ -84,11 +80,19 @@ $(document).ready(function() {
 });
 </script>
 			<div class="form-class">
+				<label for="email">이메일</label> <input type="email" id="email" name="email" class="email" placeholder="이메일 입력" />
+				<input type="button" class="btn btn-success" id="sendCode" value="코드발송" />
+				<p id="emailResult" class="checkedResult"> </p>
+			</div>
+			
+			<div class="form-class">
 				<label for="inputEmail" class="myhidden">인증코드입력</label>
 				<input type="text" id="inputEmail" class="email2" placeholder="인증코드를 입력해주세요." />
 				<input type="text" id="timeLimit" style="color:red;" disabled/>
 				<input type="text" id="emailCode" class="blind" value="" />
+				<input type="button" class="btn btn-success" id="btnCheckCode" value="코드확인">
 			</div>
+			
 			<div class="form-class">
 				<label for="phonenumber">휴대폰번호</label>
 				<input type="tel" id="phonenumber" name="phonenumber" placeholder="-없이 휴대폰번호 입력" />
