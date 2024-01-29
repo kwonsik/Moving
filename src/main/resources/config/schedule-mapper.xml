@@ -79,6 +79,7 @@
 		scr.scr_no,
 		scr.scr_name,
 		s.sch_cnt,
+		scr.scr_st_cnt,
 		SUM(scr.scr_st_cnt) - (SELECT COUNT(*) FROM broken_seat
 		WHERE scr_no = scr.scr_no) AS
 		available_seats,

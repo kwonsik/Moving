@@ -140,20 +140,20 @@
       <!-- // as_movie-detail -->
     </main>
     <!-- //main -->
-    <script>
-    $(function(){
-    	// session check
-    	let noLoginAccessLink = $('.noLoginReservationAccess');
-    	if (noLoginAccessLink) {
-    	    noLoginAccessLink.on('click', function(e) {
-    	        e.preventDefault();
-    	        let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
-    	        if (userResponse) {
-    	            location.href = "loginPage.ih";
-    	        }
-    	    });
-    	}
-    });
-    </script>
-
+    
+<script>
+$(function(){
+	// session check
+	let noLoginAccessLink = $('.noLoginReservationAccess');
+	if (noLoginAccessLink) {
+	    noLoginAccessLink.on('click', function(e) {
+	        e.preventDefault();
+	        let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	        if (userResponse) {
+	            location.href = "loginPage.ih";
+	        }
+	    });
+	}
+});
+</script>
 <%@ include  file="../../inc/footer.jsp" %>

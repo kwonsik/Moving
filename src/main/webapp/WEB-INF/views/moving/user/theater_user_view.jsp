@@ -165,7 +165,6 @@ $(document).ready(function () {
         $(this).addClass('selected');
 
         let selectedDate = $(this).data('date');
-        console.log(selectedDate);
         
         // 선택된 날짜에 따라 상영시간표 업데이트
         updateMovieSchedule(selectedTheaterNo, selectedDate);

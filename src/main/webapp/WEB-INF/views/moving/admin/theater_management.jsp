@@ -27,10 +27,7 @@
 						</c:forEach>
 					</ul>
 				</div>
-				<hr style="clear: both;">
-				<div id="scr-list">
-					
-				</div>
+				
 			</div>
 			<!-- end lists -->
 
@@ -52,7 +49,7 @@
                             ttNos.push($(this).data("tt_no"));
                         });
 
-                        console.log(ttNos);
+                        console.log("ttNOs : "+ttNos);
                     	
                     	
                     	for (let i = 0; i < ttNos.length; i++) {
@@ -73,7 +70,7 @@
                     
                     
                     function screenListResult(result){ //result는 screen-list.hy에서 받아온 값!!
-                        console.log("..................screenListResult");
+                        console.log("..................영화관 목록 screenList");
 
                         if (result && result.length > 0) {
                             // 여기서 <ul> 열고, 각각의 상영관에 대한 <li>를 추가하고, 마지막에 </ul> 닫습니다.
@@ -85,11 +82,13 @@
                             }
                             ul += "</ul></div>";
 
-                            // 화면에 추가합니다.
-                            $("#scr-list").append(ul);
+                       
+                            // 해당 영화관의 data-tt_no를 가져와서 해당 영화관의 하위에 추가
+                            let ttNo = result[0].tt_no; // 예시로 첫 번째 상영관의 tt_no를 가져옴
+                            $("#tt-list li[data-tt_no='" + ttNo + "']").append("<hr style='clear: both;'>" + ul);
                         } else {
-                            // 상영관이 없을 경우 메시지를 표시합니다.
-                            $("#scr-list").append("<ul><li>No screens available</li></ul>");
+                            // 상영관이 없을 경우 메시지를 표시
+                            $("#tt-list li[data-tt_no='" + ttNo + "']").append("<ul><li>No screens available</li></ul>");
                         }
                     }  ///end screenListResult()
                     

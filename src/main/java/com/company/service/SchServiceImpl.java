@@ -76,7 +76,7 @@ public class SchServiceImpl implements SchService {
 						e.printStackTrace();
 					}
 
-					schedule.put("totalSeats", scheduleResultDto.getScr_st_cnt() - dao.brokenSeatCnt(scheduleResultDto.getScr_no()) );
+					schedule.put("totalSeats", scheduleResultDto.getScr_st_cnt());
 					schedule.put("availableSeats", scheduleResultDto.getSch_cnt());
 					schedule.put("scheduleNo", scheduleResultDto.getSch_no());
 					schedules.add(schedule);

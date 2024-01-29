@@ -399,7 +399,7 @@ $(document).ready(function () {
                             '<td>' + schedule.scr_name + '</td>' +
                             '<td>' + schedule.sch_start + ' ~ ' + schedule.sch_end + '</td>' +
                             '<td>' + schedule.mv_ktitle + '</td>' +
-                            '<td>' + schedule.sch_cnt + ' / ' + schedule.available_seats + '</td>' +
+                            '<td>' + schedule.sch_cnt + ' / ' + schedule.scr_st_cnt + '</td>' +
                             '<td>' + schedule.schstate_state + '</td>' +
                             '<td><button class="delete-btn btn btn-danger" data-schedule-no="' + schedule.sch_no + '">삭제</button></td>' +
                             '</tr>';
