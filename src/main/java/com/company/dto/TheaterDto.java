@@ -19,6 +19,7 @@ public class TheaterDto {
 	private String tt_img;
 	private String tt_address;
 	private String tt_crtdate;
+	private int total_st_cnt;
 	
 	List<ScreenDto> screenList;
 	

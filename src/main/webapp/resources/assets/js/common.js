@@ -1,7 +1,4 @@
 $(function(){
-  // GNB
-  gnbActive();
-
   // SRCH INPUT
   $(".board-head .srch-box .btn-del").click(function(){
 		$(this).prev(".inp").val("");
@@ -17,19 +14,3 @@ $(function(){
 		}
 	});
 });
-
-// function
-function gnbActive(){
-  // is-active
-  let nowURLPath = window.location.pathname;
-  
-  $(".gnb .gnb__item a").parent("li").removeClass("is-active");
-  
-  $(".gnb .gnb__item a").each(function(){
-  	let href=$(this).attr("href");
-  	
-  	if(nowURLPath.indexOf(href) > -1) {
-  		$(this).parents("li").addClass("is-active");
-  	}
-  });
-}

@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/as_common.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/movie.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/board.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin_assets/css/admin_shj.css" />
+    
     
     <script src="${pageContext.request.contextPath}/resources/admin_assets/js/admin.js"></script>
     <title>관리자 페이지</title>
