@@ -63,11 +63,11 @@ public class AdminController {
 		r_service.paging(dto, model);		
 		return "reservation_management";
 	}
-	@PostMapping("/admin_reservationCancle.admin")
-	public void admin_reservationCancle(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	@PostMapping("/admin_reservationcancel.admin")
+	public void admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		int result=r_service.admin_reservationCancle(request, response);
+		int result=r_service.admin_reservationcancel(request, response);
 		PrintWriter out=response.getWriter();
 		if(result>0) {out.print("<script>alert('예매를 취소했습니다.');location.href='reservation_management.admin'</script>");}
 		else {out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");}	

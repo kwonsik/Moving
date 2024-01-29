@@ -53,7 +53,7 @@
 				
 				</ul>
 					</div >
-					<c:if test="${param.mv_cert!=18 }">
+					<c:if test="${param.mv_cert!='18' }">
 					<div class="choice">
 						<p>청소년</p>
 						<ul class="pul">

@@ -153,9 +153,8 @@ public class ReservationServiceImpl implements ReservationService {
 					"&vat_amount=300" + // 
 					"&tax_free_amount=0" + 
 					"&approval_url=http://localhost:8080/moving/success.ks" +
-
 					"&fail_url=http://localhost:8080/moving/fail.ks" + 
-					"&cancel_url=http://localhost:8080/moving/cancle.ks"; 
+					"&cancel_url=http://localhost:8080/moving/cancel.ks"; 
 			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 			out.writeBytes(parameter);
 			out.close();
@@ -263,6 +262,21 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 	}
+	@Override
+	public void fail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		pw.print("<script>alert('결제에 실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
+	}
+
+	@Override
+	public void cancel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		pw.print("<script>alert('결제를 취소했습니다.');location.href='main.ks';</script>");
+	}
 
 	@Override
 	public void seat_view(Model model, ScheduleDto dto) {
@@ -295,7 +309,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public void reservationCancle(Reservation_ViewDto dto, HttpServletRequest request, HttpServletResponse response)
+	public void reservationcancel(Reservation_ViewDto dto, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -304,8 +318,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 		try {
 
-			dao.reservationCancle(dto);
-			dao.reservationCancleCnt(dto);
+			dao.reservationcancel(dto);
+			dao.reservationcancelCnt(dto);
 
 			result = 1;
 		}
@@ -317,17 +331,17 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		if (result == 1) {
-			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_cancled_reservation.ks';</script>");
+			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_canceld_reservation.ks';</script>");
 		} else {
 			pw.print("<script>alert('실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
 		}
 	}
 
 	@Override
-	public void my_cancled_reservation_view(Reservation_ViewDto dto, Model model,HttpServletRequest request) throws IOException {
+	public void my_canceled_reservation_view(Reservation_ViewDto dto, Model model,HttpServletRequest request) throws IOException {
 		HttpSession session = request.getSession();
 		dto.setUser_no((int)session.getAttribute("user_no"));
-		model.addAttribute("list1", dao.getMyCancledReservationView(dto));
+		model.addAttribute("list1", dao.getMycanceledReservationView(dto));
 
 	}
 
@@ -398,15 +412,15 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public int admin_reservationCancle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public int admin_reservationcancel(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String r_no[] = request.getParameterValues("r_no");
 
 		int cnt = 0;
 
 		try {
 			for (int i = 0; i < r_no.length; i++) {
-				dao.admin_reservationCancleCnt(Integer.parseInt(r_no[i]));
-				if (dao.admin_reservationCancle(Integer.parseInt(r_no[i])) > 0) {
+				dao.admin_reservationcancelCnt(Integer.parseInt(r_no[i]));
+				if (dao.admin_reservationcancel(Integer.parseInt(r_no[i])) > 0) {
 					cnt += 1;
 				}
 
@@ -508,6 +522,8 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		return responBody;
 	}
+
+
 
 	
 	
