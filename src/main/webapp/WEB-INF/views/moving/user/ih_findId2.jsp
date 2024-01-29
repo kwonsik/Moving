@@ -7,17 +7,12 @@
 			<a href="findIdView.ih" id="first">아이디찾기</a>
 			<a href="findPassView.ih" id="second">비밀번호찾기</a>
 		</div>
-<<<<<<< HEAD
 
 		<pre><br>
 			고객님의 ID는 <c:out value="${foundId}" /> 입니다.
 		</pre>		
 		
-=======
-		<pre><br>
-			고객님의 ID는 [${id}] 입니다.
-		</pre>
->>>>>>> refs/heads/master
+
 		<div class="button-class">
 			<a href="loginPage.ih" class="btn" >로그인</a>
 		</div>
