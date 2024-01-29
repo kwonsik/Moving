@@ -26,4 +26,13 @@
 	<select id="b_readAll" resultType="BoardDto">
 	    select * from board order by board_no desc
 	</select>
+	
+	<select id="b_total" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<select id="b_listCnt" parameterType="java.util.HashMap" resultType="BoardDto">
+		select * from board
+		order by board_no desc limit #{pstartno}, #{onepagelimit}
+	</select>
 </mapper>
