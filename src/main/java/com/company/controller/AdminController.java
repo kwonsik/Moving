@@ -195,7 +195,7 @@ public class AdminController {
 		
 		//고장난 좌석 리스트 보내기 
 		//model.addAttribute("bkSeatLists", service.bkSeatReadAction(scr_no));
-		model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));   
+		//model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));   
 
 		// System.out.println("scr_no 값 : "+scr_no);
 		//System.out.println(service.scrseat(scr_no));
