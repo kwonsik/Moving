@@ -38,7 +38,7 @@
 			                    </div>
 			                    <div class="btns">
 			                      <a href="movieDetail.as?mv_cd=${dto.mv_cd}" class="b1">영화정보</a>
-<<<<<<< HEAD
+
 			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">예매하기</a>
 			                    </div>
 		                    </div>
@@ -83,40 +83,6 @@
     	    });
     	}
     	
-=======
-			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2">예매하기</a>
-			                    </div>
-		                    </div>
-			                <figcaption class="info">
-			                	<span class="blind popularity">${dto.mv_popularity}</span>
-			                  <div class="subj">${dto.mv_ktitle}</div>
-			                </figcaption>
-		                  </figure>
-		                </div>
-		              </li>
-	               </c:forEach>
-	            </ul>
-			   </c:when>
-			   <c:otherwise>
-		          <div class="is-empty">
-	                <p>상영중인 영화가 없습니다.</p>
-		          </div>
-			   </c:otherwise>
-           	</c:choose>
-            
-          </div>
-        </div>
-      </div>
-    </main>
-    <!-- //main -->
-    
-    <script>
-	const movieList = $(".movie-list ul");
-	const movieItems = movieList.children("li");
-	let originalMovieList = movieList.clone();
-	
-    $(function(){
->>>>>>> refs/heads/master
       	$(".sorting button").on("click", function(){
       		let sortBy = $(this).attr("data-sort");
       		$(".sorting button").removeClass("is-active");

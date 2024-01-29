@@ -116,55 +116,9 @@ public class IhServiceImple implements IhService{
 	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
 	public int originalPasswordCheck (UserDto dto) {
 		return dao.originalPasswordCheck (dto);
-	public UserDto SendMailForDeleteUser (UserDto user_mail) {
-		return dao.SendMailForDeleteUser(user_mail);
 	}
 
-	//⑪관리자의 회원관리페이지테이블
-	@Override
-	public List<UserDto> readTotalUser (){
-		return dao.readTotalUser();
-	}
 
-	//⑫관리자가 들어가는 [ 회원의 마이페이지 ]
-	@Override
-	public UserDto selectedUserPage (UserDto user_id) {
-		return dao.selectedUserPage(user_id);
-	}
 
-    //⑬ 관리자가 탈퇴시키는 회원은 5등급으로
-	@Override
-	public int deleteUser (UserDto dto) {
-		return dao.deleteUser (dto);
-	}
-	
-	//② 사용자가 탈퇴시도하면 4등급 24시간유지
-	public int preDeleteUser (UserDto dto) {
-		return dao.preDeleteUser (dto);
-	}
-	//  24시간후 탈퇴처리
-		public int myDeleteUser() {
-			return dao.myDeleteUser();
-		}
-		//  탈퇴취소
-		public int myDeleteUserCancle(UserDto dto) {
-			return dao.myDeleteUserCancle(dto);
-		}
-	//⑭아이디 중복체크
-	@Override
-	public int idCheck (UserDto user_id) {
-		return dao.idCheck (user_id);
-	}
-	
-	//⑮닉네임 중복체크
-	@Override
-	public int nicknameCheck (UserDto user_nick) {
-		return dao.nicknameCheck (user_nick);
-	}
-	//⑨이메일 중복체크
-	@Override
-	public int emailCheck (UserDto user_mail) {
-		return dao.emailCheck (user_mail);
-	}
 	
 }

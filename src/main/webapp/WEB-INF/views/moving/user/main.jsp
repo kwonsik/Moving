@@ -118,38 +118,6 @@ $(function(){
 	    });
 	}
 	
-=======
-			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2">예매하기</a>
-			                    </div>
-		                    </div>
-			                <figcaption class="info">
-			                  <div class="subj">${dto.mv_ktitle}</div>
-			                </figcaption>
-		                  </figure>
-		                </div>
-		              </li>
-	               </c:forEach>
-	            </ul>
-				</c:when>
-				<c:otherwise>
-					<div class="is-empty">
-						<p>상영중인 영화가 없습니다.</p>
-					</div>
-				</c:otherwise>
-			</c:choose>
-          </div>
-        </div>
-
-      </div>
-    </main>
-    <!-- //main -->
-    
-<div class="mic">
-	<img
-		src="${pageContext.request.contextPath}/resources/assets/images/common/mic.jpg"
-		alt="음성인식" />
-</div>
-<script>
 $(function(){
 >>>>>>> refs/heads/master
 	$("#main-visual_video").YTPlayer({

@@ -1,5 +1,4 @@
 $(function() {
-<<<<<<< HEAD
 	//닉네임 중복검사
 	$("#nickname2").on("keyup", function() {
 	    $.ajax({
@@ -111,110 +110,7 @@ window.addEventListener('load', function() {
 	        }
 	    }, 1000);
 	}
-=======
-$("#nickname2").on("blur", function() {
-    $.ajax({
-        url: "nicknameCheck.ih",
-        type: "get",
-        dataType: "text",
-        data: { "nickname": $("#nickname2").val() },
-        success: function(data) {
-            $("#nicknameResult").html(data);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $("#nicknameResult").html(textStatus + "(HTTP-" + xhr.status + ")");
-        }
-    });
-});
-}); // end $
 
-window.addEventListener('load', function() {
-    // 이메일 코드 보내기 클릭 이벤트 리스너
-    let sendCode = document.getElementById('sendCode');
-    sendCode.addEventListener('click', function() {
-        let email = document.getElementById('email2').value;
-        if (!email) {
-            email = document.getElementById('email').value;
-        }
-        let emailcriteria = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-        // 이메일 공백검사
-        if (email == "") {
-            alert("이메일을 입력하세요");
-            document.getElementById('email2').focus();
-            return false;
-        }
-
-        // 이메일 유효성 검사
-        if (!emailcriteria.test(email)) {
-            alert("이메일형식이 올바르지 않습니다.");
-            document.getElementById('email2').focus();
-            return false;
-        }
-
-    // 이메일 중복검사
-    $.ajax({
-        url: "emailCheck.ih",
-        type: "get",
-        dataType: "text",
-        data: { "email": email },
-        success: function(checkResult) {
-            $("#emailResult").html(checkResult);
-
-            // 중복되지 않는 이메일인 경우에만 인증 코드 보내기
-            if (checkResult.includes("중복되지않는 이메일입니다.")) {
-                // 3분 카운트다운 시작
-                var threeMinutes = 60 * 3,
-                    display = $('#timeLimit');
-                startCountdown(threeMinutes, display);
-
-                // 인증코드 보내기 AJAX 요청
-                $.ajax({
-                    url: 'sendCode.ih',
-                    type: 'POST',
-                    dataType: "text",
-                    data: { email: email },
-                    success: function(codeData) {
-                        alert('인증코드를 전송했습니다.\n이메일을 확인해주세요.');
-                        $("#emailCode").val(codeData);
-                        setTimeout(function() {
-                            $("#emailCode").val("");
-                        }, 180000); // 3분 후 코드 값 비우기
-                    },
-                    error: function(xhr, status, error) {
-                        alert('오류가 발생했습니다');
-                    }
-                });
-            } else {
-                alert("중복된 이메일입니다.");
-                email.focus();
-            }
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $("#emailResult").html(textStatus + "(HTTP-" + xhr.status + ")");
-        }
-    });
-});
-
-    // 카운트다운 함수
-    function startCountdown(duration, display) {
-        var timer = duration, minutes, seconds;
-        var countdown = setInterval(function() {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.val(minutes + ":" + seconds);
-
-            if (--timer < 0) {
-                clearInterval(countdown);
-                display.val("00:00");
-            }
-        }, 1000);
-    }
->>>>>>> refs/heads/master
 
 document.getElementById('update').addEventListener('submit', function(event) {
     // 기존 값 또는 새로 입력된 값 사용

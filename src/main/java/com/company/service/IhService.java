@@ -62,31 +62,5 @@ public interface IhService {
 	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
 	public int originalPasswordCheck (UserDto dto);
 
-	public UserDto SendMailForDeleteUser (UserDto user_mail);
 
-	//⑪관리자의 회원관리페이지테이블
-	public List<UserDto> readTotalUser ();
-
-	//⑫관리자가 들어가는 [ 회원의 마이페이지 ]
-	public UserDto selectedUserPage (UserDto user_id);
-
-	//⑬관리자가 탈퇴시키는 회원
-	public int deleteUser (UserDto dto);
-
-	//② 사용자가 탈퇴시도하면 4등급 24시간유지
-	public int preDeleteUser (UserDto dto);
-	//  24시간후 탈퇴처리
-		public int myDeleteUser();
-		//  탈퇴취소
-		public int myDeleteUserCancle(UserDto dto);
-	//⑭아이디 중복체크
-	public int idCheck (UserDto user_id);
-	
-	//⑮닉네임 중복체크
-	public int nicknameCheck (UserDto user_nick);
-	
-	//⑨이메일 중복체크
-	public int emailCheck (UserDto user_mail);
-	
-	
 }
