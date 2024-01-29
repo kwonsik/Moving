@@ -62,8 +62,8 @@ public class IhServiceImple implements IhService{
 
 	//⑩탈퇴시도 이메일로 코드발송
 	@Override
-	public UserDto SendMailForDeleteUser (UserDto user_mail) {
-		return dao.SendMailForDeleteUser(user_mail);
+	public UserDto SendMailForDeleteUser (UserDto dto) {
+		return dao.SendMailForDeleteUser(dto);
 	}
 
 	//⑪관리자의 회원관리페이지테이블
@@ -74,8 +74,8 @@ public class IhServiceImple implements IhService{
 
 	//⑫관리자가 들어가는 [ 회원의 마이페이지 ]
 	@Override
-	public UserDto selectedUserPage (UserDto user_id) {
-		return dao.selectedUserPage(user_id);
+	public UserDto selectedUserPage (UserDto dto) {
+		return dao.selectedUserPage(dto);
 	}
 
     //⑬ 관리자가 탈퇴시키는 회원은 5등급으로
@@ -98,19 +98,23 @@ public class IhServiceImple implements IhService{
 		}
 	//⑭아이디 중복체크
 	@Override
-	public int idCheck (UserDto user_id) {
-		return dao.idCheck (user_id);
+	public int idCheck (UserDto dto) {
+		return dao.idCheck (dto);
 	}
 	
 	//⑮닉네임 중복체크
 	@Override
-	public int nicknameCheck (UserDto user_nick) {
-		return dao.nicknameCheck (user_nick);
+	public int nicknameCheck (UserDto dto) {
+		return dao.nicknameCheck (dto);
 	}
 	//⑨이메일 중복체크
 	@Override
-	public int emailCheck (UserDto user_mail) {
-		return dao.emailCheck (user_mail);
+	public int emailCheck (UserDto dto) {
+		return dao.emailCheck (dto);
 	}
 	
+	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
+	public int originalPasswordCheck (UserDto dto) {
+		return dao.originalPasswordCheck (dto);
+	}
 }
