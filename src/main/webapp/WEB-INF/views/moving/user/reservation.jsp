@@ -165,7 +165,7 @@
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 				else{
-					$("#time" + cnt).attr('date',now.getFullYear() + "-" + (now.getMonth() + 1) + "-"+ (now.getDate() + (nowdate+cnt)));
+					$("#time" + cnt).attr('date',now.getFullYear() + "-" + (now.getMonth() + 1) + "-"+ (nowdate+cnt));
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 
