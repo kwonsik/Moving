@@ -131,7 +131,6 @@ $(document).ready(function () {
     function setupTheaterSelection() {
         let theaters = $('.theater');
         let selectedDate = $('.date-btn.selected').data('date');
-        console.log()
         
         let currentIndex = 0;
 
@@ -157,7 +156,7 @@ $(document).ready(function () {
             $('.theater.selected').removeClass('selected');
             $(this).addClass('selected');
             var selectedDate = $('.date-btn.selected').data('date');
-            console.log(selectedDate);
+            //console.log(selectedDate);
             updateMovieSchedule($(this).data('no'), selectedDate);
             updateStartTimeOptions();
         });
@@ -201,7 +200,7 @@ $(document).ready(function () {
         dateList.on('click', '.date-btn', function () {
             $('.date-btn.selected').removeClass('selected');
             $(this).addClass('selected');
-            console.log('Selected Date:', $('.date-btn.selected').data('date')); // 추가 부분
+            //console.log('Selected Date:', $('.date-btn.selected').data('date')); // 추가 부분
             updateMovieSchedule($('.theater.selected').data('no'), $(this).data('date'));
         });
     }
@@ -211,7 +210,14 @@ $(document).ready(function () {
         $('#schedule-table').on('click', '.delete-btn', function () {
             var scheduleNo = $(this).data('schedule-no');
             var $this = $(this);
-            deleteMovieSchedule(scheduleNo, $this);
+            let confirmed = confirm(scheduleNo + '번 상영시간표를 삭제하시겠습니까?');
+            
+            console.log(confirmed);
+            
+            if(confirmed){
+            	deleteMovieSchedule(scheduleNo, $this);
+            }
+            
         });
     }
 
@@ -290,7 +296,7 @@ $(document).ready(function () {
                 dataType: 'json',
                 success: function (data) {
                     // 성공 시 처리
-                    console.log(data.result);
+                    //console.log(data.result);
                     if (data.result > 0) {
                         // 상영시간표가 추가되었을 때의 동작을 구현
                     	$('.theater[data-no="' + theaterNo + '"]').trigger('click');
@@ -416,8 +422,10 @@ $(document).ready(function () {
 
     // 상영시간표 삭제
     function deleteMovieSchedule(scheduleNo, $this) {
-        var theaterNo = $('#theater-select').val();
-        var selectedDate = $('#date-select').val();
+        var theaterNo = $('.theater.selected').data('no');
+        var selectedDate = $('.date-btn.selected').data('date');
+        //console.log('영화관번호 : '+theaterNo);
+        //console.log('날짜 : '+selectedDate);
         $.ajax({
             url: 'deleteSchedule.admin',
             method: 'POST',
@@ -508,8 +516,8 @@ $(document).ready(function () {
                 data: { tt_no: selectedTheaterNo },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data.tt_start);
-                    console.log(data.tt_close);
+                    //console.log(data.tt_start);
+                    //console.log(data.tt_close);
 
                     if (data.tt_close) {
                         // 선택된 날짜와 영화관 종료 시간 조합

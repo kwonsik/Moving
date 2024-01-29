@@ -116,7 +116,14 @@ public class SchServiceImpl implements SchService {
 
 	@Override
 	public int deleteSchedule(ScheduleDto dto) {
-		return dao.deleteSchedule(dto);
+		int result = 0;
+		try {
+			result = dao.deleteSchedule(dto);
+		}catch(Exception e) {
+			result = -1;
+		}
+		
+		return result;
 	}
 
 	@Override
