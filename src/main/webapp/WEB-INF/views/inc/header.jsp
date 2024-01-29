@@ -63,7 +63,7 @@
              <c:choose>
              <c:when test="${user_no!=null }"><a href="reservation_view.ks" class="gnb__link"><span>예매</span>
              </a></c:when>
-             <c:when test="${user_no==null }"><a href="loginPage.ih" class="gnb__link" id="res"><span>예매</span>
+             <c:when test="${user_no==null }"><a href="#" class="gnb__link" id="res"><span>예매</span>
              </a></c:when>
              </c:choose>
            </li>
