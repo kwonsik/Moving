@@ -195,7 +195,7 @@ public class UserController {
 
 	@GetMapping(value = "/my_canceled_reservation.ks", produces = "application/text; charset=utf8")
 
-	public String my_canceld_reservation_view(Reservation_ViewDto dto, Model model, HttpServletRequest request)
+	public String my_canceled_reservation_view(Reservation_ViewDto dto, Model model, HttpServletRequest request)
 			throws IOException {
 
 		service.my_canceled_reservation_view(dto, model, request);

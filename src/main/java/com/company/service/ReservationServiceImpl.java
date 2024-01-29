@@ -331,7 +331,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		if (result == 1) {
-			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_canceld_reservation.ks';</script>");
+			pw.print("<script>alert('예매를 취소했습니다.');location.href='my_canceled_reservation.ks';</script>");
 		} else {
 			pw.print("<script>alert('실패했습니다. 관리자에게 문의해주세요.');location.href='main.ks';</script>");
 		}
