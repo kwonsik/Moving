@@ -83,7 +83,7 @@
              <ul class="gnb__2depth">
                <li class="gnb__2depth-item<%= isActiveMyResulvation ? " is-active" : "" %>">
                <c:choose>
-             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no }" class="gnb__2depth-link">
+             <c:when test="${user_no!=null }"><a href="my_reservation.ks?user_no=${user_no}" class="gnb__2depth-link">
                    <span>예매/취소 내역</span>
                  </a></c:when>
              <c:when test="${user_no==null }">
@@ -91,27 +91,39 @@
                    <span>예매/취소 내역</span>
                  </a></c:when>
              </c:choose>
-                 <script>
-	                 document.addEventListener('DOMContentLoaded', function() {
-	             	    let noLoginAccessLink = document.getElementById('noLoginReservationAccess');
-	             	    if (noLoginAccessLink) {
-	             	        noLoginAccessLink.addEventListener('click', function(e) {
-	             	            e.preventDefault();
-	             	            let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
-	             	            if (userResponse) {
-	             	                window.location.href = noLoginAccessLink.getAttribute('href');
-	             	            }
-	             	        });
-	             	    }
-	             	    $("#res").on("click",function(){
-	             	    	let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
-             	            if (userResponse) {
-             	            	location.href='loginPage.ih';
-             	            }
-	             	    });
-	             	});
-
-                 </script>
+                <script>
+				    document.addEventListener('DOMContentLoaded', function() {
+				        // 로그인이 필요한 페이지 접근 시 확인 대화 상자 표시
+				        let noLoginAccessLink = document.getElementById('noLoginReservationAccess');
+				        if (noLoginAccessLink) {
+				            noLoginAccessLink.addEventListener('click', function(e) {
+				                e.preventDefault();
+				                let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+				                if (userResponse) {
+				                    window.location.href = noLoginAccessLink.getAttribute('href');
+				                }
+				            });
+				        }
+				        // 예매 링크 클릭 시 로그인 필요 확인
+				        $("#res").on("click",function(){
+				            let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+				            if (userResponse) {
+				                location.href='loginPage.ih';
+				            }
+				        });
+				        // 로그아웃 버튼 클릭 시 컨펌창 표시 및 로그아웃 처리
+				        let logoutButtons = document.querySelectorAll('.logoutBtn');
+				        logoutButtons.forEach(function(btn) {
+				            btn.addEventListener('click', function(e) {
+				                e.preventDefault();
+				                let userResponse = confirm('로그아웃 하시겠습니까?');
+				                if (userResponse) {
+				                    location.href = 'logout.ih';
+				                }
+				            });
+				        });
+				    });
+				</script>
                </li>
               <li class="gnb__2depth-item<%= isActiveUser ? " is-active" : "" %>">
                   <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
@@ -139,7 +151,7 @@
 			            <a href="adminPage.admin">관리자페이지</a>
 			        </li>
 			        <li class="header-util__item">
-			            <a href="logout.ih">로그아웃</a>
+			            <a href="#" class="logoutBtn">로그아웃</a>
 			        </li>
 			    </c:if>
 			
@@ -157,7 +169,7 @@
 			    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
 			        <li>${user_nick}님 환영합니다!</li>
 			        <li class="header-util__item">
-			            <a href="logout.ih">로그아웃</a>
+			            <a href="#" class="logoutBtn">로그아웃</a>
 			        </li>
 			    </c:if>
           </ul>
