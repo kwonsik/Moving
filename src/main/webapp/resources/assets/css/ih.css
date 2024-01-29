@@ -219,7 +219,7 @@ li{list-style-type:none; }
     padding: 20px;
     box-sizing: border-box;
     font-size: 130%;
-	margin: 150px auto;
+	margin: 150px auto 0px;
 }
 
 .ih_preMyUpdatePage .head {
@@ -276,7 +276,7 @@ li{list-style-type:none; }
 
 /*************** 마이페이지 ***************/
 .ih__myUpdatePage {
-    margin: 0 auto;
+    margin: 150px auto 0px;
     width: 377px;
     font-size: 120%;
 }
@@ -372,7 +372,7 @@ li{list-style-type:none; }
 .ih__findId label{
 	display:block;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .ih__findId input[type="text"],
 .ih__findId input[type="email"]{
@@ -446,7 +446,7 @@ li{list-style-type:none; }
 .ih__findPass label{
 	display:block;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .ih__findPass input[type="text"],
 .ih__findPass input[type="email"]{
@@ -471,7 +471,7 @@ li{list-style-type:none; }
 }
 /*************** UpdatePassView ***************/
 .ih__myUpdatePass {
-    margin: 120px auto;
+    margin: 150px auto 0px;
     width: 400px;
     font-size: 120%;
     border: 1px solid black;
