@@ -103,6 +103,16 @@
 	             	            }
 	             	        });
 	             	    }
+				        let nologintoMyUpdate = document.getElementById('nologintoMyUpdate');
+				        if (nologintoMyUpdate) {
+				        	nologintoMyUpdate.addEventListener('click', function(e) {
+				                e.preventDefault();
+				                let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+				                if (userResponse) {
+				                    window.location.href = nologintoMyUpdate.getAttribute('href');
+				                }
+				            });
+				        }
 	             	    $("#res").on("click",function(){
 	             	    	let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
              	            if (userResponse) {
@@ -113,9 +123,14 @@
                  </script>
                </li>
               <li class="gnb__2depth-item<%= isActiveUser ? " is-active" : "" %>">
-                  <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link">
-                    <span>회원정보수정</span>
-                  </a>
+                  <c:choose>
+	              <c:when test="${user_no!=null }">
+	                  <a href="preMyUpdatePage.ih?user_id=${user_id}" class="gnb__2depth-link"> <span>회원정보수정</span> </a>
+	              </c:when>
+	              <c:when test="${user_no==null }">
+	                  <a href="loginPage.ih" class="gnb__2depth-link" id="nologintoMyUpdate"> <span>회원정보수정</span> </a>
+	              </c:when>    
+	              </c:choose>
                 </li>
               </ul>
             </li>
