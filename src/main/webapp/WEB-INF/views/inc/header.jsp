@@ -110,7 +110,6 @@
              	            }
 	             	    });
 	             	});
-
                  </script>
                </li>
               <li class="gnb__2depth-item<%= isActiveUser ? " is-active" : "" %>">
