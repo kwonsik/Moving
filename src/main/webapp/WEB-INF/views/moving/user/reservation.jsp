@@ -150,21 +150,22 @@
 			
 			
 			let now = new Date();
-			let nowdate = now.getDate();
+			
 			let last= new Date(now.getFullYear(), (now.getMonth() + 1), 0).getDate();
 			let weekday = [ "일", "월", "화", "수", "목", "금", "토", "일", "월", "화",
 					"수", "목", "금", "토" ]
 			$("#now").html(now.getFullYear() + "." + (now.getMonth() + 1));
-			let cnt = 1;
+			let cnt = 0;
 			for (let i = now.getDay(); i < now.getDay() +7; i++) {
+				let nowdate = now.getDate();
 				if(nowdate>last){
 					nowdate=nowdate-last;
-					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ (nowdate + cnt - 7));
-					$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ (nowdate + cnt));
+					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 				else{
-					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ (now.getDate() + cnt - 1));
-					$("#time" + cnt).attr("value", weekday[i] + " " + nowdate);
+					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ (nowdate + cnt));
+					$("#time" + cnt).attr("value", weekday[i] + " " +(nowdate+cnt));
 				}
 
 				
