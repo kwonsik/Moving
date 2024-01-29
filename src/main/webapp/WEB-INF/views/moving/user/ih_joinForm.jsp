@@ -89,6 +89,7 @@ $(document).ready(function() {
 				<input type="text" id="timeLimit" style="color:red;" disabled/>
 				<input type="text" id="emailCode" class="blind" value="" />
 				<input type="button" class="btn btn-success" id="btnCheckCode" value="코드확인">
+			
 			</div>
 			
 			
