@@ -63,7 +63,7 @@ public class AdminController {
 		r_service.paging(dto, model);		
 		return "reservation_management";
 	}
-	@PostMapping("/admin_reservationcancel.admin")
+	@PostMapping("/admin_reservationCancel.admin")
 	public void admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
