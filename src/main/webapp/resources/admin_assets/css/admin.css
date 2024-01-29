@@ -28,6 +28,26 @@
 	background-color: rgb(67, 119, 88);
 }
 
+#sidebar .btns {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#sidebar .btns .btn {
+    display: inline-block;
+    width: 80%;
+    padding: 12px 16px;
+    background: rgb(67, 119, 88);
+ 	transition: .4s ease-in-out;
+}
+#sidebar .btns .btn:hover, #sidebar .btns .btn:focus {
+	background: #28613f;
+}
+
 /* 페이지 내용 스타일링 */
 .row {
 	background-color: rgb(224, 224, 224);
