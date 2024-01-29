@@ -83,5 +83,9 @@
 <!--                             </a> -->
 <!--                         </li> -->
                     </ul>
+                    
+                    <div class="btns">
+                    	<a href="main.ks" target="_blank" class="btn">홈페이지 바로가기</a>
+                    </div>
                 </div>
             </nav>
