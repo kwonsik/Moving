@@ -173,7 +173,9 @@
 							$(this).next().prop("checked",true);
 						}
 						let adult=$(".selected .adult").val();
-						let child=$(".selected .child").val();
+						let child=0;
+						if(${mc_cert!=18}){child=$(".selected .child").val();}
+						
 						let sum=Number(adult)+Number(child);
 						let cnt=$(".selected .seatBtn").length;
 						$(".seatBtn").parents("ul").find("li").removeClass("selected");
