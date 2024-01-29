@@ -345,7 +345,7 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 	background-color: transparent;
 }
 
-#add-theater-btn, #revise-theater-btn {
+#add-theater-btn, #revise-theater-btn, #revise-seats-btn {
 	width: 100px;
 	height: 40px;
 	margin-top: 25px;
@@ -362,7 +362,9 @@ label[for="tt_img"], label[for="tt_address"], label[for="tt_tel"] {
 #revise-theater-btn:focus,  #revise-theater-btn:hover {
 	background-color: rgb(71 106 76);
 }
-
+#revise-seats-btn:focus,  #revise-seats-btn:hover {
+	background-color: rgb(71 106 76);
+}
 
 /* --버튼 css */
 
