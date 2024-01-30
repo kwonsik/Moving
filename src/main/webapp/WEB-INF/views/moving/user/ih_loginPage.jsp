@@ -6,7 +6,7 @@
       <h2 class="blind">메인 컨텐츠</h2>
       <div id="container" class="container">
 <div class="ih__loginPage">
-	<form action="loginBtn.ih" method="post">
+	<form action="loginBtn.ih" method="post" id="loginForm">
 		<h2 class="h2">회원로그인</h2>
 		<fieldset>
 		
@@ -18,6 +18,7 @@
 			<div class="inputType">
 				<label for="password">비밀번호</label>
 				<input type="password" name="password" id="password" class="#" placeholder="비밀번호를 입력해주세요." />
+				<p id="userCheckResult"></p>
 			</div>
 			
 			<div class="remember">
@@ -43,13 +44,34 @@
 			
 		</fieldset>
 	</form>
-<script>
-    window.onload = function() {
-    	//탈퇴신청성공
-        <c:if test="${not empty joinSuccess}"> alert("${joinSuccess}"); </c:if>
-    };
-</script>
 </div>
 </div>
 </main>
 <%@include file="../../inc/footer.jsp"%>
+<script>
+$(function() {
+    var form = $("#loginForm");
+    form.on("submit", function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "userCheck.ih",
+            type: "POST",
+            dataType: "text",
+            data: {
+                "id": $("#id").val(),
+                "password": $("#password").val()
+            },
+            success: function(data) {
+                if (data === "pass") {
+                    form[0].submit();
+                } else {
+                    $("#userCheckResult").html(data);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                $("#userCheckResult").html(textStatus + "(HTTP-" + xhr.status + ")");
+            }
+        });
+    });
+});
+</script>
