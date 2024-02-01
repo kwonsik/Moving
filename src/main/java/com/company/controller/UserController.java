@@ -13,7 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.company.dto.MovieDto;
 import com.company.dto.Reservation_ViewDto;
@@ -204,13 +208,13 @@ public class UserController {
 
 	}
 
-	@GetMapping(value = "/stt.ks", produces = "application/text; charset=utf8")
+	@RequestMapping(value = "stt.ks",produces = "application/json; charset=utf8", method = RequestMethod.POST )
 	@ResponseBody
-	public String stt(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String stt(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		/*
 		 * Gson gson = new Gson(); String json = gson.toJson();
 		 */
-		return service.stt(request, response);
+		return service.stt(file,request, response);
 
 	}
 

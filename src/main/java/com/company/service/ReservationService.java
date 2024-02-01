@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.company.dto.*;
 import com.company.service.ReservationServiceImpl.PagingUtil;
@@ -43,6 +45,6 @@ public interface ReservationService {
 	
 	public void paging(Reservation_ViewDto dto,Model model);
 	public int admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException;
-	public String stt(HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public String stt(@RequestParam MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 }
