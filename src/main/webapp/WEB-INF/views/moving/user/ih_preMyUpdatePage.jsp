@@ -21,7 +21,7 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript">
+<script>
 document.getElementById('backButton').addEventListener('click', function() {
 	history.back();
 });

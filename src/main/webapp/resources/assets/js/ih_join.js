@@ -82,6 +82,22 @@ window.addEventListener('load', function() {
 	                        setTimeout(function() {
 	                            $("#emailCode").val("");
 	                        }, 180000); // 3분 후 코드 값 비우기
+	                        
+							let checkCodeButton = document.getElementById('btnCheckCode');
+							checkCodeButton.addEventListener('click', function() {
+							    let enteredCode = document.getElementById('inputEmail').value;
+							    let sentCode = document.getElementById('emailCode').value;
+							    let timeLimitDisplay = document.getElementById('timeLimit');
+							
+							    if (enteredCode === sentCode) {
+							        clearInterval(countdownTimer); // 타이머 멈추기
+							        timeLimitDisplay.style.color = 'blue';
+							        timeLimitDisplay.value = "인증완료"; // "인증완료" 메시지 표시
+							    } else {
+							        alert('입력하신 코드가 올바르지 않습니다.');
+							    }
+							});
+	                        
 	                    },
 	                    error: function(xhr, status, error) {
 	                        alert('오류가 발생했습니다');
@@ -97,25 +113,25 @@ window.addEventListener('load', function() {
 	        }
 	    });
 	});
-	
-	// 카운트다운 함수
-	function startCountdown(duration, display) {
-	    var timer = duration, minutes, seconds;
-	    var countdown = setInterval(function() {
-	        minutes = parseInt(timer / 60, 10);
-	        seconds = parseInt(timer % 60, 10);
-	
-	        minutes = minutes < 10 ? "0" + minutes : minutes;
-	        seconds = seconds < 10 ? "0" + seconds : seconds;
-	
-	        display.val(minutes + ":" + seconds);
-	
-	        if (--timer < 0) {
-	            clearInterval(countdown);
-	            display.val("00:00");
-	        }
-	    }, 1000);
-	}
+var countdownTimer;
+
+function startCountdown(duration, display) {
+    var timer = duration, minutes, seconds;
+    countdownTimer = setInterval(function() {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.val(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            clearInterval(countdownTimer);
+            display.val("00:00");
+        }
+    }, 1000);
+}
 
     document.getElementById('join').addEventListener('submit', function(event) {
 		///////////////////공백검사 유효성검사/////////////////////////
