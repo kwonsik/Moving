@@ -59,18 +59,17 @@ pageContext.setAttribute("status", status);
 			            
 			            <div class="search-group">
 			               <label>
-			                  <select id="genre" class="form-control">
-			                  	<option value="allGenre" selected>전체 장르</option>
-			                     <c:forEach var="genre" items="${genres}">
-							        <option value="${genre}">${genre}</option>
-							     </c:forEach>
+			                  <select id="as_sch-type" class="form-control" name="searchType">
+			                  	<option value="mv_title" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
+			                  	<option value="mv_dname" ${param.searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
+			                  	<option value="movie_genre" ${param.searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
 			                  </select>
 			               </label>
 			
 			               <label>
-			                  <input type="text" class="form-control" id="as_sch-key" placeholder="제목/감독명을 입력해주세요.">
+			                  <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
 			               </label>
-			               <button type="button" class="btn btn-primary">검색</button>
+			               <button type="button" class="btn btn-primary" id="search">검색</button>
 			            </div>
 			         </div>
 			         
@@ -181,6 +180,19 @@ $(function(){
        // .as_list-table 내 하위 체크박스 상태를 .all-check 와 맞춤
        $('.as_list-table input[type="checkbox"]').prop('checked', isChecked);
     });
+    
+    // 검색
+    const urlParams = new URL(location.href).searchParams;
+    let status;
+    status = urlParams.get('status');
+    if(status == null) {
+    	status = 'live';
+    }
+	$("#search").on("click",function(){
+		let query = $("#as_sch-key").val();
+        let search = $("#as_sch-type option:selected").val();
+		location.href=('movie.admin?status='+status+'&'+search+'='+query);	
+	});
 });
 
 // 선택한 영화들을 저장하는 함수
