@@ -8,6 +8,18 @@ if (status == null) {
     status = "live"; // 기본값
 }
 pageContext.setAttribute("status", status);
+
+String searchType = request.getParameter("searchType");
+if (searchType == null) {
+	searchType = ""; // 기본값
+}
+pageContext.setAttribute("searchType", searchType);
+
+String searchKey = request.getParameter("searchKey");
+if (searchKey == null) {
+	searchKey = ""; // 기본값
+}
+pageContext.setAttribute("searchKey", searchKey);
 %>
 <c:set var="activeTab" value="${status}" />
 <c:choose>
@@ -58,16 +70,17 @@ pageContext.setAttribute("status", status);
 			            </p>
 			            
 			            <div class="search-group">
+			            ${searchType } / ${searchKey }
 			               <label>
 			                  <select id="as_sch-type" class="form-control" name="searchType">
-			                  	<option value="mv_title" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
-			                  	<option value="mv_dname" ${param.searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
-			                  	<option value="movie_genre" ${param.searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
+			                  	<option value="mv_title" ${searchType == 'mv_title' ? 'selected' : ''}>제목</option>
+			                  	<option value="mv_dname" ${searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
+			                  	<option value="movie_genre" ${searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
 			                  </select>
 			               </label>
 			
 			               <label>
-			                  <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
+			                  <input type="text" class="form-control" id="as_sch-key" value="${searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
 			               </label>
 			               <button type="button" class="btn btn-primary" id="search">검색</button>
 			            </div>
@@ -188,10 +201,10 @@ $(function(){
     if(status == null) {
     	status = 'live';
     }
-	$("#search").on("click",function(){
-		let query = $("#as_sch-key").val();
+	$("#search").on("click",function(){	
         let search = $("#as_sch-type option:selected").val();
-		location.href=('movie.admin?status='+status+'&'+search+'='+query);	
+		let query = $("#as_sch-key").val();
+		location.href=('movie.admin?status='+status+'&searchType='+search+'&searchKey='+query);
 	});
 });
 
