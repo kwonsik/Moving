@@ -90,6 +90,7 @@ public class AsFrontController {
 		
 		model.addAttribute("unLiveList", unLivePagedData.get("list"));
 		model.addAttribute("unLivePaging", unLivePagedData.get("paging"));
+
 	}
 	
 	@RequestMapping(value="movieStatusChange.admin", method={RequestMethod.GET, RequestMethod.POST})

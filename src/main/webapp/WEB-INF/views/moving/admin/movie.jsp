@@ -9,12 +9,6 @@ if (status == null) {
 }
 pageContext.setAttribute("status", status);
 
-String searchType = request.getParameter("searchType");
-if (searchType == null) {
-	searchType = ""; // 기본값
-}
-pageContext.setAttribute("searchType", searchType);
-
 String searchKey = request.getParameter("searchKey");
 if (searchKey == null) {
 	searchKey = ""; // 기본값
