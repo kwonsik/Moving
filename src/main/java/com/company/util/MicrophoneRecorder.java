@@ -76,7 +76,7 @@ public class MicrophoneRecorder implements Runnable {
         }
         // load bytes into the audio input stream for playback
         final byte audioBytes[] = out.toByteArray();
-        logger.info("Out Stream을 갖어옮");
+        logger.info("Out Stream을 가져옮");
 
         logger.info(new String(audioBytes, StandardCharsets.UTF_8));
         final ByteArrayInputStream bais = new ByteArrayInputStream(audioBytes);
