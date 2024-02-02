@@ -9,12 +9,15 @@ if (status == null) {
 }
 pageContext.setAttribute("status", status);
 
+<<<<<<< HEAD
 String searchType = request.getParameter("searchType");
 if (searchType == null) {
 	searchType = ""; // 기본값
 }
 pageContext.setAttribute("searchType", searchType);
 
+=======
+>>>>>>> branch 'sas' of https://github.com/kwonsik/Moving.git
 String searchKey = request.getParameter("searchKey");
 if (searchKey == null) {
 	searchKey = ""; // 기본값
@@ -203,8 +206,12 @@ $(function(){
     }
 	$("#search").on("click",function(){	
         let search = $("#as_sch-type option:selected").val();
+<<<<<<< HEAD
 		let query = $("#as_sch-key").val();
 		location.href=('movie.admin?status='+status+'&searchType='+search+'&searchKey='+query);
+=======
+		location.href=('movie.admin?status='+status+'&'+search+'='+query);
+>>>>>>> branch 'sas' of https://github.com/kwonsik/Moving.git
 	});
 });
 

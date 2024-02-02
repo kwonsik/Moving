@@ -63,10 +63,17 @@ public class AsFrontController {
 	
 	/* ADMIN - MOVIE */
 	@RequestMapping(value="movie.admin", method=RequestMethod.GET)
+<<<<<<< HEAD
 	public void adminMovie(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model, @Param("searchType") String searchType, @Param("searchKey") String searchKey) {
 		Map<String, Object> livePagedData;
 		Map<String, Object> unLivePagedData;
 		
+=======
+	public void adminMovie(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model, String searchType, String searchKey) {
+		Map<String, Object> livePagedData = p_service.getPagedData(pstartno, "live");
+		Map<String, Object> unLivePagedData = p_service.getPagedData(pstartno, "unLive");
+        
+>>>>>>> branch 'sas' of https://github.com/kwonsik/Moving.git
 		List<String> genres = Arrays.asList("액션", "모험", "애니메이션", "코미디", "범죄", "다큐멘터리", "드라마", "가족", "판타지", "역사", "공포", "음악", "미스터리", "로맨스", "SF", "TV 영화", "스릴러", "전쟁", "서부");
 		model.addAttribute("genres", genres);
 		
@@ -84,12 +91,21 @@ public class AsFrontController {
 		model.addAttribute("liveList", livePagedData.get("list"));
 		model.addAttribute("livePaging", livePagedData.get("paging"));
 
+<<<<<<< HEAD
 		System.out.println("livePagedData>> "+livePagedData);
 		System.out.println("unLivePagedData>> "+unLivePagedData);
 		System.out.println(".......livePagedData>> "+livePagedData.get("list"));
 		
 		model.addAttribute("unLiveList", unLivePagedData.get("list"));
 		model.addAttribute("unLivePaging", unLivePagedData.get("paging"));
+=======
+		
+        model.addAttribute("liveList", livePagedData.get("list"));
+        model.addAttribute("livePaging", livePagedData.get("paging"));
+        
+        model.addAttribute("unLiveList", unLivePagedData.get("list"));
+        model.addAttribute("unLivePaging", unLivePagedData.get("paging"));
+>>>>>>> branch 'sas' of https://github.com/kwonsik/Moving.git
 	}
 	
 	@RequestMapping(value="movieStatusChange.admin", method={RequestMethod.GET, RequestMethod.POST})
