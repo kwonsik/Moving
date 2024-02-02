@@ -42,38 +42,6 @@ import com.company.service.IhService;
 public class IhController {
     @Autowired IhService service;
     
-    // 인덱스페이지로
-	@RequestMapping(value="/index.ih" , method=RequestMethod.GET)
-	public String indexPage(HttpSession session, Model model) {
-	    String user_id = (String) session.getAttribute("user_id");
-		model.addAttribute("user_id", user_id);
-		return "ih_index";
-	}
-	
-    // TEST ) 결과페이지로
-	@RequestMapping(value="/result.ih", method=RequestMethod.GET)
-	public String result(HttpSession session, Model model) {
-		
-		String user_id = (String) session.getAttribute("user_id");		//정보
-		int user_no = (Integer) session.getAttribute("user_no");
-		String user_nick = (String) session.getAttribute("user_nick");
-		String user_age = (String) session.getAttribute("user_age");
-		String user_mail = (String) session.getAttribute("user_mail");
-		String user_phone = (String) session.getAttribute("user_phone");
-		String usertp_name = (String) session.getAttribute("usertp_name");
-		
-		model.addAttribute("user_id", user_id);			//뷰
-		model.addAttribute("user_no", user_no);
-		model.addAttribute("user_nick", user_nick);
-		model.addAttribute("user_age", user_age);
-		model.addAttribute("user_mail", user_mail);
-		model.addAttribute("user_phone", user_phone);
-		model.addAttribute("usertp_name", usertp_name);
-
-		
-		return "test_resultPage";
-
-	}
 ////////////////////////  회원가입페이지  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// 회원가입페이지로
