@@ -8,6 +8,12 @@ if (status == null) {
     status = "live"; // 기본값
 }
 pageContext.setAttribute("status", status);
+
+String searchKey = request.getParameter("searchKey");
+if (searchKey == null) {
+	searchKey = ""; // 기본값
+}
+pageContext.setAttribute("searchKey", searchKey);
 %>
 <c:set var="activeTab" value="${status}" />
 <c:choose>
@@ -191,7 +197,7 @@ $(function(){
 	$("#search").on("click",function(){
 		let query = $("#as_sch-key").val();
         let search = $("#as_sch-type option:selected").val();
-		location.href=('movie.admin?status='+status+'&'+search+'='+query);	
+		location.href=('movie.admin?status='+status+'&'+search+'='+query);
 	});
 });
 
