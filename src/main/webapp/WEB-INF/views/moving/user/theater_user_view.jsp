@@ -49,6 +49,79 @@
 		</div>
 	</div>
 
+	<!-- 지도 맵 api -->
+	<div id="map" style="width: 100%; height: 350px;"></div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=36bace44888fe4c171a31d158db75235"></script>
+	<script>
+		let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    		mapOption = { 
+        		center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        		level: 3 // 지도의 확대 레벨
+    		};
+
+/*   마커 여러개 표시할 때 
+
+// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+var markers = [];
+
+// 마커 하나를 지도위에 표시합니다 
+addMarker(new kakao.maps.LatLng(33.450701, 126.570667));
+
+// 마커를 생성하고 지도위에 표시하는 함수입니다
+function addMarker(position) {
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: position
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    
+    // 생성된 마커를 배열에 추가합니다
+    markers.push(marker);
+}
+
+// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+function setMarkers(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }            
+}
+*/
+
+		let map = new kakao.maps.Map(mapContainer, mapOption);
+
+		// 마커가 표시될 위치입니다 
+		let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+
+		// 마커를 생성합니다
+		let marker = new kakao.maps.Marker({
+    		position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+
+		let iwContent = '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">찾아가기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    		iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+		// 인포윈도우를 생성합니다
+		let infowindow = new kakao.maps.InfoWindow({
+    		position : iwPosition, 
+    		content : iwContent 
+		});
+  
+		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+		infowindow.open(map, marker); 
+	</script>
+
+
+
+
+
 	<!-- 상영시간표 -->
 	<div id="main-schedule">
 		<div class="inner">
