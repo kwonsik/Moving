@@ -41,6 +41,10 @@ import org.springframework.transaction.NoTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.company.dao.ReservationDao;
 import com.company.dto.*;
@@ -438,88 +442,86 @@ public class ReservationServiceImpl implements ReservationService {
 		return cnt;
 	}
 	
-	@Autowired MicrophoneRecorder mr;
+	
 	@Override
-	public String stt(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public String stt(@RequestParam MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		String save = file.getOriginalFilename()+".wav"; // 파일 이름 설정
 		String rootPath=request.getSession().getServletContext().getRealPath("/");
 		rootPath+="resources\\upload";
-		mr = new MicrophoneRecorder(new AudioFormat(16000,16,1, true, false));
-        mr.start();
-        Thread.sleep(3 * 1000);
-        mr.stop();
-        Thread.sleep(1000);
-        System.out.println(rootPath);
-//        //save
-//        WaveData wd = new WaveData();
-//        Thread.sleep(3000);
-//        wd.saveToFile("~tmp", AudioFileFormat.Type.WAVE, mr.getAudioInputStream());
-        File file = new File(rootPath,"test.wav");
-        AudioSystem.write(mr.getAudioInputStream(), AudioFileFormat.Type.WAVE,file);
-        String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
-        String accessKey = "5ce3c9a0-4748-4ec6-b128-1ed3a9a4ac3b";    // 발급받은 API Key
-        String languageCode = "korean";     // 언어 코드
-        String audioFilePath = rootPath+"/test.wav";  // 녹음된 음성 파일 경로
-        String audioContents = null;
- 
-        Gson gson = new Gson();
- 
-        Map<String, Object> ApiRequest = new HashMap<>();
-        Map<String, String> argument = new HashMap<>();
- 
-        try {
-        	
-            Path path = Paths.get(audioFilePath);
-            byte[] audioBytes = Files.readAllBytes(path);
-            audioContents = Base64.getEncoder().encodeToString(audioBytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
- 
-        argument.put("language_code", languageCode);
-        argument.put("audio", audioContents);
- 
-        ApiRequest.put("argument", argument);
- 
-        URL url;
-        Integer responseCode = null;
-        String responBody = null;
-        DataOutputStream wr=null;
-        try {
-        	System.out.println("여기까지 오나");
-            url = new URL(openApiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("POST");
-            con.setDoOutput(true);
-            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            con.setRequestProperty("Authorization", accessKey);
- 
-            wr = new DataOutputStream(con.getOutputStream());
-            wr.write(gson.toJson(ApiRequest).getBytes("UTF-8"));
-            
-            wr.flush();
-            wr.close();
-            
-            responseCode = con.getResponseCode();
-            InputStream is = con.getInputStream();
-            byte[] buffer = new byte[is.available()];
-            int byteRead = is.read(buffer);
-            responBody = new String(buffer);
-            System.out.println("경로 : "+rootPath);
-            System.out.println("[responseCode] " + responseCode);
-            System.out.println("[responBody]");
-            
-            System.out.println(responBody);
- 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(e);
-        }
+
+		File target = new File(rootPath, save);
 		
-		
+		try {
+			FileCopyUtils.copy(file.getBytes(), target); // 파일 업로드
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
+		String accessKey = "5ce3c9a0-4748-4ec6-b128-1ed3a9a4ac3b"; // 발급받은 API Key
+		String languageCode = "korean"; // 언어 코드
+		String audioFilePath = rootPath+"/file.wav"; // 녹음된 음성 파일 경로
+		String audioContents = null;
+
+		Gson gson = new Gson();
+
+		Map<String, Object> ApiRequest = new HashMap<>();
+		Map<String, String> argument = new HashMap<>();
+
+		try {
+
+			Path path = Paths.get(audioFilePath);
+			byte[] audioBytes = Files.readAllBytes(path);
+			audioContents = Base64.getEncoder().encodeToString(audioBytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		argument.put("language_code", languageCode);
+		argument.put("audio", audioContents);
+
+		ApiRequest.put("argument", argument);
+
+		URL url;
+		Integer responseCode = null;
+		String responBody = null;
+		DataOutputStream wr = null;
+		try {
+			url = new URL(openApiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+			con.setDoOutput(true);
+			con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			con.setRequestProperty("Authorization", accessKey);
+
+			wr = new DataOutputStream(con.getOutputStream());
+			wr.write(gson.toJson(ApiRequest).getBytes("UTF-8"));
+
+			wr.flush();
+			wr.close();
+
+			responseCode = con.getResponseCode();
+			InputStream is = con.getInputStream();
+			byte[] buffer = new byte[is.available()];
+			int byteRead = is.read(buffer);
+			responBody = new String(buffer);
+
+			System.out.println("[responseCode] " + responseCode);
+			System.out.println("[responBody]");
+
+			System.out.println(responBody);
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+
 		return responBody;
 	}
 
