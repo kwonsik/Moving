@@ -449,7 +449,7 @@ public class ReservationServiceImpl implements ReservationService {
 		response.setContentType("text/html; charset=UTF-8");
 		String save = file.getOriginalFilename()+".wav"; // 파일 이름 설정
 		String rootPath=request.getSession().getServletContext().getRealPath("/");
-		rootPath+="resources\\upload";
+		rootPath+="resources/upload";
 
 		File target = new File(rootPath, save);
 		
@@ -509,7 +509,8 @@ public class ReservationServiceImpl implements ReservationService {
 			byte[] buffer = new byte[is.available()];
 			int byteRead = is.read(buffer);
 			responBody = new String(buffer);
-
+			
+			System.out.println("rootPath : "+rootPath);
 			System.out.println("[responseCode] " + responseCode);
 			System.out.println("[responBody]");
 

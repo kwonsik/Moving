@@ -185,16 +185,13 @@ $(function(){
      function recordStop() {
    	  
 
-         console.log("stop")
-         // 녹음 중지
+   
          audioRecorder.stopRecording(function () {
-             console.log("stopRecording")
-             // 녹음된 오디오 데이터를 Blob 객체로 가져오기
- 
+      
              let audioBlob = audioRecorder.getBlob();
      	
              let file=new File([audioBlob], "file", {type: audioBlob.type});
-			  console.log(file);
+
              const formData = new FormData();
 			  formData.append('file', file);
              $
@@ -208,7 +205,9 @@ $(function(){
 					processData: false,
 					async : false,
 					success : function(data) {
+						console.log(data);
 						let result = data.return_object.recognized;
+						
 
 						if (result.includes("예매")) {
 							if(${user_no!=null}){location.href='reservation_view.ks';}
