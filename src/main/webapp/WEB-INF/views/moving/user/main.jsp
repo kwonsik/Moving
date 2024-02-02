@@ -6,9 +6,14 @@
 .mic {
 	width: 60px;
 	height: 60px;
+	
 	position: fixed;
 	right: 5%;
 	bottom: 5%;
+}
+.mic.selected img{
+	border: 2px solid red;
+	border-radius:100%;
 }
 .mic:hover{
 	cursor: pointer;
@@ -16,6 +21,8 @@
 .mic img {
 	width: 60px;
 	height: 60px;
+	border: 2px solid black;
+	border-radius:100%;
 }
 </style>
 
@@ -145,8 +152,124 @@ $(function(){
 		// $(".as_main-visual__video").get(0).currentTime = 0;
 	});
 	
+	 let audioRecorder;
+
+     function recordStart() {
+
+
+         // getUserMedia로 오디오 스트림(나의 음성) 가져오기
+         navigator.mediaDevices.getUserMedia({ audio: true })
+             .then(function (stream) {
+
+                 // 오디오 스트림을 녹음하기 위한 RecordRTC 객체 생성
+                 audioRecorder = RecordRTC(stream, {
+                     type: 'audio',
+                     mimeType: 'audio/raw',
+                     recorderType: StereoAudioRecorder,
+                     // mono
+                     numberOfAudioChannels: 1,
+                     desiredSampRate: 16000,
+                     bufferSize: 16384,
+                 });
+
+                 // 녹음 시작
+                 audioRecorder.startRecording();
+
+             })
+             .catch(function (error) {
+                 console.error('getUserMedia error:', error);
+             });
+
+     }
+
+     function recordStop() {
+   	  
+
+         console.log("stop")
+         // 녹음 중지
+         audioRecorder.stopRecording(function () {
+             console.log("stopRecording")
+             // 녹음된 오디오 데이터를 Blob 객체로 가져오기
+ 
+             let audioBlob = audioRecorder.getBlob();
+     	
+             let file=new File([audioBlob], "file", {type: audioBlob.type});
+			  console.log(file);
+             const formData = new FormData();
+			  formData.append('file', file);
+             $
+				.ajax({
+					type : "POST",
+					url : "stt.ks",
+					data : formData,
+					dataType : 'json',
+					contentType: false,
+					//contentType: false,
+					processData: false,
+					async : false,
+					success : function(data) {
+						let result = data.return_object.recognized;
+
+						if (result.includes("예매")) {
+							if(${user_no!=null}){location.href='reservation_view.ks';}
+							else{
+								let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+		         	            if (userResponse) {
+		         	            	location.href='loginPage.ih';
+		         	            }
+							}
+							
+						} else if (result.includes("영화관")) {
+							location.href='theater_user_view.shj';			
+						} else if (result.includes("영화")) {				
+							location.href='movie.as';			
+						}  else if (result.includes("공지사항")) {
+							location.href='notice.as';			
+						} else if (result.includes("로그인")) {
+							location.href='loginPage.ih';			
+						} else if (result.includes("회원 가입")) {
+							location.href='joinForm.ih';			
+						} else if (result.includes("로그아웃")) {
+							location.href='logout.ih';			
+						}
+						else {
+							alert("다시 말해주세요");
+						}
+						
+
+						
+
+						
+
+					},
+					error : function(request, status, error) {
+						console.log("code: " + request.status)
+						console.log("message: " + request.responseText)
+						console.log("error: " + error);
+					}
+				});
+             
+             
+             
+         });
+        
+     }
+	
+	
+	
 	// 음성인식
 	$(".mic").on("click", function() {
+		if($(this).attr("class")=="mic"){
+			$(this).addClass("selected");
+			recordStart();
+		}
+		else{
+			$(this).removeClass("selected");
+			recordStop();
+		}
+		
+		
+		/*
 		$.ajax({
 			type : "GET",
 			url : "stt.ks",
@@ -189,6 +312,7 @@ $(function(){
 				console.log("error: " + error);
 			}
 		});
+		*/
 	});
 });
 </script>
