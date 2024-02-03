@@ -180,10 +180,7 @@ li{list-style-type:none; }
 	display: inline-block;
 	margin:10px 5px;
 }
-.ih__loginPage .find :nth-child(2) {
-    border-left: 1px solid; 
-    padding-left: 15px;
-}
+
 .ih__loginPage input[type="submit"]{
 	width: 490px;
 	height: 50px;

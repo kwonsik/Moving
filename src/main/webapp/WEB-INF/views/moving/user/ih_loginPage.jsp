@@ -34,6 +34,7 @@
 			
 			<div class="find">
 				<p> <a href="findIdView.ih">ID/PW찾기</a> </p>
+				<p style="margin:0; padding:0; font-size:22px;">｜</p>
 				<p> <a href="joinForm.ih">회원가입</a> </p>
 			</div>
 			
@@ -41,7 +42,7 @@
 				<p class="tit"><strong>간편로그인</strong></p>
 
 				<!-- 카카오 -->
-				<p> <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d00005ed65e673d8957a8eb42c7007d5&redirect_uri=http://localhost:8080/jsp_basic/kakao" title="KAKAO LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_4.png" alt="login" style="width:250px; height: 42px;" /></a> </p>
+				<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d00005ed65e673d8957a8eb42c7007d5&redirect_uri=http://localhost:8080/jsp_basic/kakao" title="KAKAO LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png" alt="login" style="width:52px; height: 52px;" /></a>
 				
 				<%
 				    // 클라이언트 ID와 리디렉션 URI를 설정
@@ -50,20 +51,19 @@
 				    SecureRandom random = new SecureRandom();
 				    String state = new BigInteger(130, random).toString(32);
 				    session.setAttribute("state", state);
-//				    String code = request.getParameter("code");
-//				    session.setAttribute("code", code);
 										    
 				    // 네이버 로그인 URL을 생성
-				    String naverAuthURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+				    String naverAuthURL = 
+				          "https://nid.naver.com/oauth2.0/authorize?response_type=code"
 				        + "&client_id=" + clientId
 				        + "&redirect_uri=" + redirectURI
 				        + "&state=" + state;
 				%>
 				<!-- 네이버 로그인 버튼 -->
-				<p> <a href="<%= naverAuthURL %>"> <img alt="네이버 로그인 버튼" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_1.png" style="width:250px; height: 42px;" /> </a> </p>
+				<a href="<%= naverAuthURL %>"> <img alt="네이버 로그인 버튼" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png" style="width:52px; height: 52px; margin-left:40px;" /> </a>
 			</div>
 				
-			<div class="under">
+			<div class="blind">
 				<p>무빙 사이트에 간편로그인계정을 연결한 경우에만 <span>간편로그인</span>이 가능합니다.</p>
 			</div>
 		</fieldset>
