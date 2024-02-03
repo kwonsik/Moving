@@ -117,4 +117,14 @@ public class IhServiceImple implements IhService{
 	public int originalPasswordCheck (UserDto dto) {
 		return dao.originalPasswordCheck (dto);
 	}
+	
+	//네이버회원가입
+	public int naverJoin(UserDto dto) {
+		return dao.naverJoin(dto);
+	}
+	
+	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoNaverAfterJoin(UserDto dto) {
+		return dao.selectUserNoNaverAfterJoin(dto);
+	}
 }

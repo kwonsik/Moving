@@ -122,4 +122,16 @@
     	select count(*) `cnt` from user where user_id=#{user_id} and user_pass=#{user_pass}
     </select>
     
+    <!-- ③ 네이버 회원가입 -->
+	<insert id="naverJoin" parameterType="UserDto">
+	    insert into user (usertp_no, user_id, user_name, user_pass, user_nick, user_mail, user_age, user_phone, user_kakao, user_crtdate, user_ip, user_naver) 
+	    values (1 , #{user_id} ,#{user_name},#{user_pass},#{user_nick},#{user_mail},#{user_age},#{user_phone},#{user_kakao},now(),#{user_ip},#{user_naver})
+	    on duplicate key update user_nick = VALUES (user_nick), user_phone = VALUES (user_phone);
+	</insert>
+    
+    <!-- 네이버회원가입직후 user_no 와 usertp_no 를 세션에 저장하기위해 가져오기 -->
+    <select id="selectUserNoNaverAfterJoin" parameterType="UserDto" resultType="UserDto">
+        select u.user_no,u.usertp_no,ut.usertp_name from user u join usertype ut using(usertp_no) where u.user_naver = #{user_naver};
+    </select>
+    
 </mapper>

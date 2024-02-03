@@ -61,4 +61,9 @@ public interface IhService {
 	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
 	public int originalPasswordCheck (UserDto dto);
 	
+	//네이버회원가입
+	public int naverJoin(UserDto dto);
+	
+	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoNaverAfterJoin(UserDto dto);
 }

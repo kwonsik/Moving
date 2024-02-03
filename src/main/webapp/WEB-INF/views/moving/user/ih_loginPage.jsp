@@ -49,9 +49,9 @@
 				    String redirectURI = URLEncoder.encode("http://localhost:8080/moving/prepareLogin.ih", "UTF-8");
 				    SecureRandom random = new SecureRandom();
 				    String state = new BigInteger(130, random).toString(32);
-				    String code = request.getParameter("code");
 				    session.setAttribute("state", state);
-				    session.setAttribute("code", code);
+//				    String code = request.getParameter("code");
+//				    session.setAttribute("code", code);
 										    
 				    // 네이버 로그인 URL을 생성
 				    String naverAuthURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
