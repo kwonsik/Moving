@@ -28,8 +28,8 @@ public class Test1_Dao {
 		UserDto dto = new UserDto();
 		
 		//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
-		dto.setUser_naver("GFa0qCCTxipnEjiq0YdJIwltC6s_Jh6oVstPV1gq8XY");
-		System.out.println(ihdao.selectUserNoNaverAfterJoin(dto)); 
+//		dto.setUser_naver("GFa0qCCTxipnEjiq0YdJIwltC6s_Jh6oVstPV1gq8XY");
+//		System.out.println(ihdao.selectUserNoNaverAfterJoin(dto)); 
 		 
 		//11 관리자페이지 모든회원 불러오기
 //		log.info("모든회원 불러오기"+ihdao.readTotalUser());
