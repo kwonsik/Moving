@@ -1,14 +1,23 @@
 package com.company.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URL;
 import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +36,15 @@ import com.company.dto.UserDto;
 import com.company.service.IhService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Controller
 public class IhSocialLoginController {
 	@Autowired IhService service;
 	
-	//1.네이버로 로그인하기
+	//1. 네이버 인증
 	@RequestMapping("/prepareLogin.ih")
 	public String prepareLogin(HttpServletRequest request, HttpSession session) throws ServletException, IOException, UnsupportedEncodingException {
 	    SecureRandom random = new SecureRandom();
@@ -44,6 +56,7 @@ public class IhSocialLoginController {
 	    return "redirect:/naver_redirect.ih?code="+code+"&state="+state;
 	}
 	
+	//2. 네이버 인가
 	@RequestMapping("/naver_redirect.ih")
 	public String naver_redirect(HttpServletRequest request) {
 
@@ -56,7 +69,7 @@ public class IhSocialLoginController {
 	    if (!state.equals(sessionState)) {
 	        request.getSession().removeAttribute("state");
 	        return "/error";
-	    } 
+	    }
 	    // 요청으로 받은 'code' 값과 세션에 저장된 'code' 값을 비교합니다. 일치하지 않으면 에러 페이지로 리디렉션합니다.
 	    else if (!code.equals(sessionCode)) {
 	        request.getSession().removeAttribute("code");
@@ -104,16 +117,16 @@ public class IhSocialLoginController {
 	        
 	        UserDto userDto = new UserDto();
 	    
-	        String birthday = responseNode.path("birthday").asText();
-	        String birthyear = responseNode.path("birthyear").asText();
-	        String age = birthyear+"-"+birthday;
+	        String birthday = responseNode.path("birthday").asText().isEmpty() ? null : responseNode.path("birthday").asText();
+	        String birthyear = responseNode.path("birthyear").asText().isEmpty() ? null : responseNode.path("birthyear").asText();
+	        String age = (birthyear != null && birthday != null) ? birthyear + "-" + birthday : null;
 	        String IP = InetAddress.getLocalHost().getHostAddress();
-	        userDto.setUser_naver(responseNode.path("id").asText());
-	        userDto.setUser_name(responseNode.path("name").asText());
-	        userDto.setUser_nick(responseNode.path("nickname").asText());
-	        userDto.setUser_mail(responseNode.path("email").asText());
+	        userDto.setUser_naver(responseNode.path("id").asText().isEmpty() ? null : responseNode.path("id").asText());
+	        userDto.setUser_name(responseNode.path("name").asText().isEmpty() ? null : responseNode.path("name").asText());
+	        userDto.setUser_nick(responseNode.path("nickname").asText().isEmpty() ? null : (responseNode.path("nickname").asText() + "(naver)"));
+	        userDto.setUser_mail(responseNode.path("email").asText().isEmpty() ? null : responseNode.path("email").asText());
 	        userDto.setUser_age(age);
-	        userDto.setUser_phone(responseNode.path("mobile").asText());
+	        userDto.setUser_phone(responseNode.path("mobile").asText().isEmpty() ? null : responseNode.path("mobile").asText());
 	        userDto.setUser_ip(IP);
 	        
 	        service.naverJoin(userDto);
@@ -126,11 +139,152 @@ public class IhSocialLoginController {
 	        session.setAttribute("user_age", userDto.getUser_age());
 	        session.setAttribute("user_nick", userDto.getUser_nick());
 	        
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+	    } catch (Exception e) { e.printStackTrace(); }
 	    
 	    return "redirect:/main.ks";
 	}
 	
+	//3. 카카오 인증
+	@RequestMapping("/kakaoLogin.ih")
+	public String kakaoLogin(HttpServletRequest request, HttpSession session) throws ServletException, IOException, UnsupportedEncodingException {
+	    SecureRandom random = new SecureRandom();
+	    String state = new BigInteger(130, random).toString(32);
+	    String code = request.getParameter("code");
+	    
+	    request.getSession().setAttribute("state", state);
+	    request.getSession().setAttribute("code", code);
+	    
+	    return "redirect:/kakao_redirect.ih?code="+code+"&state="+state;
+	}
+	
+	//4. 카카오 인가
+	@RequestMapping("/kakao_redirect.ih")
+	protected String kakao_redirect(HttpServletRequest request, HttpServletResponse response)
+	         throws ServletException, IOException {
+	      // 1.
+	      request.setCharacterEncoding("UTF-8");
+	      response.setContentType("text/html; charset=UTF-8");
+	      String code = request.getParameter("code");
+
+	      // 2. 토큰받기
+	      String client_id = "3d769a0fec3ae6e8966e62f3a2e7456b";
+	      String redirect_uri = "http://localhost:8080/moving/kakaoLogin.ih";
+	      String  client_secret ="VwIP3zM0WuSHqvWHBSgtbt6uy0nB0iSA";
+	      String tokenUrl = "https://kauth.kakao.com/oauth/token?";
+	      tokenUrl += "grant_type=authorization_code" + "&client_id=" + client_id + "&redirect_uri=" + redirect_uri
+	            + "&code=" + code
+	            + "&client_secret=" + client_secret;
+
+	      URL url = null;
+	      HttpURLConnection conn = null;
+	      BufferedReader br = null;
+	      String line = "";
+	      StringBuffer buffer = new StringBuffer();
+	      String resultToken = "";
+	      try {
+	         url = new URL(tokenUrl);
+	         conn = (HttpURLConnection) url.openConnection();
+	         conn.setRequestMethod("POST");
+	         conn.setDoInput(true);
+	         conn.setDoOutput(true);
+	         conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+	         
+	         if (conn.getResponseCode() == 200) {
+	            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	         } else {
+	            br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	         }
+	         while ((line = br.readLine()) != null) {
+	            buffer.append(line);
+	         }
+	         br.close();
+	         conn.disconnect();
+	         resultToken = buffer.toString();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+	      // System.out.println("step2)" + resultToken);
+	      // json
+	      JsonParser parser = new JsonParser();
+	      JsonObject job = (JsonObject) parser.parse(resultToken);
+	      String token = job.get("access_token").getAsString();
+	      // System.out.println("step3) token > " + token);
+
+	      //////////////// STEP3) 사용자 정보 받아오기
+
+	      String userinfoUrl = "https://kapi.kakao.com/v2/user/me";
+	      url = new URL(userinfoUrl);
+	      conn = (HttpURLConnection) url.openConnection();
+	      conn.setRequestMethod("GET");
+	      conn.setRequestProperty("Authorization", "Bearer " + token);
+	      conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+	      if (conn.getResponseCode() == 200) {
+	         br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	      } else {
+	         br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	      }
+	      line = "";
+	      buffer = new StringBuffer();
+	      String inforesult = "";
+	      while ((line = br.readLine()) != null) {
+	         buffer.append(line);
+	      }
+	      br.close();
+	      conn.disconnect();
+	      inforesult = buffer.toString();
+	      System.out.println("STEP4) "+inforesult);
+	      
+	        parser = new JsonParser();
+	        JsonElement element = JsonParser.parseString(inforesult);
+	        JsonObject jsonObj = element.getAsJsonObject();
+	        JsonObject kakaoAccount = jsonObj.getAsJsonObject("kakao_account");
+	        JsonObject profile = kakaoAccount.getAsJsonObject("profile");
+	        
+	        String id = jsonObj.get("id").getAsString();
+	        String nickname = profile.get("nickname").getAsString();
+	        String email = kakaoAccount.has("email") ? kakaoAccount.get("email").getAsString() : null ;
+	        String IP = InetAddress.getLocalHost().getHostAddress();
+
+	        // 연령대 처리
+	        String ageRange = kakaoAccount.has("age_range") ? kakaoAccount.get("age_range").getAsString() : null;
+	        String age = null; // 실제 나이를 계산하여 저장할 변수
+
+	        if(ageRange != null) {
+	        	Pattern pattern = Pattern.compile("\\d+");
+	            Matcher matcher = pattern.matcher(ageRange);
+	            if (matcher.find()) {
+	                int numberAge = Integer.parseInt(matcher.group());
+	                int year = Year.now().getValue();
+	                age = String.valueOf(year - numberAge - 1) + "-01-01";
+	            }
+	        }
+
+	        System.out.println("ID: " + id);
+	        System.out.println("Nickname: " + nickname);
+	        System.out.println("Email: " + email);
+	        System.out.println("Age Range: " + age);
+	        
+	        UserDto userDto = new UserDto();
+	        
+	        userDto.setUser_kakao(id);
+	        userDto.setUser_nick(nickname+"(kakao)");
+	        userDto.setUser_mail(email);
+	        userDto.setUser_age(age);
+	        userDto.setUser_ip(IP);
+	        
+	        service.naverJoin(userDto);
+	        UserDto dto = service.selectUserNoKakaoAfterJoin(userDto);
+	        
+	        // 세션에 사용자 정보 저장
+	        HttpSession session = request.getSession();
+	        session.setAttribute("user_no", dto.getUser_no());
+	        session.setAttribute("user_kakao", userDto.getUser_kakao());
+	        session.setAttribute("user_age", userDto.getUser_age());
+	        session.setAttribute("user_nick", userDto.getUser_nick());
+	        
+			return "redirect:/main.ks";
+			
+		}
 }

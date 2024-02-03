@@ -66,4 +66,10 @@ public interface IhService {
 	
 	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
 	public UserDto selectUserNoNaverAfterJoin(UserDto dto);
+	
+	//카카오회원가입
+	public int kakaoJoin(UserDto dto);
+	
+	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoKakaoAfterJoin(UserDto dto);
 }

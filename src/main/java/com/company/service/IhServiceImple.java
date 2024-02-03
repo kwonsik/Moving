@@ -128,4 +128,14 @@ public class IhServiceImple implements IhService{
 		return dao.selectUserNoNaverAfterJoin(dto);
 	}
 	
+	//카카오회원가입
+	public int kakaoJoin(UserDto dto) {
+		return dao.kakaoJoin(dto);
+	}
+	
+	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoKakaoAfterJoin(UserDto dto) {
+		return dao.selectUserNoKakaoAfterJoin(dto);
+	}
+	
 }

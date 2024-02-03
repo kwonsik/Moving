@@ -40,27 +40,35 @@
 			
 			<div class="socialLogin">
 				<p class="tit"><strong>간편로그인</strong></p>
-
-				<!-- 카카오 -->
-				<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d00005ed65e673d8957a8eb42c7007d5&redirect_uri=http://localhost:8080/jsp_basic/kakao" title="KAKAO LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png" alt="login" style="width:52px; height: 52px;" /></a>
-				
 				<%
-				    // 클라이언트 ID와 리디렉션 URI를 설정
-				    String clientId = "HA45SpjNLNnGrNT2Hw0w";
-				    String redirectURI = URLEncoder.encode("http://localhost:8080/moving/prepareLogin.ih", "UTF-8");
+				    // 네이버) 클라이언트 ID와 리디렉션 URI를 설정
+				    String NaverClientId = "HA45SpjNLNnGrNT2Hw0w";
+				    String NaverRedirectURI = URLEncoder.encode("http://localhost:8080/moving/prepareLogin.ih", "UTF-8");
 				    SecureRandom random = new SecureRandom();
-				    String state = new BigInteger(130, random).toString(32);
-				    session.setAttribute("state", state);
-										    
-				    // 네이버 로그인 URL을 생성
+				    String NaverState = new BigInteger(130, random).toString(32);
+				    session.setAttribute("state", NaverState);
+					
+				    // 카카오) 클라이언트 ID와 리디렉션 URI를 설정
+					String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
+					String KakaoRedirectURI = URLEncoder.encode("http://localhost:8080/moving/kakaoLogin.ih", "UTF-8");
+				    
+				    // 네이버) 로그인 URL을 생성
 				    String naverAuthURL = 
 				          "https://nid.naver.com/oauth2.0/authorize?response_type=code"
-				        + "&client_id=" + clientId
-				        + "&redirect_uri=" + redirectURI
-				        + "&state=" + state;
+				        + "&client_id=" + NaverClientId
+				        + "&redirect_uri=" + NaverRedirectURI
+				        + "&state=" + NaverState +"&scope=profile_nickname";
+				    
+				    // 카카오) 로그인 URL을 생성
+					String kakaoAuthURL = 
+							"https://kauth.kakao.com/oauth/authorize?response_type=code"
+							+ "&client_id=" + KakaoClientId
+							+ "&redirect_uri=" + KakaoRedirectURI;
 				%>
+				<!-- 카카오 -->
+				<a href="<%= kakaoAuthURL %>" title="KAKAO LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png" alt="login" style="width:52px; height: 52px;" alt="카카오 로그인 버튼"/></a>
 				<!-- 네이버 로그인 버튼 -->
-				<a href="<%= naverAuthURL %>"> <img alt="네이버 로그인 버튼" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png" style="width:52px; height: 52px; margin-left:40px;" /> </a>
+				<a href="<%= naverAuthURL %>" title="NAVER LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png" style="width:52px; height: 52px; margin-left:40px;" alt="네이버 로그인 버튼"/> </a>
 			</div>
 				
 			<div class="blind">
