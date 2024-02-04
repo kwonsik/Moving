@@ -55,6 +55,25 @@
 				<label for="age">생년월일</label>
 				<input type="text" id="age" name="age" value="${dto.user_age}" disabled />
 			</div>
+			<div class="form-class">
+				<label>SNS계정 연동관리</label>
+				<ul>
+					<li class="socialIntegration">
+						<img alt="카카오 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png">
+						<ul>
+							<li>카카오톡</li>
+							<li>연동하기</li>
+						</ul>
+					</li>
+					<li class="socialIntegration">
+						<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
+						<ul>
+							<li>네이버</li>
+							<li>연동하기</li>
+						</ul>
+					</li>
+				</ul>			
+			</div>
 			<a href="MyUpdatePassView.ih" class="btn btn-info" id="changePass">비밀번호변경</a>
 			<button id="goDeleteAndCancleBtn" class="deleteAndCancleBtn">
 			<c:if test="${dto.usertp_no != '4'}">

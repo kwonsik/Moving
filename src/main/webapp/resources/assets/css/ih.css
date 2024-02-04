@@ -291,7 +291,6 @@ li{list-style-type:none; }
 .ih__myUpdatePage label{
 	display:block;
 	margin:20px 0px;
-	margin-left:10px;
 }
 .ih__myUpdatePage input[type="text"],
 .ih__myUpdatePage input[type="email"],
@@ -311,6 +310,26 @@ li{list-style-type:none; }
 .ih__myUpdatePage input[type="tel"],
 .ih__myUpdatePage input[type="age"]{
 	width:375px;
+}
+
+.ih__myUpdatePage .form-class img{
+	display:inline-block;
+	height:52px;
+	width:52px;
+	margin:10px;
+}
+.ih__myUpdatePage .socialIntegration {
+    display: inline-block;
+    margin: 5px 8px;
+    border: 1px solid #dcdcdc;
+    border-radius:5px;
+    width: 170px;
+}
+.ih__myUpdatePage .socialIntegration > ul{
+    display:inline-block;
+    width: 80px;
+    margin-top:15px;
+    text-align:center;
 }
 .ih__myUpdatePage input#inputEmail {
     width: 226px;
