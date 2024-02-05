@@ -59,17 +59,17 @@
 				<label>SNS계정 연동관리</label>
 				<ul>
 					<li class="socialIntegration">
-					<button type="button">
+					<button onclick="kakaoPopup()">
 						<img alt="카카오 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png">
 							<span>카카오톡</span>
 							<span class="kakaoIntegrationResult">연동하기</span>
 						</button>
 					</li>
 					<li class="socialIntegration">
-						<button type="button">
-							<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
-								<span>네이버</span>
-								<span class="naverIntegrationResult">연동하기</span>
+					<button onclick="naverPopup()">
+						<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
+							<span>네이버</span>
+							<span class="naverIntegrationResult">연동하기</span>
 						</button>
 					</li>
 				</ul>			
@@ -107,6 +107,9 @@
 </c:if>
 
 <script>
+function naverPopup() {event.preventDefault(); window.open('prepareLogin.ih', 'naver', 'width=600,height=400,left=200,top=200'); }
+function kakaoPopup() {event.preventDefault(); window.open('https://kakao.com', 'kakao', 'width=600,height=400,left=200,top=200'); }
+
 $(document).ready(function() {
 
     // 닉네임 유효성 검사
@@ -126,57 +129,57 @@ $(document).ready(function() {
     }
 });
 
-    window.onload = function() {
-    	//탈퇴신청성공
-        <c:if test="${not empty myDeleteSuccess}"> alert("${myDeleteSuccess}"); </c:if>
-        //탈퇴신청취소성공
-        <c:if test="${not empty myDeleteUserCancleSuccess}"> alert("${myDeleteUserCancleSuccess}"); </c:if>
-        //개인정보변경성공
-        <c:if test="${not empty updateSuccess}"> alert("${updateSuccess}"); </c:if>
-        //개인정보변경실패
-        <c:if test="${not empty updateFail}"> alert("${updateFail}"); </c:if>
-        //비밀번호변경성공
-        <c:if test="${not empty updatePassSuccess}"> alert("${updatePassSuccess}"); </c:if>
-        
-        var goDeleteAndCancleBtn = document.getElementById('goDeleteAndCancleBtn');
+window.onload = function() {
+	//탈퇴신청성공
+    <c:if test="${not empty myDeleteSuccess}"> alert("${myDeleteSuccess}"); </c:if>
+    //탈퇴신청취소성공
+    <c:if test="${not empty myDeleteUserCancleSuccess}"> alert("${myDeleteUserCancleSuccess}"); </c:if>
+    //개인정보변경성공
+    <c:if test="${not empty updateSuccess}"> alert("${updateSuccess}"); </c:if>
+    //개인정보변경실패
+    <c:if test="${not empty updateFail}"> alert("${updateFail}"); </c:if>
+    //비밀번호변경성공
+    <c:if test="${not empty updatePassSuccess}"> alert("${updatePassSuccess}"); </c:if>
+    
+    var goDeleteAndCancleBtn = document.getElementById('goDeleteAndCancleBtn');
 
-        if (goDeleteAndCancleBtn) {
-            goDeleteAndCancleBtn.addEventListener('click', function(e) {
-                e.preventDefault(); // 기본 동작 방지
+    if (goDeleteAndCancleBtn) {
+        goDeleteAndCancleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // 기본 동작 방지
 
-                var requestBtn = document.getElementById('request');
-                var responseBtn = document.getElementById('response');
+            var requestBtn = document.getElementById('request');
+            var responseBtn = document.getElementById('response');
 
-                if (requestBtn) {
-                    requestBtn.click();
-                }
+            if (requestBtn) {
+                requestBtn.click();
+            }
 
-                if (responseBtn) {
-                    responseBtn.click();
-                }
-            });
-        }
-        
-        var deleteButton = document.getElementById('request');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('회원 탈퇴하시겠습니까?')) {
-                    e.target.form.submit();
-                }
-            });
-        }
+            if (responseBtn) {
+                responseBtn.click();
+            }
+        });
+    }
+    
+    var deleteButton = document.getElementById('request');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('회원 탈퇴하시겠습니까?')) {
+                e.target.form.submit();
+            }
+        });
+    }
 
-        var cancelDeleteButton = document.getElementById('response');
-        if (cancelDeleteButton) {
-            cancelDeleteButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('회원 탈퇴를 취소하시겠습니까?')) {
-                    e.target.form.submit();
-                }
-            });
-        }
-    };
+    var cancelDeleteButton = document.getElementById('response');
+    if (cancelDeleteButton) {
+        cancelDeleteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('회원 탈퇴를 취소하시겠습니까?')) {
+                e.target.form.submit();
+            }
+        });
+    }
+};
 </script>
 
 </div>

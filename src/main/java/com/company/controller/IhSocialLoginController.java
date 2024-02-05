@@ -154,95 +154,95 @@ public class IhSocialLoginController {
 	//3. 카카오 인증
 	@RequestMapping("/kakaoLogin.ih")
 	public String kakaoLogin(HttpServletRequest request, HttpSession session) throws ServletException, IOException, UnsupportedEncodingException {
-	    SecureRandom random = new SecureRandom();
-	    String state = new BigInteger(130, random).toString(32);
-	    String code = request.getParameter("code");
-	    
-	    request.getSession().setAttribute("state", state);
-	    request.getSession().setAttribute("code", code);
-	    
-	    return "redirect:/kakao_redirect.ih?code="+code+"&state="+state;
+		SecureRandom random = new SecureRandom();
+		String state = new BigInteger(130, random).toString(32);
+		String code = request.getParameter("code");
+		
+		request.getSession().setAttribute("state", state);
+		request.getSession().setAttribute("code", code);
+		
+		return "redirect:/kakao_redirect.ih?code="+code+"&state="+state;
 	}
 	
 	//4. 카카오 인가
 	@RequestMapping("/kakao_redirect.ih")
-	protected String kakao_redirect(HttpServletRequest request, HttpServletResponse response, HttpSession session,RedirectAttributes rttr)
-	         throws ServletException, IOException {
-		  // 1. 코드받기
-		  request.setCharacterEncoding("UTF-8");
-		  response.setContentType("text/html; charset=UTF-8");
-		  String code = request.getParameter("code");
+	protected String kakao_redirect(HttpServletRequest request, HttpServletResponse response, HttpSession session,RedirectAttributes rttr) throws ServletException, IOException {
 		
-		  // 2. 토큰받기
-		  String client_id = "3d769a0fec3ae6e8966e62f3a2e7456b";
-		  String redirect_uri = "http://localhost:8080/moving/kakaoLogin.ih";
-		  String  client_secret ="VwIP3zM0WuSHqvWHBSgtbt6uy0nB0iSA";
-		  String tokenUrl = "https://kauth.kakao.com/oauth/token?";
-		  tokenUrl += "grant_type=authorization_code" + "&client_id=" + client_id + "&redirect_uri=" + redirect_uri
-					+ "&code=" + code
-					+ "&client_secret=" + client_secret;
+		// 1. 코드받기
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String code = request.getParameter("code");
 		
-		  URL url = null;
-		  HttpURLConnection conn = null;
-		  BufferedReader br = null;
-		  String line = "";
-		  StringBuffer buffer = new StringBuffer();
-		  String resultToken = "";
-		  try {
-		     url = new URL(tokenUrl);
-		     conn = (HttpURLConnection) url.openConnection();
-		     conn.setRequestMethod("POST");
-		 conn.setDoInput(true);
-		 conn.setDoOutput(true);
-		 conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		     
-		     if (conn.getResponseCode() == 200) {
-		        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		     } else {
-		        br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		     }
-		     while ((line = br.readLine()) != null) {
-		        buffer.append(line);
-		     }
-		     br.close();
-		     conn.disconnect();
-		     resultToken = buffer.toString();
-		  } catch (Exception e) {
-		     e.printStackTrace();
-		  }
+		// 2. 토큰받기
+		String client_id = "3d769a0fec3ae6e8966e62f3a2e7456b";
+		String redirect_uri = "http://localhost:8080/moving/kakaoLogin.ih";
+		String  client_secret ="VwIP3zM0WuSHqvWHBSgtbt6uy0nB0iSA";
+		String tokenUrl = "https://kauth.kakao.com/oauth/token?";
+		tokenUrl += "grant_type=authorization_code" + "&client_id=" + client_id + "&redirect_uri=" + redirect_uri
+				+ "&code=" + code
+				+ "&client_secret=" + client_secret;
 		
-		  // System.out.println("step2)" + resultToken);
-		  // json
-		  JsonParser parser = new JsonParser();
-		  JsonObject job = (JsonObject) parser.parse(resultToken);
-		  String token = job.get("access_token").getAsString();
-		  // System.out.println("step3) token > " + token);
+		URL url = null;
+		HttpURLConnection conn = null;
+		BufferedReader br = null;
+		String line = "";
+		StringBuffer buffer = new StringBuffer();
+		String resultToken = "";
+		try {
+		    url = new URL(tokenUrl);
+		    conn = (HttpURLConnection) url.openConnection();
+		    conn.setRequestMethod("POST");
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
-		  //////////////// STEP3) 사용자 정보 받아오기
+		if (conn.getResponseCode() == 200) {
+		   br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		} else {
+		   br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		}
+		while ((line = br.readLine()) != null) {
+		   buffer.append(line);
+		}
+		br.close();
+		conn.disconnect();
+		resultToken = buffer.toString();
+		} catch (Exception e) {
+		   e.printStackTrace();
+		}
 		
-		  String userinfoUrl = "https://kapi.kakao.com/v2/user/me";
-		  url = new URL(userinfoUrl);
-		  conn = (HttpURLConnection) url.openConnection();
-		  conn.setRequestMethod("GET");
-		  conn.setRequestProperty("Authorization", "Bearer " + token);
-		  conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		// System.out.println("step2)" + resultToken);
+		// json
+		JsonParser parser = new JsonParser();
+		JsonObject job = (JsonObject) parser.parse(resultToken);
+		String token = job.get("access_token").getAsString();
+		// System.out.println("step3) token > " + token);
 		
-		  if (conn.getResponseCode() == 200) {
-		     br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		  } else {
-		     br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		  }
-		  line = "";
-		  buffer = new StringBuffer();
-		  String inforesult = "";
-		  while ((line = br.readLine()) != null) {
-		     buffer.append(line);
-		  }
-		  br.close();
-		  conn.disconnect();
-		  inforesult = buffer.toString();
-		  System.out.println("STEP4) "+inforesult);
-	      
+		//////////////// STEP3) 사용자 정보 받아오기
+		
+		String userinfoUrl = "https://kapi.kakao.com/v2/user/me";
+		url = new URL(userinfoUrl);
+		conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Authorization", "Bearer " + token);
+		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		if (conn.getResponseCode() == 200) {
+		   br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		} else {
+		   br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		}
+		line = "";
+		buffer = new StringBuffer();
+		String inforesult = "";
+		while ((line = br.readLine()) != null) {
+		   buffer.append(line);
+		}
+		br.close();
+		conn.disconnect();
+		inforesult = buffer.toString();
+		System.out.println("STEP4) "+inforesult);
+		
 		parser = new JsonParser();
 		JsonElement element = JsonParser.parseString(inforesult);
 		JsonObject jsonObj = element.getAsJsonObject();
@@ -276,11 +276,19 @@ public class IhSocialLoginController {
 		session.setAttribute("usertp_name", tdto.getUsertp_name());
 		
 		System.out.println("로그인성공 : 메인으로");
+		
 		return "redirect:/main.ks";
+		
 		} else {
 			rttr.addFlashAttribute("noIntegrationUser", "연동된 계정이 없습니다. 마이페이지에서 계정연동을 진행해주세요");
 			System.out.println("로그인실패 : 로그인페이지로");
+			
 			return "redirect:/loginPage.ih";
 		}
 	}
+	
+//////////////////////////////////////  연동  /////////////////////////////////////////////////
+
+	
+
 }
