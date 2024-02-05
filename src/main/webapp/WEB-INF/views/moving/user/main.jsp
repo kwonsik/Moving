@@ -94,6 +94,49 @@
           </div>
         </div>
 
+        <div class="as_weather">
+          <div class="as_weater__header">
+	          <h2 class="as_weather__title">
+	             <i class="as_weather__icon"></i>
+				 <span class="as_weather__msg">오늘, 이런 영화 어때요?</span>
+	          </h2>
+          </div>
+          <div class="movie-list slider-type1">
+			<c:choose>
+				<c:when test="${list.size() > 0}">
+	            <ul>
+				  <c:forEach var="dto" items="${list}" end="4" varStatus="status">
+		              <li>
+		                <div class="item">
+		                  <figure class="thumb__wrap">
+		                  	<div class="thumb">
+			                    <div class="thumb__img">
+			                      <img src="https://image.tmdb.org/t/p/w500${dto.mv_img}" alt="${dto.mv_ktitle} 포스터">
+			                      <span class="target"><i class="age${empty dto.mv_cert || dto.mv_cert eq 'All' ? 'all' : dto.mv_cert}"></i></span>
+			                    </div>
+			                    <div class="btns">
+			                      <a href="movieDetail.as?mv_cd=${dto.mv_cd}" class="b1">영화정보</a>
+			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">예매하기</a>
+			                    </div>
+		                    </div>
+			                <figcaption class="info">
+			                  <div class="subj">${dto.mv_ktitle}</div>
+			                </figcaption>
+		                  </figure>
+		                </div>
+		              </li>
+	               </c:forEach>
+	            </ul>
+				</c:when>
+				<c:otherwise>
+					<div class="is-empty">
+						<p>상영중인 영화가 없습니다.</p>
+					</div>
+				</c:otherwise>
+			</c:choose>
+          </div>
+        </div>
+
       </div>
     </main>
     <!-- //main -->
@@ -142,11 +185,187 @@ $(function(){
 		$(this).removeClass("is-play");
 		$(".as_main-visual__img").stop().show();
 		$("#main-visual_video").YTPPause();
-		// $(".as_main-visual__video").get(0).currentTime = 0;
 	});
+	
+	// weater
+	const API_KEY = "77372593c64fd4bc7644ca522fef0878";
+    let weather = "<span>🎞</span>";
+    let weatherMsg = "오늘, 이런 영화 어때요?";
+
+	function onGeoOk(position) {
+	  const lat = position.coords.latitude;
+	  const lon = position.coords.longitude;
+	  const url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+API_KEY+"&lang=kr&units=metric";
+	
+	  $.ajax({
+	    url: url,
+	    method: 'GET',
+	    dataType: 'json',
+	    success: function (data) {
+	      const iconSrc = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
+	      const weatherDesc = data.weather[0].description;
+	      const id = data.weather[0].id;
+	      const idCategory = Math.floor(id / 100);
+
+	      if (id === 800) {
+	    	// 800: Clear
+	    	weatherMsg = "햇살 쨍쨍 맑은 "+weatherMsg;
+	      } else if (idCategory === 2) {
+	        // 2xx: Thunderstorm
+	    	weatherMsg = "천둥 치는 "+weatherMsg;
+	      } else if (idCategory === 3) {
+	        // 3xx: Drizzle
+	    	weatherMsg = "이슬비 내리는 "+weatherMsg;
+	      } else if (idCategory === 5) {
+	        // 5xx: Rain
+	    	weatherMsg = "추적추적 비 내리는 "+weatherMsg;
+	      } else if (idCategory === 6) {
+	        // 6xx: Snow
+	    	weatherMsg = "눈 내리는 "+weatherMsg;
+	      } else if (idCategory === 7) {
+	        // 7xx: Atmosphere
+	    	weatherMsg = "뿌연 안개 낀 "+weatherMsg;
+	      } else if (idCategory === 8) {
+	        // 8xx: Clouds
+	    	weatherMsg = "구름 가득 흐린 "+weatherMsg;
+	      }
+	      
+		  weather="<img class='icon' src='"+iconSrc+"' alt='"+weatherDesc+"' />";		  
+		  $(".as_weather__icon").append(weather);
+    	  $(".as_weather__msg").text(weatherMsg);
+	    },
+	    error: function () {
+    	  $(".as_weather__icon").append(weather);
+    	  $(".as_weather__msg").text(weatherMsg);
+	    }
+	  });
+	}
+	
+	function onGeoError() {
+		$(".as_weather__icon").append(weather);
+		$(".as_weather__title").append("<span class='is-unknown'>(날씨 권한 허용 시, 날씨에 따른 장르가 추천됩니다!)</span>")
+	}
+	
+	navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+	
+	// 음성인식
+	 let audioRecorder;
+
+     function recordStart() {
+
+
+         // getUserMedia로 오디오 스트림(나의 음성) 가져오기
+         navigator.mediaDevices.getUserMedia({ audio: true })
+             .then(function (stream) {
+
+                 // 오디오 스트림을 녹음하기 위한 RecordRTC 객체 생성
+                 audioRecorder = RecordRTC(stream, {
+                     type: 'audio',
+                     mimeType: 'audio/raw',
+                     recorderType: StereoAudioRecorder,
+                     // mono
+                     numberOfAudioChannels: 1,
+                     desiredSampRate: 16000,
+                     bufferSize: 16384,
+                 });
+
+                 // 녹음 시작
+                 audioRecorder.startRecording();
+
+             })
+             .catch(function (error) {
+                 console.error('getUserMedia error:', error);
+             });
+
+     }
+
+     function recordStop() {
+   	  
+
+   
+         audioRecorder.stopRecording(function () {
+      
+             let audioBlob = audioRecorder.getBlob();
+     	
+             let file=new File([audioBlob], "file", {type: audioBlob.type});
+
+             const formData = new FormData();
+			  formData.append('file', file);
+             $
+				.ajax({
+					type : "POST",
+					url : "stt.ks",
+					data : formData,
+					dataType : 'json',
+					contentType: false,
+					//contentType: false,
+					processData: false,
+					async : false,
+					success : function(data) {
+						console.log(data);
+						let result = data.return_object.recognized;
+						
+
+						if (result.includes("예매")) {
+							if(${user_no!=null}){location.href='reservation_view.ks';}
+							else{
+								let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+		         	            if (userResponse) {
+		         	            	location.href='loginPage.ih';
+		         	            }
+							}
+							
+						} else if (result.includes("영화관")) {
+							location.href='theater_user_view.shj';			
+						} else if (result.includes("영화")) {				
+							location.href='movie.as';			
+						}  else if (result.includes("공지사항")) {
+							location.href='notice.as';			
+						} else if (result.includes("로그인")) {
+							location.href='loginPage.ih';			
+						} else if (result.includes("회원 가입")) {
+							location.href='joinForm.ih';			
+						} else if (result.includes("로그아웃")) {
+							location.href='logout.ih';			
+						}
+						else {
+							alert("다시 말해주세요");
+						}
+						
+
+						
+
+						
+
+					},
+					error : function(request, status, error) {
+						console.log("code: " + request.status)
+						console.log("message: " + request.responseText)
+						console.log("error: " + error);
+					}
+				});
+             
+             
+             
+         });
+        
+     }
+	
+	
 	
 	// 음성인식
 	$(".mic").on("click", function() {
+		if($(this).attr("class")=="mic"){
+			$(this).addClass("selected");
+			recordStart();
+		}
+		else{
+			$(this).removeClass("selected");
+			recordStop();
+		}
+		
+		
+		/*
 		$.ajax({
 			type : "GET",
 			url : "stt.ks",
@@ -189,6 +408,7 @@ $(function(){
 				console.log("error: " + error);
 			}
 		});
+		*/
 	});
 });
 </script>

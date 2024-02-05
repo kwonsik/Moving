@@ -41,11 +41,31 @@
     border-radius: 20px;
 }
 
-.as_top10__title {
+.as_weather {
+	margin-top: 40px;
+}
+.as_top10__title,
+.as_weather__title {
   margin-bottom: 30px;
   position: relative;
   font-size: 30px;
   font-weight: 700;
+}
+.as_weather__icon,
+.as_weather__icon .icon {
+    vertical-align: middle;	
+}
+.as_weather__icon .icon {
+	margin-left: -12px;
+}
+.as_weather__icon {
+	font-style: normal;
+}
+.as_weather__icon .icon {
+	width: 50px;
+}
+.as_weather__title .is-unknown {
+	font-size: var(--font-b-xl);
 }
 .as_top10__title .btn-more {
   position: absolute;

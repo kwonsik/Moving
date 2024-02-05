@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,18 +63,27 @@ public class AsFrontController {
 	
 	/* ADMIN - MOVIE */
 	@RequestMapping(value="movie.admin", method=RequestMethod.GET)
-	public void adminMovie(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model) {
-		Map<String, Object> livePagedData = p_service.getPagedData(pstartno, "live");
-		Map<String, Object> unLivePagedData = p_service.getPagedData(pstartno, "unLive");
-        
+	public void adminMovie(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model, @Param("searchType") String searchType, @Param("searchKey") String searchKey) {
+		Map<String, Object> livePagedData;
+		Map<String, Object> unLivePagedData;
+		
 		List<String> genres = Arrays.asList("액션", "모험", "애니메이션", "코미디", "범죄", "다큐멘터리", "드라마", "가족", "판타지", "역사", "공포", "음악", "미스터리", "로맨스", "SF", "TV 영화", "스릴러", "전쟁", "서부");
 		model.addAttribute("genres", genres);
+		
+		if (searchKey == null) {
+			livePagedData = p_service.getPagedData(pstartno, "live");
+			unLivePagedData = p_service.getPagedData(pstartno, "unLive");
+	    } else {
+	    	livePagedData = p_service.getPagedData(pstartno, "live", searchType, searchKey);
+	    	unLivePagedData = p_service.getPagedData(pstartno, "unLive", searchType, searchKey);
+	    }
+		
+		model.addAttribute("liveList", livePagedData.get("list"));
+		model.addAttribute("livePaging", livePagedData.get("paging"));
+		
+		model.addAttribute("unLiveList", unLivePagedData.get("list"));
+		model.addAttribute("unLivePaging", unLivePagedData.get("paging"));
 
-        model.addAttribute("liveList", livePagedData.get("list"));
-        model.addAttribute("livePaging", livePagedData.get("paging"));
-        
-        model.addAttribute("unLiveList", unLivePagedData.get("list"));
-        model.addAttribute("unLivePaging", unLivePagedData.get("paging"));
 	}
 	
 	@RequestMapping(value="movieStatusChange.admin", method={RequestMethod.GET, RequestMethod.POST})

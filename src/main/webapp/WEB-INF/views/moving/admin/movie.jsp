@@ -181,7 +181,37 @@ $(function(){
        // .as_list-table 내 하위 체크박스 상태를 .all-check 와 맞춤
        $('.as_list-table input[type="checkbox"]').prop('checked', isChecked);
     });
+    
+    // 검색
+	$("#search").on("click",function(){	
+		searchList();
+	});
+    
+	$("#as_sch-key").on("keyup",function(key){
+		if(key.keyCode==13){
+			searchList();
+		}
+	});
 });
+
+
+// 검색 함수
+function searchList(){
+    const urlParams = new URL(location.href).searchParams;
+    let status;
+    status = urlParams.get('status');
+    if(status == null) {
+    	status = 'live';
+    }
+    
+	let search = $("#as_sch-type option:selected").val();
+	let query = $("#as_sch-key").val();
+	if(query != ''){		
+		location.href=('movie.admin?status='+status+'&searchType='+search+'&searchKey='+query);
+	} else {
+		location.href=('movie.admin?status='+status);
+	}
+}
 
 // 선택한 영화들을 저장하는 함수
 function updateSelectedMovies() {

@@ -43,10 +43,54 @@ public class PagingServiceImpl implements PagingService {
         return null;
     }
     
+    // 페이징
+    @Override
+    public PagingDto paging(int pstartno, String type, String searchType, String searchKey) {
+        if (type.equals("board")) {
+            return new PagingDto(boardDao.b_total(), pstartno, searchType, searchKey);
+        } else if (type.equals("live")) {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("searchType", searchType);
+            paramMap.put("searchKey", searchKey);
+            
+            int totalLive;
+            if (searchType != null && searchKey != null) {
+                totalLive = movieDao.mv_totalLiveSearch(paramMap);
+            } else {
+                totalLive = movieDao.mv_totalLive();
+            }
+            return new PagingDto(totalLive, pstartno, searchType, searchKey);
+        } else if (type.equals("unLive")) {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("searchType", searchType);
+            paramMap.put("searchKey", searchKey);
+            
+            int totalUnlive;
+            if (searchType != null && searchKey != null) {
+                totalUnlive = movieDao.mv_totalUnliveSearch(paramMap);
+            } else {
+                totalUnlive = movieDao.mv_totalUnlive();
+            }
+            return new PagingDto(totalUnlive, pstartno, searchType, searchKey);
+        }
+        return null;
+    }
+    
     @Override public Map<String, Object> getPagedData(int pstartno, String type) {
         Map<String, Object> result = new HashMap<>();
+		
         result.put("list", listCnt(Map.of("pstartno", pstartno, "onepagelimit", 10, "type", type)));
         result.put("paging", paging(pstartno, type));
+        return result;
+    }
+    
+    @Override
+    public Map<String, Object> getPagedData(int pstartno, String type, String searchType, String searchKey) {
+        Map<String, Object> result = new HashMap<>();
+        
+        result.put("list", listCnt(Map.of("pstartno", pstartno, "onepagelimit", 10, "type", type, "searchType", searchType, "searchKey", searchKey)));
+        result.put("paging", paging(pstartno, type, searchType, searchKey));
+
         return result;
     }
 }
