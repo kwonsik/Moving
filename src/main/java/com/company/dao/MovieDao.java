@@ -19,4 +19,7 @@ public interface MovieDao {
 	public int mv_totalUnlive(); // 상영 중지 영화 전체 갯수
 	public <T> List<MovieDto> mv_cntLive(Map<String, T> param);
 	public <T> List<MovieDto> mv_cntUnlive(Map<String, T> param);
+	
+	public int mv_totalLiveSearch(Map<String, Object> paramMap);
+	public int mv_totalUnliveSearch(Map<String, Object> paramMap);
 }
