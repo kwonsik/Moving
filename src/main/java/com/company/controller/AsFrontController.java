@@ -70,23 +70,16 @@ public class AsFrontController {
 		List<String> genres = Arrays.asList("액션", "모험", "애니메이션", "코미디", "범죄", "다큐멘터리", "드라마", "가족", "판타지", "역사", "공포", "음악", "미스터리", "로맨스", "SF", "TV 영화", "스릴러", "전쟁", "서부");
 		model.addAttribute("genres", genres);
 		
-		System.out.println("................................................searchType>> "+searchType);
-		System.out.println("................................................searchKey>> "+searchKey);
-		
-		if (searchType != null && searchKey != null) {
-			livePagedData = p_service.getPagedData(pstartno, "live", searchType, searchKey);
-			unLivePagedData = p_service.getPagedData(pstartno, "unLive", searchType, searchKey);
+		if (searchKey == null) {
+			livePagedData = p_service.getPagedData(pstartno, "live");
+			unLivePagedData = p_service.getPagedData(pstartno, "unLive");
 	    } else {
-	    	livePagedData = p_service.getPagedData(pstartno, "live");
-	    	unLivePagedData = p_service.getPagedData(pstartno, "unLive");
+	    	livePagedData = p_service.getPagedData(pstartno, "live", searchType, searchKey);
+	    	unLivePagedData = p_service.getPagedData(pstartno, "unLive", searchType, searchKey);
 	    }
 		
 		model.addAttribute("liveList", livePagedData.get("list"));
 		model.addAttribute("livePaging", livePagedData.get("paging"));
-
-		System.out.println("livePagedData>> "+livePagedData);
-		System.out.println("unLivePagedData>> "+unLivePagedData);
-		System.out.println(".......livePagedData>> "+livePagedData.get("list"));
 		
 		model.addAttribute("unLiveList", unLivePagedData.get("list"));
 		model.addAttribute("unLivePaging", unLivePagedData.get("paging"));

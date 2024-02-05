@@ -5,9 +5,9 @@
 <mapper namespace="com.company.dao.MovieDao">
 	<sql id="mv_searchCondition">
 		<choose>
-			<when test="searchType=='mv_title'">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
-			<when test="searchType=='mv_dname'">and mv_dname like '%'||#{searchKey}||'%'</when>
-			<when test="searchType=='movie_genre'">and movie_genre like '%'||#{searchKey}||'%'</when>
+			<when test="searchType=='mv_title'">lower(mv_ktitle) like concat('%', lower(#{searchKey}), '%') or lower(mv_etitle) like concat('%', lower(#{searchKey}), '%') and</when>
+			<when test="searchType=='mv_dname'">lower(mv_dname) like concat('%', lower(#{searchKey}), '%') and</when>
+			<when test="searchType=='movie_genre'">movie_genre like concat('%', #{searchKey}, '%') and</when>
 		</choose>
 	</sql>
 
@@ -31,10 +31,6 @@
 		set mv_live=#{mv_live}
 		where mv_cd=#{mv_cd};
 	</update>
-	<!-- <delete id="mv_delete" parameterType="MovieDto">
-		delete from movie
-		where mv_cd=#{mv_cd};
-	</delete> -->
 	
 	<select id="mv_read" parameterType="int" resultType="MovieDto">
 		select * from movie
@@ -49,21 +45,33 @@
 	
 	<select id="mv_totalLive" resultType="int">
 		select count(*) from movie where mv_live=1
-		<include refid="mv_searchCondition" />
 	</select>
 	<select id="mv_totalUnlive" resultType="int">
 		select count(*) from movie where mv_live=0
-		<include refid="mv_searchCondition" />
+	</select>
+	
+	<select id="mv_totalLiveSearch" parameterType="map" resultType="int">
+	    select count(*) from movie where 
+	    <include refid="mv_searchCondition" />
+	    mv_live=1
+	</select>
+	
+	<select id="mv_totalUnliveSearch" parameterType="map" resultType="int">
+	    select count(*) from movie where 
+	    <include refid="mv_searchCondition" />
+	    mv_live=0
 	</select>
 	
 	<select id="mv_cntLive" parameterType="java.util.HashMap" resultType="MovieDto">
-		select * from movie where mv_live=1
+		select * from movie where 
 		<include refid="mv_searchCondition" />
+		mv_live=1
 		order by mv_popularity desc limit #{pstartno}, #{onepagelimit}
 	</select>
 	<select id="mv_cntUnlive" parameterType="java.util.HashMap" resultType="MovieDto">
-		select * from movie where mv_live=0
+		select * from movie where 
 		<include refid="mv_searchCondition" />
+		mv_live=0
 		order by mv_popularity desc limit #{pstartno}, #{onepagelimit}
 	</select>
 </mapper>

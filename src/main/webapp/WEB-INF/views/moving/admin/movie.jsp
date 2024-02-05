@@ -8,12 +8,6 @@ if (status == null) {
     status = "live"; // 기본값
 }
 pageContext.setAttribute("status", status);
-
-String searchKey = request.getParameter("searchKey");
-if (searchKey == null) {
-	searchKey = ""; // 기본값
-}
-pageContext.setAttribute("searchKey", searchKey);
 %>
 <c:set var="activeTab" value="${status}" />
 <c:choose>
@@ -57,24 +51,20 @@ pageContext.setAttribute("searchKey", searchKey);
 			         <h3 class="blind">${liveStatus} 영화 목록</h3>
 			         <div class="search-box">
 			            <p class="table-summary">
-			               등록된 영화 총 ${paging.listtotal}편
-			               <c:if test="false">
-			               		<span> | 검색된 항목: 0편</span>
-			               </c:if>
+			               ${param.searchKey!=null?"검색된":"등록된"} 영화 총 ${paging.listtotal}편
 			            </p>
 			            
 			            <div class="search-group">
-			            ${searchType } / ${searchKey }
 			               <label>
 			                  <select id="as_sch-type" class="form-control" name="searchType">
-			                  	<option value="mv_title" ${searchType == 'mv_title' ? 'selected' : ''}>제목</option>
-			                  	<option value="mv_dname" ${searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
-			                  	<option value="movie_genre" ${searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
+			                  	<option value="mv_title" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
+			                  	<option value="mv_dname" ${param.searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
+			                  	<option value="movie_genre" ${param.searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
 			                  </select>
 			               </label>
 			
 			               <label>
-			                  <input type="text" class="form-control" id="as_sch-key" value="${searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
+			                  <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
 			               </label>
 			               <button type="button" class="btn btn-primary" id="search">검색</button>
 			            </div>
@@ -189,18 +179,35 @@ $(function(){
     });
     
     // 검색
+	$("#search").on("click",function(){	
+		searchList();
+	});
+    
+	$("#as_sch-key").on("keyup",function(key){
+		if(key.keyCode==13){
+			searchList();
+		}
+	});
+});
+
+
+// 검색 함수
+function searchList(){
     const urlParams = new URL(location.href).searchParams;
     let status;
     status = urlParams.get('status');
     if(status == null) {
     	status = 'live';
     }
-	$("#search").on("click",function(){	
-        let search = $("#as_sch-type option:selected").val();
-		let query = $("#as_sch-key").val();
+    
+	let search = $("#as_sch-type option:selected").val();
+	let query = $("#as_sch-key").val();
+	if(query != ''){		
 		location.href=('movie.admin?status='+status+'&searchType='+search+'&searchKey='+query);
-	});
-});
+	} else {
+		location.href=('movie.admin?status='+status);
+	}
+}
 
 // 선택한 영화들을 저장하는 함수
 function updateSelectedMovies() {
