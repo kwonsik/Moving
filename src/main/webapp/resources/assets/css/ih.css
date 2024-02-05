@@ -317,6 +317,7 @@ li{list-style-type:none; }
 	height:52px;
 	width:52px;
 	margin:10px;
+	float:left;
 }
 .ih__myUpdatePage .socialIntegration {
     display: inline-block;
@@ -325,11 +326,11 @@ li{list-style-type:none; }
     border-radius:5px;
     width: 170px;
 }
-.ih__myUpdatePage .socialIntegration > ul{
+.ih__myUpdatePage .socialIntegration span{
     display:inline-block;
-    width: 80px;
-    margin-top:15px;
-    text-align:center;
+    width: 50px;
+    margin-top:12px;
+    text-align:left;
 }
 .ih__myUpdatePage input#inputEmail {
     width: 226px;

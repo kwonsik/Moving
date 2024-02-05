@@ -59,18 +59,18 @@
 				<label>SNS계정 연동관리</label>
 				<ul>
 					<li class="socialIntegration">
+					<button type="button">
 						<img alt="카카오 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png">
-						<ul>
-							<li>카카오톡</li>
-							<li>연동하기</li>
-						</ul>
+							<span>카카오톡</span>
+							<span class="kakaoIntegrationResult">연동하기</span>
+						</button>
 					</li>
 					<li class="socialIntegration">
-						<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
-						<ul>
-							<li>네이버</li>
-							<li>연동하기</li>
-						</ul>
+						<button type="button">
+							<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
+								<span>네이버</span>
+								<span class="naverIntegrationResult">연동하기</span>
+						</button>
 					</li>
 				</ul>			
 			</div>
