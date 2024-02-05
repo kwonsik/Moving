@@ -199,16 +199,17 @@ li{list-style-type:none; }
     right: 0;
     top: 50%;
     height: 1px;
-    background: #e4e9f2;
+    background: #0fc4b3;
 }
 .ih__loginPage .socialLogin > *{
 	margin: 20px 0px;
 }
 .ih__loginPage .under{
-	margin-bottom: 40px;
+	margin: 20px auto 0px;
+	font-size: 16px;
 }
 .ih__loginPage span {
-    color: #40dfd0;
+    color: #0fc4b3;
 }
 /*************** 마이페이지 입장 ***************/
 .ih_preMyUpdatePage {

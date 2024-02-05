@@ -71,8 +71,10 @@
 				<a href="<%= naverAuthURL %>" title="NAVER LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png" style="width:52px; height: 52px; margin-left:40px;" alt="네이버 로그인 버튼"/> </a>
 			</div>
 				
-			<div class="blind">
-				<p>무빙 사이트에 간편로그인계정을 연결한 경우에만 <span>간편로그인</span>이 가능합니다.</p>
+			<div class="under">
+				<p>회원가입후 SNS계정을 연동한 경우에만 <span>간편로그인</span>이 가능합니다. <br/>
+				   <span>마이페이지 > 개인정보수정</span> 에서 진행해주세요
+				</p>
 			</div>
 		</fieldset>
 	</form>
