@@ -176,9 +176,16 @@ li{list-style-type:none; }
 	text-align: left;
 	margin-top: 10px;
 }
-.ih__loginPage .find > * {
+.ih__loginPage .find a {
 	display: inline-block;
 	margin:10px 5px;
+	vertical-align: middle;
+	line-height: 18px;
+}
+.ih__loginPage .find a + a {
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px solid #909090;
 }
 
 .ih__loginPage input[type="submit"]{

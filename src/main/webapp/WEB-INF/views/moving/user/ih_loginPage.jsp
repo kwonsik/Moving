@@ -33,9 +33,8 @@
 			<input type="submit" value="로그인" class="loginBtn" />
 			
 			<div class="find">
-				<p> <a href="findIdView.ih">ID/PW찾기</a> </p>
-				<p style="margin:0; padding:0; font-size:22px;">｜</p>
-				<p> <a href="joinForm.ih">회원가입</a> </p>
+				<a href="findIdView.ih">ID/PW찾기</a>
+				<a href="joinForm.ih">회원가입</a>
 			</div>
 			
 			<div class="socialLogin">
