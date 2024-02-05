@@ -8,7 +8,6 @@ tmp/
 *.tmp
 *.bak
 *.swp
-pom.properties
 *~.nib
 local.properties
 .settings/
@@ -119,5 +118,15 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#
+*.MF
+MANIFEST
+/MANIFEST.MF
+**/MANIFEST.MF
+**/MANIFEST.*
+pom.properties
+/pom.properties
+**/pom.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,eclipse
