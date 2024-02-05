@@ -65,6 +65,7 @@ tr:last-child td:first-child {
 	text-align: right;
 }
 .as_inner .search-group label {
+	position: relative;
 	margin-bottom: 0;
 	vertical-align: middle;
 }
@@ -113,4 +114,14 @@ tr:last-child td:first-child {
 }
 .as_detail-table tr td a+a {
 	margin-left: 16px;
+}
+.as_inner .search-box .btn-del {
+  display: none;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 0 none;
+  background: url(../images/ico_del.svg) no-repeat 50% 50%;
 }

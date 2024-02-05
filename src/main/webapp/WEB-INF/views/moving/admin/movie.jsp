@@ -16,21 +16,21 @@ pageContext.setAttribute("status", status);
 	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
-      <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'[영화 추가] 페이지에서 먼저 영화를 추가해주세요.'}" />
    </c:when>
    <c:when test="${activeTab == 'unLive'}">
       <c:set var="list" value="${unLiveList}" />
 	  <c:set var="paging" value="${unLivePaging}" />
       <c:set var="liveStatus" value="상영 중지" />
       <c:set var="btnText" value="선택 영화 상영" />
-      <c:set var="emptyText" value="상영 중지된 영화가 없습니다." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'상영 중지된 영화가 없습니다.'}" />
    </c:when>
    <c:otherwise>
       <c:set var="list" value="${liveList}" />
 	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
-      <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'[영화 추가] 페이지에서 먼저 영화를 추가해주세요.'}" />
    </c:otherwise>
 </c:choose>
 
@@ -51,26 +51,23 @@ pageContext.setAttribute("status", status);
 			         <h3 class="blind">${liveStatus} 영화 목록</h3>
 			         <div class="search-box">
 			            <p class="table-summary">
-			               등록된 영화 총 ${paging.listtotal}편
-			               <c:if test="false">
-			               		<span> | 검색된 항목: 0편</span>
-			               </c:if>
+			               ${param.searchKey!=null?"검색된":"등록된"} 영화 총 ${paging.listtotal}편
 			            </p>
 			            
 			            <div class="search-group">
 			               <label>
-			                  <select id="genre" class="form-control">
-			                  	<option value="allGenre" selected>전체 장르</option>
-			                     <c:forEach var="genre" items="${genres}">
-							        <option value="${genre}">${genre}</option>
-							     </c:forEach>
+			                  <select id="as_sch-type" class="form-control" name="searchType">
+			                  	<option value="mv_title" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
+			                  	<option value="mv_dname" ${param.searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
+			                  	<option value="movie_genre" ${param.searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
 			                  </select>
 			               </label>
 			
 			               <label>
-			                  <input type="text" class="form-control" id="as_sch-key" placeholder="제목/감독명을 입력해주세요.">
+			                  <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
+                		   	  <button type="button" class="btn-del"><span class="blind">입력 내용 삭제</span></button>
 			               </label>
-			               <button type="button" class="btn btn-primary">검색</button>
+			               <button type="button" class="btn btn-primary" id="search">검색</button>
 			            </div>
 			         </div>
 			         
@@ -191,6 +188,15 @@ $(function(){
 		if(key.keyCode==13){
 			searchList();
 		}
+	});
+	
+	$("#as_sch-key").on("focus", function(){
+		$(".btn-del").stop().show();
+	})
+	
+	$(".btn-del").on("click", function(){
+		$("#as_sch-key").val('');
+		searchList();
 	});
 });
 
