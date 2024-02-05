@@ -118,8 +118,8 @@ public class IhServiceImple implements IhService{
 		return dao.originalPasswordCheck (dto);
 	}
 	
-	//17. 네이버회원가입
-	public int naverJoin(UserDto dto) {
+	//네이버 계정과 연동된 무빙계정이 있는지
+	public UserDto naverJoin(UserDto dto) {
 		return dao.naverJoin(dto);
 	}
 	
@@ -128,8 +128,8 @@ public class IhServiceImple implements IhService{
 		return dao.selectUserNoNaverAfterJoin(dto);
 	}
 	
-	//카카오회원가입
-	public int kakaoJoin(UserDto dto) {
+	//카카오 계정과 연동된 무빙계정이 있는지
+	public UserDto kakaoJoin(UserDto dto) {
 		return dao.kakaoJoin(dto);
 	}
 	
