@@ -16,21 +16,21 @@ pageContext.setAttribute("status", status);
 	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
-      <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'[영화 추가] 페이지에서 먼저 영화를 추가해주세요.'}" />
    </c:when>
    <c:when test="${activeTab == 'unLive'}">
       <c:set var="list" value="${unLiveList}" />
 	  <c:set var="paging" value="${unLivePaging}" />
       <c:set var="liveStatus" value="상영 중지" />
       <c:set var="btnText" value="선택 영화 상영" />
-      <c:set var="emptyText" value="상영 중지된 영화가 없습니다." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'상영 중지된 영화가 없습니다.'}" />
    </c:when>
    <c:otherwise>
       <c:set var="list" value="${liveList}" />
 	  <c:set var="paging" value="${livePaging}" />
       <c:set var="liveStatus" value="상영중" />
       <c:set var="btnText" value="선택 영화 상영 중지" />
-      <c:set var="emptyText" value="[영화 추가] 페이지에서 먼저 영화를 추가해주세요." />
+      <c:set var="emptyText" value="${param.searchKey!=null?'검색된 영화가 없습니다.':'[영화 추가] 페이지에서 먼저 영화를 추가해주세요.'}" />
    </c:otherwise>
 </c:choose>
 
@@ -65,6 +65,7 @@ pageContext.setAttribute("status", status);
 			
 			               <label>
 			                  <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="키워드를 입력해주세요.">
+                		   	  <button type="button" class="btn-del"><span class="blind">입력 내용 삭제</span></button>
 			               </label>
 			               <button type="button" class="btn btn-primary" id="search">검색</button>
 			            </div>
@@ -187,6 +188,15 @@ $(function(){
 		if(key.keyCode==13){
 			searchList();
 		}
+	});
+	
+	$("#as_sch-key").on("focus", function(){
+		$(".btn-del").stop().show();
+	})
+	
+	$(".btn-del").on("click", function(){
+		$("#as_sch-key").val('');
+		searchList();
 	});
 });
 

@@ -49,8 +49,14 @@ public class AsFrontController {
 	
 	/* USER - NOTICE */
 	@RequestMapping(value="notice.as", method=RequestMethod.GET)
-	public void notice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model) {
-		Map<String, Object> pagedData = p_service.getPagedData(pstartno, "board");
+	public void notice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model, @Param("searchType") String searchType, @Param("searchKey") String searchKey) {
+		Map<String, Object> pagedData;
+
+		if (searchKey == null) {
+			pagedData = p_service.getPagedData(pstartno, "board");
+	    } else {
+	    	pagedData = p_service.getPagedData(pstartno, "board", searchType, searchKey);
+	    }
 
         model.addAttribute("list", pagedData.get("list"));
         model.addAttribute("paging", pagedData.get("paging"));
@@ -155,9 +161,15 @@ public class AsFrontController {
 	
 	/* ADMIN - NOTICE */
 	@RequestMapping(value="notice.admin", method=RequestMethod.GET)
-	public void adminNotice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model) {
-		Map<String, Object> pagedData = p_service.getPagedData(pstartno, "board");
+	public void adminNotice(@RequestParam(value="pstartno", defaultValue="0") int pstartno, Model model, @Param("searchType") String searchType, @Param("searchKey") String searchKey) {
+		Map<String, Object> pagedData;
 
+		if (searchKey == null) {
+			pagedData = p_service.getPagedData(pstartno, "board");
+	    } else {
+	    	pagedData = p_service.getPagedData(pstartno, "board", searchType, searchKey);
+	    }
+		
         model.addAttribute("list", pagedData.get("list"));
         model.addAttribute("paging", pagedData.get("paging"));
 	}

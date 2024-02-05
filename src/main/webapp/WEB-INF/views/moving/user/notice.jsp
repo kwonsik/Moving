@@ -13,20 +13,21 @@
           </div>
 
           <div class="as_board-list__head">
-            <h3 class="as_board-list__notice">총 <strong>${paging.listtotal}개</strong>의 게시글이 있습니다.</h3>
+            <h3 class="as_board-list__notice">총 <strong>${paging.listtotal}개</strong>의 게시글이 ${param.searchKey!=null?"검색되었습니다.":"있습니다."}</h3>
             <div class="srch-box">
               <div class="select-box">
-                <select id="srchKey" class="select">
-                  <option value="TitleNm">제목</option>
-                  <option value="ContentsNm">내용</option>
+                <select id="as_sch-type" class="select" name="searchType">
+                  	  <option value="b_title" ${param.searchType == 'b_title' ? 'selected' : ''}>제목</option>
+                  	  <option value="b_content" ${param.searchType == 'b_content' ? 'selected' : ''}>내용</option>
+                  	  <option value="b_all" ${param.searchType == 'b_all' ? 'selected' : ''}>제목+내용</option>
                 </select>
               </div>
               <div class="inp-box">
                 <label>
-                  <input type="text" id="srchVal" class="inp bg-none" value="" placeholder="검색어를 입력해주세요.">
+                  <input type="text" class="inp bg-none" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="검색어를 입력해주세요.">
                 </label>
                 <button type="button" class="btn-del"><span class="blind">입력 내용 삭제</span></button>
-                <button type="button" class="btn-srch"><span class="blind">입력어로 검색</span></button>
+                <button type="button" class="btn-srch" id="search"><span class="blind">입력어로 검색</span></button>
               </div>
             </div>
           </div>
@@ -65,7 +66,7 @@
 					<c:otherwise>
 						<tr>
 						   <td colspan="8" class="is-empty">
-						      <p>등록된 게시글이 없습니다.</p>
+						      <p>${param.searchKey!=null?"검색된":"등록된"} 게시글이 없습니다.</p>
 						   </td>
 						</tr>
 					</c:otherwise>
@@ -96,4 +97,38 @@
     </main>
     <!-- //main -->
     
+    <script>
+    $(function(){
+        // 검색
+    	$("#search").on("click",function(){	
+    		searchList();
+    	});
+        
+    	$("#as_sch-key").on("keyup", function(key){
+    		if(key.keyCode==13){
+    			searchList();
+    		}
+    	});
+    	
+    	$("#as_sch-key").on("focus", function(){
+    		$(".btn-del").stop().show();
+    	})
+    	
+    	$(".btn-del").on("click", function(){
+    		$("#as_sch-key").val('');
+    		searchList();
+    	});
+    });
+
+    //검색 함수
+    function searchList(){
+    	let search = $("#as_sch-type").val();
+    	let query = $("#as_sch-key").val();
+    	if(query != ''){		
+    		location.href=('notice.as?searchType='+search+'&searchKey='+query);
+    	} else {
+    		location.href=('notice.as');
+    	}
+    }
+    </script>
 <%@ include  file="../../inc/footer.jsp" %>

@@ -18,4 +18,6 @@ public interface BoardDao {
 	
 	public int b_total();
 	public <T> List<BoardDto> b_listCnt(Map<String, T> param);
+	
+	public int b_totalSearch(Map<String, Object> paramMap);
 }

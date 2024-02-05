@@ -47,7 +47,17 @@ public class PagingServiceImpl implements PagingService {
     @Override
     public PagingDto paging(int pstartno, String type, String searchType, String searchKey) {
         if (type.equals("board")) {
-            return new PagingDto(boardDao.b_total(), pstartno, searchType, searchKey);
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("searchType", searchType);
+            paramMap.put("searchKey", searchKey);
+            
+            int totalBoard;
+            if (searchType != null && searchKey != null) {
+            	totalBoard = boardDao.b_totalSearch(paramMap);
+            } else {
+            	totalBoard = boardDao.b_total();
+            }
+            return new PagingDto(totalBoard, pstartno, searchType, searchKey);
         } else if (type.equals("live")) {
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("searchType", searchType);

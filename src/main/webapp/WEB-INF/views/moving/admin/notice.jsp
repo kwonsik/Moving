@@ -11,17 +11,22 @@
 	   <div class="as_board-list">
 		   <div class="search-box">
 		      <p class="table-summary">
-		         총 ${paging.listtotal}개의 게시글
-		         <c:if test="false">
-		         		<span> | 검색된 항목: 10편</span>
-		         </c:if>
+		         ${param.searchKey!=null?"검색된":"등록된"} 게시글 총 ${paging.listtotal}개
 		      </p>
 		      
 		      <div class="search-group">
+                 <label>
+                    <select id="as_sch-type" class="form-control" name="searchType">
+                  	  <option value="b_title" ${param.searchType == 'b_title' ? 'selected' : ''}>제목</option>
+                  	  <option value="b_content" ${param.searchType == 'b_content' ? 'selected' : ''}>내용</option>
+                  	  <option value="b_all" ${param.searchType == 'b_all' ? 'selected' : ''}>제목+내용</option>
+                    </select>
+                 </label>
 		         <label>
-		            <input type="text" class="form-control" id="as_sch-key" placeholder="제목/내용을 입력해주세요.">
+		            <input type="text" class="form-control" id="as_sch-key" value="${param.searchKey}" name="searchKey" placeholder="검색어를 입력해주세요.">
+                 	<button type="button" class="btn-del"><span class="blind">입력 내용 삭제</span></button>
 		         </label>
-		         <button type="button" class="btn btn-primary">검색</button>
+		         <button type="button" class="btn btn-primary" id="search">검색</button>
 		      </div>
 		   </div>
 		   
@@ -61,7 +66,7 @@
 					<c:otherwise>
 						<tr>
 						   <td colspan="8" class="is-empty">
-						      <p>등록된 게시글이 없습니다.</p>
+						      <p>${param.searchKey!=null?"검색된":"등록된"} 게시글이 없습니다.</p>
 						   </td>
 						</tr>
 					</c:otherwise>
@@ -125,7 +130,38 @@ $(function(){
        // .as_list-table 내 하위 체크박스 상태를 .all-check 와 맞춤
        $('.as_list-table input[type="checkbox"]').prop('checked', isChecked);
     });
+    
+    // 검색
+	$("#search").on("click",function(){	
+		searchList();
+	});
+    
+	$("#as_sch-key").on("keyup",function(key){
+		if(key.keyCode==13){
+			searchList();
+		}
+	});
+	
+	$("#as_sch-key").on("focus", function(){
+		$(".btn-del").stop().show();
+	})
+	
+	$(".btn-del").on("click", function(){
+		$("#as_sch-key").val('');
+		searchList();
+	});
 });
+
+//검색 함수
+function searchList(){
+	let search = $("#as_sch-type").val();
+	let query = $("#as_sch-key").val();
+	if(query != ''){		
+		location.href=('notice.admin?searchType='+search+'&searchKey='+query);
+	} else {
+		location.href=('notice.admin');
+	}
+}
 
 // 선택한 게시글을 저장하는 함수
 function saveSelectedNotice() {
