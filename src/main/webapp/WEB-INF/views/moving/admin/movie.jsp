@@ -8,6 +8,12 @@ if (status == null) {
     status = "live"; // 기본값
 }
 pageContext.setAttribute("status", status);
+
+String searchKey = request.getParameter("searchKey");
+if (searchKey == null) {
+	searchKey = ""; // 기본값
+}
+pageContext.setAttribute("searchKey", searchKey);
 %>
 <c:set var="activeTab" value="${status}" />
 <c:choose>
@@ -60,7 +66,7 @@ pageContext.setAttribute("status", status);
 			            <div class="search-group">
 			               <label>
 			                  <select id="as_sch-type" class="form-control" name="searchType">
-			                  	<option value="mv_title" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
+			                  	<option value="mv_ktitle" ${param.searchType == 'mv_title' ? 'selected' : ''}>제목</option>
 			                  	<option value="mv_dname" ${param.searchType == 'mv_dname' ? 'selected' : ''}>감독명</option>
 			                  	<option value="movie_genre" ${param.searchType == 'movie_genre' ? 'selected' : ''}>장르</option>
 			                  </select>
@@ -191,7 +197,7 @@ $(function(){
 	$("#search").on("click",function(){
 		let query = $("#as_sch-key").val();
         let search = $("#as_sch-type option:selected").val();
-		location.href=('movie.admin?status='+status+'&'+search+'='+query);	
+		location.href=('movie.admin?status='+status+'&'+search+'='+query);
 	});
 });
 

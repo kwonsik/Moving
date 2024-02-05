@@ -3,6 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.dao.MovieDao">
+	<sql id="mv_searchCondition">
+		<choose>
+			<when test="searchType=='mv_title'">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
+			<when test="searchType=='mv_dname'">and mv_dname like '%'||#{searchKey}||'%'</when>
+			<when test="searchType=='movie_genre'">and movie_genre like '%'||#{searchKey}||'%'</when>
+		</choose>
+	</sql>
+
 	<insert id="mv_insert" parameterType="MovieDto">
 		insert into movie (mv_cd, mv_ktitle, mv_etitle, mv_runtime, mv_plot,
 		mv_dname, movie_genre, mv_aname, mv_rating, mv_nation,
@@ -41,37 +49,21 @@
 	
 	<select id="mv_totalLive" resultType="int">
 		select count(*) from movie where mv_live=1
-		<choose>
-			<when test="mv_title!=null">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
-			<when test="mv_dname!=null">and mv_dname like '%'||#{searchKey}||'%'</when>
-			<when test="movie_genre!=null">and movie_genre like '%'||#{searchKey}||'%'</when>
-		</choose>
+		<include refid="mv_searchCondition" />
 	</select>
 	<select id="mv_totalUnlive" resultType="int">
 		select count(*) from movie where mv_live=0
-		<choose>
-			<when test="mv_title!=null">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
-			<when test="mv_dname!=null">and mv_dname like '%'||#{searchKey}||'%'</when>
-			<when test="movie_genre!=null">and movie_genre like '%'||#{searchKey}||'%'</when>
-		</choose>
+		<include refid="mv_searchCondition" />
 	</select>
 	
 	<select id="mv_cntLive" parameterType="java.util.HashMap" resultType="MovieDto">
 		select * from movie where mv_live=1
-		<choose>
-			<when test="mv_title!=null">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
-			<when test="mv_dname!=null">and mv_dname like '%'||#{searchKey}||'%'</when>
-			<when test="movie_genre!=null">and movie_genre like '%'||#{searchKey}||'%'</when>
-		</choose>
+		<include refid="mv_searchCondition" />
 		order by mv_popularity desc limit #{pstartno}, #{onepagelimit}
 	</select>
 	<select id="mv_cntUnlive" parameterType="java.util.HashMap" resultType="MovieDto">
 		select * from movie where mv_live=0
-		<choose>
-			<when test="mv_title!=null">and mv_ktitle like '%'||#{searchKey}||'%' or mv_etitle like '%'||#{searchKey}||'%'</when>
-			<when test="mv_dname!=null">and mv_dname like '%'||#{searchKey}||'%'</when>
-			<when test="movie_genre!=null">and movie_genre like '%'||#{searchKey}||'%'</when>
-		</choose>
+		<include refid="mv_searchCondition" />
 		order by mv_popularity desc limit #{pstartno}, #{onepagelimit}
 	</select>
 </mapper>

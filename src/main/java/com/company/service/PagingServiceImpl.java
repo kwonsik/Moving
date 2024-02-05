@@ -45,6 +45,7 @@ public class PagingServiceImpl implements PagingService {
     
     @Override public Map<String, Object> getPagedData(int pstartno, String type) {
         Map<String, Object> result = new HashMap<>();
+		
         result.put("list", listCnt(Map.of("pstartno", pstartno, "onepagelimit", 10, "type", type)));
         result.put("paging", paging(pstartno, type));
         return result;
