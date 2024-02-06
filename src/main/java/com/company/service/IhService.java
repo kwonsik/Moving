@@ -70,6 +70,6 @@ public interface IhService {
 	//카카오 계정과 연동된 무빙계정이 있는지
 	public UserDto kakaoJoin(UserDto dto);
 	
-	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
-	public UserDto selectUserNoKakaoAfterJoin(UserDto dto);
+	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteKakaoCode(UserDto dto);
 }
