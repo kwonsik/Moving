@@ -1,5 +1,12 @@
 package com.company.service;
 
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,5 +36,32 @@ public class TheaterMapServiceImpl implements TheaterMapService {
 	     return response.getBody();
 
 	}
+	
+	@Override
+	public Map<String, Object> map(String address) {
+		//String address="서울특별시 송파구 올림픽로 300 롯데월드타워 27층";
+		String jsonResult = getMap(address);
+		System.out.println(jsonResult);
+		Map<String, Object> result = new HashMap<>();
+		try {
+            JSONObject jsonObject = new JSONObject(jsonResult);
+            JSONArray documentsArray = jsonObject.getJSONArray("documents");
+            JSONObject firstDocument = documentsArray.getJSONObject(0);
+
+            String xValue = firstDocument.getString("x");
+            String yValue = firstDocument.getString("y");
+
+            //System.out.println("x: " + xValue);
+            //System.out.println("y: " + yValue);
+            result.put("x", xValue);
+            result.put("y", yValue);
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return result;
+		
+	} 
 
 }
