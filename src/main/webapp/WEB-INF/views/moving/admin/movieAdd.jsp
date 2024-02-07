@@ -156,7 +156,7 @@
                            if (detailData.imdb_id != null) {
                               movieCreditsData = {
                                  mv_aname: creditsData.cast.filter(item => item.known_for_department === "Acting").slice(0, 4).map(actor => actor.name).join(", ") + " 外",
-                                 mv_dname: creditsData.crew.find(item => (item.known_for_department === "Directing" || item.known_for_department === "Production")).name
+                                 mv_dname: creditsData.crew.find(item => (item.job === "Director")).name
                               };
                            } else {
                               movieCreditsData = {
