@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.company.dto.MovieDto;
 import com.company.dto.Reservation_ViewDto;
 import com.company.dto.ScheduleDto;
+import com.company.dto.WeatherGenre;
 import com.company.service.MovieService;
 import com.company.service.ReservationService;
 import com.google.gson.Gson;
@@ -38,6 +40,7 @@ public class UserController {
 	public String main(Model model) {
 		List<MovieDto> movieList = mv_service.mv_readLive();
 
+		// 메인 비주얼 영화 출력
 		List<MovieDto> nonEmptyVideoList = movieList.stream()
 				.filter(movie -> movie.getMv_video() != null && !movie.getMv_video().isEmpty()).limit(10)
 				.collect(Collectors.toList());
@@ -53,7 +56,7 @@ public class UserController {
 			model.addAttribute("randomMovie", null);
 			model.addAttribute("firstImageUrl", null);
 		}
-
+		
 		model.addAttribute("list", movieList);
 		return "main";
 	}
@@ -68,6 +71,12 @@ public class UserController {
 		} else {
 			return null;
 		}
+	}
+
+	@PostMapping("/sendWeatherGenre.as")
+	public String sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) {
+	    System.out.println("Received weatherGenre: " + weatherGenre);
+	    return "main";
 	}
 
 	@GetMapping("/reservation_view.ks")

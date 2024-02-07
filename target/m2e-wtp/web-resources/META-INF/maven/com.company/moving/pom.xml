@@ -237,33 +237,33 @@
 		<!-- HikariCP -->
 		<!-- HikariCP -->
 		<!-- HikariCP -->
-		
+
 		<!-- mail -->
 		<!-- mail -->
 		<!-- mail -->
 		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
-		    <artifactId>javax.mail</artifactId>
-		    <version>1.6.2</version>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-		    <artifactId>commons-email</artifactId>
-		    <version>1.2</version>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		<!-- mail -->
 		<!-- mail -->
 		<!-- mail -->
-		
+
 		<!-- jaxb-api -->
-		<!-- jaxb-api -->	
-		<!-- jaxb-api --> 	
+		<!-- jaxb-api -->
+		<!-- jaxb-api -->
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -284,9 +284,9 @@
 		</dependency>
 
 		<!-- jaxb-api -->
-		<!-- jaxb-api -->	
-		<!-- jaxb-api --> 
-		
+		<!-- jaxb-api -->
+		<!-- jaxb-api -->
+
 		<!-- GSON -->
 		<!-- GSON -->
 		<!-- GSON -->
@@ -298,7 +298,7 @@
 		<!-- GSON -->
 		<!-- GSON -->
 		<!-- GSON -->
-		
+
 		<!-- TX -->
 		<!-- TX -->
 		<!-- TX -->
@@ -329,7 +329,7 @@
 
 		<!-- jaxb-api -->
 		<!-- jaxb-api -->
-		<!-- jaxb-api -->	
+		<!-- jaxb-api -->
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -368,38 +368,16 @@
 		<!-- fileupload -->
 		<!-- fileupload -->
 		<!-- fileupload -->
-		
-		
-		<!-- SECURITY -->
-		<!-- SECURITY -->
-		<!-- SECURITY -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>4.2.2.RELEASE</version>
-			<!-- <version>5.0.7.RELEASE</version> -->
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>4.2.2.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>4.2.2.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>4.2.2.RELEASE</version>
-		</dependency>
-		<!-- SECURITY -->
-		<!-- SECURITY -->
-		<!-- SECURITY -->
 
-		
+		<!-- api 값 json 파싱할 때 사용  -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>
+		</dependency>
+		<!-- api 값 json 파싱할 때 사용  -->
+
+
 	</dependencies>
 	<build>
 		<plugins>

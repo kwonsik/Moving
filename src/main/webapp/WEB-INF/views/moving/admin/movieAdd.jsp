@@ -156,7 +156,7 @@
                            if (detailData.imdb_id != null) {
                               movieCreditsData = {
                                  mv_aname: creditsData.cast.filter(item => item.known_for_department === "Acting").slice(0, 4).map(actor => actor.name).join(", ") + " 外",
-                                 mv_dname: creditsData.crew.find(item => (item.known_for_department === "Directing" || item.known_for_department === "Production")).name
+                                 mv_dname: creditsData.crew.find(item => (item.job === "Director")).name
                               };
                            } else {
                               movieCreditsData = {
@@ -270,7 +270,7 @@
 
    // 국내 상영 영화 전체 불러오기
    function loadMovies(page) {
-      let apiUrl = "https://api.themoviedb.org/3/movie/now_playing?language=ko&region=KR";
+      let apiUrl = "https://api.themoviedb.org/3/movie/now_playing";
       let itemsPerPage = 20;
 
       $("body").scrollTop(0);
@@ -285,7 +285,7 @@
                api_key: apiKey,
                language: "ko",
                page: page,
-               region: "KR"
+               region: "kr"
             },
             beforeSend: function (xhr) {
                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

@@ -452,7 +452,7 @@ table {
 .hy_table {
 	width: 85%;
 	height: 360px;
-	margin: 65px auto 0;
+	margin: 65px auto 0; 
 }
 
 .hy_table thead {
