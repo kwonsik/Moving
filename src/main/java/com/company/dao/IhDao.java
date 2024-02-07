@@ -71,6 +71,9 @@ public interface IhDao {
 	//카카오 계정과 연동된 무빙계정이 있는지
 	public UserDto kakaoJoin(UserDto dto);
 	
+	//카카오 로그인
+	public IhResultDto kakaoLogin(UserDto dto);
+	
 	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
 	public int deleteKakaoCode(UserDto dto);
 }

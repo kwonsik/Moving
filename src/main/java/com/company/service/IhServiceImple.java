@@ -133,6 +133,11 @@ public class IhServiceImple implements IhService{
 		return dao.kakaoJoin(dto);
 	}
 	
+	//카카오 로그인
+	public IhResultDto kakaoLogin(UserDto dto) {
+		return dao.kakaoLogin(dto);
+	}
+	
 	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
 	public int deleteKakaoCode(UserDto dto) {
 		return dao.deleteKakaoCode(dto);

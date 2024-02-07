@@ -124,17 +124,17 @@
     
     <!-- 17. 네이버와 연동된 네이버 계정이 있는지 판별 -->
 	<select id="naverJoin" parameterType="UserDto" resultType="UserDto">
-	    select user_no from user where user_naver = #{user_naver}
+	    select * from user where user_naver = #{user_naver}
 	</select>
     
     <!-- 18. 네이버회원가입직후 user_no 와 usertp_no 를 세션에 저장하기위해 가져오기 -->
     <select id="selectUserNoNaverAfterJoin" parameterType="UserDto" resultType="UserDto">
         select u.user_no,u.usertp_no,ut.usertp_name from user u join usertype ut using(usertp_no) where u.user_naver = #{user_naver};
     </select>
-
+	
     <!-- 19. 카카오와 연동된 네이버 계정이 있는지 판별 -->
 	<select id="kakaoJoin" parameterType="UserDto" resultType="UserDto">
-	    select user_no from user where user_kakao = #{user_kakao}
+	    select * from user where user_kakao = #{user_kakao}
 	</select>
     
     <!-- 20. 카카오코드가있는 계정은 카카오 코드를 삭제 = 연동끊기 -->
