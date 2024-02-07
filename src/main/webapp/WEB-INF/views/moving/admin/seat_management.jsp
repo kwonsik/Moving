@@ -50,25 +50,23 @@
 			
 			let seatValue = "${dto.list[row]}${col}";
 			<!-- 체크된 좌석 class='check' 넣고 그 class만 버튼 색깔 변경 -->
-			if (checkbox.prop('checked')) {
+			if (checkbox.prop('checked')==true) {
 				$(this).addClass('check');
 	
-				//bkList = bkList.concat($(this).closest('.eachSeat').find('input').attr("data-bkSeat"));
-				
+				bkList = bkList.concat($(this).closest('.eachSeat').find('input').attr("data-bkSeat"));
+				console.log("bkList: "+bkList);
 			} 
 			else {
 		        $(this).removeClass('check');
-		        //bkList = bkList.filter(item => item !== seatValue);
+		        bkList = bkList.filter(item => item !== seatValue);
 		    }
-			//console.log("Checkbox checked status: " + checkbox.prop('checked'));  //Checkbox checked status: false
+			console.log("Checkbox checked status: " + checkbox.prop('checked'));  //Checkbox checked status: false
 			//console.log($(this).closest('.eachSeat').find('input').attr("data-bkSeat"));
 		});
 		
-		let checkedSeats = $('.eachSeat').find('label .check').data('bkSeat');
 		
-		console.log("here: " + checkedSeats);
 		//bkList.push($('.eachSeat').find('.check').data('bkSeat'));
-		console.log("bkList: "+bkList);
+		
 		
 		/* 좌석수정 처리 */
 		scrNo = $("#seat p").data("scr_no");
@@ -82,7 +80,7 @@
     		        bkList: JSON.stringify(bkList)
     		    },
     			error:function(xhr, status, msg){
-					alert("에러 : ");
+					alert("에러");
 				},
     			success: function(result){
     				if(result==1){
