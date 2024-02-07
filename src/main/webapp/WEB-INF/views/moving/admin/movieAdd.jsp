@@ -270,7 +270,7 @@
 
    // 국내 상영 영화 전체 불러오기
    function loadMovies(page) {
-      let apiUrl = "https://api.themoviedb.org/3/movie/now_playing?language=ko&region=KR";
+      let apiUrl = "https://api.themoviedb.org/3/movie/now_playing";
       let itemsPerPage = 20;
 
       $("body").scrollTop(0);
@@ -285,7 +285,7 @@
                api_key: apiKey,
                language: "ko",
                page: page,
-               region: "KR"
+               region: "kr"
             },
             beforeSend: function (xhr) {
                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
