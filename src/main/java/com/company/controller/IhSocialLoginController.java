@@ -22,7 +22,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.ParseConversionEvent;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,7 +38,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -318,9 +323,7 @@ public class IhSocialLoginController {
 	
 	//6. 카카오 연동
 	@RequestMapping("/kakaoFind.ih")
-	protected String kakaoFind(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr)
-		         throws ServletException, IOException {
-	      // 1.
+	protected String kakaoFind(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr) throws ServletException, IOException {
 	      request.setCharacterEncoding("UTF-8");
 	      response.setContentType("text/html; charset=UTF-8");
 	      String code = request.getParameter("code");
@@ -406,56 +409,108 @@ public class IhSocialLoginController {
 			
 		    dto.setUser_kakao(user_kakao);
 
-		    System.out.println("셋팅한 카카오 아이디 : " + dto.getUser_kakao());
-			
-			UserDto joinDto = service.kakaoJoin(dto);
-			System.out.println(joinDto);
-			if(joinDto==null) {
-				int user_no = joinDto.getUser_no();
-				System.out.println(user_no);
-			}
+		    System.out.println("셋팅한 카카오 아이디 : " + user_kakao);
+			UserDto result = service.kakaoJoin(dto);
+			System.out.println("result: " + result);
+			if(result==null) {
+				System.out.println("연동안된상태");
+				return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao;
+			} else {
+				System.out.println("연동된상태");
 			System.out.println("ID: " + user_kakao);
-			System.out.println("NO: " + joinDto.getUser_no());
+			System.out.println("NO: " + result.getUser_no());
 			
+			return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao+"&user_no="+result.getUser_no();
 			
-			return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao+"&user_no="+joinDto.getUser_no();
+			}
+			
 		}
 	
-	// 결과 컨트롤러
+	// 결과 컨트롤러 - 메인창으로 카카오 값을 보내는 역할
 	@RequestMapping("/kakaoLoginResult.ih")
 	public String socialLoginResult(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
-		String user_no = request.getParameter("user_no");
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		String user_no_r = request.getParameter("user_no");
 		String user_kakao = request.getParameter("user_kakao");
-		System.out.println("결과 페이지 usre_no : "+user_no);
-		System.out.println("결과 페이지 user_kakao : "+user_kakao);
+		System.out.println("소셜로그인하고 연동한 상태의 usre_no이다. null이면 연동 안했다는 뜻 : "+user_no_r);
+		System.out.println("소셜로그인해서 받은 user_kakao : "+user_kakao);
 		UserDto dto = new UserDto();
 		
-		
-		//아직 소셜계정 고유값을 못받았을때
-		if(user_no == null) {
+		//아직 소셜계정 고유값을 못받았을때 = 로그인 안한상태 
+		if(user_kakao == null) {
 		    String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
 		    String KakaoRedirectURI = URLEncoder.encode("http://localhost:8080/moving/kakaoIntegration.ih", "UTF-8");
 		    String kakaoAuthURL = "redirect:https://kauth.kakao.com/oauth/authorize?response_type=code"
 		            + "&client_id=" + KakaoClientId
 		            + "&redirect_uri=" + KakaoRedirectURI;
 		    return kakaoAuthURL;
-		} else if(user_no!=null) {
-        	service.deleteKakaoCode(dto);
-        }
-        PrintWriter out = response.getWriter();
-        response.setCharacterEncoding("UTF-8");
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<script type='text/javascript'>window.onload = function() {window.close();}</script>");
-        out.println("</head>");
-        out.println("</html>");
+		    
+		} else if(user_kakao != null) {	// 로그인한 상태
+			
+			if(user_no_r==null) {		//연동안한 상태면 메인페이지로 전달하고 창끔
+//				int user_no = Integer.parseInt(user_no_r);
+//				dto.setUser_no(user_no);
+//				dto.setUser_kakao(user_kakao);
+//				System.out.println("카카오 고유값을 user_no 행찾아서 삽입");
+//				service.updateKakaoCode(dto);		
+				System.out.println("메인페이지로 user_kakao 전달하고 창닫기");
+				System.out.println("user_kakao:"+user_kakao);
+				out.println("<!DOCTYPE html>");
+				out.println("<html>");
+				out.println("<head>");
+				System.out.println("1");
+				out.println("<script type='text/javascript'>window.onload = function() { window.opener.receiveKakaoCode('" + user_kakao + "');  window.close();}</script>");
+				System.out.println("2");
+				out.println("</head>");
+				out.println("</html>");
+				out.flush();
+				out.close();
+				System.out.println("3");
+			}else if(user_no_r!=null) { //연동한 상태면 삭제
+				dto.setUser_kakao(user_kakao);
+				System.out.println("카카오 고유값 삭제하고 창닫기");
+				service.deleteKakaoCode(dto);
 
-        out.flush();
-        out.close();
-		
+				out.println("<!DOCTYPE html>");
+				out.println("<html>");
+				out.println("<head>");
+				out.println("<script type='text/javascript'>window.onload = function() {window.close();}</script>");
+				out.println("</head>");
+				out.println("</html>");
+				
+				out.flush();
+				out.close();
+			}
+        	
+        }
+		System.out.println("4");
 		return null;
 	}
+	
+	// 마이페이지 입장시 카카오 연동여부 검사
+	@PostMapping("/confirmKakaoIntegration.ih")
+	public void confirmKakaoIntegration(@RequestParam("id") String user_id, HttpServletResponse response, UserDto dto, HttpServletRequest request) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+	    dto.setUser_id(user_id);
+	    System.out.println("user_id : "+user_id);
+	    UserDto kakaoStatus = service.confirmKakaoIntegration(dto);
+	    String kakao = kakaoStatus.getUser_kakao();
+	    System.out.println("kakaoStatus : "+kakaoStatus);
+	    System.out.println("kakao : " + kakao);
+	    String result;
+	    if (kakao.equals(null)||kakao.equals("")) {
+	    	result = "<span style='color:#03c75a'>연동하기</span>";
+	    } else {
+	    	result = "<span style='color:red'>연동끊기</span>";
+	    }
 
+	    System.out.println("result : " + result);
+	    out.print(result);
+	    out.flush();
+	    out.close();
+	}
 	
 }

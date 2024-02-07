@@ -27,6 +27,12 @@ public class Test1_Dao {
 	@Test  public void test2() { 
 		UserDto dto = new UserDto();
 		
+		
+		dto.setUser_id("123");
+		System.out.println(ihdao.confirmKakaoIntegration(dto));
+		
+//		dto.setUser_kakao("3327423296");
+//		System.out.println(ihdao.deleteKakaoCode(dto));
 		//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
 //		dto.setUser_naver("GFa0qCCTxipnEjiq0YdJIwltC6s_Jh6oVstPV1gq8XY");
 //		System.out.println(ihdao.selectUserNoNaverAfterJoin(dto)); 

@@ -62,15 +62,15 @@
 					<button onclick="kakaoPopup()">
 						<img alt="카카오 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png">
 							<span>카카오톡</span>
-							<span class="kakaoIntegrationResult">연동하기</span>
-						</button>
+							<p id="kakaoIntegrationResult"></p>
+					</button>
 					</li>
 					<li class="socialIntegration">
 					<button onclick="naverPopup()">
 						<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
 							<span>네이버</span>
-							<span class="naverIntegrationResult">연동하기</span>
-						</button>
+							<span class="naverIntegrationResult"></span>
+					</button>
 					</li>
 				</ul>			
 			</div>
@@ -89,7 +89,8 @@
 				<input type="submit" class="btn btn-primary" value="정보수정" />
 			</div>
 	</form>	
-	
+	<div id="receivedData"></div>
+	<input Type="text" id="kakaoCodeField" value = ""/>
 <!-- 탈퇴신청을안한 회원 -->
 <c:if test="${dto.usertp_no != '4'}">
     <form action="myDelete.ih?user_id=${dto.user_id}" method="GET">
@@ -107,11 +108,26 @@
 </c:if>
 
 <script>
+function kakaoPopup() {event.preventDefault(); window.open('kakaoLoginResult.ih', 'kakao', 'width=600,height=400,left=200,top=200'); }
 function naverPopup() {event.preventDefault(); window.open('prepareLogin.ih', 'naver', 'width=600,height=400,left=200,top=200'); }
-function kakaoPopup() {event.preventDefault(); window.open('https://kakao.com', 'kakao', 'width=600,height=400,left=200,top=200'); }
-
+function receiveKakaoCode(userKakao) {
+    console.log("Received kakao code: " + userKakao);
+    document.getElementById("kakaoCodeField").value = userKakao;
+}
 $(document).ready(function() {
-
+	// 마이페이지 입장시 카카오 연동여부 검사
+	console.log("AJAX");
+    $.ajax({
+        url: "confirmKakaoIntegration.ih",
+        type: "POST",
+        dataType: "text",
+        data: { "id": $("#id").val() }, 
+        success: function(data) {
+        	console.log("success");
+        	$("#kakaoIntegrationResult").html(data); 
+        	},
+        error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
+    });
     // 닉네임 유효성 검사
     $("#nickname2").on("keyup", function() {
         var nickname = $(this).val();

@@ -76,4 +76,10 @@ public interface IhDao {
 	
 	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
 	public int deleteKakaoCode(UserDto dto);
+	
+	//카카오 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateKakaoCode(UserDto dto);
+	
+	//22. 마이페이지 입장시 카카오 게정이 null인지 확인
+	public UserDto confirmKakaoIntegration(UserDto dto);
 }

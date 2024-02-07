@@ -143,4 +143,12 @@ public class IhServiceImple implements IhService{
 		return dao.deleteKakaoCode(dto);
 	}
 	
+	//카카오 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateKakaoCode(UserDto dto) {
+		return dao.updateKakaoCode(dto);
+	}
+	//22. 마이페이지 입장시 카카오 게정이 null인지 확인
+	public UserDto confirmKakaoIntegration(UserDto dto) {
+		return dao.confirmKakaoIntegration(dto);
+	}
 }
