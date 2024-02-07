@@ -11,5 +11,5 @@ import lombok.ToString;
 @ToString
 public class WeatherGenre {
     private int weatherId;
-    private List<String> genre;
+    private List<String> genres;
 }

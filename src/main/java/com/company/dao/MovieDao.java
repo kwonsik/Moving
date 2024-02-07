@@ -22,4 +22,6 @@ public interface MovieDao {
 	
 	public int mv_totalLiveSearch(Map<String, Object> paramMap);
 	public int mv_totalUnliveSearch(Map<String, Object> paramMap);
+	
+	public List<MovieDto> mv_readGenreLive(List<String> genres);
 }

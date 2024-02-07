@@ -13,5 +13,5 @@ public interface MovieService {
 	public List<MovieDto> mv_readLive();
 	public List<MovieDto> mv_readUnlive();
 	
-	public List<MovieDto> mv_readGenreLive(String genre);
+	public List<MovieDto> mv_readGenreLive(List<String> genres);
 }
