@@ -12,26 +12,33 @@
 			<button id="add-schedule-btn" class="btn btn-info"
 				style="float: right">추가</button>
 		</h2>
-		
-	<div class="sub_content">
-		<div id="theater-selection">
-			<h2>영화관 선택</h2>
-			<div class="theater-list">
-				<!-- 좌측 화살표 -->
-				<div id="left-arrow" class="arrow">&lt;</div>
 
-				<c:forEach var="the" items="${theaterList}" varStatus="status">
-					<div class="theater" data-no="${the.tt_no}">
-						<p>${the.tt_name}</p>
-					</div>
-				</c:forEach>
-
-				<!-- 우측 화살표 -->
-				<div id="right-arrow" class="arrow">&gt;</div>
-			</div>
+		<div class="simple_management">
+			<label style="width: 95%;"> <input type="text"
+				class="form-control" id="prompt" placeholder="입력해주세요">
+			</label>
+			<button type="button" class="btn btn-primary" style="float: right;">입력</button>
 		</div>
 
-		
+		<div class="sub_content">
+			<div id="theater-selection">
+				<h2>영화관 선택</h2>
+				<div class="theater-list">
+					<!-- 좌측 화살표 -->
+					<div id="left-arrow" class="arrow">&lt;</div>
+
+					<c:forEach var="the" items="${theaterList}" varStatus="status">
+						<div class="theater" data-no="${the.tt_no}">
+							<p>${the.tt_name}</p>
+						</div>
+					</c:forEach>
+
+					<!-- 우측 화살표 -->
+					<div id="right-arrow" class="arrow">&gt;</div>
+				</div>
+			</div>
+
+
 			<h2>날짜 선택</h2>
 			<div id="date-list">
 				<!-- 7일 동안의 날짜를 나타내는 버튼들이 여기에 표시됨 -->
@@ -112,20 +119,166 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <script>
 $(document).ready(function () {
     // 상수 정의
     const maxVisibleTheaters = 5;
-    // 초기화 함수 호출
-    initialize();
-
-    // 초기화 함수
+    
     function initialize() {
         setupTheaterSelection();
         setupDateSelection();
         setupScheduleTable();
         setupAddScheduleModal();
+        setupButtonClickHandler();
     }
+
+    initialize();
+
+    function setupButtonClickHandler() {
+        $(".simple_management").on("click", "button", function () {
+            var userInput = $("#prompt").val();
+
+            $.ajax({
+                type: "POST",
+                url: "getGeminiResponse.admin",
+                data: { "prompt": userInput },
+                success: function (response) {
+                    handleResponse(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX 오류: " + error);
+                }
+            });
+        });
+    }
+
+    function handleResponse(response) {
+        console.log("서버 응답: " + JSON.stringify(response));
+        console.log(response.intent);
+        console.log(JSON.stringify(response.parameters));
+
+        if (response.intent == "get_showtimes") {
+            handleGetShowtime(response);
+        }else if (response.intent == "add_showtime") {
+            let requiredInfo = [
+                { key: "mv_ktitle", message: "영화 제목" },
+                { key: "sch_date", message: "상영 일자" },
+                { key: "sch_start", message: "상영 시작 시간" },
+                { key: "tt_name", message: "영화관 이름" },
+                { key: "scr_name", message: "상영관 이름" }
+            ];
+
+            let message = "상영 시간표를 추가하시겠습니까?\n";
+            let isComplete = true;
+            let missingInfo = [];
+
+            // 필수 정보 확인 및 메시지 생성
+            for (let info of requiredInfo) {
+                if (response.parameters[info.key] != null) {
+                    message += info.message + ": " + response.parameters[info.key] + "\n";
+                } else {
+                    isComplete = false;
+                    missingInfo.push(info.message);
+                }
+            }
+			console.log(isComplete)
+            // 필수 정보가 모두 존재하는 경우 확인 메시지 표시
+            if (isComplete) {
+                let conf = confirm(message.trim());
+                if (conf) {
+                    handleAddShowtime(response);
+                }
+            } else {
+                // 에러 처리 또는 사용자에게 알림을 표시하는 로직 추가
+                let missingInfoMessage = "상영시간표를 추가하기 위해서는 다음 정보가 필요합니다:\n";
+                for (let info of missingInfo) {
+                    missingInfoMessage += "- " + info + "\n";
+                }
+                alert(missingInfoMessage);
+            }
+        }else if (response.intent == "delete_showtime") {
+            // 필수 정보 목록
+            let requiredInfo = [
+                { key: "tt_name", message: "영화관 이름" },
+                { key: "scr_name", message: "상영관 이름" },
+                { key: "sch_date", message: "상영 일자" },
+                { key: "sch_start", message: "상영 시작 시간" }
+            ];
+
+            // 빈 칸 검사를 위한 변수
+            let isComplete = true;
+
+            // 필수 정보 확인 및 메시지 생성
+            let message = "상영시간표를 삭제하기 위해서는 다음 정보가 필요합니다:\n";
+            for (let info of requiredInfo) {
+                if (!response.parameters[info.key]) {
+                    message += "- " + info.message + "\n";
+                    isComplete = false;
+                }
+            }
+
+            // 필수 정보가 모두 존재하는 경우 확인 메시지 표시
+            if (isComplete) {
+                handleDeleteShowtime(response);
+            } else {
+                // 필수 정보가 부족한 경우에 대한 처리
+                alert(message);
+            }
+        }
+    }
+
+    function handleGetShowtime(response) {
+        $('.theater-list .theater').each(function (idx, theater) {
+            if (theater.textContent.trim() == response.parameters.tt_name) {
+                $(theater).trigger('click');
+            }
+        });
+
+        $('.date-btn[data-date="' + response.parameters.sch_date + '"]').trigger('click');
+    }
+
+    function handleAddShowtime(response) {
+        $.ajax({
+            url: 'add_showtime.admin',
+            method: 'POST',
+            data: JSON.stringify(response),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+            	alert(data.message);
+                if (data.message.includes("상영 시간표가 성공적으로 추가되었습니다.")) {
+                    handleGetShowtime(response);
+                }
+            },
+            error: function (error) {
+                console.error('Failed to add schedule:', error);
+                alert('상영시간표 추가 중 오류가 발생했습니다.');
+            }
+        });
+    }
+    
+    function handleDeleteShowtime(response) {
+        $.ajax({
+            url: 'delete_showtime.admin',
+            method: 'POST',
+            data: JSON.stringify(response),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+            	alert(data.message);
+            	if (data.message.includes("삭제에 성공")) {
+                    handleGetShowtime(response);
+                }
+            },
+            error: function (error) {
+                console.error('Failed to add schedule:', error);
+                alert('상영시간표 삭제 중 오류가 발생했습니다.');
+            }
+        });
+    }
+    
+    
 
     // 영화관 선택 설정
     function setupTheaterSelection() {

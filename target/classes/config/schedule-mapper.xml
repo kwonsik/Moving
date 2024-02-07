@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.dao.ScheduleDao">
 	<select id="theaterList" resultType="TheaterDto">
-		select tt_no,tt_name from
+		select tt_no,tt_name,tt_address from
 		theater
 	</select>
 
@@ -80,32 +80,37 @@
 		scr.scr_name,
 		s.sch_cnt,
 		scr.scr_st_cnt,
-		SUM(scr.scr_st_cnt) - (SELECT COUNT(*) FROM broken_seat
-		WHERE scr_no = scr.scr_no) AS
+		SUM(scr.scr_st_cnt) - (SELECT COUNT(*) FROM broken_seat WHERE scr_no = scr.scr_no) AS
 		available_seats,
 		ss.schstate_state,
 		TIME_FORMAT(s.sch_start, '%H:%i') AS sch_start,
-		TIME_FORMAT(s.sch_end,
-		'%H:%i') AS sch_end
+		TIME_FORMAT(s.sch_end, '%H:%i') AS sch_end
 		FROM schedule s
-		JOIN movie m
-		JOIN screen scr
-		JOIN
-		theater t
-		JOIN schedulestate ss
-		ON (s.mv_cd = m.mv_cd AND s.scr_no =
-		scr.scr_no AND
-		scr.tt_no = t.tt_no AND s.schstate_no = ss.schstate_no)
-		WHERE t.tt_no = #{theaterNo} AND s.sch_date = #{date}
+		JOIN movie m ON s.mv_cd = m.mv_cd
+		JOIN screen scr ON s.scr_no = scr.scr_no
+		JOIN theater t ON scr.tt_no = t.tt_no
+		JOIN schedulestate ss ON s.schstate_no = ss.schstate_no
+		WHERE 1=1
+		<if test="theaterNo != null">
+			AND t.tt_no = #{theaterNo}
+		</if>
+		<if test="scrNo != null">
+			AND scr.scr_no = #{scrNo}
+		</if>
+		<if test="schStart != null">
+			AND s.sch_start = #{schStart}
+		</if>
+		AND s.sch_date = #{date}
 		GROUP BY
-		s.sch_no, m.mv_ktitle, scr.scr_name, s.sch_cnt, ss.schstate_state,
-		s.sch_start, s.sch_end
+		s.sch_no, m.mv_ktitle, scr.scr_name, s.sch_cnt, ss.schstate_state, s.sch_start,
+		s.sch_end
 		ORDER BY scr.scr_no ASC, s.sch_start ASC;
 	</select>
 
 	<select id="movieListAll" resultType="MovieDto">
 		select
-		mv_cd,mv_ktitle,mv_runtime from movie where mv_live = 1 order by mv_cd asc
+		mv_cd,mv_ktitle,mv_runtime from movie where mv_live = 1 order by mv_cd
+		asc
 	</select>
 
 	<insert id="insertSchedule" parameterType="ScheduleDto">
@@ -142,5 +147,21 @@
 		resultType="integer">
 		select count(*) from broken_seat where scr_no = #{scr_no}
 	</select>
+
+	<!-- GEMINI -->
+	<select id="getMvCdAndRuntime" parameterType="string"
+		resultType="MovieDto">
+		select mv_cd,mv_runtime from movie where mv_ktitle=
+		#{mv_ktitle}
+	</select>
+
+	<select id="getScrNoAndSeats" parameterType="java.util.HashMap"
+		resultType="ScreenDto">
+		select s.scr_no,s.scr_st_cnt,s.tt_no from screen s join
+		theater t on s.tt_no = t.tt_no
+		where t.tt_name = #{tt_name} and
+		s.scr_name = #{scr_name};
+	</select>
+
 
 </mapper>
