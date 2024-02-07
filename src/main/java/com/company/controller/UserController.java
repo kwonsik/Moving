@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +60,17 @@ public class UserController {
 		}
 		
 		model.addAttribute("list", movieList);
+		
+		// sendWeatherGenre 메서드 호출하여 weatherGenreList를 받아옴
+	    ResponseEntity<Object> response = sendWeatherGenre(new WeatherGenre());
+	    if (response.getStatusCode() == HttpStatus.OK) {
+	        @SuppressWarnings("unchecked")
+			List<MovieDto> weatherGenreList = (List<MovieDto>) response.getBody();
+	        model.addAttribute("weatherGenreList", weatherGenreList);
+	    } else {
+	        model.addAttribute("weatherGenreList", null);
+	    }
+		
 		return "main";
 	}
 
@@ -74,10 +87,35 @@ public class UserController {
 	}
 
 	@PostMapping("/sendWeatherGenre.as")
-	public String sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) {
-	    System.out.println("Received weatherGenre: " + weatherGenre);
-	    return "main";
+	@ResponseBody
+	public ResponseEntity<Object> sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) {
+	    try {
+	    	List<MovieDto> weatherGenreList = mv_service.mv_readGenreLive(weatherGenre.getGenres());
+	    	
+	        System.out.println(weatherGenre);
+	        System.out.println(mv_service.mv_readGenreLive(weatherGenre.getGenres()));
+	        System.out.println(mv_service.mv_readGenreLive(weatherGenre.getGenres()).size());
+
+            return ResponseEntity.ok().body(weatherGenreList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error mapping weather.");
+        }
 	}
+	
+	/*
+	 * @RequestMapping(value="/sendWeatherGenre.as", method={RequestMethod.GET,
+	 * RequestMethod.POST})
+	 * 
+	 * @ResponseBody public ResponseEntity<String> sendWeatherGenre(@RequestBody
+	 * WeatherGenre weatherGenre) { try {
+	 * System.out.println(weatherGenre.getGenres());
+	 * 
+	 * return ResponseEntity.ok("weater mapping successfully."); } catch (Exception
+	 * e) { e.printStackTrace(); return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
+	 * body("Error mapping weather."); } }
+	 */
 
 	@GetMapping("/reservation_view.ks")
 	public String reservation_view(HttpServletRequest request, HttpServletResponse response) throws IOException {

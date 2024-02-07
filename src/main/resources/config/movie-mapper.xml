@@ -74,4 +74,15 @@
 		mv_live=0
 		order by mv_popularity desc limit #{pstartno}, #{onepagelimit}
 	</select>
+	
+	<select id="mv_readGenreLive" parameterType="java.util.List" resultType="MovieDto">
+	    select * from movie where mv_live=1
+	    <if test="weatherGenre != null and weatherGenre.size() > 0">
+	        and movie_genre in
+	        <foreach item="genre" collection="genres" open="(" separator="," close=")">
+	            #{genre}
+	        </foreach>
+	    </if>
+		order by mv_popularity desc
+	</select>
 </mapper>

@@ -18,9 +18,5 @@ public class MovieServiceImpl implements MovieService {
 	@Override public MovieDto mv_read(int mv_cd) { return dao.mv_read(mv_cd); }
 	@Override public List<MovieDto> mv_readLive() { return dao.mv_readLive(); }
 	@Override public List<MovieDto> mv_readUnlive() { return dao.mv_readUnlive(); }
-	@Override
-	public List<MovieDto> mv_readGenreLive(String genre) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Override public List<MovieDto> mv_readGenreLive(List<String> genres) { return dao.mv_readGenreLive(genres); }
 }

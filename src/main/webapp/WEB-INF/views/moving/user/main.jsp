@@ -103,9 +103,9 @@
           </div>
           <div class="movie-list slider-type1">
 			<c:choose>
-				<c:when test="${weatherMvList.size() > 0}">
+				<c:when test="${weatherGenreList.size() > 0}">
 	            <ul>
-				  <c:forEach var="dto" items="${weatherMvList}" end="4" varStatus="status">
+				  <c:forEach var="dto" items="${weatherGenreList}" end="4" varStatus="status">
 		              <li>
 		                <div class="item">
 		                  <figure class="thumb__wrap">
@@ -207,7 +207,7 @@ $(function(){
 	      const id = data.weather[0].id;
 	      const idCategory = Math.floor(id / 100);
 	      let recGenre = null;
-		  let weatherGenre = {weatherId: id, genre: recGenre};
+		  let weatherGenre = {weatherId: id, genres: recGenre};
 
 	      if (id === 800) {
 	    	// 800: Clear
@@ -239,17 +239,17 @@ $(function(){
 	    	recGenre = ["스릴러", "미스터리", "범죄", "역사"];
 	      }
 
-	      weatherGenre.genre = recGenre;
-	      console.log(weatherGenre);
+	      weatherGenre.genres = recGenre;
+	      console.log(JSON.stringify(weatherGenre));
 
 	      $.ajax({
-            url: "${pageContext.request.contextPath}/sendWeatherGenre.as",
-            method: "POST",
-            data: weatherGenre,
+            type: "POST",
             contentType: "application/json",
-            dataType: "json",
-            success: function(response) {
-              console.log("Weather data sent to server successfully.");
+            url: "${pageContext.request.contextPath}/sendWeatherGenre.as",
+            data: JSON.stringify(weatherGenre),
+            success: function(data) {
+           	  //성공
+              console.log(data);
             },
             error: function(xhr, status, error) {
               console.error("Failed to send weather data to server:", error);

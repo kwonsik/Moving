@@ -38,5 +38,10 @@ public interface ScheduleDao {
 	public TheaterDto getTheaterHours(TheaterDto dto); 
 
 	public Integer brokenSeatCnt(int scr_no); 
+	
+	// 제미니
+	public MovieDto getMvCdAndRuntime(String mv_ktitle);
+	
+	public ScreenDto getScrNoAndSeats(Map<String, String> param);
 
 }

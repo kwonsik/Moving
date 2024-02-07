@@ -3,6 +3,7 @@ package com.company.service;
 import java.util.List;
 import java.util.Map;
 
+import com.company.dto.GeminiIntent;
 import com.company.dto.MovieDto;
 import com.company.dto.ScheduleDto;
 import com.company.dto.ScheduleResultDto;
@@ -10,25 +11,27 @@ import com.company.dto.ScreenDto;
 import com.company.dto.TheaterDto;
 
 public interface SchService {
-	public List<TheaterDto> theaterList(); // ÀüÃ¼ ¿µÈ­°ü »Ì±â
+	public List<TheaterDto> theaterList();
 
-	public String theaterDetail(TheaterDto dto); // ¿µÈ­°ü »ó¼¼Á¤º¸
+	public String theaterDetail(TheaterDto dto);
 
-	public String scheduleList(Map<String, Object> map); // »ó¿µ½Ã°£Ç¥ ¸®½ºÆ® - json Å¸ÀÔÀ¸·Î µ¥ÀÌÅÍ Àç°¡°ø
+	public String scheduleList(Map<String, Object> map);
 
-	// °ü¸®ÀÚ
+	// ê´€ë¦¬ì
 	public List<ScheduleResultDto> scheduleListAdmin(Map<String, Object> map);
 
-//	public Map<String, List<? extends Object>> insertScheduleView(ScreenDto dto); // »ó¿µ½Ã°£Ç¥ Ãß°¡ ¸ğ´Ş ºä
-	
-	public List<MovieDto> getMovieList(); // ÀüÃ¼ ¿µÈ­ ¸®½ºÆ®
-	
-	public List<ScreenDto> getScreenList(ScreenDto dto); // »ó¿µ°ü ¸®½ºÆ®
+	public List<MovieDto> getMovieList();
 
-	public int insertScheduleAction(ScheduleDto dto); // »ó¿µ½Ã°£Ç¥ Ãß°¡ÇÏ±â
+	public List<ScreenDto> getScreenList(ScreenDto dto);
 
-	public int deleteSchedule(ScheduleDto dto); // »ó¿µ½Ã°£Ç¥ »èÁ¦
+	public int insertScheduleAction(ScheduleDto dto);
+
+	public int deleteSchedule(ScheduleDto dto);
+
+	public TheaterDto getTheaterHours(TheaterDto dto);
+
+	public Map<String,Object> GeminiInsertScheduleAction(GeminiIntent geminiIntent);
 	
-	public TheaterDto getTheaterHours(TheaterDto dto); // ¿µÈ­°ü ¿î¿µ ½Ã°£
+	public Map<String, Object> GeminiDeleteScheduleAction(GeminiIntent geminiIntent);
 
 }

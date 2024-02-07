@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.dao.TheaterManageDao;
 import com.company.dto.BrokenSeatDto;
@@ -32,12 +32,12 @@ import com.company.service.AddTheaterService;
 import com.company.service.ReservationService;
 import com.company.service.ReviseTheaterService;
 import com.company.service.TheaterManageService;
-import com.company.service.TheaterMapService;
 import com.google.gson.Gson;
 
 @Controller
 public class AdminController {
-	@Autowired ReservationService r_service;
+	@Autowired
+	ReservationService r_service;
 	@Autowired
 	TheaterManageDao dao;
 
@@ -49,34 +49,39 @@ public class AdminController {
 
 	@Autowired
 	TheaterManageService service;
-	
 
 	@GetMapping("/main.admin")
 	public String main() {
 		return "ih_adminUser";
 	}
+
 	@GetMapping("/reservation_management.admin")
-	public String reservation_management(Model model,HttpServletRequest request,Reservation_ViewDto dto) {
-		
+	public String reservation_management(Model model, HttpServletRequest request, Reservation_ViewDto dto) {
+
 		dto.setPstartno(0);
-		
-		if(request.getParameter("pstartno")!=null) {
-			System.out.println("pstartno : "+request.getParameter("pstartno"));
-			dto.setPstartno(Integer.parseInt(request.getParameter("pstartno"))) ;
-		}		
-		r_service.paging(dto, model);		
+
+		if (request.getParameter("pstartno") != null) {
+			System.out.println("pstartno : " + request.getParameter("pstartno"));
+			dto.setPstartno(Integer.parseInt(request.getParameter("pstartno")));
+		}
+		r_service.paging(dto, model);
 		return "reservation_management";
 	}
+
 	@PostMapping("/admin_reservationCancel.admin")
-	public void admin_reservationcancel(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void admin_reservationcancel(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		int result=r_service.admin_reservationcancel(request, response);
-		PrintWriter out=response.getWriter();
-		if(result>0) {out.print("<script>alert('예매를 취소했습니다.');location.href='reservation_management.admin'</script>");}
-		else {out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");}	
-		
+		int result = r_service.admin_reservationcancel(request, response);
+		PrintWriter out = response.getWriter();
+		if (result > 0) {
+			out.print("<script>alert('예매를 취소했습니다.');location.href='reservation_management.admin'</script>");
+		} else {
+			out.print("<script>alert('오류가 발생했습니다.');location.href='reservation_management.admin'</script>");
+		}
+
 	}
+
 	@RequestMapping(value = "/theater-list.admin", method = RequestMethod.GET)
 	public String theaterList(Model model) {
 		model.addAttribute("theaterList", dao.theaterReadAll());
@@ -95,7 +100,7 @@ public class AdminController {
 
 		// List<ScreenDto> result = dao.screenReadAll2(tt_no);
 
-		//System.out.println("상영관 list 값 " + json);
+		// System.out.println("상영관 list 값 " + json);
 
 		return json;
 
@@ -107,13 +112,13 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
-	public String addTheater(@ModelAttribute TheaterDto dto) {
-		//System.out.println("... 추가해주세요");
-		//System.out.println(dto);
-		
+	public String addTheater(@ModelAttribute TheaterDto dto, RedirectAttributes redirectAttributes) {
+		// System.out.println("... 추가해주세요");
+		// System.out.println(dto);
 
-		ATservice.ttAndscrInsert(dto);
-			
+		int isSuccess = ATservice.ttAndscrInsert(dto);
+		System.out.println(isSuccess);
+		redirectAttributes.addFlashAttribute("isSuccess", isSuccess);
 
 		return "redirect:theater-list.admin";
 	}
@@ -196,13 +201,13 @@ public class AdminController {
 
 	@RequestMapping(value = "/seat-manage.admin", method = RequestMethod.GET)
 	public String seatManage(Model model, @RequestParam("scr_no") int scr_no) {
-		
-		//고장난 좌석 리스트 보내기 
-		//model.addAttribute("bkSeatLists", service.bkSeatReadAction(scr_no));
-		//model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));   
+
+		// 고장난 좌석 리스트 보내기
+		// model.addAttribute("bkSeatLists", service.bkSeatReadAction(scr_no));
+		// model.addAttribute("bkLists", service.bkSeatReadAction(scr_no));
 
 		// System.out.println("scr_no 값 : "+scr_no);
-		//System.out.println(service.scrseat(scr_no));
+		// System.out.println(service.scrseat(scr_no));
 		model.addAttribute("dto", service.scrseat(scr_no));
 
 		return "seat_management";
@@ -212,30 +217,28 @@ public class AdminController {
 	@ResponseBody
 	public int seatManageAction(Model model, @RequestParam("scr_no") int scr_no, @RequestParam String bkList) {
 		int result = 1;
-		
-		System.out.println("체크된 좌석 들  : "+bkList);   
+
+		System.out.println("체크된 좌석 들  : " + bkList);
 		BrokenSeatDto dto = new BrokenSeatDto();
 		dto.setScr_no(scr_no);
 
 		// 좌석 목록을 배열로 변환
 		List<String> seatBkNames = Arrays.asList(bkList.replace("[", "").replace("]", "").split(","));
-		//System.out.println(seatBkNames);  //["E2","G3"]
-		
+		// System.out.println(seatBkNames); //["E2","G3"]
+
 		// 각 좌석 이름을 개별적으로 설정
 		for (String seatName : seatBkNames) {
 			// 좌석 값에서 "" 제거
 			seatName = seatName.replace("\"", "");
 			// 좌석 정보를 개별적으로 추가
 			dto.setBk_st_name(seatName);
-		
+
 			service.bkSeatInsert(dto);
-			//System.out.println(dto);
+			// System.out.println(dto);
 
 		}
 
 		return result;
 	}
-	
-	
 
 }
