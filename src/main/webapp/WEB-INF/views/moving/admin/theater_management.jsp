@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../inc/admin_header.jsp"%>
 
+<script>
+$(document).ready(function(){
+	let isSuccess = "${isSuccess}";
+	console.log("..... 추가 성공 여부 : "+is);
+	if ( isSuccess === "1") {
+		alert("새로운 영화관이 추가되었습니다!");
+	}
+	if ( isSuccess === "0") {
+		alert("영화관 추가에 실패하였습니다.");
+	} 
+});
+</script>
 <!-- 영화관 관리 페이지 -->
 <main id="content">
 	<div id="theater-management" class="page">
@@ -22,25 +34,61 @@
 				<div id="tt-list">
 					<ul>
 						<c:forEach var="dto" items="${theaterList}" varStatus="status">
-							<li data-tt_no="${dto.tt_no}"><a
+							<li class="tt_scr_lists" data-tt_no="${dto.tt_no}"><a
 								href="revise-theater.admin?tt_no=${dto.tt_no}">${dto.tt_name}</a></li>
 						</c:forEach>
+
 					</ul>
+					<div id="left-arrow" class="arrow">이전</div>
+					<div id="right-arrow" class="arrow">다음</div>
 				</div>
 
 			</div>
 			<!-- end lists -->
 
-			<!-- 페이지네이션 -->
 		</div>
 		<!-- end sub_content -->
 
-		
+
 
 		<script>
-                    $(document).ready(function(){
+             		$(document).ready(function(){
                     	screenReadAll();	
+                    	showlists();
                     });
+             		
+             		<!-- 이전 다음 클릭으로 목록 보기 -->
+             		function  showlists(){
+             			
+             			let maxNum = 6;  // 한 페이지에 보일 영화관/상영관 총 개수 
+                 		let  tt_scr = $(".tt_scr_lists");
+                 		//console.log(tt_scr); //모든 li들을 배열 index로 받음. 
+                 		//console.log(tt_scr.length);
+                 		let currentIndexNum = 0;
+                 		
+                 		// 6개의 영화관 목록만 보이게 설정
+                 		tt_scr.hide();
+						tt_scr.slice(currentIndexNum, currentIndexNum + maxNum).show();
+                 		
+                 		
+    					$("#right-arrow").on("click", function(){
+    						if(currentIndexNum < tt_scr.length - maxNum){
+    							currentIndexNum++;
+    							tt_scr.hide();
+    							tt_scr.slice(currentIndexNum, currentIndexNum + maxNum).show();																
+    						}
+    					});
+    					
+    					$("#left-arrow").on("click", function(){
+    						if(currentIndexNum > 0){
+    							currentIndexNum--;
+    							
+    							tt_scr.hide();
+    							tt_scr.slice(currentIndexNum, currentIndexNum + maxNum).show();	
+    						}
+    					});
+    					
+             		}
 
                     <!-- 상영관 LIST -->
                     function screenReadAll(){
