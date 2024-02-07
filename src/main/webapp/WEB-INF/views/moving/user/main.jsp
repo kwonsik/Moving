@@ -103,9 +103,9 @@
           </div>
           <div class="movie-list slider-type1">
 			<c:choose>
-				<c:when test="${list.size() > 0}">
+				<c:when test="${weatherMvList.size() > 0}">
 	            <ul>
-				  <c:forEach var="dto" items="${list}" end="4" varStatus="status">
+				  <c:forEach var="dto" items="${weatherMvList}" end="4" varStatus="status">
 		              <li>
 		                <div class="item">
 		                  <figure class="thumb__wrap">
@@ -206,29 +206,55 @@ $(function(){
 	      const weatherDesc = data.weather[0].description;
 	      const id = data.weather[0].id;
 	      const idCategory = Math.floor(id / 100);
+	      let recGenre = null;
+		  let weatherGenre = {weatherId: id, genre: recGenre};
 
 	      if (id === 800) {
 	    	// 800: Clear
 	    	weatherMsg = "햇살 쨍쨍 맑은 "+weatherMsg;
+	    	recGenre = ["액션", "모험", "애니메이션", "코미디"];
 	      } else if (idCategory === 2) {
 	        // 2xx: Thunderstorm
 	    	weatherMsg = "천둥 치는 "+weatherMsg;
+	    	recGenre = ["범죄", "액션", "공포", "스릴러"];
 	      } else if (idCategory === 3) {
 	        // 3xx: Drizzle
 	    	weatherMsg = "이슬비 내리는 "+weatherMsg;
+	    	recGenre = ["판타지", "애니메이션", "범죄", "드라마"];
 	      } else if (idCategory === 5) {
 	        // 5xx: Rain
 	    	weatherMsg = "추적추적 비 내리는 "+weatherMsg;
+	    	recGenre = ["공포", "범죄", "스릴러", "미스터리"];
 	      } else if (idCategory === 6) {
 	        // 6xx: Snow
 	    	weatherMsg = "눈 내리는 "+weatherMsg;
+	    	recGenre = ["애니메이션", "드라마", "로맨스", "음악"];
 	      } else if (idCategory === 7) {
 	        // 7xx: Atmosphere
 	    	weatherMsg = "뿌연 안개 낀 "+weatherMsg;
+	    	recGenre = ["미스터리", "판타지", "역사", "SF"];
 	      } else if (idCategory === 8) {
 	        // 8xx: Clouds
-	    	weatherMsg = "구름 가득 흐린 "+weatherMsg;
+	    	weatherMsg = "구름 많은 "+weatherMsg;
+	    	recGenre = ["스릴러", "미스터리", "범죄", "역사"];
 	      }
+
+	      weatherGenre.genre = recGenre;
+	      console.log(weatherGenre);
+
+	      $.ajax({
+            url: "${pageContext.request.contextPath}/sendWeatherGenre.as",
+            method: "POST",
+            data: weatherGenre,
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response) {
+              console.log("Weather data sent to server successfully.");
+            },
+            error: function(xhr, status, error) {
+              console.error("Failed to send weather data to server:", error);
+            }
+          });
 	      
 		  weather="<img class='icon' src='"+iconSrc+"' alt='"+weatherDesc+"' />";		  
 		  $(".as_weather__icon").append(weather);

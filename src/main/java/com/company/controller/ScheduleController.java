@@ -19,18 +19,21 @@ import com.company.dto.ScreenDto;
 import com.company.dto.TheaterDto;
 import com.company.service.AddTheaterService;
 import com.company.service.SchService;
+import com.company.service.TheaterMapService;
 import com.google.gson.Gson;
 
 @Controller
 public class ScheduleController {
 	@Autowired
 	SchService service;
+	
+	@Autowired 
+	TheaterMapService mapApi;
 
 	// 관리자
 	@GetMapping("/schedule-management.admin")
 	public String adminPage(Model model) {
 		model.addAttribute("theaterList", service.theaterList());
-
 		return "schedule_management";
 	}
 
@@ -42,7 +45,7 @@ public class ScheduleController {
 		map.put("theaterNo", no);
 		map.put("date", date);
 
-		System.out.println();
+		//System.out.println();
 		Gson gson = new Gson();
 		String json = gson.toJson(service.scheduleListAdmin(map));
 
@@ -71,7 +74,7 @@ public class ScheduleController {
 	@RequestMapping(value = "/getScreenList.admin", method = RequestMethod.GET, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getScreenListByTheater(ScreenDto dto) {
-		System.out.println(dto);
+		//System.out.println(dto);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(service.getScreenList(dto));
@@ -92,8 +95,8 @@ public class ScheduleController {
 	@RequestMapping(value = "/addSchedule.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addSchedule(ScheduleDto dto) {
-		System.out.println(".... 상영관 추가해주세요");
-		System.out.println(dto);
+		//System.out.println(".... 상영관 추가해주세요");
+		//System.out.println(dto);
 		Map<String, Object> result = new HashMap<>();
 		
 		result.put("result", service.insertScheduleAction(dto));
@@ -113,7 +116,7 @@ public class ScheduleController {
 	@RequestMapping(value = "/theaterDetail.shj", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String theaterDetail(TheaterDto dto) {
-		System.out.println(service.theaterDetail(dto));
+		//System.out.println(service.theaterDetail(dto));
 		return service.theaterDetail(dto);
 	}
 
@@ -126,5 +129,12 @@ public class ScheduleController {
 		map.put("date", date);
 
 		return service.scheduleList(map);
+	}
+	
+	// 영화관의 x, y 좌표 가져오기
+	@RequestMapping(value = "/ttLocation.hy", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ttLocation(String tt_address) {
+		return mapApi.map(tt_address);
 	}
 }

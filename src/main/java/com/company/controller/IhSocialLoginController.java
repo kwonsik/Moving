@@ -3,11 +3,13 @@ package com.company.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.Year;
@@ -25,12 +27,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -160,7 +164,7 @@ public class IhSocialLoginController {
 		
 		request.getSession().setAttribute("state", state);
 		request.getSession().setAttribute("code", code);
-		
+		System.out.println(code);
 		return "redirect:/kakao_redirect.ih?code="+code+"&state="+state;
 	}
 	
@@ -261,11 +265,16 @@ public class IhSocialLoginController {
 		
 		//연동한 계정이 있다면
 		if(result!=null) {
+		String user_id = result.getUser_id();
+		String user_pass = result.getUser_pass();
+		System.out.println("ID: "+user_id);
+		System.out.println("PASS: "+user_pass);
+		result.setUser_id(user_id);
+		result.setUser_pass(user_pass);
 		IhResultDto loginResult = service.login(result);
 		
 		dto = loginResult.getUser();
 		UsertypeDto tdto = loginResult.getUsertype();
-		
 		session.setAttribute("user_id", dto.getUser_id());
 		session.setAttribute("user_no", dto.getUser_no());
 		session.setAttribute("user_nick", dto.getUser_nick());
@@ -279,16 +288,174 @@ public class IhSocialLoginController {
 		
 		return "redirect:/main.ks";
 		
-		} else {
+		}
+		//연동계정이 없다면
+		else {
 			rttr.addFlashAttribute("noIntegrationUser", "연동된 계정이 없습니다. 마이페이지에서 계정연동을 진행해주세요");
 			System.out.println("로그인실패 : 로그인페이지로");
 			
 			return "redirect:/loginPage.ih";
 		}
+		
 	}
 	
 //////////////////////////////////////  연동  /////////////////////////////////////////////////
 
 	
+	//5. 카카오한테 코드요청
+	@RequestMapping("/kakaoIntegration.ih")
+	public String kakaoIntegration(HttpServletRequest request, HttpSession session) throws ServletException, IOException, UnsupportedEncodingException {
+	    SecureRandom random = new SecureRandom();
+	    String state = new BigInteger(130, random).toString(32);
+	    String code = request.getParameter("code");
+	    request.getSession().setAttribute("state", state);
+	    request.getSession().setAttribute("code", code);
+	    
+	    System.out.println("넘길 코드는 : "+code);
+	    System.out.println("넘길 state : "+state);
+	    return "redirect:/kakaoFind.ih?code="+code+"&state="+state;
+	}
+	
+	//6. 카카오 연동
+	@RequestMapping("/kakaoFind.ih")
+	protected String kakaoFind(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr)
+		         throws ServletException, IOException {
+	      // 1.
+	      request.setCharacterEncoding("UTF-8");
+	      response.setContentType("text/html; charset=UTF-8");
+	      String code = request.getParameter("code");
 
+		    System.out.println("받은 코드는 : "+code);
+		    
+	      // 2. 토큰받기
+	      String client_id = "3d769a0fec3ae6e8966e62f3a2e7456b";
+	      String redirect_uri = "http://localhost:8080/moving/kakaoIntegration.ih";
+	      String  client_secret ="VwIP3zM0WuSHqvWHBSgtbt6uy0nB0iSA";
+	      String tokenUrl = "https://kauth.kakao.com/oauth/token?";
+	      tokenUrl += "grant_type=authorization_code" + "&client_id=" + client_id + "&redirect_uri=" + redirect_uri
+	            + "&code=" + code
+	            + "&client_secret=" + client_secret;
+
+	      URL url = null;
+	      HttpURLConnection conn = null;
+	      BufferedReader br = null;
+	      String line = "";
+	      StringBuffer buffer = new StringBuffer();
+	      String resultToken = "";
+	      try {
+	         url = new URL(tokenUrl);
+	         conn = (HttpURLConnection) url.openConnection();
+	         conn.setRequestMethod("POST");
+	         conn.setDoInput(true);
+	         conn.setDoOutput(true);
+	         conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+	         
+	         if (conn.getResponseCode() == 200) {
+	            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	         } else {
+	            br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	         }
+	         while ((line = br.readLine()) != null) {
+	            buffer.append(line);
+	         }
+	         br.close();
+	         conn.disconnect();
+	         resultToken = buffer.toString();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+	      // System.out.println("step2)" + resultToken);
+	      // json
+	      JsonParser parser = new JsonParser();
+	      JsonObject job = (JsonObject) parser.parse(resultToken);
+	      String token = job.get("access_token").getAsString();
+	      // System.out.println("step3) token > " + token);
+
+	      //////////////// STEP3) 사용자 정보 받아오기
+
+	      String userinfoUrl = "https://kapi.kakao.com/v2/user/me";
+	      url = new URL(userinfoUrl);
+	      conn = (HttpURLConnection) url.openConnection();
+	      conn.setRequestMethod("GET");
+	      conn.setRequestProperty("Authorization", "Bearer " + token);
+	      conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+	      if (conn.getResponseCode() == 200) {
+	         br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	      } else {
+	         br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	      }
+	      line = "";
+	      buffer = new StringBuffer();
+	      String inforesult = "";
+	      while ((line = br.readLine()) != null) {
+	         buffer.append(line);
+	      }
+	      br.close();
+	      conn.disconnect();
+	      inforesult = buffer.toString();
+	      System.out.println("STEP4) "+inforesult);
+	      
+			parser = new JsonParser();
+			JsonElement element = JsonParser.parseString(inforesult);
+			JsonObject jsonObj = element.getAsJsonObject();
+			String user_kakao = jsonObj.get("id").getAsString();
+			
+			UserDto dto = new UserDto();
+			
+		    dto.setUser_kakao(user_kakao);
+
+		    System.out.println("셋팅한 카카오 아이디 : " + dto.getUser_kakao());
+			
+			UserDto joinDto = service.kakaoJoin(dto);
+			System.out.println(joinDto);
+			if(joinDto==null) {
+				int user_no = joinDto.getUser_no();
+				System.out.println(user_no);
+			}
+			System.out.println("ID: " + user_kakao);
+			System.out.println("NO: " + joinDto.getUser_no());
+			
+			
+			return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao+"&user_no="+joinDto.getUser_no();
+		}
+	
+	// 결과 컨트롤러
+	@RequestMapping("/kakaoLoginResult.ih")
+	public String socialLoginResult(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+		String user_no = request.getParameter("user_no");
+		String user_kakao = request.getParameter("user_kakao");
+		System.out.println("결과 페이지 usre_no : "+user_no);
+		System.out.println("결과 페이지 user_kakao : "+user_kakao);
+		UserDto dto = new UserDto();
+		
+		
+		//아직 소셜계정 고유값을 못받았을때
+		if(user_no == null) {
+		    String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
+		    String KakaoRedirectURI = URLEncoder.encode("http://localhost:8080/moving/kakaoIntegration.ih", "UTF-8");
+		    String kakaoAuthURL = "redirect:https://kauth.kakao.com/oauth/authorize?response_type=code"
+		            + "&client_id=" + KakaoClientId
+		            + "&redirect_uri=" + KakaoRedirectURI;
+		    return kakaoAuthURL;
+		} else if(user_no!=null) {
+        	service.deleteKakaoCode(dto);
+        }
+        PrintWriter out = response.getWriter();
+        response.setCharacterEncoding("UTF-8");
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<script type='text/javascript'>window.onload = function() {window.close();}</script>");
+        out.println("</head>");
+        out.println("</html>");
+
+        out.flush();
+        out.close();
+		
+		return null;
+	}
+
+	
 }

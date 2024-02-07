@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.dao.ScheduleDao">
 	<select id="theaterList" resultType="TheaterDto">
-		select tt_no,tt_name from
+		select tt_no,tt_name,tt_address from
 		theater
 	</select>
 

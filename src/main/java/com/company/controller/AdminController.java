@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.company.dao.TheaterManageDao;
 import com.company.dto.BrokenSeatDto;
@@ -31,6 +32,7 @@ import com.company.service.AddTheaterService;
 import com.company.service.ReservationService;
 import com.company.service.ReviseTheaterService;
 import com.company.service.TheaterManageService;
+import com.company.service.TheaterMapService;
 import com.google.gson.Gson;
 
 @Controller
@@ -47,6 +49,7 @@ public class AdminController {
 
 	@Autowired
 	TheaterManageService service;
+	
 
 	@GetMapping("/main.admin")
 	public String main() {
@@ -205,8 +208,6 @@ public class AdminController {
 		return "seat_management";
 	}
 
-	
-
 	@RequestMapping(value = "/seat-manage.admin", method = RequestMethod.POST)
 	@ResponseBody
 	public int seatManageAction(Model model, @RequestParam("scr_no") int scr_no, @RequestParam String bkList) {
@@ -234,5 +235,7 @@ public class AdminController {
 
 		return result;
 	}
+	
+	
 
 }
