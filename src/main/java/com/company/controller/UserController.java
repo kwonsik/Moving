@@ -76,7 +76,7 @@ public class UserController {
 	@PostMapping("/sendWeatherGenre.as")
 	public String sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) {
 	    System.out.println("Received weatherGenre: " + weatherGenre);
-	    return "sendWeatherGenre";
+	    return "main";
 	}
 
 	@GetMapping("/reservation_view.ks")
