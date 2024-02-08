@@ -6,7 +6,7 @@
 <script>
 $(document).ready(function(){
 	let isSuccess = "${isSuccess}";
-	console.log("..... 추가 성공 여부 : "+is);
+	//console.log("..... 추가 성공 여부 : "+isSuccess);
 	if ( isSuccess === "1") {
 		alert("새로운 영화관이 추가되었습니다!");
 	}
@@ -14,6 +14,18 @@ $(document).ready(function(){
 		alert("영화관 추가에 실패하였습니다.");
 	} 
 });
+
+$(document).ready(function(){
+	let isSuccess2 = "${isSuccess2}";
+	console.log("..... 수정 성공 여부 : "+isSuccess2);
+	if ( isSuccess2 === "1") {
+		alert("영화관 수정이 성공적으로 완료되었습니다!");
+	}
+	if ( isSuccess2 === "0") {
+		alert("영화관 수정에 실패하였습니다.");
+	} 
+});
+
 </script>
 <!-- 영화관 관리 페이지 -->
 <main id="content">

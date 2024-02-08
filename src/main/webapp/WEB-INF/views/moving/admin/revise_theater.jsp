@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../inc/admin_header.jsp"%>
 
+
 <main id="content">
 	<!-- 영화관 수정 페이지 -->
 	<div id="revise-theater" class="page">

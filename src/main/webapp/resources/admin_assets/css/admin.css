@@ -191,21 +191,21 @@
 	background-color: #386d4c;
 }
 
-#left-arrow {
+#tt-list #left-arrow {
     float: left;
     margin-left: 680px;
 }
 
-#right-arrow {
+#tt-list #right-arrow {
 	margin-right: 700px;
 }
 
-.arrow {
+#tt-list .arrow {
 	font-size: 22px;
 	color: rgb(28, 55, 31);
 }
 
-.arrow:hover {
+#tt-list .arrow:hover {
 	color: rgb(25 35 199);
 }
 
@@ -664,7 +664,7 @@ tbody tr:focus, tbody tr:hover {
 	font-size: 23px;
 	padding: 12px;
 	border-radius: 5px;
-	background-color: #555;
+	background-color: #227dec;
 	color: white;
 	margin-right: 20px;
 }
@@ -688,4 +688,28 @@ tbody tr:focus, tbody tr:hover {
 
 .cm_btns {
 	text-align: right;
+}
+
+#seat .eachSeat .brokenSeat{
+	background-color: #d7d1d1eb;
+}
+
+#blueSeat {
+	width: 15px; height: 15px;
+	background-color: #227dec;
+}
+
+#greySeat {
+	width: 15px; height: 15px;
+	background-color: #d7d1d1eb;
+}
+
+#redSeat {
+	width: 15px; height: 15px;
+	background-color: red;
+}
+
+#lightblueSeat {
+	width: 15px; height: 15px;
+	background-color: lightblue;
 }

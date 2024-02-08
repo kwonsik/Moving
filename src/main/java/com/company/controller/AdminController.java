@@ -113,11 +113,10 @@ public class AdminController {
 
 	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
 	public String addTheater(@ModelAttribute TheaterDto dto, RedirectAttributes redirectAttributes) {
-		// System.out.println("... 추가해주세요");
 		// System.out.println(dto);
 
 		int isSuccess = ATservice.ttAndscrInsert(dto);
-		System.out.println(isSuccess);
+		//System.out.println(isSuccess);
 		redirectAttributes.addFlashAttribute("isSuccess", isSuccess);
 
 		return "redirect:theater-list.admin";
@@ -146,12 +145,15 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/revise-theater.admin", method = RequestMethod.POST)
-	public String reviseTheater(TheaterDto dto, ScreenDto sdto) {
+	public String reviseTheater(TheaterDto dto, ScreenDto sdto, RedirectAttributes redirectAttributes) {
 		// System.out.println("수정 영화관 "+dto);
 		// System.out.println("수정 상영관 "+sdto);
-
-		RTservice.theaterUpdate(dto);
-		RTservice.screenUpdate(sdto);
+		
+		int tt = RTservice.theaterUpdate(dto);
+		int scr = RTservice.screenUpdate(sdto);
+		if(tt==1 && scr==1) {
+			redirectAttributes.addFlashAttribute("isSuccess2", tt);
+		}
 
 		// System.out.println(RTservice.theaterUpdate(dto));
 		// System.out.println(RTservice.screenUpdate(sdto));
@@ -208,6 +210,12 @@ public class AdminController {
 
 		// System.out.println("scr_no 값 : "+scr_no);
 		// System.out.println(service.scrseat(scr_no));
+		/**
+		 * scr_no로 해당 broken_seat 애들 리스트로 다 불러서 
+		 * css background-color 처리 해줌 
+		 * **/
+		model.addAttribute("bkSeatLists", service.bkSeatReadAll(scr_no));
+		
 		model.addAttribute("dto", service.scrseat(scr_no));
 
 		return "seat_management";
