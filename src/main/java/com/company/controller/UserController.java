@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -58,19 +59,9 @@ public class UserController {
 			model.addAttribute("randomMovie", null);
 			model.addAttribute("firstImageUrl", null);
 		}
-		
+
 		model.addAttribute("list", movieList);
-		
-		// sendWeatherGenre 메서드 호출하여 weatherGenreList를 받아옴
-	    ResponseEntity<Object> response = sendWeatherGenre(new WeatherGenre());
-	    if (response.getStatusCode() == HttpStatus.OK) {
-	        @SuppressWarnings("unchecked")
-			List<MovieDto> weatherGenreList = (List<MovieDto>) response.getBody();
-	        model.addAttribute("weatherGenreList", weatherGenreList);
-	    } else {
-	        model.addAttribute("weatherGenreList", null);
-	    }
-		
+
 		return "main";
 	}
 
@@ -85,37 +76,25 @@ public class UserController {
 			return null;
 		}
 	}
-
-	@PostMapping("/sendWeatherGenre.as")
-	@ResponseBody
-	public ResponseEntity<Object> sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) {
-	    try {
-	    	List<MovieDto> weatherGenreList = mv_service.mv_readGenreLive(weatherGenre.getGenres());
-	    	
-	        System.out.println(weatherGenre);
-	        System.out.println(mv_service.mv_readGenreLive(weatherGenre.getGenres()));
-	        System.out.println(mv_service.mv_readGenreLive(weatherGenre.getGenres()).size());
-
-            return ResponseEntity.ok().body(weatherGenreList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error mapping weather.");
-        }
-	}
 	
-	/*
-	 * @RequestMapping(value="/sendWeatherGenre.as", method={RequestMethod.GET,
-	 * RequestMethod.POST})
-	 * 
-	 * @ResponseBody public ResponseEntity<String> sendWeatherGenre(@RequestBody
-	 * WeatherGenre weatherGenre) { try {
-	 * System.out.println(weatherGenre.getGenres());
-	 * 
-	 * return ResponseEntity.ok("weater mapping successfully."); } catch (Exception
-	 * e) { e.printStackTrace(); return
-	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
-	 * body("Error mapping weather."); } }
-	 */
+	@RequestMapping(value="/sendWeatherGenre.as", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public ResponseEntity<List<MovieDto>> sendWeatherGenre(@RequestBody WeatherGenre weatherGenre) { 
+	    try {
+			List<MovieDto> weatherGenreList = mv_service.mv_readGenreLive(weatherGenre.getGenres());
+			
+			Collections.shuffle(weatherGenreList);
+			
+			if (weatherGenreList.size() > 5) {
+	            weatherGenreList = weatherGenreList.subList(0, 5);
+	        }
+			
+	        return ResponseEntity.ok(weatherGenreList);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	    }
+	}
 
 	@GetMapping("/reservation_view.ks")
 	public String reservation_view(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -255,13 +234,14 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "stt.ks",produces = "application/json; charset=utf8", method = RequestMethod.POST )
+	@RequestMapping(value = "stt.ks", produces = "application/json; charset=utf8", method = RequestMethod.POST)
 	@ResponseBody
-	public String stt(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String stt(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		/*
 		 * Gson gson = new Gson(); String json = gson.toJson();
 		 */
-		return service.stt(file,request, response);
+		return service.stt(file, request, response);
 
 	}
 

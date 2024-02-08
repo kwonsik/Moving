@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../inc/admin_header.jsp"%>
 
+
 <main id="content">
 	<!-- 영화관 수정 페이지 -->
 	<div id="revise-theater" class="page">
@@ -38,13 +39,13 @@
 					</div>
 					<div class="list-revise-theater">
 						<p>상영관 가격 ></p>
-						<input type="text" id="scr_price" name="scr_price" value="${sdto.scr_price}">
+						<input type="number" id="scr_price" name="scr_price" value="${sdto.scr_price}">
 					</div>
 				</div>
 
 				<div id="" class="list-revise-theater">
 					<p>전화번호 ></p>
-					<input type="text" id="tt_tel" name="tt_tel" value="${dto.tt_tel}">
+					<input type=text id="tt_tel" name="tt_tel" value="${dto.tt_tel}">
 				</div>
 
 				<div id="" class="list-revise-theater">
@@ -63,10 +64,31 @@
 
 <script>
 	$(document).ready(function() {
-		// '상영관 선택' 셀렉트 박스가 변경될 때 이벤트 발생
+		/* 페이지 로드될 때 제일 첫번째 상영관 정보부터 보여주기 */
+		let firstScrNo = $("select[name='scr_no']").first().val();
+		//console.log(firstScr);
+		$.ajax({
+				url : "screen-info.admin", // 서버에서 정보를 가져올 URL
+				type : "GET",
+				data : {
+					scr_no : firstScrNo
+				}, // 선택한 상영관의 이름을 서버에 전달
+				dataType : "json",
+				success : function(response) {
+					// 서버에서 받은 정보로 값을 업데이트
+					$("#scr_name").val(response.scr_name);
+					$("#scr_price").val(response.scr_price);
+				},
+				error : function() {
+					// 에러 처리
+					console.error("Failed to get screen information");
+				}
+			});
+		
+		/* '상영관 선택' 셀렉트 박스가 변경될 때 이벤트 발생 */
 		$("select[name='scr_no']").change(function() {
 			// 선택한 상영관의 값 
-			var selectedScrNo = $(this).val();
+			let selectedScrNo = $(this).val();
 
 			$.ajax({
 				url : "screen-info.admin", // 서버에서 정보를 가져올 URL
@@ -79,6 +101,7 @@
 					// 서버에서 받은 정보로 값을 업데이트
 					$("#scr_name").val(response.scr_name);
 					$("#scr_price").val(response.scr_price);
+					
 				},
 				error : function() {
 					// 에러 처리

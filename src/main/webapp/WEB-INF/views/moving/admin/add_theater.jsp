@@ -27,7 +27,7 @@
                         </div>
                         <div class="list_src_price">
                             <p><strong class="required">＊</strong>해당 상영관 가격 ></p>
-                            <input type="text" class="scr_price" name="screenList[0].scr_price" placeholder="상영관 가격을 설정해주세요.">
+                            <input type="number" class="scr_price" name="screenList[0].scr_price" placeholder="상영관 가격을 설정해주세요.">
                         </div>
                         <div class="seat_capacity">
                             <p><strong class="required">＊</strong>해당 상영관 수용 좌석 개수 ></p>

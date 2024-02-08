@@ -134,7 +134,8 @@
 .slider-type1 .thumb:focus .btns { 
   opacity: 1;
 }
-.slider-type1 .btns a {
+.slider-type1 .btns a,
+.slider-type1 .btns button {
   width: 80%;
   padding: 6px 0;
   background: rgb(255 255 255 / 20%);
@@ -144,21 +145,21 @@
   text-align: center;
   transition: .4s ease-in-out;
 }
-.slider-type1 .btns a.b1 {
+.slider-type1 .btns .b1 {
   border: 1px solid #fff;
   color: #fff;
 }
-.slider-type1 .btns a.b1:hover,
-.slider-type1 .btns a.b1:focus {   
+.slider-type1 .btns .b1:hover,
+.slider-type1 .btns .b1:focus {   
   background: rgb(255 255 255 / 50%);
 }
-.slider-type1 .btns a.b2 {
+.slider-type1 .btns .b2 {
   margin-top: 8px;
   border: 1px solid #40dfd0;
   color: #40dfd0;
 }
-.slider-type1 .btns a.b2:hover,
-.slider-type1 .btns a.b2:focus {
+.slider-type1 .btns .b2:hover,
+.slider-type1 .btns .b2:focus {
   background: rgb(64 223 208 / 50%);
   color:#fff;
 }
