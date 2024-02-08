@@ -326,6 +326,7 @@ li{list-style-type:none; }
 	width:52px;
 	margin:10px;
 	float:left;
+	margin-right:28px;
 }
 .ih__myUpdatePage .socialIntegration {
     display: inline-block;

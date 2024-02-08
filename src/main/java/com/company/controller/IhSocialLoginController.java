@@ -120,7 +120,6 @@ public class IhSocialLoginController {
 		dto.setUser_naver(responseNode.path("id").asText());
 		
 		UserDto result = service.naverJoin(dto);
-		System.out.println(dto.getUser_naver());
 		
 		//연동한 계정이 있다면
 		if(result!=null) {
@@ -138,11 +137,9 @@ public class IhSocialLoginController {
 		session.setAttribute("user_phone", dto.getUser_phone());
 		session.setAttribute("usertp_name", tdto.getUsertp_name());
 		
-		System.out.println("로그인성공 : 메인으로");
 		return "redirect:/main.ks";
 		} else {
 			rttr.addFlashAttribute("noIntegrationUser", "연동된 계정이 없습니다. 마이페이지에서 계정연동을 진행해주세요");
-			System.out.println("로그인실패 : 로그인페이지로");
 			return "redirect:/loginPage.ih";
 		}
 	}
@@ -156,7 +153,6 @@ public class IhSocialLoginController {
 		
 		request.getSession().setAttribute("state", state);
 		request.getSession().setAttribute("code", code);
-		System.out.println(code);
 		return "redirect:/kakao_redirect.ih?code="+code+"&state="+state;
 	}
 	
@@ -244,22 +240,16 @@ public class IhSocialLoginController {
 		
 		String id = jsonObj.get("id").getAsString();
 		
-		System.out.println("ID: " + id);
-		
 		UserDto dto = new UserDto();
 		
 		dto.setUser_kakao(id);
 		
 		UserDto result = service.kakaoJoin(dto);
 		
-		System.out.println("result: "+result);
-		
 		//연동한 계정이 있다면
 		if(result!=null) {
 		String user_id = result.getUser_id();
 		String user_pass = result.getUser_pass();
-		System.out.println("ID: "+user_id);
-		System.out.println("PASS: "+user_pass);
 		result.setUser_id(user_id);
 		result.setUser_pass(user_pass);
 		IhResultDto loginResult = service.login(result);
@@ -275,15 +265,12 @@ public class IhSocialLoginController {
 		session.setAttribute("user_phone", dto.getUser_phone());
 		session.setAttribute("usertp_name", tdto.getUsertp_name());
 		
-		System.out.println("로그인성공 : 메인으로");
-		
 		return "redirect:/main.ks";
 		
 		}
 		//연동계정이 없다면
 		else {
 			rttr.addFlashAttribute("noIntegrationUser", "연동된 계정이 없습니다. 마이페이지에서 계정연동을 진행해주세요");
-			System.out.println("로그인실패 : 로그인페이지로");
 			
 			return "redirect:/loginPage.ih";
 		}
@@ -411,7 +398,6 @@ public class IhSocialLoginController {
 		    dto.setUser_kakao(user_kakao);
 
 			UserDto result = service.kakaoJoin(dto);
-			System.out.println("result: " + result);
 			if(result==null) {
 				return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao;
 			} else {
@@ -428,7 +414,6 @@ public class IhSocialLoginController {
 		String user_no_r = request.getParameter("user_no");
 		String user_kakao = request.getParameter("user_kakao");
 		UserDto dto = new UserDto();
-		System.out.println(user_no_r);
 		//아직 소셜계정 고유값을 못받았을때 = 로그인 안한상태 
 		if(user_kakao == null) {
 		    String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
@@ -487,7 +472,6 @@ public class IhSocialLoginController {
 	    	service.updateKakaoCode(dto);
 	    	result = "<span style='color:red'>연동끊기</span>";
 	    }else {
-	    	System.out.println("null임");
 	    	result = "<span style='color:#03c75a'>연동하기</span>";
 	    }
 	    out.print(result);
@@ -522,9 +506,7 @@ public class IhSocialLoginController {
 	public String naverLoginResult(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		System.out.println("도착");
 		String user_no_r = request.getParameter("user_no");
-		System.out.println(user_no_r);
 		String user_naver = request.getParameter("user_naver");
 		UserDto dto = new UserDto();
 		
@@ -541,7 +523,6 @@ public class IhSocialLoginController {
 			        + "&client_id=" + NaverClientId
 			        + "&redirect_uri=" + NaverRedirectURI
 			        + "&state=" + NaverState +"&scope=profile_nickname";
-		    System.out.println(naverAuthURL);
 		    return naverAuthURL;
 
 		} else if(user_naver != null) {	// 로그인한 상태
@@ -585,9 +566,6 @@ public class IhSocialLoginController {
 	    
 	    request.getSession().setAttribute("state", state);
 	    request.getSession().setAttribute("code", code);
-	    
-	    System.out.println("코드는"+code);
-	    System.out.println("state는"+state);
 	    
 	    return "redirect:/naverFind.ih?code="+code+"&state="+state;
 	}
@@ -652,10 +630,7 @@ public class IhSocialLoginController {
 		String user_naver = responseNode.path("id").asText();
 		dto.setUser_naver(user_naver);
 		
-		System.out.println("user_naver : "+user_naver);
-		
 		UserDto result = service.naverJoin(dto);
-		System.out.println("result: " + result);
 		if(result==null) {
 			return "redirect:/naverLoginResult.ih?user_naver="+user_naver;
 		} else {
@@ -679,7 +654,6 @@ public class IhSocialLoginController {
 	    	service.updateNaverCode(dto);
 	    	result = "<span style='color:red'>연동끊기</span>";
 	    }else {
-	    	System.out.println("null임");
 	    	result = "<span style='color:#03c75a'>연동하기</span>";
 	    }
 	    out.print(result);
