@@ -109,38 +109,9 @@
 	          </h2>
           </div>
           <div class="movie-list slider-type1">
-			<c:choose>
-				<c:when test="${weatherGenreList.size() > 0}">
-	            <ul>
-				  <c:forEach var="dto" items="${weatherGenreList}" end="4" varStatus="status">
-		              <li>
-		                <div class="item">
-		                  <figure class="thumb__wrap">
-		                  	<div class="thumb">
-			                    <div class="thumb__img">
-			                      <img src="https://image.tmdb.org/t/p/w500${dto.mv_img}" alt="${dto.mv_ktitle} 포스터">
-			                      <span class="target"><i class="age${empty dto.mv_cert || dto.mv_cert eq 'All' ? 'all' : dto.mv_cert}"></i></span>
-			                    </div>
-			                    <div class="btns">
-			                      <a href="movieDetail.as?mv_cd=${dto.mv_cd}" class="b1">영화정보</a>
-			                      <a href="reservation_view.ks?mv_cd=${dto.mv_cd}" class="b2<c:if test="${user_no == null}"> noLoginReservationAccess</c:if>">예매하기</a>
-			                    </div>
-		                    </div>
-			                <figcaption class="info">
-			                  <div class="subj">${dto.mv_ktitle}</div>
-			                </figcaption>
-		                  </figure>
-		                </div>
-		              </li>
-	               </c:forEach>
-	            </ul>
-				</c:when>
-				<c:otherwise>
-					<div class="is-empty">
-						<p>상영중인 영화가 없습니다.</p>
-					</div>
-				</c:otherwise>
-			</c:choose>
+			<div class="is-empty">
+				<p>상영중인 영화가 없습니다.</p>
+			</div>
           </div>
         </div>
 
@@ -159,13 +130,9 @@ $(function(){
 	let noLoginAccessLink = $('.noLoginReservationAccess');
 	if (noLoginAccessLink) {
 	    noLoginAccessLink.on('click', function(e) {
-	        e.preventDefault();
-	        let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
-	        if (userResponse) {
-	            location.href = "loginPage.ih";
-	        }
+	    	sesseionCheck(e);
 	    });
-	}
+	};
 	
 	$("#main-visual_video").YTPlayer({
 		videoURL:"${randomMovie.mv_video}",
@@ -213,50 +180,67 @@ $(function(){
 	      const weatherDesc = data.weather[0].description;
 	      const id = data.weather[0].id;
 	      const idCategory = Math.floor(id / 100);
-	      let recGenre = null;
+	      let recGenre = ["액션", "모험", "애니메이션", "코미디", "가족", "음악"];
 		  let weatherGenre = {weatherId: id, genres: recGenre};
 
 	      if (id === 800) {
 	    	// 800: Clear
 	    	weatherMsg = "햇살 쨍쨍 맑은 "+weatherMsg;
-	    	recGenre = ["액션", "모험", "애니메이션", "코미디"];
+	    	recGenre = ["액션", "모험", "애니메이션", "코미디", "가족", "음악"];
 	      } else if (idCategory === 2) {
 	        // 2xx: Thunderstorm
 	    	weatherMsg = "천둥 치는 "+weatherMsg;
-	    	recGenre = ["범죄", "액션", "공포", "스릴러"];
+	    	recGenre = ["범죄", "액션", "공포", "스릴러", "미스터리", "전쟁"];
 	      } else if (idCategory === 3) {
 	        // 3xx: Drizzle
 	    	weatherMsg = "이슬비 내리는 "+weatherMsg;
-	    	recGenre = ["판타지", "애니메이션", "범죄", "드라마"];
+	    	recGenre = ["판타지", "애니메이션", "범죄", "드라마", "역사", "음악"];
 	      } else if (idCategory === 5) {
 	        // 5xx: Rain
 	    	weatherMsg = "추적추적 비 내리는 "+weatherMsg;
-	    	recGenre = ["공포", "범죄", "스릴러", "미스터리"];
+	    	recGenre = ["공포", "범죄", "스릴러", "미스터리", "액션", "다큐멘터리"];
 	      } else if (idCategory === 6) {
 	        // 6xx: Snow
 	    	weatherMsg = "눈 내리는 "+weatherMsg;
-	    	recGenre = ["애니메이션", "드라마", "로맨스", "음악"];
+	    	recGenre = ["애니메이션", "드라마", "로맨스", "음악", "판타지", "다큐멘터리"];
 	      } else if (idCategory === 7) {
 	        // 7xx: Atmosphere
 	    	weatherMsg = "뿌연 안개 낀 "+weatherMsg;
-	    	recGenre = ["미스터리", "판타지", "역사", "SF"];
+	    	recGenre = ["미스터리", "판타지", "역사", "SF", "TV 영화", "서부"];
 	      } else if (idCategory === 8) {
 	        // 8xx: Clouds
 	    	weatherMsg = "구름 많은 "+weatherMsg;
-	    	recGenre = ["스릴러", "미스터리", "범죄", "역사"];
+	    	recGenre = ["스릴러", "미스터리", "범죄", "역사", "SF", "음악"];
 	      }
 
 	      weatherGenre.genres = recGenre;
-	      console.log(JSON.stringify(weatherGenre));
 
 	      $.ajax({
             type: "POST",
             contentType: "application/json",
             url: "${pageContext.request.contextPath}/sendWeatherGenre.as",
             data: JSON.stringify(weatherGenre),
+            dataType: "json",
             success: function(data) {
-           	  //성공
-              console.log(data);
+            	let container = $('.as_weather .movie-list');
+            	
+            	container.empty();
+		        if (data.length > 0) {
+		            let movieListHtml = '<ul>';
+		            $.each(data, function(index, dto) {
+		                movieListHtml += '<li><div class="item"><figure class="thumb__wrap"><div class="thumb"><div class="thumb__img">';
+		                movieListHtml += '<img src="https://image.tmdb.org/t/p/w500' + dto.mv_img + '" alt="' + dto.mv_ktitle + ' 포스터">';
+		                movieListHtml += '<span class="target"><i class="age' + (dto.mv_cert == null || dto.mv_cert == 'All' ? 'all' : dto.mv_cert) + '"></i></span></div>';
+		                movieListHtml += '<div class="btns"><a href="movieDetail.as?mv_cd=' + dto.mv_cd + '" class="b1">영화정보</a>';
+		                movieListHtml += '<button type="button" onclick="weaterSessionCheck(this);" data-mvID="' + dto.mv_cd + '" class="b2 as_weather_btn--reservation">예매하기</a></div></div>';
+		                movieListHtml += '<figcaption class="info"><div class="subj">' + dto.mv_ktitle + '</div></figcaption></figure></div></li>';
+		            });
+		            movieListHtml += '</ul>';
+		            
+		            container.html(movieListHtml);
+		        } else {
+		        	container.html('<div class="is-empty"><p>상영중인 영화가 없습니다.</p></div>');
+		        }
             },
             error: function(xhr, status, error) {
               console.error("Failed to send weather data to server:", error);
@@ -285,8 +269,6 @@ $(function(){
 	 let audioRecorder;
 
      function recordStart() {
-
-
          // getUserMedia로 오디오 스트림(나의 음성) 가져오기
          navigator.mediaDevices.getUserMedia({ audio: true })
              .then(function (stream) {
@@ -304,24 +286,16 @@ $(function(){
 
                  // 녹음 시작
                  audioRecorder.startRecording();
-
              })
              .catch(function (error) {
                  console.error('getUserMedia error:', error);
              });
-
      }
 
      function recordStop() {
-   	  
-
-   
          audioRecorder.stopRecording(function () {
-      
              let audioBlob = audioRecorder.getBlob();
-     	
              let file=new File([audioBlob], "file", {type: audioBlob.type});
-
              const formData = new FormData();
 			  formData.append('file', file);
              $
@@ -337,8 +311,6 @@ $(function(){
 					success : function(data) {
 						console.log(data);
 						let result = data.return_object.recognized;
-						
-
 						if (result.includes("예매")) {
 							if(${user_no!=null}){location.href='reservation_view.ks';}
 							else{
@@ -364,12 +336,6 @@ $(function(){
 						else {
 							alert("다시 말해주세요");
 						}
-						
-
-						
-
-						
-
 					},
 					error : function(request, status, error) {
 						console.log("code: " + request.status)
@@ -377,14 +343,8 @@ $(function(){
 						console.log("error: " + error);
 					}
 				});
-             
-             
-             
          });
-        
      }
-	
-	
 	
 	// 음성인식
 	$(".mic").on("click", function() {
@@ -444,6 +404,27 @@ $(function(){
 		*/
 	});
 });
+
+function sesseionCheck(e){
+    e.preventDefault();
+    let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+    if (userResponse) {
+        location.href = "loginPage.ih";
+    }
+}
+
+function weaterSessionCheck(e){
+	const userId = "<%=(String)session.getAttribute("user_id")%>";
+	const mvId = $(e).attr('data-mvID');
+	if(userId == "null") {
+		let userResponse = confirm('로그인이 필요한 페이지입니다. 로그인하시겠습니까?');
+	    if (userResponse) {
+	        location.href = "loginPage.ih";
+	    }
+	} else {
+		location.href="reservation_view.ks?mv_cd=" + mvId;
+	}
+}
 </script>
     
 <%@ include  file="../../inc/footer.jsp" %>
