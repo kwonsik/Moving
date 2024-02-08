@@ -147,9 +147,18 @@
         update user set user_kakao=#{user_kakao} where user_id=#{user_id}
     </update>
     
-    <!-- 22. 마이페이지 입장시 카카오 게정이 null인지 확인 -->
+    <!-- 22. 마이페이지 입장시 소셜 게정이 null인지 확인 -->
     <select id="confirmKakaoIntegration" parameterType="UserDto" resultType="UserDto">
     	select*from user where user_id=#{user_id} 
     </select>
     
+        <!-- 20. 네이버코드가있는 계정은 네이버 코드를 삭제 = 연동끊기 -->
+    <update id="deleteNaverCode" parameterType="UserDto" >
+        update user set user_naver=null where user_naver=#{user_naver}
+    </update>
+    
+    <!-- 21. 카카오코드가있는 계정은 카카오 코드를 삽입 = 연동하기 -->
+    <update id="updateNaverCode" parameterType="UserDto" >
+        update user set user_naver=#{user_naver} where user_id=#{user_id}
+    </update>
 </mapper>

@@ -151,4 +151,13 @@ public class IhServiceImple implements IhService{
 	public UserDto confirmKakaoIntegration(UserDto dto) {
 		return dao.confirmKakaoIntegration(dto);
 	}
+	
+	//23.네이버 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteNaverCode(UserDto dto) {
+		return dao.deleteNaverCode(dto);
+	}
+	//24. 네이버 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateNaverCode(UserDto dto) {
+		return dao.updateNaverCode(dto);
+	}
 }

@@ -69,7 +69,7 @@
 					<button onclick="naverPopup()">
 						<img alt="네이버 연동" src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png">
 							<span>네이버</span>
-							<span class="naverIntegrationResult"></span>
+							<p id="naverIntegrationResult"></p>
 					</button>
 					</li>
 				</ul>			
@@ -89,8 +89,10 @@
 				<input type="submit" class="btn btn-primary" value="정보수정" />
 			</div>
 	</form>	
-	<div id="receivedData"></div>
-	<input Type="text" id="kakaoCodeField" value = ""/>
+<!-- 	<div id="receivedData"></div>  -->
+<!--	<div id="receivedDataNaver"></div> -->
+	<input class="blind" Type="text" id="kakaoCodeField" value = ""/>
+	<input class="blind" Type="text" id="naverCodeField" value = ""/>
 <!-- 탈퇴신청을안한 회원 -->
 <c:if test="${dto.usertp_no != '4'}">
     <form action="myDelete.ih?user_id=${dto.user_id}" method="GET">
@@ -109,7 +111,7 @@
 
 <script>
 function kakaoPopup() {event.preventDefault(); window.open('kakaoLoginResult.ih', 'kakao', 'width=600,height=400,left=200,top=200'); }
-function naverPopup() {event.preventDefault(); window.open('prepareLogin.ih', 'naver', 'width=600,height=400,left=200,top=200'); }
+function naverPopup() {event.preventDefault(); window.open('naverLoginResult.ih', 'naver', 'width=600,height=400,left=200,top=200'); }
 function receiveKakaoCode(userKakao) {
     console.log("Received kakao code: " + userKakao);
     document.getElementById("kakaoCodeField").value = userKakao;
@@ -128,9 +130,33 @@ function receiveKakaoCode(userKakao) {
         error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
     });
 }
+function receiveNaverCode(userNaver) {
+    console.log("Received naver code: " + userNaver);
+    document.getElementById("naverCodeField").value = userNaver;
+    $.ajax({
+        url: "updateNaverCode.ih",
+        type: "GET",
+        dataType: "text",
+        data: { "id": $("#id").val(),
+        		"user_naver": $("#naverCodeField").val()
+        	},
+        success: function(data) {
+        	console.log("업데이트!");
+        		$("#naverIntegrationResult").html(data);
+        		$("#naverCodeField").html();
+        	},
+        error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
+    });
+}
+
+
+
+
+
+
+
 $(document).ready(function() {
 	// 마이페이지 입장시 카카오 연동여부 검사
-	console.log("AJAX");
     $.ajax({
         url: "confirmKakaoIntegration.ih",
         type: "POST",
@@ -138,8 +164,19 @@ $(document).ready(function() {
         data: { "id": $("#id").val() }, 
         success: function(data) {
         	console.log("delete!");
-        	$("#kakaoIntegrationResult").html(data); 
-        	
+        	$("#kakaoIntegrationResult").html(data);
+        	},
+        error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
+    });
+	// 마이페이지 입장시 네이버 연동여부 검사
+    $.ajax({
+        url: "confirmNaverIntegration.ih",
+        type: "POST",
+        dataType: "text",
+        data: { "id": $("#id").val() }, 
+        success: function(data) {
+        	console.log("delete!");
+        	$("#naverIntegrationResult").html(data);
         	},
         error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
     });
