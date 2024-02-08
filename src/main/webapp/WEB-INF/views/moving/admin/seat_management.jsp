@@ -42,6 +42,7 @@
 		$("#seat label").on("click", function(){
 			//console.log($(this).closest('div').find('input'));
 			let checkbox = $(this).closest('div').find('input');
+			//let seatValue = checkbox.closest('.eachSeat').find('input').attr("data-bkSeat");
 			
 			<!-- 클릭한 label과 연결된 가장 가까운 div 요소 찾고, 그 안의 input 요소 checked 속성을 토글시킴 -->
 			checkbox.prop('checked', function(i, currentValue) {
@@ -52,7 +53,7 @@
 			<!-- 체크된 좌석 class='check' 넣고 그 class만 버튼 색깔 변경 -->
 			if (checkbox.prop('checked')==true) {
 				$(this).addClass('check');
-	
+				//bkList.push(seatValue);
 				bkList = bkList.concat($(this).closest('.eachSeat').find('input').attr("data-bkSeat"));
 				console.log("bkList: "+bkList);
 			} 

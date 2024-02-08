@@ -191,21 +191,21 @@
 	background-color: #386d4c;
 }
 
-#left-arrow {
+#tt-list #left-arrow {
     float: left;
     margin-left: 680px;
 }
 
-#right-arrow {
+#tt-list #right-arrow {
 	margin-right: 700px;
 }
 
-.arrow {
+#tt-list .arrow {
 	font-size: 22px;
 	color: rgb(28, 55, 31);
 }
 
-.arrow:hover {
+#tt-list .arrow:hover {
 	color: rgb(25 35 199);
 }
 

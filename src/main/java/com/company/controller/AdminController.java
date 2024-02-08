@@ -113,11 +113,10 @@ public class AdminController {
 
 	@RequestMapping(value = "/add-theater.admin", method = RequestMethod.POST)
 	public String addTheater(@ModelAttribute TheaterDto dto, RedirectAttributes redirectAttributes) {
-		// System.out.println("... 추가해주세요");
 		// System.out.println(dto);
 
 		int isSuccess = ATservice.ttAndscrInsert(dto);
-		System.out.println(isSuccess);
+		//System.out.println(isSuccess);
 		redirectAttributes.addFlashAttribute("isSuccess", isSuccess);
 
 		return "redirect:theater-list.admin";
@@ -146,12 +145,15 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/revise-theater.admin", method = RequestMethod.POST)
-	public String reviseTheater(TheaterDto dto, ScreenDto sdto) {
+	public String reviseTheater(TheaterDto dto, ScreenDto sdto, RedirectAttributes redirectAttributes) {
 		// System.out.println("수정 영화관 "+dto);
 		// System.out.println("수정 상영관 "+sdto);
-
-		RTservice.theaterUpdate(dto);
-		RTservice.screenUpdate(sdto);
+		
+		int tt = RTservice.theaterUpdate(dto);
+		int scr = RTservice.screenUpdate(sdto);
+		if(tt==1 && scr==1) {
+			redirectAttributes.addFlashAttribute("isSuccess2", tt);
+		}
 
 		// System.out.println(RTservice.theaterUpdate(dto));
 		// System.out.println(RTservice.screenUpdate(sdto));
