@@ -35,7 +35,7 @@ public class GeminiController {
 	@RequestMapping(value = "/getGeminiResponse.admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public String getGeminiResponse(String prompt) throws IOException {
-		System.out.println("..... 제미니 도착");
+		//System.out.println("..... 제미니 도착");
 
 		// 클래스패스 상의 리소스를 로드
 		String result = "";
@@ -61,7 +61,7 @@ public class GeminiController {
 	@ResponseBody
 	public Map<String, Object> addShowTime(@RequestBody String param)
 			throws JsonParseException, JsonMappingException, IOException {
-		System.out.println(".... add 도착 ");
+		//System.out.println(".... add 도착 ");
 		ObjectMapper objectMapper = new ObjectMapper();
 		GeminiIntent gemini = objectMapper.readValue(param, GeminiIntent.class);
 
@@ -72,7 +72,7 @@ public class GeminiController {
 	@ResponseBody
 	public Map<String, Object> deleteShowTime(@RequestBody String param)
 			throws JsonParseException, JsonMappingException, IOException {
-		System.out.println(".... delete 도착 ");
+		//System.out.println(".... delete 도착 ");
 		ObjectMapper objectMapper = new ObjectMapper();
 		GeminiIntent gemini = objectMapper.readValue(param, GeminiIntent.class);
 
