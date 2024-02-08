@@ -210,6 +210,12 @@ public class AdminController {
 
 		// System.out.println("scr_no 값 : "+scr_no);
 		// System.out.println(service.scrseat(scr_no));
+		/**
+		 * scr_no로 해당 broken_seat 애들 리스트로 다 불러서 
+		 * css background-color 처리 해줌 
+		 * **/
+		model.addAttribute("bkSeatLists", service.bkSeatReadAll(scr_no));
+		
 		model.addAttribute("dto", service.scrseat(scr_no));
 
 		return "seat_management";

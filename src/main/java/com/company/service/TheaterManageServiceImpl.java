@@ -86,6 +86,22 @@ public class TheaterManageServiceImpl implements TheaterManageService {
 		return dto.getBkStList();
 	}
 	
+	@Override
+	public List<BrokenSeatDto> bkSeatRead(int scr_no){
+		return dao.bkSeatRead(scr_no);
+	}
+	
+	@Override
+	public List<String> bkSeatReadAll(int scr_no){
+		List<String> bkSeatLists = new ArrayList<>();
+		List<BrokenSeatDto> bkSeat = bkSeatRead(scr_no);
+		for(int i=0; i<bkSeat.size(); i++) {
+			bkSeatLists.add(bkSeat.get(i).getBk_st_name());
+		}
+		
+		return bkSeatLists;
+	}
+	
 	
 	
 

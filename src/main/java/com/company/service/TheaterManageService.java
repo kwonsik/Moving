@@ -21,4 +21,8 @@ public interface TheaterManageService {
 	public int bkSeatInsert(BrokenSeatDto dto);
 	
 	public List<String> bkSeatReadAction(int scr_no);
+	
+	public List<BrokenSeatDto> bkSeatRead(int scr_no);
+	
+	public List<String> bkSeatReadAll(int scr_no);
 }
