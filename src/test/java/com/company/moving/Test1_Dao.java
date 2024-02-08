@@ -28,8 +28,8 @@ public class Test1_Dao {
 		UserDto dto = new UserDto();
 		
 		
-		dto.setUser_id("123");
-		System.out.println(ihdao.confirmKakaoIntegration(dto));
+		dto.setUser_id("123"); dto.setUser_kakao("333");
+		System.out.println(ihdao.updateKakaoCode(dto));
 		
 //		dto.setUser_kakao("3327423296");
 //		System.out.println(ihdao.deleteKakaoCode(dto));

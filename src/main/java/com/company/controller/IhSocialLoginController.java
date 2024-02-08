@@ -41,7 +41,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -305,7 +307,31 @@ public class IhSocialLoginController {
 	}
 	
 //////////////////////////////////////  연동  /////////////////////////////////////////////////
+	
+	// 마이페이지 입장시 카카오 연동여부 검사
+	@PostMapping("/confirmKakaoIntegration.ih")
+	public void confirmKakaoIntegration(@RequestParam("id") String user_id, HttpServletResponse response, UserDto dto, HttpServletRequest request) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+	    dto.setUser_id(user_id);
+	    System.out.println("user_id : "+user_id);
+	    UserDto kakaoStatus = service.confirmKakaoIntegration(dto);
+	    String kakao = kakaoStatus.getUser_kakao();
+	    System.out.println("kakaoStatus : "+kakaoStatus);
+	    System.out.println("kakao : "+kakao);
+	    String result;
+	    if (kakao==null||kakao.equals("")) {
+	    	result = "<span style='color:#03c75a'>연동하기</span>";
+	    	out.print(result);
+	    } else {
+	    	result = "<span style='color:red'>연동끊기</span>";
+	    	out.print(result);
+	    }
 
+	    out.flush();
+	    out.close();
+	}
 	
 	//5. 카카오한테 코드요청
 	@RequestMapping("/kakaoIntegration.ih")
@@ -316,8 +342,6 @@ public class IhSocialLoginController {
 	    request.getSession().setAttribute("state", state);
 	    request.getSession().setAttribute("code", code);
 	    
-	    System.out.println("넘길 코드는 : "+code);
-	    System.out.println("넘길 state : "+state);
 	    return "redirect:/kakaoFind.ih?code="+code+"&state="+state;
 	}
 	
@@ -328,7 +352,7 @@ public class IhSocialLoginController {
 	      response.setContentType("text/html; charset=UTF-8");
 	      String code = request.getParameter("code");
 
-		    System.out.println("받은 코드는 : "+code);
+		  System.out.println("받은 코드는 : "+code);
 		    
 	      // 2. 토큰받기
 	      String client_id = "3d769a0fec3ae6e8966e62f3a2e7456b";
@@ -369,7 +393,7 @@ public class IhSocialLoginController {
 	      }
 
 	      // System.out.println("step2)" + resultToken);
-	      // json
+	      
 	      JsonParser parser = new JsonParser();
 	      JsonObject job = (JsonObject) parser.parse(resultToken);
 	      String token = job.get("access_token").getAsString();
@@ -413,15 +437,9 @@ public class IhSocialLoginController {
 			UserDto result = service.kakaoJoin(dto);
 			System.out.println("result: " + result);
 			if(result==null) {
-				System.out.println("연동안된상태");
 				return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao;
 			} else {
-				System.out.println("연동된상태");
-			System.out.println("ID: " + user_kakao);
-			System.out.println("NO: " + result.getUser_no());
-			
-			return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao+"&user_no="+result.getUser_no();
-			
+				return "redirect:/kakaoLoginResult.ih?user_kakao="+user_kakao+"&user_no="+result.getUser_no();
 			}
 			
 		}
@@ -445,29 +463,22 @@ public class IhSocialLoginController {
 		            + "&client_id=" + KakaoClientId
 		            + "&redirect_uri=" + KakaoRedirectURI;
 		    return kakaoAuthURL;
-		    
+
 		} else if(user_kakao != null) {	// 로그인한 상태
 			
-			if(user_no_r==null) {		//연동안한 상태면 메인페이지로 전달하고 창끔
-//				int user_no = Integer.parseInt(user_no_r);
-//				dto.setUser_no(user_no);
-//				dto.setUser_kakao(user_kakao);
-//				System.out.println("카카오 고유값을 user_no 행찾아서 삽입");
-//				service.updateKakaoCode(dto);		
+			if(user_no_r==null) {		//연동안한 상태면 메인페이지로 전달하고 창끔		
 				System.out.println("메인페이지로 user_kakao 전달하고 창닫기");
 				System.out.println("user_kakao:"+user_kakao);
 				out.println("<!DOCTYPE html>");
 				out.println("<html>");
 				out.println("<head>");
-				System.out.println("1");
 				out.println("<script type='text/javascript'>window.onload = function() { window.opener.receiveKakaoCode('" + user_kakao + "');  window.close();}</script>");
-				System.out.println("2");
 				out.println("</head>");
 				out.println("</html>");
 				out.flush();
 				out.close();
-				System.out.println("3");
-			}else if(user_no_r!=null) { //연동한 상태면 삭제
+			}
+			else if(user_no_r!=null) { //연동한 상태면 삭제
 				dto.setUser_kakao(user_kakao);
 				System.out.println("카카오 고유값 삭제하고 창닫기");
 				service.deleteKakaoCode(dto);
@@ -475,39 +486,40 @@ public class IhSocialLoginController {
 				out.println("<!DOCTYPE html>");
 				out.println("<html>");
 				out.println("<head>");
-				out.println("<script type='text/javascript'>window.onload = function() {window.close();}</script>");
+				out.println("<script type='text/javascript'>window.onload = function() { window.opener.receiveKakaoCode('');  window.close();}</script>");
 				out.println("</head>");
 				out.println("</html>");
 				
 				out.flush();
 				out.close();
+				
 			}
         	
         }
-		System.out.println("4");
 		return null;
 	}
+
 	
-	// 마이페이지 입장시 카카오 연동여부 검사
-	@PostMapping("/confirmKakaoIntegration.ih")
-	public void confirmKakaoIntegration(@RequestParam("id") String user_id, HttpServletResponse response, UserDto dto, HttpServletRequest request) throws IOException {
+	// 연동버튼 클릭시 받아온 user_kakao 값이 있는지 확인하고 있다면 삽입한다.
+	@RequestMapping(value="/updateKakaoCode.ih", method=RequestMethod.GET)
+	public void updateKakaoCode(HttpServletResponse response, UserDto dto, HttpServletRequest request) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-	    dto.setUser_id(user_id);
-	    System.out.println("user_id : "+user_id);
-	    UserDto kakaoStatus = service.confirmKakaoIntegration(dto);
-	    String kakao = kakaoStatus.getUser_kakao();
-	    System.out.println("kakaoStatus : "+kakaoStatus);
-	    System.out.println("kakao : " + kakao);
-	    String result;
-	    if (kakao.equals(null)||kakao.equals("")) {
-	    	result = "<span style='color:#03c75a'>연동하기</span>";
-	    } else {
+		String result;
+		String user_id=request.getParameter("id");
+		String user_kakao=request.getParameter("user_kakao");
+		
+		dto.setUser_id(user_id);
+		dto.setUser_kakao(user_kakao);
+	    
+	    if( !user_kakao.equals("")) {
+	    	service.updateKakaoCode(dto);
 	    	result = "<span style='color:red'>연동끊기</span>";
+	    }else {
+	    	System.out.println("null임");
+	    	result = "<span style='color:#03c75a'>연동하기</span>";
 	    }
-
-	    System.out.println("result : " + result);
 	    out.print(result);
 	    out.flush();
 	    out.close();
