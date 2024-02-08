@@ -7,7 +7,7 @@
 <form action="myUpdateGo.ih" method="post" class="update" id="update">
 	<div class="title"> <h2>회원정보</h2> </div>
 		<fieldset>
-			<div class="form-class">	
+			<div class="form-class">
 				<label for="id" >아이디</label> 
 				<input type="text" id="id" name="id" value="${dto.user_id}" readonly />
 			</div>
@@ -113,6 +113,20 @@ function naverPopup() {event.preventDefault(); window.open('prepareLogin.ih', 'n
 function receiveKakaoCode(userKakao) {
     console.log("Received kakao code: " + userKakao);
     document.getElementById("kakaoCodeField").value = userKakao;
+    $.ajax({
+        url: "updateKakaoCode.ih",
+        type: "GET",
+        dataType: "text",
+        data: { "id": $("#id").val(),
+        		"user_kakao": $("#kakaoCodeField").val()
+        	},
+        success: function(data) {
+        	console.log("업데이트!");
+        		$("#kakaoIntegrationResult").html(data);
+        		$("#kakaoCodeField").html();
+        	},
+        error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
+    });
 }
 $(document).ready(function() {
 	// 마이페이지 입장시 카카오 연동여부 검사
@@ -123,8 +137,9 @@ $(document).ready(function() {
         dataType: "text",
         data: { "id": $("#id").val() }, 
         success: function(data) {
-        	console.log("success");
+        	console.log("delete!");
         	$("#kakaoIntegrationResult").html(data); 
+        	
         	},
         error: function(xhr, status, error) { console.error("Error: " + status + " - " + error); }
     });

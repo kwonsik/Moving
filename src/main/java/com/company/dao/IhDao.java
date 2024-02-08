@@ -46,9 +46,9 @@ public interface IhDao {
 	//② 사용자가 탈퇴시도하면 4등급 24시간유지
 	public int preDeleteUser (UserDto dto);
 	//  24시간후 탈퇴처리
-		public int myDeleteUser();
+	  public int myDeleteUser();
 	//  탈퇴취소
-		public int myDeleteUserCancle(UserDto dto);
+	  public int myDeleteUserCancle(UserDto dto);
 		
 	//⑭아이디 중복체크
 	public int idCheck (UserDto dto);
