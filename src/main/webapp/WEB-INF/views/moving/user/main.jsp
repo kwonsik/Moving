@@ -105,12 +105,12 @@
           <div class="as_weater__header">
 	          <h2 class="as_weather__title">
 	             <i class="as_weather__icon"></i>
-				 <span class="as_weather__msg">오늘, 이런 영화 어때요?</span>
+				 <span class="as_weather__msg"><span>🎞</span>오늘, 이런 영화 어때요?<span class='is-unknown'>(날씨 권한 허용 시, 날씨에 따른 장르가 추천됩니다!)</span></span>
 	          </h2>
           </div>
           <div class="movie-list slider-type1">
 			<div class="is-empty">
-				<p>상영중인 영화가 없습니다.</p>
+				<p>날씨 권한이 없습니다.</p>
 			</div>
           </div>
         </div>
@@ -259,6 +259,7 @@ $(function(){
 	}
 	
 	function onGeoError() {
+		$(".as_weather__icon, .as_weather .is-unknown").remove();
 		$(".as_weather__icon").append(weather);
 		$(".as_weather__title").append("<span class='is-unknown'>(날씨 권한 허용 시, 날씨에 따른 장르가 추천됩니다!)</span>")
 	}
