@@ -26,21 +26,21 @@
 					</p>
 				</c:forEach>
 				
-				<div>
+				<div class="seatColorInfo" >
 					<p id="blueSeat"></p> 
 					<p>사용 가능한 좌석</p>
 				</div>
-				<div>
+				<div class="seatColorInfo">
 					<p id="greySeat"></p> 
 					<p>보류중인 좌석</p>
 				</div>
-				<div>
+				<div class="seatColorInfo" >
 					<p id="redSeat"></p> 
 					<p>보류 좌석으로 선택할 좌석</p>
 				</div>
-				<div>
+				<div class="seatColorInfo" >
 					<p id="lightblueSeat"></p> 
-					<p>사용가능하게 할 좌석</p>
+					<p>사용 가능으로 선택할 좌석</p>
 				</div>
 			</div>
 
@@ -66,15 +66,15 @@
 		    if (bkSeatLists.includes(seatValue)) {
 	            // 일치하는 경우의 동작 수행
 	            $(this).next('label').addClass('brokenSeat'); 
-	        }
-		   
+	        }   
 		});
 		
     	let bkList = [];
-
+		/* 보류좌석으로 변경 */
 		$("#seat label").on("click", function(){
 			//console.log($(this).closest('div').find('input'));
 			let checkbox = $(this).closest('div').find('input');
+			//console.log(checkbox);
 			let index = bkList.indexOf($(this).closest('.eachSeat').find('input').attr("data-bkSeat"));
 			
 			<!-- 클릭한 label과 연결된 가장 가까운 div 요소 찾고, 그 안의 input 요소 checked 속성을 토글시킴 -->
@@ -101,7 +101,9 @@
 			}
 			//console.log("Checkbox checked status: " + checkbox.prop('checked'));  //Checkbox checked status: true/false	
 		}); 
-
+		
+				
+		
 		
 		/* 좌석수정 처리 */
 		scrNo = $("#seat p").data("scr_no");

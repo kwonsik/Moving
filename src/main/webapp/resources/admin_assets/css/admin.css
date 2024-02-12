@@ -694,9 +694,11 @@ tbody tr:focus, tbody tr:hover {
 	background-color: #d7d1d1eb;
 }
 
+
 #blueSeat {
 	width: 15px; height: 15px;
 	background-color: #227dec;
+	margin-top: 80px;
 }
 
 #greySeat {
