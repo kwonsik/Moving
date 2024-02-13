@@ -45,6 +45,7 @@ public class GeminiController {
 		Resource resource = resourceLoader.getResource("classpath:config/gemini-schedule-mapper.json");
 		String jsonFilePath = resource.getFile().getPath();
 		result = aiApiService.generateContent(prompt, jsonFilePath);
+		System.out.println(result);
 
 		if (result.contains("실패") || result.contains("오류")) {
 			// Gemini api 오류시 Gpt api 이용하여 서비스 대체
