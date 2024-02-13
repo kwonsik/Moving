@@ -7,7 +7,7 @@
       <h2 class="blind">메인 컨텐츠</h2>
       <div id="container" class="container">
 <div class="ih__joinForm">
-	<form action="submitJoinFrom.ih" method="post" id="join" class="join">
+	<form action="submitJoinForm.ih" method="post" id="join" class="join">
 		<div class="title">
 			<h2>회원가입</h2>
 		</div>

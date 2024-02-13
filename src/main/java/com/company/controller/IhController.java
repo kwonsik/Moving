@@ -11,7 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -20,9 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,50 +32,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.company.dto.IhResultDto;
 import com.company.dto.UserDto;
 import com.company.dto.UserDtoXml;
 import com.company.dto.UsertypeDto;
 import com.company.service.IhService;
 
-
 @Controller
 public class IhController {
     @Autowired IhService service;
     
-    // 인덱스페이지로
-	@RequestMapping(value="/index.ih" , method=RequestMethod.GET)
-	public String indexPage(HttpSession session, Model model) {
-	    String user_id = (String) session.getAttribute("user_id");
-		model.addAttribute("user_id", user_id);
-		return "ih_index";
-	}
-	
-    // TEST ) 결과페이지로
-	@RequestMapping(value="/result.ih", method=RequestMethod.GET)
-	public String result(HttpSession session, Model model) {
-		
-		String user_id = (String) session.getAttribute("user_id");		//정보
-		int user_no = (Integer) session.getAttribute("user_no");
-		String user_nick = (String) session.getAttribute("user_nick");
-		String user_age = (String) session.getAttribute("user_age");
-		String user_mail = (String) session.getAttribute("user_mail");
-		String user_phone = (String) session.getAttribute("user_phone");
-		String usertp_name = (String) session.getAttribute("usertp_name");
-		
-		model.addAttribute("user_id", user_id);			//뷰
-		model.addAttribute("user_no", user_no);
-		model.addAttribute("user_nick", user_nick);
-		model.addAttribute("user_age", user_age);
-		model.addAttribute("user_mail", user_mail);
-		model.addAttribute("user_phone", user_phone);
-		model.addAttribute("usertp_name", usertp_name);
-
-		
-		return "test_resultPage";
-
-	}
 ////////////////////////  회원가입페이지  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// 회원가입페이지로
@@ -81,43 +49,56 @@ public class IhController {
 	public String joinForm() {  return "ih_joinForm"; }
 	
 	//회원가입페이지에서 submit버튼누르면
-	@RequestMapping(value="/submitJoinFrom.ih", method=RequestMethod.POST)
-	public String login(HttpServletResponse response, HttpServletRequest request, UserDto dto,RedirectAttributes rttr) throws IOException, ParseException {
-		response.setContentType("text/html; charset=UTF-8");
-	    String id = request.getParameter("id");
-	    String name = request.getParameter("name");
-	    String password = request.getParameter("password");
-	    String nickname = request.getParameter("nickname");
-	    String email = request.getParameter("email");
-	    String phonenumber = request.getParameter("phonenumber");
-	    String IP = Inet4Address.getLocalHost().getHostAddress();
-
-	    String getage = request.getParameter("age");
-        SimpleDateFormat inputType = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat tableType = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = inputType.parse(getage);
-        String tableTypeAge = tableType.format(date);
-        
-	    dto.setUser_id(id);
-	    dto.setUser_name(name);
-	    dto.setUser_pass(password);
-	    dto.setUser_nick(nickname);
-	    dto.setUser_mail(email);
-	    dto.setUser_phone(phonenumber);
-	    dto.setUser_age(tableTypeAge);
-	    dto.setUser_ip(IP);
-	    
-	    int result = service.join(dto);
-	    if (result == 1) {
-	    	rttr.addFlashAttribute("joinSuccess", "회원가입을 축하합니다.");
-	    	return "redirect:/loginPage.ih";
-	    } else {
-	        System.out.println("가입실패");
-	        rttr.addFlashAttribute("joinFail", "관리자에게 문의해주세요.");
-	        return "redirect:/joinForm.ih";
-	    }
-	}
+	//회원가입하기
+		@RequestMapping(value="/submitJoinForm.ih", method=RequestMethod.POST)
+		public String login(HttpServletResponse response, HttpServletRequest request, RedirectAttributes rttr) throws IOException, ParseException {
+		    response.setContentType("text/html; charset=UTF-8");
+		    System.out.println("...........");
+		    // Map으로 데이터 받기
+		    Map<String, String> paramMap = new HashMap<>();
+		    paramMap.put("id", request.getParameter("id"));
+		    paramMap.put("name", request.getParameter("name"));
+		    paramMap.put("password", request.getParameter("password"));
+		    paramMap.put("nickname", request.getParameter("nickname"));
+		    paramMap.put("email", request.getParameter("email"));
+		    paramMap.put("phonenumber", request.getParameter("phonenumber"));
+		    paramMap.put("IP", Inet4Address.getLocalHost().getHostAddress());
+		    paramMap.put("age", request.getParameter("age"));
+		    
+		    // 나이 형식 변환
+		    SimpleDateFormat inputType = new SimpleDateFormat("yyyyMMdd");
+		    SimpleDateFormat tableType = new SimpleDateFormat("yyyy-MM-dd");
+		    Date date = inputType.parse(paramMap.get("age"));
+		    String tableTypeAge = tableType.format(date);
+		    paramMap.put("age", tableTypeAge);
+		    
+		    // 비밀번호 해싱
+		    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		    String hashedPassword = passwordEncoder.encode(paramMap.get("password"));
+		    paramMap.put("password", hashedPassword);
+		    
+		    // DTO 설정
+		    UserDto dto = new UserDto();
+		    dto.setUser_id(paramMap.get("id"));
+		    dto.setUser_name(paramMap.get("name"));
+		    dto.setUser_pass(paramMap.get("password"));
+		    dto.setUser_nick(paramMap.get("nickname"));
+		    dto.setUser_mail(paramMap.get("email"));
+		    dto.setUser_phone(paramMap.get("phonenumber"));
+		    dto.setUser_age(paramMap.get("age"));
+		    dto.setUser_ip(paramMap.get("IP"));
+		    
+		    // 회원가입 서비스 호출
+		    int result = service.join(dto);
+		    if (result == 1) {
+		        rttr.addFlashAttribute("joinSuccess", "회원가입을 성공했습니다.");
+		        return "redirect:/loginPage.ih";
+		    } else {
+		        System.out.println("가입실패");
+		        rttr.addFlashAttribute("joinFail", "관리자에게 문의해주세요.");
+		        return "redirect:/joinForm.ih";
+		    }
+		}
 	
 	//아이디 중복검사
 	@RequestMapping(value="/idCheck.ih", method=RequestMethod.GET)
@@ -209,38 +190,38 @@ public class IhController {
 		return "ih_loginPage"; 
 	}
 	
-	// 로그인시도시 아이디 비번검사
+    // 로그인 시도 시 아이디와 비밀번호 검사
 	@RequestMapping(value="/userCheck.ih", method=RequestMethod.POST)
 	public void userCheck(HttpServletRequest request, HttpServletResponse response, UserDto dto) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out =response.getWriter();
-		String result ="pass";
-		int cnt = -1; 
-		
-		String user_id = request.getParameter("id");
-		String user_pass = request.getParameter("password");
-		
-		dto.setUser_id(user_id);
-		dto.setUser_pass(user_pass);
-		cnt = service.originalPasswordCheck(dto);
-		if(cnt==0) {
-			result ="<span style='color:red'>아이디와 비밀번호를 체크해주세요.</span>";
-			out.print(result);
-		} else {
-			out.print(result);
-		}
+	    request.setCharacterEncoding("UTF-8");
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	    String result = "pass";
+
+	    String user_id = request.getParameter("id");
+	    String user_pass = request.getParameter("password");
+
+	    dto.setUser_id(user_id);
+	    
+	    // 데이터베이스에서 사용자의 해싱된 비밀번호를 가져옵니다.
+	    String hashedPassword = service.getHashedPassword(dto);
+	    System.out.println(hashedPassword);
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    boolean isPasswordMatch = passwordEncoder.matches(user_pass, hashedPassword);
+	    if(!isPasswordMatch) {
+	        result = "<span style='color:red'>아이디와 비밀번호를 체크해주세요.</span>";
+	        out.print(result);
+	    } else {
+	        out.print(result);
+	    }
 	}
 	
 	// 로그인 submit
 	@PostMapping(value="/loginBtn.ih")
 	public String goLogin(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, UserDto dto, RedirectAttributes rttr) throws ServletException, IOException {
 	    String id = request.getParameter("id");
-	    String password = request.getParameter("password");
-	    String remember = request.getParameter("remember"); // "아이디 기억하기" 체크박스 값
-
+	    String remember = request.getParameter("remember");
 	    dto.setUser_id(id);
-	    dto.setUser_pass(password);
 
 	    IhResultDto loginResult = service.login(dto);
 
@@ -297,6 +278,7 @@ public class IhController {
 	    if (user_id == null) { return "redirect:/loginPage.ih"; }
 	    return "redirect:/preMyUpdatePageView.ih?id=" + URLEncoder.encode(user_id, StandardCharsets.UTF_8.toString());
 	}
+	
 	@RequestMapping(value="/preMyUpdatePageView.ih" , method=RequestMethod.GET)
 	public String preMyUpdate() {  return "ih_preMyUpdatePage"; }
 ////////////////////////마이페이지입장  /////////////////////////////////////	
@@ -305,18 +287,34 @@ public class IhController {
 	
 	//ih_preMyUpdatePage에서 서밋하면 비번검증처리컨트롤러로
 	@RequestMapping(value="/checkpass.ih", method=RequestMethod.POST)
-	public String checkpass(Model model, HttpServletRequest request, UserDto dto, RedirectAttributes rttr) throws UnsupportedEncodingException {
-	    String user_id = request.getParameter("user_id");
-	    String password = request.getParameter("password");
+	public String checkpass(Model model,HttpServletResponse response, HttpServletRequest request, UserDto dto, RedirectAttributes rttr) throws IOException {
+	    request.setCharacterEncoding("UTF-8");
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
 
-	    dto.setUser_id(user_id);
-	    dto.setUser_pass(password);
+	    String user_id = request.getParameter("id");
+	    String user_pass = request.getParameter("password");
 
-	    UserDto result = service.goToUpdateTab(dto);
-	    if (result != null) {
-	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+	    
+	    
+	    // 데이터베이스에서 사용자의 해싱된 비밀번호를 가져옵니다.
+	    String hashedPassword = service.getHashedPassword(dto);
+	    System.out.println(hashedPassword);
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    boolean isPasswordMatch = passwordEncoder.matches(user_pass, hashedPassword);
+	    
+	    if(!isPasswordMatch) {
+	    	dto.setUser_id(user_id);
+		    UserDto result = service.goToUpdateTab(dto);
+		    System.out.println("result = "+result);
+		    if (result != null) {
+		        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+		    } else {
+		        rttr.addFlashAttribute("loginError", "비밀번호를 확인해주세요.");
+		        return "redirect:/preMyUpdatePage.ih?user_id="+dto.getUser_id();
+		    }
 	    } else {
-	        rttr.addFlashAttribute("loginError", "비밀번호를 확인해주세요.");
+	    	rttr.addFlashAttribute("loginError", "비밀번호를 확인해주세요.");
 	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
 	    }
 	}
@@ -343,15 +341,17 @@ public class IhController {
 	    String user_id = request.getParameter("id");
 	    String user_pass = request.getParameter("updatePassword");
 	    dto.setUser_id(user_id);
-	    dto.setUser_pass(user_pass);
 
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String hashedPassword = passwordEncoder.encode(user_pass);
+	    dto.setUser_pass(hashedPassword);
+	    
+	    // 데이터베이스에서 사용자의 해싱된 비밀번호를 가져옵니다.
+	    System.out.println(hashedPassword);
 	    int result = service.changePass(dto);
-	    if (result == 1) {
-	        rttr.addFlashAttribute("updatePassSuccess", "비밀번호가 변경되었습니다.");
-	    } else {
-	        rttr.addFlashAttribute("updatePassFail", "비밀번호 변경에 실패했습니다. 관리자에게 문의해주세요");
-	    }
-
+	    
+	    rttr.addFlashAttribute("updatePassSuccess", "비밀번호가 변경되었습니다.");
+	    
         return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
 
 	}

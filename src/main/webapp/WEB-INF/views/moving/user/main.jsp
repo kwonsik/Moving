@@ -6,14 +6,9 @@
 .mic {
 	width: 60px;
 	height: 60px;
-	
 	position: fixed;
 	right: 5%;
 	bottom: 5%;
-}
-.mic.selected img{
-	border: 2px solid red;
-	border-radius:100%;
 }
 .mic:hover{
 	cursor: pointer;
@@ -21,8 +16,6 @@
 .mic img {
 	width: 60px;
 	height: 60px;
-	border: 2px solid black;
-	border-radius:100%;
 }
 </style>
 

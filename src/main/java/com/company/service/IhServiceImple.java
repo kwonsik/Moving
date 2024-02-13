@@ -113,8 +113,55 @@ public class IhServiceImple implements IhService{
 		return dao.emailCheck (dto);
 	}
 	
-	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
+	//16. 비밀번호변경 페이지의 현재비밀번호 검증 ajax
 	public int originalPasswordCheck (UserDto dto) {
 		return dao.originalPasswordCheck (dto);
+	}
+	
+	//네이버 계정과 연동된 무빙계정이 있는지
+	public UserDto naverJoin(UserDto dto) {
+		return dao.naverJoin(dto);
+	}
+	
+	//18. 네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoNaverAfterJoin(UserDto dto) {
+		return dao.selectUserNoNaverAfterJoin(dto);
+	}
+	
+	//카카오 계정과 연동된 무빙계정이 있는지
+	public UserDto kakaoJoin(UserDto dto) {
+		return dao.kakaoJoin(dto);
+	}
+	
+	//카카오 로그인
+	public IhResultDto kakaoLogin(UserDto dto) {
+		return dao.kakaoLogin(dto);
+	}
+	
+	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteKakaoCode(UserDto dto) {
+		return dao.deleteKakaoCode(dto);
+	}
+	
+	//카카오 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateKakaoCode(UserDto dto) {
+		return dao.updateKakaoCode(dto);
+	}
+	//22. 마이페이지 입장시 카카오 게정이 null인지 확인
+	public UserDto confirmKakaoIntegration(UserDto dto) {
+		return dao.confirmKakaoIntegration(dto);
+	}
+	
+	//23.네이버 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteNaverCode(UserDto dto) {
+		return dao.deleteNaverCode(dto);
+	}
+	//24. 네이버 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateNaverCode(UserDto dto) {
+		return dao.updateNaverCode(dto);
+	}
+	//25. 사용자 해싱된 비밀번호 조회
+	public String getHashedPassword(UserDto dto) {
+		return dao.getHashedPassword(dto);
 	}
 }

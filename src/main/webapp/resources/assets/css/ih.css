@@ -176,14 +176,18 @@ li{list-style-type:none; }
 	text-align: left;
 	margin-top: 10px;
 }
-.ih__loginPage .find > * {
+.ih__loginPage .find a {
 	display: inline-block;
 	margin:10px 5px;
+	vertical-align: middle;
+	line-height: 18px;
 }
-.ih__loginPage .find :nth-child(2) {
-    border-left: 1px solid; 
-    padding-left: 15px;
+.ih__loginPage .find a + a {
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px solid #909090;
 }
+
 .ih__loginPage input[type="submit"]{
 	width: 490px;
 	height: 50px;
@@ -202,16 +206,17 @@ li{list-style-type:none; }
     right: 0;
     top: 50%;
     height: 1px;
-    background: #e4e9f2;
+    background: #0fc4b3;
 }
 .ih__loginPage .socialLogin > *{
 	margin: 20px 0px;
 }
 .ih__loginPage .under{
-	margin-bottom: 40px;
+	margin: 20px auto 0px;
+	font-size: 16px;
 }
 .ih__loginPage span {
-    color: #40dfd0;
+    color: #0fc4b3;
 }
 /*************** 마이페이지 입장 ***************/
 .ih_preMyUpdatePage {
@@ -294,7 +299,6 @@ li{list-style-type:none; }
 .ih__myUpdatePage label{
 	display:block;
 	margin:20px 0px;
-	margin-left:10px;
 }
 .ih__myUpdatePage input[type="text"],
 .ih__myUpdatePage input[type="email"],
@@ -314,6 +318,28 @@ li{list-style-type:none; }
 .ih__myUpdatePage input[type="tel"],
 .ih__myUpdatePage input[type="age"]{
 	width:375px;
+}
+
+.ih__myUpdatePage .form-class img{
+	display:inline-block;
+	height:52px;
+	width:52px;
+	margin:10px;
+	float:left;
+	margin-right:28px;
+}
+.ih__myUpdatePage .socialIntegration {
+    display: inline-block;
+    margin: 5px 8px;
+    border: 1px solid #dcdcdc;
+    border-radius:5px;
+    width: 170px;
+}
+.ih__myUpdatePage .socialIntegration span{
+    display:inline-block;
+    width: 50px;
+    margin-top:12px;
+    text-align:left;
 }
 .ih__myUpdatePage input#inputEmail {
     width: 226px;

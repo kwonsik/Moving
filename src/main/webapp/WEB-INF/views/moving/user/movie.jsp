@@ -86,8 +86,6 @@
       		let sortBy = $(this).attr("data-sort");
       		$(".sorting button").removeClass("is-active");
       		$(this).addClass("is-active");
-
-      		$("#srchMovie").val('');
       		
       		sortMovie(sortBy);
       		originalMovieList = movieList.clone();

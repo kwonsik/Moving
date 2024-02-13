@@ -41,7 +41,8 @@
 	</bean>
 	<context:property-placeholder
 		location="classpath:/config/db.properties" />
-
+	<context:property-placeholder
+		location="classpath:/config/application-oauth.properties" />
 	<!-- HikariCP -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="${db.driverClass}" />

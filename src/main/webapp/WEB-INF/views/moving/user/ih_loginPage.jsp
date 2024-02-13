@@ -1,3 +1,7 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.security.SecureRandom"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
@@ -28,20 +32,49 @@
 			
 			<input type="submit" value="로그인" class="loginBtn" />
 			
-			<div class=find>
-				<p> <a href="findIdView.ih">ID/PW찾기</a> </p>
-				<p> <a href="joinForm.ih">회원가입</a> </p>
+			<div class="find">
+				<a href="findIdView.ih">ID/PW찾기</a>
+				<a href="joinForm.ih">회원가입</a>
 			</div>
 			
 			<div class="socialLogin">
 				<p class="tit"><strong>간편로그인</strong></p>
-				<p> <a href="#" class="#"><img alt="#" src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_4.png" style="width:250px;" /> </a> </p>
+				<%
+				    // 네이버) 클라이언트 ID와 리디렉션 URI를 설정
+				    String NaverClientId = "HA45SpjNLNnGrNT2Hw0w";
+				    String NaverRedirectURI = URLEncoder.encode("http://localhost:8080/moving/prepareLogin.ih", "UTF-8");
+				    SecureRandom random = new SecureRandom();
+				    String NaverState = new BigInteger(130, random).toString(32);
+				    session.setAttribute("state", NaverState);
+					
+				    // 카카오) 클라이언트 ID와 리디렉션 URI를 설정
+					String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
+					String KakaoRedirectURI = URLEncoder.encode("http://localhost:8080/moving/kakaoLogin.ih", "UTF-8");
+				    
+				    // 네이버) 로그인 URL을 생성
+				    String naverAuthURL = 
+				          "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+				        + "&client_id=" + NaverClientId
+				        + "&redirect_uri=" + NaverRedirectURI
+				        + "&state=" + NaverState +"&scope=profile_nickname";
+				    
+				    // 카카오) 로그인 URL을 생성
+					String kakaoAuthURL = 
+							"https://kauth.kakao.com/oauth/authorize?response_type=code"
+							+ "&client_id=" + KakaoClientId
+							+ "&redirect_uri=" + KakaoRedirectURI;
+				%>
+				<!-- 카카오 -->
+				<a href="<%= kakaoAuthURL %>" title="KAKAO LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/kakao_0.png" alt="login" style="width:52px; height: 52px;" alt="카카오 로그인 버튼"/></a>
+				<!-- 네이버 로그인 버튼 -->
+				<a href="<%= naverAuthURL %>" title="NAVER LOGIN"> <img src="${pageContext.request.contextPath}/resources/assets/images/ih/naver_0.png" style="width:52px; height: 52px; margin-left:40px;" alt="네이버 로그인 버튼"/> </a>
 			</div>
-			
+				
 			<div class="under">
-				<p>무빙 사이트에 간편로그인계정을 연결한 경우에만 <span>간편로그인</span>이 가능합니다.</p>
+				<p>회원가입후 SNS계정을 연동한 경우에만 <span>간편로그인</span>이 가능합니다. <br/>
+				   <span>마이페이지 > 개인정보수정</span> 에서 진행해주세요
+				</p>
 			</div>
-			
 		</fieldset>
 	</form>
 </div>
@@ -50,6 +83,8 @@
 <%@include file="../../inc/footer.jsp"%>
 <script>
 $(function() {
+	<c:if test="${not empty noIntegrationUser}"> alert("${noIntegrationUser}"); </c:if>
+	//로그인검증아작스
     var form = $("#loginForm");
     form.on("submit", function(event) {
         event.preventDefault();
@@ -73,5 +108,7 @@ $(function() {
             }
         });
     });
+    //소셜로그인 버튼 클릭시 소셜로그인을 완료하고, 해당 소셜로그인고유ID를 갖고 있는 계정테이블이 있는지 확인(없으면 alert=해당SNS계정과 연동된 계정이없습니다.)
+    
 });
 </script>

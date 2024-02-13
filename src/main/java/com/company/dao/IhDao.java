@@ -46,9 +46,9 @@ public interface IhDao {
 	//② 사용자가 탈퇴시도하면 4등급 24시간유지
 	public int preDeleteUser (UserDto dto);
 	//  24시간후 탈퇴처리
-		public int myDeleteUser();
+	  public int myDeleteUser();
 	//  탈퇴취소
-		public int myDeleteUserCancle(UserDto dto);
+	  public int myDeleteUserCancle(UserDto dto);
 		
 	//⑭아이디 중복체크
 	public int idCheck (UserDto dto);
@@ -61,4 +61,33 @@ public interface IhDao {
 	
 	//비밀번호변경 페이지의 현재비밀번호 검증 ajax
 	public int originalPasswordCheck (UserDto dto);
+	
+	//네이버 계정과 연동된 무빙계정이 있는지판별
+	public UserDto naverJoin(UserDto dto);
+	
+	//네이버회원가입직후 user_no 세션에저장하기위해 가져오기
+	public UserDto selectUserNoNaverAfterJoin(UserDto dto);
+	
+	//카카오 계정과 연동된 무빙계정이 있는지
+	public UserDto kakaoJoin(UserDto dto);
+	
+	//카카오 로그인
+	public IhResultDto kakaoLogin(UserDto dto);
+	
+	//카카오 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteKakaoCode(UserDto dto);
+	
+	//카카오 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateKakaoCode(UserDto dto);
+	
+	//22. 마이페이지 입장시 카카오 게정이 null인지 확인
+	public UserDto confirmKakaoIntegration(UserDto dto);
+	
+	//23.네이버 코드가있는 계정은 카카오 코드를 삭제 = 연동끊기
+	public int deleteNaverCode(UserDto dto);
+
+	//24. 네이버 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
+	public int updateNaverCode(UserDto dto);
+	//25. 사용자 해싱된 비밀번호 조회
+	public String getHashedPassword(UserDto dto);
 }

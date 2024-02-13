@@ -159,7 +159,7 @@
 			    </c:if>
 			
 			    <!-- 로그인하지 않은 경우 로그인과 회원가입 링크 표시 -->
-			    <c:if test="${user_id == null}">
+			    <c:if test="${user_id == null && user_naver == null && user_kakao == null}">
 			        <li class="header-util__item">
 			            <a href="loginPage.ih" class="header-util__link">로그인</a>
 			        </li>
@@ -169,12 +169,13 @@
 			    </c:if>
 			
 			    <!-- 일반 사용자인 경우 로그아웃 링크만 표시 -->
-			    <c:if test="${user_id != null and usertp_name != '관리자' and usertp_name != '삭제된회원'}">
-			        <li>${user_nick}님 환영합니다!</li>
-			        <li class="header-util__item">
-			            <a href="logout.ih">로그아웃</a>
-			        </li>
-			    </c:if>
+				<c:if test="${(user_id != null || user_naver != null || user_kakao != null) && 
+				             usertp_name != '관리자' && usertp_name != '삭제된회원'}">
+				    <li>${user_nick}님 환영합니다!</li>
+				    <li class="header-util__item">
+				        <a href="logout.ih">로그아웃</a>
+				    </li>
+				</c:if>
           </ul>
         </div>
       </div>

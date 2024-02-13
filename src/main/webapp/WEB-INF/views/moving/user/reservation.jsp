@@ -164,12 +164,12 @@
 				
 				if(nowdate+cnt>last){
 					nowdate=nowdate-last;
-					let date=(nowdate+cnt)<10?"0"+(nowdate+cnt):(nowdate+cnt);
+					let date=(nowdate+cnt)<=10?"0"+(nowdate+cnt):(nowdate+cnt);
 					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 2) + "-"+ date);
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
 				else{
-					let date=(nowdate+cnt)<10?"0"+(nowdate+cnt):(nowdate+cnt);
+					let date=(nowdate+cnt)<=10?"0"+(nowdate+cnt):(nowdate+cnt);
 					$("#time" + cnt).attr('date',now.getFullYear() + "-0" + (now.getMonth() + 1) + "-"+ date);
 					$("#time" + cnt).attr("value", weekday[i] + " " + (nowdate+cnt));
 				}
