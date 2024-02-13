@@ -143,6 +143,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "getGeminiResponse.admin",
                 data: { "prompt": userInput },
+                async : false,
                 success: function (response) {
                     handleResponse(response);
                 },
@@ -154,7 +155,7 @@ $(document).ready(function () {
     }
 
     function handleResponse(response) {
-        //console.log("서버 응답: " + JSON.stringify(response));
+        console.log("서버 응답: " + JSON.stringify(response));
         //console.log(response.intent);
         //console.log(JSON.stringify(response.parameters));
 
@@ -231,10 +232,13 @@ $(document).ready(function () {
     function handleGetShowtime(response) {
         $('.theater-list .theater').each(function (idx, theater) {
             if (theater.textContent.trim() == response.parameters.tt_name) {
+            	let tt = $(theater);
+            	console.log(tt);
                 $(theater).trigger('click');
             }
         });
-
+        let date = $('.date-btn[data-date="' + response.parameters.sch_date + '"]');
+        console.log(date);
         $('.date-btn[data-date="' + response.parameters.sch_date + '"]').trigger('click');
     }
 
@@ -245,6 +249,7 @@ $(document).ready(function () {
             data: JSON.stringify(response),
             contentType: 'application/json',
             dataType: 'json',
+            async : false,
             success: function (data) {
             	alert(data.message);
                 if (data.message.includes("상영 시간표가 성공적으로 추가되었습니다.")) {
@@ -265,6 +270,7 @@ $(document).ready(function () {
             data: JSON.stringify(response),
             contentType: 'application/json',
             dataType: 'json',
+            async : false,
             success: function (data) {
             	alert(data.message);
             	if (data.message.includes("삭제에 성공")) {
@@ -447,6 +453,7 @@ $(document).ready(function () {
                     sch_cnt: scrStCnt
                 },
                 dataType: 'json',
+                async : false,
                 success: function (data) {
                     // 성공 시 처리
                     //console.log(data.result);
@@ -504,6 +511,7 @@ $(document).ready(function () {
             method: 'GET',
             data: { tt_no : selectedTheaterNo },
             dataType: 'json',
+            async : false,
             success: function (data) {
                 screenSelect.empty();
                 data.forEach(function (screen) {
@@ -527,6 +535,7 @@ $(document).ready(function () {
             url: 'getMovieList.admin',
             method: 'GET',
             dataType: 'json',
+            async : false,
             success: function (data) {
                 movieSelect.empty();
                 data.forEach(function (movie) {
@@ -546,6 +555,7 @@ $(document).ready(function () {
             method: 'GET',
             data: { theaterNo: theaterNo, date: selectedDate },
             dataType: 'json',
+            async : false,
             success: function (data) {
                 let scheduleTableBody = $('#schedule-table tbody');
                 scheduleTableBody.empty();
@@ -584,6 +594,7 @@ $(document).ready(function () {
             method: 'POST',
             data: { sch_no: scheduleNo },
             dataType: 'json',
+            async : false,
             success: function (data) {
                 if (data.result > 0) {
                     //$this.closest('tr').remove();
@@ -612,6 +623,7 @@ $(document).ready(function () {
             method: 'GET',
             data: { tt_no: selectedTheaterNo },
             dataType: 'json',
+            async : false,
             success: function (data) {
                 if (data.tt_start && data.tt_close) {
                     // 영화관의 시작 시간과 종료 시간을 기반으로 옵션 생성
@@ -668,6 +680,7 @@ $(document).ready(function () {
                 method: 'GET',
                 data: { tt_no: selectedTheaterNo },
                 dataType: 'json',
+                async : false,
                 success: function (data) {
                     //console.log(data.tt_start);
                     //console.log(data.tt_close);
