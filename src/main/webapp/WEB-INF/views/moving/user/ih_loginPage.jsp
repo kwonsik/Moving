@@ -83,6 +83,8 @@
 <%@include file="../../inc/footer.jsp"%>
 <script>
 $(function() {
+	
+	<c:if test="${not empty joinSuccess}"> alert("${joinSuccess}"); </c:if>
 	<c:if test="${not empty noIntegrationUser}"> alert("${noIntegrationUser}"); </c:if>
 	//로그인검증아작스
     var form = $("#loginForm");

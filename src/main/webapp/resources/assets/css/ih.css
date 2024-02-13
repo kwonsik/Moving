@@ -264,6 +264,10 @@ li{list-style-type:none; }
 .ih_preMyUpdatePage input#password {
     font-size: 18px;
 }
+.ih_preMyUpdatePage #userCheckResult{
+	margin-left:10px;
+	margin-bottom:20px;
+}
 .ih_preMyUpdatePage .btn-group {
 	width:360px;
 }
