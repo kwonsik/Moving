@@ -104,7 +104,6 @@ public class ScheduleController {
 		return result;
 	}
 	
-	
 	// 사용자 /////////////////////////////////////////////
 	@GetMapping("/theater_user_view.shj")
 	public String theater_user_view(Model model) {

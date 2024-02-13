@@ -101,8 +101,7 @@
 		FROM theater t
 		JOIN
 		screen s ON t.tt_no = s.tt_no
-		LEFT JOIN screenstate ss ON s.scrstate_no
-		= ss.scrstate_no
+		LEFT JOIN screenstate ss ON s.scrstate_no = ss.scrstate_no
 		WHERE s.scr_no = #{scr_no};
 	</select>
 
@@ -122,8 +121,12 @@
 		(scr_no, bk_st_name)
 		values
 		(#{scr_no}, #{bk_st_name})
-
 	</insert>
+	
+	<delete id="bkSeatDelete" parameterType="TTandScrDto">
+		delete from broken_seat 
+		where scr_no=#{scr_no} and bk_st_name=#{bk_st_name}
+	</delete>
 
 	<select id="bkSeatRead" parameterType="int" resultType="BrokenSeatDto">
 		select bk_st_name

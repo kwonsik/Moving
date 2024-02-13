@@ -692,11 +692,26 @@ tbody tr:focus, tbody tr:hover {
 
 #seat .eachSeat .brokenSeat{
 	background-color: #d7d1d1eb;
+
+}
+
+#seat .eachSeat .brokenSeat:hover, #seat .eachSeat .brokenSeat:focus {
+	background-color: yellowgreen;
+}
+
+#seat .eachSeat .changeToAct {
+	background-color: yellowgreen;
+}
+
+.seatColorInfo{
+	margin-left: -250px;
+	
 }
 
 #blueSeat {
 	width: 15px; height: 15px;
 	background-color: #227dec;
+	margin-top: 80px;
 }
 
 #greySeat {
@@ -709,7 +724,7 @@ tbody tr:focus, tbody tr:hover {
 	background-color: red;
 }
 
-#lightblueSeat {
+#yellowgreenSeat {
 	width: 15px; height: 15px;
-	background-color: lightblue;
+	background-color: yellowgreen;
 }

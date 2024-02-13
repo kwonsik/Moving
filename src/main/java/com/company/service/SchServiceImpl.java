@@ -40,7 +40,7 @@ public class SchServiceImpl implements SchService {
 		String json = "";
 		Gson gson = new Gson();
 		json = gson.toJson(dao.theaterDetail(dto));
-		System.out.println(json);
+		//System.out.println(json);
 		return json;
 	}
 
@@ -48,10 +48,10 @@ public class SchServiceImpl implements SchService {
 	public String scheduleList(Map<String, Object> map) {
 		//
 		int result = dao.updateScheduleState();
-		System.out.println(result);
+		//System.out.println(result);
 
 		List<ScheduleResultDto> list = dao.scheduleList(map);
-		System.out.println(list);
+		//System.out.println(list);
 		List<MovieDto> movieNameList = dao.scheduleMovieList(map);
 
 		//
