@@ -50,7 +50,11 @@ public interface TheaterManageDao {
 	//상영관 좌석 관리
 	public int bkSeatInsert(BrokenSeatDto dto);
 	
+	public int bkSeatDelete(BrokenSeatDto dto);
+	
 	public List<BrokenSeatDto> bkSeatRead(int scr_no);
+	
+	
 	
 	
 	

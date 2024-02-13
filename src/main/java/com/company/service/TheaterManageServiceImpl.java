@@ -63,7 +63,14 @@ public class TheaterManageServiceImpl implements TheaterManageService {
 	@Override
 	public int bkSeatInsert(BrokenSeatDto dto) {
 		// System.out.println("bklist" +bkList);
+		//System.out.println("bkSeatInsert 호출됨 - seatName: " + dto.getBk_st_name());
 		return dao.bkSeatInsert(dto);
+	}
+	
+	@Override
+	public int bkSeatDelete(BrokenSeatDto dto) {
+		
+		return dao.bkSeatDelete(dto);
 	}
 
 	@Override
