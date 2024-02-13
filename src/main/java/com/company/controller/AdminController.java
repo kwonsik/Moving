@@ -116,7 +116,7 @@ public class AdminController {
 		// System.out.println(dto);
 
 		int isSuccess = ATservice.ttAndscrInsert(dto);
-		//System.out.println(isSuccess);
+		// System.out.println(isSuccess);
 		redirectAttributes.addFlashAttribute("isSuccess", isSuccess);
 
 		return "redirect:theater-list.admin";
@@ -148,10 +148,10 @@ public class AdminController {
 	public String reviseTheater(TheaterDto dto, ScreenDto sdto, RedirectAttributes redirectAttributes) {
 		// System.out.println("수정 영화관 "+dto);
 		// System.out.println("수정 상영관 "+sdto);
-		
+
 		int tt = RTservice.theaterUpdate(dto);
 		int scr = RTservice.screenUpdate(sdto);
-		if(tt==1 && scr==1) {
+		if (tt == 1 && scr == 1) {
 			redirectAttributes.addFlashAttribute("isSuccess2", tt);
 		}
 
@@ -210,6 +210,11 @@ public class AdminController {
 
 		// System.out.println("scr_no 값 : "+scr_no);
 		// System.out.println(service.scrseat(scr_no));
+		/**
+		 * scr_no로 해당 broken_seat 애들 리스트로 다 불러서 css background-color 처리 해줌
+		 **/
+		model.addAttribute("bkSeatLists", service.bkSeatReadAll(scr_no));
+
 		model.addAttribute("dto", service.scrseat(scr_no));
 
 		return "seat_management";
@@ -217,28 +222,60 @@ public class AdminController {
 
 	@RequestMapping(value = "/seat-manage.admin", method = RequestMethod.POST)
 	@ResponseBody
-	public int seatManageAction(Model model, @RequestParam("scr_no") int scr_no, @RequestParam String bkList) {
+	public int seatManageAction(Model model, @RequestParam("scr_no") int scr_no, @RequestParam String bkList,
+			@RequestParam String ActiveSTList) {
 		int result = 1;
 
-		System.out.println("체크된 좌석 들  : " + bkList);
-		BrokenSeatDto dto = new BrokenSeatDto();
-		dto.setScr_no(scr_no);
+		System.out.println("체크된 보류될 좌석들  : " + bkList);
+		System.out.println("체크된 활성화될 좌석들 : " + ActiveSTList);
+
+		BrokenSeatDto InsertBkDto = new BrokenSeatDto();
+		BrokenSeatDto DeleteBkDto = new BrokenSeatDto();
+		InsertBkDto.setScr_no(scr_no);
+		DeleteBkDto.setScr_no(scr_no);
 
 		// 좌석 목록을 배열로 변환
 		List<String> seatBkNames = Arrays.asList(bkList.replace("[", "").replace("]", "").split(","));
-		// System.out.println(seatBkNames); //["E2","G3"]
+		List<String> ActiveSTNames = Arrays.asList(ActiveSTList.replace("[", "").replace("]", "").split(","));
+		// System.out.println("체크된 활성화될 좌석들22 : " + ActiveSTNames);
 
-		// 각 좌석 이름을 개별적으로 설정
-		for (String seatName : seatBkNames) {
-			// 좌석 값에서 "" 제거
-			seatName = seatName.replace("\"", "");
-			// 좌석 정보를 개별적으로 추가
-			dto.setBk_st_name(seatName);
+		
+		// 보류좌석 추가 기능 실행  seatBkNames가 비어있지 않은 경우에만 작동
+		if (seatBkNames.stream().anyMatch(name -> !name.trim().isEmpty())) { // seatBkNames:[] 빈 문자열로 인식
+			// seatBkNames 보류 좌석들 처리
+			for (String seatName : seatBkNames) {
+			
+				// 좌석 값에서 "" 제거
+				seatName = seatName.replace("\"", "");
+				// 좌석 정보를 개별적으로 추가
+				InsertBkDto.setBk_st_name(seatName);
 
-			service.bkSeatInsert(dto);
-			// System.out.println(dto);
+				service.bkSeatInsert(InsertBkDto);
+				System.out.println("insertBKDto" + InsertBkDto);
+
+			}
+			
 
 		}
+		// 활성화될 좌석 기능 실행  ActiveSTNames가 비어있지 않은 경우에만 작동
+		if (ActiveSTNames.stream().anyMatch(name -> !name.trim().isEmpty())) {
+			// ActiveSTNames 활성화될 좌석들 처리
+			for (String seatName2 : ActiveSTNames) {
+				// 좌석 값에서 "" 제거
+				seatName2 = seatName2.replace("\"", "");
+				// 좌석 정보를 개별적으로 추가
+				DeleteBkDto.setBk_st_name(seatName2); 
+
+				service.bkSeatDelete(DeleteBkDto);
+				System.out.println("deleteBKDto : " + DeleteBkDto);
+
+			}
+		} 
+		else if (!seatBkNames.stream().anyMatch(name -> !name.trim().isEmpty())
+				&& !ActiveSTNames.stream().anyMatch(name -> !name.trim().isEmpty())) { // seatBkNames:[] 일 때 result=2로 설정.
+			result = 2;
+		}
+		// System.out.println(result);
 
 		return result;
 	}

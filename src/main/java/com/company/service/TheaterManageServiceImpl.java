@@ -63,7 +63,14 @@ public class TheaterManageServiceImpl implements TheaterManageService {
 	@Override
 	public int bkSeatInsert(BrokenSeatDto dto) {
 		// System.out.println("bklist" +bkList);
+		//System.out.println("bkSeatInsert 호출됨 - seatName: " + dto.getBk_st_name());
 		return dao.bkSeatInsert(dto);
+	}
+	
+	@Override
+	public int bkSeatDelete(BrokenSeatDto dto) {
+		
+		return dao.bkSeatDelete(dto);
 	}
 
 	@Override
@@ -84,6 +91,22 @@ public class TheaterManageServiceImpl implements TheaterManageService {
 		//System.out.println(dto.getBkStList());
 
 		return dto.getBkStList();
+	}
+	
+	@Override
+	public List<BrokenSeatDto> bkSeatRead(int scr_no){
+		return dao.bkSeatRead(scr_no);
+	}
+	
+	@Override
+	public List<String> bkSeatReadAll(int scr_no){
+		List<String> bkSeatLists = new ArrayList<>();
+		List<BrokenSeatDto> bkSeat = bkSeatRead(scr_no);
+		for(int i=0; i<bkSeat.size(); i++) {
+			bkSeatLists.add(bkSeat.get(i).getBk_st_name());
+		}
+		
+		return bkSeatLists;
 	}
 	
 	

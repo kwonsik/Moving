@@ -664,7 +664,7 @@ tbody tr:focus, tbody tr:hover {
 	font-size: 23px;
 	padding: 12px;
 	border-radius: 5px;
-	background-color: #555;
+	background-color: #227dec;
 	color: white;
 	margin-right: 20px;
 }
@@ -688,4 +688,43 @@ tbody tr:focus, tbody tr:hover {
 
 .cm_btns {
 	text-align: right;
+}
+
+#seat .eachSeat .brokenSeat{
+	background-color: #d7d1d1eb;
+
+}
+
+#seat .eachSeat .brokenSeat:hover, #seat .eachSeat .brokenSeat:focus {
+	background-color: yellowgreen;
+}
+
+#seat .eachSeat .changeToAct {
+	background-color: yellowgreen;
+}
+
+.seatColorInfo{
+	margin-left: -250px;
+	
+}
+
+#blueSeat {
+	width: 15px; height: 15px;
+	background-color: #227dec;
+	margin-top: 80px;
+}
+
+#greySeat {
+	width: 15px; height: 15px;
+	background-color: #d7d1d1eb;
+}
+
+#redSeat {
+	width: 15px; height: 15px;
+	background-color: red;
+}
+
+#yellowgreenSeat {
+	width: 15px; height: 15px;
+	background-color: yellowgreen;
 }
