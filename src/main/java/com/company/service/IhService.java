@@ -86,5 +86,8 @@ public interface IhService {
 	public int deleteNaverCode(UserDto dto);
 	
 	//24. 네이버 코드가 없는 계정은 카카오 코드를 삽입 = 연동하기
-	public int updateNaverCode(UserDto dto);	
+	public int updateNaverCode(UserDto dto);
+	
+	//25. 사용자 해싱된 비밀번호 조회
+	public String getHashedPassword(UserDto dto);
 }

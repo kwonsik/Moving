@@ -160,4 +160,8 @@ public class IhServiceImple implements IhService{
 	public int updateNaverCode(UserDto dto) {
 		return dao.updateNaverCode(dto);
 	}
+	//25. 사용자 해싱된 비밀번호 조회
+	public String getHashedPassword(UserDto dto) {
+		return dao.getHashedPassword(dto);
+	}
 }
