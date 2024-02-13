@@ -451,9 +451,12 @@ $(document).ready(function () {
                     // 성공 시 처리
                     //console.log(data.result);
                     if (data.result > 0) {
-                        // 상영시간표가 추가되었을 때의 동작을 구현
-                    	$('.theater[data-no="' + theaterNo + '"]').trigger('click');
+                    	$('.theater.selected').removeClass('selected');
+                     	$('.theater[data-no="' + theaterNo + '"]').addClass('selected');
                         $('.date-btn[data-date="' + selectedDate + '"]').trigger('click');
+                        // 상영시간표가 추가되었을 때의 동작을 구현
+                    	//$('.theater[data-no="' + theaterNo + '"]').trigger('click');
+                        //$('.date-btn[data-date="' + selectedDate + '"]').trigger('click');
                     } else {
                         alert("이미 해당 시간대에 다른 상영 일정이 예약되어 있습니다.\n상영 일정을 확인해주세요.");
                     }
