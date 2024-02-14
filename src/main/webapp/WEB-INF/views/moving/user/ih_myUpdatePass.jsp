@@ -13,6 +13,7 @@
 			<div class="inputType">
 				<label for="password">현재비밀번호</label>
 				<input type="password" name="password" id="password" placeholder="현재 비밀번호를 입력해주세요." />
+				<p id="userCheckResult"></p>
 			</div>
 			<div class="inputType">
 				<label for="updatePassword">변경할 비밀번호</label>
@@ -32,7 +33,34 @@
 		</fieldset>
 	</form>
 </div>
-
+<script type="text/javascript">
+$(function() {
+	//비밀번호검증아작스
+    var form = $("#myUpdatePass");
+    form.on("submit", function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "userCheckBeforeUpdate.ih",
+            type: "POST",
+            dataType: "text",
+            data: {
+                "id": $("#id").val(),
+                "password": $("#password").val()
+            },
+            success: function(data) {
+                if (data === "pass") {
+                    form[0].submit();
+                } else {
+                    $("#userCheckResult").html(data);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                $("#userCheckResult").html(textStatus + "(HTTP-" + xhr.status + ")");
+            }
+        });
+    });
+});
+</script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/ih_updatePass.js"></script>
 
 <%@include file="../../inc/footer.jsp"%>
