@@ -6,7 +6,7 @@
 	<form action="myUpdatePass.ih" method="post" id="myUpdatePass">
 		<h2>비밀번호변경</h2>
 		<fieldset>
-			<div class="inputType">
+			<div class="blind">
 				<label for="id">아이디</label>
 				<input type="text" name="id" id="id" value="${user_id}" readonly/>
 			</div>
