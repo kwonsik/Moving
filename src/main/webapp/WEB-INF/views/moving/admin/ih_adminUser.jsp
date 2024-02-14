@@ -29,6 +29,7 @@ function userListResult(xml) {
 		.append(  $("<td>").html(   $(user).find("user_age").text()))
 		.append(  $("<td>").html(   $(user).find("user_phone").text()))
 		.append(  $("<td>").html(   $(user).find("user_kakao").text()))
+		.append(  $("<td>").html(   $(user).find("user_naver").text()))
 		.append(  $("<td>").html(   $(user).find("user_crtdate").text()))
 		.append(  $("<td>").html(   $(user).find("user_ip").text()))
 		.append($("<td>").html("<input type='checkbox' name='user_id' value='" + $(user).find("user_id").text() + "'>"))
@@ -54,7 +55,7 @@ $(document).ready(function() {
  	<table  class="table table-striped usertable" style="margin: 50px auto;">
 		<thead>
 			<tr>
-				<th scope="col">번호</th>
+ 				<th scope="col">번호</th>
 				<th scope="col">등급</th>
 				<th scope="col">ID</th>
 				<th scope="col">이름</th>
@@ -63,6 +64,7 @@ $(document).ready(function() {
 				<th scope="col">생년월일</th>
 				<th scope="col">전화번호</th>
 				<th scope="col">카카오코드</th>
+				<th scope="col">네이버코드</th>
 				<th scope="col">가입날짜</th>
 				<th scope="col">가입IP</th>
 				<th scope="col">유저탈퇴</th>
