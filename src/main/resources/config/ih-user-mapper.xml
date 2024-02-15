@@ -81,7 +81,7 @@
 			</select>
     <!-- ⑫ 관리자가 들어가는 회원의 마이페이지 -->
     <select id="selectedUserPage" parameterType="UserDto" resultType="UserDto">
-        select*from user where user_id = #{user_id};
+        select*from user where user_no = #{user_no};
     </select>
 
     <!-- ⑬ 관리자가 탈퇴시키는 회원은 5등급으로 -->

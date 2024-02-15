@@ -272,10 +272,10 @@ public class IhController {
 	@RequestMapping(value="/preMyUpdatePage.ih", method=RequestMethod.GET)
 	public String preMyUpdatePage(HttpServletRequest request, RedirectAttributes rttr) throws UnsupportedEncodingException {
 	    HttpSession session = request.getSession(false);
-	    String user_id = (session != null) ? (String) session.getAttribute("user_id") : null;
+	    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
 
-	    if (user_id == null) { return "redirect:/loginPage.ih"; }
-	    return "redirect:/preMyUpdatePageView.ih?id=" + URLEncoder.encode(user_id, StandardCharsets.UTF_8.toString());
+	    if (user_no == 0) { return "redirect:/loginPage.ih"; }
+	    return "redirect:/preMyUpdatePageView.ih?user_no=" + user_no;
 	}
 	
 	@RequestMapping(value="/preMyUpdatePageView.ih" , method=RequestMethod.GET)
@@ -313,7 +313,7 @@ public class IhController {
 	public String checkpass(Model model,HttpServletResponse response, HttpServletRequest request, UserDto dto, RedirectAttributes rttr) throws IOException {
 	    request.setCharacterEncoding("UTF-8");
 	    response.setContentType("text/html; charset=UTF-8");
-	    
+
 	    String user_pass = request.getParameter("password");
 	    String hashedPassword = service.getHashedPassword(dto);
 	    
@@ -323,7 +323,9 @@ public class IhController {
 		if (!isPasswordMatch) {// 비번 틀리면
 			return "redirect:/preMyUpdatePageView.ih?user_id=" + dto.getUser_id();
 		} else {// 비번맞으면
-			return "redirect:/MyUpdatePageView.ih?user_id=" + dto.getUser_id();
+		    HttpSession session = request.getSession(false);
+		    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
+			return "redirect:/MyUpdatePageView.ih?user_no=" + user_no;
 		}
 	}
 
@@ -354,19 +356,22 @@ public class IhController {
 	    String hashedPassword = passwordEncoder.encode(user_pass);
 	    dto.setUser_pass(hashedPassword);
 	    
+	    HttpSession session = request.getSession(false);
+	    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
+	    
 	    // 데이터베이스에서 사용자의 해싱된 비밀번호를 가져옵니다.
 	    System.out.println(hashedPassword);
 	    int result = service.changePass(dto);
 	    
 	    rttr.addFlashAttribute("updatePassSuccess", "비밀번호가 변경되었습니다.");
 	    
-        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+        return "redirect:/MyUpdatePageView.ih?user_no=" + user_no;
 
 	}
 
 	//수정버튼누르면
 	@RequestMapping(value="/myUpdateGo.ih", method=RequestMethod.POST)
-	public String myUpdateId(HttpServletRequest request, UserDto dto, RedirectAttributes rttr, Model model) throws UnsupportedEncodingException {
+	public String myUpdateId(HttpServletRequest request, UserDto dto, RedirectAttributes rttr, Model model, HttpSession session) throws UnsupportedEncodingException {
 	    String user_id = request.getParameter("id");
 	    String nickname = request.getParameter("nickname");
 	    String nickname2 = request.getParameter("nickname2");
@@ -383,14 +388,17 @@ public class IhController {
 	    dto.setUser_nick(finalNickname);
 	    dto.setUser_phone(finalPhone);
 	    
+	    session = request.getSession(false);
+	    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
+	    
 	    int result = service.userUpdate(dto);
 	    if(result == 1) {
 	        rttr.addFlashAttribute("updateSuccess", "정보가 수정되었습니다.");
 	        model.addAttribute("user_id", user_id);
-	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+	        return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 	    } else {
 	        rttr.addFlashAttribute("updateFail", "정보수정이 실패했습니다.");
-	        return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+	        return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 	    }
 	}
 	
@@ -401,14 +409,15 @@ public class IhController {
 		String user_id = request.getParameter("user_id");
 		System.out.println("탈퇴신청한사람"+user_id);
 		dto.setUser_id(user_id);
-	
+	    session = request.getSession(false);
+	    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
 	int result = service.preDeleteUser(dto);
 	if(result==1) {
         rttr.addFlashAttribute("myDeleteSuccess", "회원 탈퇴 요청이 접수되었습니다. 자정 후 탈퇴 처리됩니다.");
-			return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+			return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 		}
 		else {
-			return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+			return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 		}
 	}
 ////////////////////////회원탈퇴  ////////////////////////////////////////
@@ -419,14 +428,15 @@ public class IhController {
 	String user_id = request.getParameter("user_id");
 	System.out.println("탈퇴신청취소한사람"+user_id);
 	dto.setUser_id(user_id);
-	
+    session = request.getSession(false);
+    int user_no = (session != null) ? (int) session.getAttribute("user_no") : null;
 	int result = service.myDeleteUserCancle(dto);
 	if(result==1) {
         rttr.addFlashAttribute("myDeleteUserCancleSuccess", "회원 탈퇴 요청이 취소되었습니다.");
-			return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+			return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 		}
 		else {
-			return "redirect:/MyUpdatePageView.ih?user_id="+dto.getUser_id();
+			return "redirect:/MyUpdatePageView.ih?user_no="+user_no;
 		}
 	}
 ////////////////////////회원탈퇴취소  //////////////////////////////////////
