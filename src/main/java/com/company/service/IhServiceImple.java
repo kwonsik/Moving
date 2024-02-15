@@ -1,6 +1,7 @@
 package com.company.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.company.dao.IhDao;
 import com.company.dto.IhResultDto;
 import com.company.dto.UserDto;
+import com.company.util.PagingDto;
 
 @Service
 public class IhServiceImple implements IhService{
@@ -67,11 +69,14 @@ public class IhServiceImple implements IhService{
 	}
 
 	//⑪관리자의 회원관리페이지테이블
-	@Override
-	public List<UserDto> readTotalUser (){
-		return dao.readTotalUser();
+	@Override public List<UserDto> readTotalUser(Map<String, Integer> para) { 
+		return dao.readTotalUser(para); 
+	} 
+	// 페이징
+	@Override public PagingDto paging(int pstartno) {
+		return new PagingDto(dao.listtotal() ,pstartno );
 	}
-
+	
 	//⑫관리자가 들어가는 [ 회원의 마이페이지 ]
 	@Override
 	public UserDto selectedUserPage (UserDto dto) {

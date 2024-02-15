@@ -72,11 +72,13 @@
 		select user_id from user where user_mail=#{user_mail};
     </select>
 
-    <!-- ⑪ 관리자의 회원 관리 페이지 테이블 -->
+    <!-- ⑪ 관리자의 회원 관리 페이지 테이블 = listcnt -->
     <select id="readTotalUser" resultType="UserDto">
-		select*from user order by user_no desc;
+		select*from user order by user_no desc limit  #{pstartno} , #{onepagelimit};
     </select>
-
+			<select  id="listtotal" resultType="int">
+				select  count(*) from user	
+			</select>
     <!-- ⑫ 관리자가 들어가는 회원의 마이페이지 -->
     <select id="selectedUserPage" parameterType="UserDto" resultType="UserDto">
         select*from user where user_id = #{user_id};

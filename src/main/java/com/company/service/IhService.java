@@ -1,8 +1,10 @@
 package com.company.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.company.dto.IhResultDto;
+import com.company.util.PagingDto;
 import com.company.dto.UserDto;
 
 public interface IhService {
@@ -35,8 +37,10 @@ public interface IhService {
 	public UserDto SendMailForDeleteUser (UserDto dto);
 
 	//⑪관리자의 회원관리페이지테이블
-	public List<UserDto> readTotalUser ();
-
+	public List<UserDto>  readTotalUser(Map<String,Integer> para);
+	// paging
+	public PagingDto  paging(int pstartno);
+	
 	//⑫관리자가 들어가는 [ 회원의 마이페이지 ]
 	public UserDto selectedUserPage (UserDto dto);
 

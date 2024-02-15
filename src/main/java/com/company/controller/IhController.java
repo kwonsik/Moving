@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -481,27 +482,33 @@ public class IhController {
 	
 ////////////////////////  관리자 회원목록  //////////////////////////////////////
 	@RequestMapping(value="/adminPage.admin" , method=RequestMethod.GET)
-	public String adiminUserPage(){
+	public String list(@RequestParam(value="pstartno", defaultValue="0")int pstartno  
+																		, Model model) {
+	    Map<String, Integer>  para = new HashMap<>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);  //5   10   20
+		model.addAttribute("list"   , service.readTotalUser(para));
+		model.addAttribute("paging" , service.paging(pstartno));
 		return "ih_adminUser";
-	}
-	
-	@RequestMapping(value="/readTotalUser.admin", method=RequestMethod.GET)
-	@ResponseBody
-	public UserDtoXml readTotalUser() {
-		return new UserDtoXml("success" , service.readTotalUser() );
 	}
 ////////////////////////  관리자 회원목록  //////////////////////////////////////
 	
 ////////////////////////  관리자 회원삭제  //////////////////////////////////////
-	@RequestMapping(value = "/adminDeleteUser.admin", method = RequestMethod.POST) // GET 대신 POST 사용을 권장
-	public String adminDeleteUser(@RequestParam("user_id") List<String> userIds, RedirectAttributes rttr) {
-	    for (String userId : userIds) {
-	        UserDto dto = new UserDto();
-	        dto.setUser_id(userId);
-	        service.deleteUser(dto);
+	@RequestMapping(value = "/adminDeleteUser.admin", method = RequestMethod.POST)
+	@ResponseBody
+	public void adminDeleteUser(@RequestBody Map<String, List<String>> payload, HttpServletResponse response) throws IOException {
+	    List<String> userIds = payload.get("userIds");
+	    PrintWriter out = response.getWriter();
+	    if (userIds != null) {
+	        for (String userId : userIds) {
+	            UserDto dto = new UserDto();
+	            dto.setUser_id(userId);
+	            service.deleteUser(dto);
+	        }
+	        out.print("response");
+	    } else {
+	        out.print("error");
 	    }
-	    rttr.addFlashAttribute("message", "선택된 회원이 탈퇴 처리되었습니다.");
-	    return "redirect:/adminPage.admin";
 	}
 ////////////////////////  관리자 회원삭제  //////////////////////////////////////	
 
