@@ -127,7 +127,12 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public void kakaoPay(HttpServletRequest request, HttpServletResponse response, Reservation_ViewDto dto)
 			throws IOException {
-
+		String contextPath = request.getContextPath();
+        
+        // 전체 URL에서 컨텍스트 경로를 제거하여 필요한 부분 가져오기
+        StringBuffer requestUrl = request.getRequestURL();
+        String baseUrl = requestUrl.substring(0, requestUrl.indexOf(contextPath) + contextPath.length());
+ 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
@@ -156,9 +161,9 @@ public class ReservationServiceImpl implements ReservationService {
 					"&total_amount=" + sum + 
 					"&vat_amount=300" + // 
 					"&tax_free_amount=0" + 
-					"&approval_url=http://localhost:8080/moving/success.ks" +
-					"&fail_url=http://localhost:8080/moving/fail.ks" + 
-					"&cancel_url=http://localhost:8080/moving/cancel.ks"; 
+					"&approval_url="+baseUrl+"/success.ks" +
+					"&fail_url="+baseUrl+"/fail.ks" + 
+					"&cancel_url="+baseUrl+"/cancel.ks"; 
 			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 			out.writeBytes(parameter);
 			out.close();

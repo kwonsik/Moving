@@ -98,6 +98,8 @@ public class UserController {
 
 	@GetMapping("/reservation_view.ks")
 	public String reservation_view(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		
 		service.reservation_view(request, response);
 		return "reservation";
 	}
