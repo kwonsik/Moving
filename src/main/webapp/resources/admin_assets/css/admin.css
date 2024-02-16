@@ -140,7 +140,7 @@
 #tt-list li {
 	float: left;
 	font-size: 22px;
-	margin-right: 80px;
+	margin-right: 50px;
 }
 
 #tt-list li a {
@@ -193,7 +193,7 @@
 
 #tt-list #left-arrow {
     float: left;
-    margin-left: 770px;
+    margin-left: 700px;
 }
 
 #tt-list #right-arrow {
