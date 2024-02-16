@@ -1,5 +1,6 @@
 package com.company.service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,19 +87,32 @@ public class PagingServiceImpl implements PagingService {
         return null;
     }
     
-    @Override public Map<String, Object> getPagedData(int pstartno, String type) {
+    @Override 
+    public Map<String, Object> getPagedData(int pstartno, String type) {
         Map<String, Object> result = new HashMap<>();
-		
-        result.put("list", listCnt(Map.of("pstartno", pstartno, "onepagelimit", 10, "type", type)));
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("pstartno", pstartno);
+        params.put("onepagelimit", 10);
+        params.put("type", type);
+        
+        result.put("list", listCnt(params));
         result.put("paging", paging(pstartno, type));
         return result;
     }
-    
+
     @Override
     public Map<String, Object> getPagedData(int pstartno, String type, String searchType, String searchKey) {
         Map<String, Object> result = new HashMap<>();
         
-        result.put("list", listCnt(Map.of("pstartno", pstartno, "onepagelimit", 10, "type", type, "searchType", searchType, "searchKey", searchKey)));
+        Map<String, Object> params = new HashMap<>();
+        params.put("pstartno", pstartno);
+        params.put("onepagelimit", 10);
+        params.put("type", type);
+        params.put("searchType", searchType);
+        params.put("searchKey", searchKey);
+        
+        result.put("list", listCnt(params));
         result.put("paging", paging(pstartno, type, searchType, searchKey));
 
         return result;
