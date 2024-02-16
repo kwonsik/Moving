@@ -153,17 +153,11 @@
                         // credits api
                         let creditsApiUrl = apiUrlBase + mv_cd + "/credits?language=ko";
                         fetchApi(creditsApiUrl, function (creditsData) {
-                           if (detailData.imdb_id != null) {
-                              movieCreditsData = {
-                                 mv_aname: creditsData.cast.filter(item => item.known_for_department === "Acting").slice(0, 4).map(actor => actor.name).join(", ") + " 外",
-                                 mv_dname: creditsData.crew.find(item => (item.job === "Director")).name
-                              };
-                           } else {
-                              movieCreditsData = {
-                                 mv_aname: creditsData.cast.filter(item => item.known_for_department === "Acting").slice(0, 4).map(actor => actor.name).join(", ") + " 外",
-                                 mv_dname: null
-                              };
-                           }
+                           const director = creditsData.crew.find(item => item.job === "Director");
+                           movieCreditsData = {
+                              mv_aname: creditsData.cast.filter(item => item.known_for_department === "Acting").slice(0, 4).map(actor => actor.name).join(", ") + " 外",
+                              mv_dname: director ? director.name : null
+                           };
 
                            // 결과를 합쳐서 resolve로 반환
                            let combinedData = {
@@ -189,8 +183,8 @@
             url: apiUrl,
             data: {
                api_key: apiKey,
-               language: "ko",
-               region: "KR",
+               // language: "ko",
+               region: "kr",
             },
             beforeSend: function (xhr) {
                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
