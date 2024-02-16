@@ -88,7 +88,7 @@
 }
 
 .theaterList {
-	width: 360px;
+	width: 30%;
 	border: 1px solid #eaeaea;
 	height: 540px;
 	float:left;
@@ -97,7 +97,7 @@
 }
 
 .movieList {
-	width: 358px;
+	width: 30%;
 	border: 1px solid #eaeaea;
 	float:left;
 	height: 540px;
@@ -106,7 +106,7 @@
 }
 
 .dateList {
-	width: 120px;
+	width: 10%;
 	border: 1px solid #eaeaea;
 	float:left;
 	height: 540px;
@@ -114,7 +114,7 @@
 }
 
 .scheduleList {
-	width: 360px;
+	width: 30%;
 	border: 1px solid #eaeaea;
 	float:left;
 	height: 480px;
@@ -141,7 +141,7 @@ width: 356px;
 .sunday {
 	color: red;
 }
-.submit{width: 360px;height: 60px;float:left;}
+.submit{width: 30%;height: 60px;float:left;}
 .submitBtn{background-color: black;border: none; width: 100%;height: 100%; color: white; font-size: 17px;
 padding-left: 20px;}
 
