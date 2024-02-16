@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -85,9 +86,12 @@ public class IhMailController {
         String subject = "안녕하세요. 무빙입니다.";
         String content = buildContentForPassword(request, randomPass);
 
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String hashedPassword = passwordEncoder.encode(randomPass);
+	    
         // 임시 비밀번호를 사용자 정보에 업데이트
         dto.setUser_mail(email);
-        dto.setUser_pass(randomPass);
+        dto.setUser_pass(hashedPassword);
         service.findPassSendMail(dto);
 
         try {
