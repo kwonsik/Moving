@@ -70,7 +70,7 @@ public class IhSocialLoginController {
 		String sessionCode = (String) request.getSession().getAttribute("code");
 		String state = request.getParameter("state");
 		String code = request.getParameter("code");
-
+		
 		// 요청으로 받은 'state' 값과 세션에 저장된 'state' 값을 비교합니다. 일치하지 않으면 에러 페이지로 리디렉션합니다.
 		if (!state.equals(sessionState)) {
 			request.getSession().removeAttribute("state");
@@ -250,7 +250,7 @@ public class IhSocialLoginController {
 		br.close();
 		conn.disconnect();
 		inforesult = buffer.toString();
-		System.out.println("STEP4) " + inforesult);
+//		System.out.println("STEP4) " + inforesult);
 
 		parser = new JsonParser();
 		JsonElement element = JsonParser.parseString(inforesult);
@@ -286,6 +286,7 @@ public class IhSocialLoginController {
 			return "redirect:/main.ks";
 
 		}
+		
 		// 연동계정이 없다면
 		else {
 			rttr.addFlashAttribute("noIntegrationUser", "연동된 계정이 없습니다. 마이페이지에서 계정연동을 진행해주세요");
@@ -555,7 +556,7 @@ public class IhSocialLoginController {
 		// 전체 URL에서 컨텍스트 경로를 제거하여 필요한 부분 가져오기
 		StringBuffer requestUrl = request.getRequestURL();
 		String baseUrl = requestUrl.substring(0, requestUrl.indexOf(contextPath) + contextPath.length());
-
+		System.out.println("마이페이지에서 네이버연동 baseUrl : "+baseUrl);
 		// 아직 소셜계정 고유값을 못받았을때 = 로그인 안한상태
 		if (user_naver == null) {
 			String NaverClientId = "HA45SpjNLNnGrNT2Hw0w";

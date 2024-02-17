@@ -40,16 +40,20 @@
 			<div class="socialLogin">
 				<p class="tit"><strong>간편로그인</strong></p>
 				<%
+				String contextPath = request.getContextPath();
+				StringBuffer requestUrl = request.getRequestURL();
+				String baseUrl = requestUrl.substring(0, requestUrl.indexOf(contextPath) + contextPath.length());
 				    // 네이버) 클라이언트 ID와 리디렉션 URI를 설정
 				    String NaverClientId = "HA45SpjNLNnGrNT2Hw0w";
-				    String NaverRedirectURI = URLEncoder.encode("http://localhost:8080/moving/prepareLogin.ih", "UTF-8");
+//				    String NaverClientId = "F2zq0tBcOIWZ8IJInXGy";	//호스팅전용
+				    String NaverRedirectURI = URLEncoder.encode(baseUrl+"/prepareLogin.ih", "UTF-8");
 				    SecureRandom random = new SecureRandom();
 				    String NaverState = new BigInteger(130, random).toString(32);
 				    session.setAttribute("state", NaverState);
 					
 				    // 카카오) 클라이언트 ID와 리디렉션 URI를 설정
 					String KakaoClientId = "3d769a0fec3ae6e8966e62f3a2e7456b";
-					String KakaoRedirectURI = URLEncoder.encode("http://localhost:8080/moving/kakaoLogin.ih", "UTF-8");
+					String KakaoRedirectURI = URLEncoder.encode(baseUrl+"/kakaoLogin.ih", "UTF-8");
 				    
 				    // 네이버) 로그인 URL을 생성
 				    String naverAuthURL = 
@@ -72,7 +76,7 @@
 				
 			<div class="under">
 				<p>회원가입후 SNS계정을 연동한 경우에만 <span>간편로그인</span>이 가능합니다. <br/>
-				   <span>마이페이지 > 개인정보수정</span> 에서 진행해주세요
+				   <span>마이페이지 > 개인정보수정</span> 에서 진행해주세요.
 				</p>
 			</div>
 		</fieldset>
