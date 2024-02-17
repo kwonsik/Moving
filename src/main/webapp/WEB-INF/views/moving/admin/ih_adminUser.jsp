@@ -39,7 +39,7 @@ button#deleteSelected { margin-right: 10px; }
 				<tr>
 					<td>${paging.listtotal-paging.pstartno-status.index}</td>
 					<td>${dto.usertp_no}</td>
-					<td><a href='MyUpdatePageView.ih?user_id=${dto.user_id}'>${dto.user_id}</a></td>
+					<td><a href='MyUpdatePageView.ih?user_no=${dto.user_no}'>${dto.user_id}</a></td>
 					<td>${dto.user_name}</td>
 					<td>${dto.user_nick}</td>
 					<td>${dto.user_mail}</td>
