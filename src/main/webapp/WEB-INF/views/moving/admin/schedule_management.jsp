@@ -154,10 +154,7 @@ $(document).ready(function () {
     }
 
     function handleResponse(response) {
-        //console.log("서버 응답: " + JSON.stringify(response));
-        //console.log(response.intent);
-        //console.log(JSON.stringify(response.parameters));
-
+     
         if (response.intent == "get_showtimes") {
             handleGetShowtime(response);
         }else if (response.intent == "add_showtime") {
@@ -182,7 +179,6 @@ $(document).ready(function () {
                     missingInfo.push(info.message);
                 }
             }
-			//console.log(isComplete)
             // 필수 정보가 모두 존재하는 경우 확인 메시지 표시
             if (isComplete) {
                 let conf = confirm(message.trim());

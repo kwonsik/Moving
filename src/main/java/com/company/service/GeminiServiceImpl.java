@@ -16,7 +16,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 //@Service
 public class GeminiServiceImpl implements AIApiService {
-	private final String GEMINI_API_KEY = "AIzaSyDUZmC5MeUSB4QBjc6CK0Hq6MbQfzhr4Zo";
+	private final String GEMINI_API_KEY = "AIzaSyDiY9y3_vmfQ86jQumvZWkUaKgd-nu9mTU";
+	
 	private final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="
 			+ GEMINI_API_KEY;
 

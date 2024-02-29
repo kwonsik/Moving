@@ -60,7 +60,7 @@
 			"role": "model",
 			"parts": [
 				{
-					"text": "{\n  \"intent\": \"delete_showtime\",\n  \"parameters\": {\n    \"theater_name\": \"강남영화관\",\n    \"screen_name\":\"1관\",\n    \"sch_date\": \"2024-01-25\",\n    \"sch_start\": \"09:00\"\n  }\n}"
+					"text": "{\n  \"intent\": \"delete_showtime\",\n  \"parameters\": {\n    \"tt_name\": \"강남영화관\",\n    \"scr_name\":\"1관\",\n    \"sch_date\": \"2024-01-25\",\n    \"sch_start\": \"09:00\"\n  }\n}"
 				}
 			]
 		},

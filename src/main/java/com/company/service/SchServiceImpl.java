@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.company.dao.ScheduleDao;
 import com.company.dto.GeminiIntent;
@@ -44,18 +45,17 @@ public class SchServiceImpl implements SchService {
 		return json;
 	}
 
+	@Transactional
 	@Override
 	public String scheduleList(Map<String, Object> map) {
-		//
+		
 		int result = dao.updateScheduleState();
-		//System.out.println(result);
 
 		List<ScheduleResultDto> list = dao.scheduleList(map);
-		//System.out.println(list);
 		List<MovieDto> movieNameList = dao.scheduleMovieList(map);
 
-		//
 		List<Map<String, Object>> convertedData = new ArrayList<>();
+		
 		for (MovieDto movie : movieNameList) {
 			Map<String, Object> movieMap = new HashMap<>();
 			movieMap.put("title", movie.getMv_ktitle());
@@ -67,7 +67,6 @@ public class SchServiceImpl implements SchService {
 					Map<String, Object> schedule = new HashMap<>();
 					schedule.put("section", scheduleResultDto.getScr_name());
 
-					//
 					SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm:ss");
 					SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 
@@ -93,6 +92,9 @@ public class SchServiceImpl implements SchService {
 		}
 		Gson gson = new Gson();
 		String json = gson.toJson(convertedData);
+		String json1 = gson.toJson(list);
+		System.out.println(json1);
+		System.out.println(json);
 		return json;
 	}
 

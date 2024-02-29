@@ -366,108 +366,81 @@
 
 						// 함수 정의: 상영시간표 업데이트
 						function updateMovieSchedule(theaterNo, selectedDate) {
-							// 선택된 영화관과 날짜에 따라 상영시간표를 서버에서 가져와 업데이트하는 로직을 추가
-							$
-									.ajax({
-										url : 'scheduleList.shj',
-										method : 'GET',
-										data : {
-											theaterNo : theaterNo,
-											date : selectedDate
-										},
-										dataType : 'json',
-										success : function(data) {
-											let movieSchedules = data;
+						    // 선택된 영화관과 날짜에 따라 상영시간표를 서버에서 가져와 업데이트하는 로직을 추가
+						    $.ajax({
+						        url: 'scheduleList.shj',
+						        method: 'GET',
+						        data: {
+						            theaterNo: theaterNo,
+						            date: selectedDate
+						        },
+						        dataType: 'json',
+						        success: function(data) {
+						            let movieSchedules = data;
 
-											if (movieSchedules.length === 0) {
-												// 상영시간표가 없는 경우 메시지를 표시할 영역에 내용을 추가
-												$('#movie-schedule')
-														.html(
-																'<h3 class="no-schedule-message">상영시간표가 없습니다.</h3>');
-											} else {
-												let scheduleContent = '';
+						            if (movieSchedules.length === 0) {
+						                // 상영시간표가 없는 경우 메시지를 표시할 영역에 내용을 추가
+						                $('#movie-schedule').html('<h3 class="no-schedule-message">상영시간표가 없습니다.</h3>');
+						            } else {
+						                let scheduleContent = '';
 
-												// 각 영화에 대한 상영일정 생성
-												movieSchedules
-														.forEach(function(movie) {
-															let rating = '';
-															if (movie.mv_cert == '12') {
-																rating = 'age12';
-															} else if (movie.mv_cert == '15') {
-																rating = 'age15';
-															} else if (movie.mv_cert == '19') {
-																rating = 'age19';
-															} else if (movie.mv_cert == 'All') {
-																rating = 'ageall';
-															} else {
-																rating = 'agelimit';
-															}
+						                // 각 영화에 대한 상영일정 생성
+						                movieSchedules.forEach(function(movie) {
+						                    let rating = '';
+						                    if (movie.mv_cert == '12') {
+						                        rating = 'age12';
+						                    } else if (movie.mv_cert == '15') {
+						                        rating = 'age15';
+						                    } else if (movie.mv_cert == '19') {
+						                        rating = 'age19';
+						                    } else if (movie.mv_cert == 'All') {
+						                        rating = 'ageall';
+						                    } else {
+						                        rating = 'agelimit';
+						                    }
 
-															// 영화 제목을 왼쪽에 배치
-															scheduleContent += '<div class="section">';
-															scheduleContent += '<h3><span><i class="' + rating + '"></i>'
-																	+ movie.title
-																	+ '</span></h3>';
-															scheduleContent += '<div class="article">';
+						                    // 영화 제목을 왼쪽에 배치
+						                    scheduleContent += '<div class="section">';
+						                    scheduleContent += '<h3><span><i class="' + rating + '"></i>' + movie.title + '</span></h3>';
+						                    scheduleContent += '<div class="article">';
 
-															// 각 상영관에 대한 일정 생성
-															let sections = {};
-															movie.schedules
-																	.forEach(function(
-																			schedule) {
-																		if (!sections[schedule.section]) {
-																			sections[schedule.section] = [];
-																		}
-																		sections[schedule.section]
-																				.push(schedule);
-																	});
+						                    // 각 상영관에 대한 일정 생성
+						                    let sections = {};
+						                    movie.schedules.forEach(function(schedule) {
+						                        if (!sections[schedule.section]) {
+						                            sections[schedule.section] = [];
+						                        }
+						                        sections[schedule.section].push(schedule);
+						                    });
+	
+						                    // 각 섹션에 대한 일정 생성
+						                    for (let section in sections) {
+						                        scheduleContent += '<h4>' + section + '</h4>';
+						                        scheduleContent += '<ul>';
+						                        sections[section].forEach(function(schedule) {
+						                            scheduleContent += '<li>';
+						                            scheduleContent += '<a href="reservation_view.ks?sch_no=' + schedule.scheduleNo + '" class="btnTime">';
+						                            scheduleContent += '<div class="time"><span>' + schedule.time + '</span>~' + schedule.endTime + '</div>';
+						                            scheduleContent += '<div class="length">';
+						                            scheduleContent += '<p><span>' + schedule.availableSeats + '</span>/' + schedule.totalSeats + '석</p>';
+						                            scheduleContent += '</div>';
+						                            scheduleContent += '</a>';
+						                            scheduleContent += '</li>';
+						                        });
+						                        scheduleContent += '</ul>';
+						                    }
 
-															// 각 섹션에 대한 일정 생성
-															for ( let section in sections) {
-																scheduleContent += '<h4>'
-																		+ section
-																		+ '</h4>';
-																scheduleContent += '<ul>';
-																sections[section]
-																		.forEach(function(
-																				schedule) {
-																			scheduleContent += '<li>';
-																			scheduleContent += '<a href="reservation_view.ks?sch_no='
-																					+ schedule.scheduleNo
-																					+ '" class="btnTime" >';
-																			scheduleContent += '<div class="time"><span>'
-																					+ schedule.time
-																					+ '</span>~'
-																					+ schedule.endTime
-																					+ '</div>';
-																			scheduleContent += '<div class="length">';
-																			scheduleContent += '<p><span>'
-																					+ schedule.availableSeats
-																					+ '</span>/'
-																					+ schedule.totalSeats
-																					+ '석</p>';
-																			scheduleContent += '</div>';
-																			scheduleContent += '</a>';
-																			scheduleContent += '</li>';
-																		});
-																scheduleContent += '</ul>';
-															}
+						                    scheduleContent += '</div>';
+						                    scheduleContent += '</div>';
+						                });
 
-															scheduleContent += '</div>';
-															scheduleContent += '</div>';
-														});
-
-												$('#movie-schedule').html(
-														scheduleContent);
-											}
-										},
-										error : function(error) {
-											console
-													.error(
-															'Failed to fetch movie schedule:',
-															error);
-										}
-									});
+						                $('#movie-schedule').html(scheduleContent);
+						            }
+						        },
+						        error: function(error) {
+						            console.error('Failed to fetch movie schedule:', error);
+						        }
+						    });
 						}
 
 						// 상영시간표 클릭 시 이벤트 처리

@@ -16,12 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //@Service
 public class GptServiceImpl implements AIApiService {
 
-	private final String GPT_API_KEY = "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";
+	private final String GPT_API_KEY = "";
 	private final String GPT_API_URL = "https://api.openai.com/v1/chat/completions";
 
 	@Override
 	public String generateContent(String prompt, String jsonFilePath) {
-		System.out.println("..... 지피티");
+		System.out.println("..... 지피티 응답");
 		try {
 			JsonWriterAndReader jsonWriterAndReader = new JsonWriterAndReader();
 			jsonWriterAndReader.updateGPTJson(jsonFilePath, prompt);
@@ -42,7 +42,7 @@ public class GptServiceImpl implements AIApiService {
 			if (responseEntity.getStatusCode().is2xxSuccessful()) {
 
 				try {
-					System.out.println(responseEntity.getBody());
+					//System.out.println(responseEntity.getBody());
 
 					// JSON 문자열을 파싱하여 JsonNode 객체로 변환
 					ObjectMapper objectMapper = new ObjectMapper();
@@ -58,7 +58,7 @@ public class GptServiceImpl implements AIApiService {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
+				System.out.println(extractedText);
 				return extractedText;
 			} else {
 				System.out.println("GPT API 호출에 실패했습니다. HTTP 상태 코드: " + responseEntity.getStatusCode());
